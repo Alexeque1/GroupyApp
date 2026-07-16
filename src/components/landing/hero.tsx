@@ -108,7 +108,8 @@ export default function Hero() {
                             <h1
                                 key={index}
                                 className="
-                                text-9xl
+                                text-7xl
+                                md:text-9xl
                                 font-bold
                                 h1-mesh-gradient
                             "
@@ -116,7 +117,7 @@ export default function Hero() {
                                 {words[index]}
                             </h1>
 
-                            <p className="mt-4 text-white/80 max-w-md">
+                            <p className="mt-4 text-white/80">
                                 Connect with people, discover new groups, and share experiences with those who have the same interests as you.
                             </p>
                         </div>
