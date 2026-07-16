@@ -33,7 +33,7 @@ export default function Benefits1() {
             <div className="container mx-auto px-4 py-16 flex flex-col gap-12">
                 {/* MAKE IT HAPPEN */ }
                 <div>
-                    <h2 className="mb-10 text-5xl font-bold dark-mesh-gradient md:text-7xl">
+                    <h2 className="h2_title dark-mesh-gradient">
                     Decide what your plan is and make it happen
                 </h2>
 
@@ -47,9 +47,9 @@ export default function Benefits1() {
                                     className="
                   embla__slide
                   flex-[0_0_80%]
-                  min-w-[280px]
+                  min-w-[200px]
                   max-w-[320px]
-                  h-[300px]
+                  h-[280px]
                   transition-all
                   duration-500
                   ease-in-out
@@ -84,7 +84,7 @@ export default function Benefits1() {
                         </div>
                     </div>
                     <div className="text-center mt-8 md:mt-12">
-                        <p className="text-1xl md:text-2xl leading-[45px]">
+                        <p className="text-[18px] md:text-2xl leading-[30px]">
                             Whether you're planning a road trip, a football match, a study session, or just grabbing coffee, Groupy helps you find the right people to make it happen. Every plan is better when shared.
                         </p>
                     </div>
@@ -95,7 +95,7 @@ export default function Benefits1() {
                 <div>
                     {/* TITLE */ }
                     <div>
-                        <h2 className="mt-[20px] text-5xl font-bold dark-mesh-gradient md:text-7xl">
+                        <h2 className="h2_title dark-mesh-gradient">
                             Groupy helps you build your group
                         </h2>
                     </div>
