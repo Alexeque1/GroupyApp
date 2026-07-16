@@ -214,7 +214,7 @@
 
 
 /* GRADIENTE DEL H1: meshy animado, tonos claros */
-.h1-mesh-gradient {
+.light-mesh-gradient {
   background-image: linear-gradient(90deg,
     #A9FFD7 0%,
     #A8B8FA 25%,
@@ -227,10 +227,30 @@
   color: transparent;
   animation:
     wordRise 0.7s ease-out,
-    h1GradientShift 6s ease-in-out infinite alternate;
+    lightGradientShift 6s ease-in-out infinite alternate;
 }
 
-@keyframes h1GradientShift {
+.dark-mesh-gradient {
+  background-image: linear-gradient(
+    90deg,
+    #130f1b 0%,    /* Morado */
+    #5B21B6 25%,   /* Morado profundo */
+    #164b9b 50%,   /* Azul celeste */
+    #5298b4 75%,   /* Violeta */
+    #34146b 100%
+  );
+
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  animation:
+    wordRise 0.7s ease-out,
+    lightGradientShift 6s ease-in-out infinite alternate;
+}
+
+@keyframes lightGradientShift {
   0% {
     background-position: 0% 50%;
   }
@@ -281,3 +301,5 @@
 .network-illustration {
   container-type: inline-size;
 }
+
+/* EMBLA CARROSUEL */
