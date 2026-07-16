@@ -22,7 +22,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="p-2 bg-white shadow-blue-500/50">
+    <header className="p-2 bg-white shadow-lg shadow-[0_0_40px_rgba(147,197,253,0.5)] sticky top-0 z-[100] transition-all duration-300">
       <div className="flex items-center justify-between max-w-6xl mx-auto px-6">
         <Link href="/">
           <Image src="/logo.png" alt="Logo de Groupy" width={80} height={80} />

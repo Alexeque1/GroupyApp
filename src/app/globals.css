@@ -324,3 +324,30 @@
   }
 }
 
+/* BENEFITS */
+.benefit-section_parallax {
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #faf7ff 100%
+    );
+}
+
+@keyframes meshMove {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-30px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.mesh-parallax {
+  animation: meshMove 10s ease-in-out infinite;
+}
