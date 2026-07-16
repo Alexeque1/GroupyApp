@@ -33,7 +33,7 @@ export default function Benefits1() {
             <div className="container mx-auto px-4 py-16 flex flex-col gap-12">
                 {/* MAKE IT HAPPEN */ }
                 <div>
-                                    <h2 className="mb-10 text-5xl font-bold dark-mesh-gradient md:text-7xl">
+                    <h2 className="mb-10 text-5xl font-bold dark-mesh-gradient md:text-7xl">
                     Decide what your plan is and make it happen
                 </h2>
 
@@ -84,20 +84,23 @@ export default function Benefits1() {
                         </div>
                     </div>
                     <div className="text-center mt-8 md:mt-12">
-                        <p className="text-2xl leading-[45px]">
+                        <p className="text-1xl md:text-2xl leading-[45px]">
                             Whether you're planning a road trip, a football match, a study session, or just grabbing coffee, Groupy helps you find the right people to make it happen. Every plan is better when shared.
                         </p>
                     </div>
                 </div>
                 </div>
 
-                {/* MAKE IT HAPPEN */ }
+                {/* BUILD YOUR GROUP */ }
                 <div>
+                    {/* TITLE */ }
                     <div>
                         <h2 className="mt-[20px] text-5xl font-bold dark-mesh-gradient md:text-7xl">
                             Groupy helps you build your group
                         </h2>
                     </div>
+                    {/* CARDS */ }
+
                 </div>
             </div>
         </section>
