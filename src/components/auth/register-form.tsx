@@ -69,7 +69,7 @@ export default function RegisterForm() {
 
       {/* Fila 5: Botón */}
       <div className="mt-4 flex justify-center">
-        <LiquidButton className="w-full w-full" onClick={(e) => e.preventDefault()}>
+        <LiquidButton className="w-full" onClick={() => {}}>
           Registrarse
         </LiquidButton>
       </div>

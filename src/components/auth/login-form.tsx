@@ -4,7 +4,7 @@ import LiquidButton from "@/components/ui/liquid_button";
 
 export default function LoginForm() {
   return (
-    <form className="flex flex-col gap-5 w-full mt-4">
+    <form className="flex flex-col gap-5 w-full mt-4" onSubmit={(e) => e.preventDefault()}>
       
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-white/80 ml-1">Email</label>
@@ -28,7 +28,7 @@ export default function LoginForm() {
       </div>
 
       <div className="mt-6 flex justify-center">
-        <LiquidButton className="w-full" onClick={(e) => e.preventDefault()}>
+        <LiquidButton className="w-full">
           Ingresar
         </LiquidButton>
       </div>

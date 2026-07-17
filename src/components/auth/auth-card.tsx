@@ -6,7 +6,6 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import LoginForm from "@/components/auth/login-form";
 import RegisterForm from "@/components/auth/register-form";
-import OutlineButton from "../ui/outline_button"; // Ajusta la ruta de tu OutlineButton
 
 export default function AuthCard() {
   const [mode, setMode] = useState<"login" | "register">("register");
