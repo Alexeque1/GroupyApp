@@ -16,7 +16,7 @@ export default function HowItWorksSection() {
                     transition={{ duration: 0.5 }}
                     className="h2_title mb-4"
                 >
-                    ¿Cómo funciona <span className="text-[#8C6CFF]">Groupy</span>?
+                    How does <span className="text-[#8C6CFF]">Groupy</span> work?
                 </motion.h2>
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
@@ -25,7 +25,7 @@ export default function HowItWorksSection() {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="text-white/70 text-lg"
                 >
-                    Encontrar a tu tribu nunca ha sido tan fácil. Tres simples pasos para empezar a crear recuerdos.
+                    Finding your tribe has never been easier. Three simple steps to start creating memories.
                 </motion.p>
             </div>
 

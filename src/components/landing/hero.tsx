@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import NetworkIllustration from "./network-illustration";
 import LiquidButton from "@/components/ui/liquid_button";
+import OutlineButton from "../ui/outlined-button";
 
 const words = ["Discover", "Connect", "Create", "Share", "Enjoy"];
 
@@ -63,8 +64,10 @@ export default function Hero() {
                                     Get Started!
                                 </LiquidButton>
                             </Link>
-                            <Link href="/sobre-nosotros" className="inline-flex items-center justify-center px-6 py-3 rounded-2xl border border-white/60 text-white hover:bg-white/10 hover:scale-110 transition">
-                                See more
+                            <Link href="/sobre-nosotros">
+                                <OutlineButton className="py-4">
+                                    See more
+                                </OutlineButton>
                             </Link>
                         </div>
                     </div>
