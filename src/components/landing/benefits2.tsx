@@ -43,7 +43,7 @@ export default function Benefits2Section() {
                     <h2 className="h2_title dark-mesh-gradient">
                         Live unique experiences with friends or new people
                     </h2>
-                    <p className="mt-4 text-muted-foreground">
+                    <p className="mx-auto mt-10 max-w-4xl text-center text-lg leading-8">
                         Discover new ways to connect, create and share unforgettable moments.
                         Whether you're looking for new friends, a community with the same passions,
                         or people to join your next adventure, Groupy helps you find the right people.

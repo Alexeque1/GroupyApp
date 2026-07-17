@@ -27,9 +27,9 @@ export default function Benefit2Card({
 
       {/* Mitad inferior: Texto */}
       <div className="flex flex-1 flex-col p-6 sm:p-8">
-        <h3 className="mb-3 text-xl font-semibold uppercase tracking-wide">
+        <h4 className="mb-3 text-xl font-semibold uppercase tracking-wide">
           {title}
-        </h3>
+        </h4>
 
         <p className="text-muted-foreground leading-7">
           {description}

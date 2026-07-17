@@ -106,7 +106,7 @@ export default function Benefits1() {
                             </div>
                         </div>
 
-                        <p className="mx-auto mt-10 max-w-4xl text-center text-lg leading-8 md:text-2xl">
+                        <p className="mx-auto mt-10 max-w-4xl text-center text-lg leading-8">
                             Whether you're planning a road trip, a football match, a study
                             session or simply grabbing a coffee, Groupy helps you find the
                             right people to make it happen.
@@ -115,7 +115,7 @@ export default function Benefits1() {
                 </div>
 
                 {/* SECTION 2 */}
-                <div className="text-center">
+                <div className="">
                     <h2 className="h2_title dark-mesh-gradient">
                         Groupy helps you build your group
                     </h2>
