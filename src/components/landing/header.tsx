@@ -46,8 +46,8 @@ export default function Header() {
               className={`absolute z-10 right-0 mt-2 w-48 whitespace-nowrap bg-white border rounded shadow p-4 flex flex-col gap-3
                 origin-top-right transition-all duration-150 ease-out
                 ${isAccountOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
-              <Link href="/auth">Iniciar sesión</Link>
-              <Link href="/auth">Registrarse</Link>
+              <Link href="/auth?mode=login">Log in</Link>
+              <Link href="/auth?mode=signup">Sign up</Link>
             </div>
           </div>
 

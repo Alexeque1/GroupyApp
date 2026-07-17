@@ -7,11 +7,17 @@ import { ArrowLeft } from "lucide-react";
 import LoginForm from "@/components/auth/login-form";
 import RegisterForm from "@/components/auth/register-form";
 
-export default function AuthCard() {
-  const [mode, setMode] = useState<"login" | "register">("register");
+interface AuthCardProps {
+  initialMode: "login" | "register";
+}
+
+export default function AuthCard({
+    initialMode,
+}: AuthCardProps) {
+  const [mode, setMode] = useState(initialMode);
 
   return (
-    <div className="flex w-full max-w-md flex-col gap-2">
+    <div className="flex w-full max-w-md flex-col gap-2 h-full">
       
       {/* BOTÓN PARA DEVOLVERSE A HOME */}
       <div className="absolute left-6 top-6">
@@ -51,20 +57,21 @@ export default function AuthCard() {
       </div>
 
       {/* Animación de transición entre los formularios */}
-      <div className="relative min-h-[400px]">
-        <AnimatePresence mode="wait">
+      <motion.div layout className="relative overflow-hidden">
+        <AnimatePresence mode="popLayout" initial={false}>
           <motion.div
             key={mode}
+            layout
             initial={{ opacity: 0, x: mode === "login" ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: mode === "login" ? 20 : -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute left-0 top-0 w-full"
+            className="w-full"
           >
             {mode === "login" ? <LoginForm /> : <RegisterForm />}
           </motion.div>
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
   );
 }
