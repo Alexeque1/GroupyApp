@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { UserCircle, Users, User, CheckCircle2 } from "lucide-react";
 
 /* --- ANIMACIONES DE ICONOS CUSTOM --- */
@@ -163,15 +163,20 @@ const steps = [
 ];
 
 /* --- VARIANTES GENERALES --- */
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: { staggerChildren: 0.3 },
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
     },
+  },
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 50 },
+const cardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
   visible: {
     opacity: 1,
     y: 0,
