@@ -60,7 +60,7 @@ export default function BentoAnimatedGridBenefits() {
             className={`group relative w-full h-full rounded-[32px] overflow-hidden bg-[#251842]/40 border border-white/10 shadow-lg ${BENTO_POSITIONS[index]}`}
           >
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               <motion.div
                 key={imageSrc} // La key es la URL de la imagen. Al cambiar, Framer Motion dispara la animación.
                 initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}

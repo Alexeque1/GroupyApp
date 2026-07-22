@@ -81,18 +81,14 @@ export default function LiquidButton({ children, onClick, className = "" }: Liqu
         />
       </motion.div>
 
-      {/* =========================================
-          EFECTOS DE CRISTAL Y SOMBRAS
-          ========================================= */}
+      {/* EFECTOS */}
       {/* Borde sutil que cambia de color */}
       <div className="absolute inset-0 z-20 rounded-2xl border border-black/5 group-hover:border-white/20 transition-colors duration-300" />
 
       {/* Sombra interna para dar profundidad al líquido oscuro en hover */}
       <div className="absolute inset-0 z-20 rounded-2xl shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      {/* =========================================
-          TEXTO DEL BOTÓN
-          ========================================= */}
+      {/* TEXTO DEL BOTÓN */}
       <span className="relative z-30 text-lg tracking-wide text-[#1a0f2e] group-hover:text-white transition-colors duration-300 drop-shadow-sm group-hover:drop-shadow-md">
         {children}
       </span>

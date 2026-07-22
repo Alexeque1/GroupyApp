@@ -7,7 +7,7 @@ import NetworkIllustration from "./network-illustration";
 import LiquidButton from "@/components/ui/liquid_button";
 import OutlineButton from "../ui/outlined-button";
 
-const words = ["Discover", "Connect", "Create", "Share", "Enjoy"];
+const words = ["It's Groupy", "Discover", "Connect", "Have fun", "Share", "Enjoy", "Meet"];
 
 export default function Hero() {
     const [index, setIndex] = useState(0);
@@ -59,12 +59,12 @@ export default function Hero() {
                         </div>
 
                         <div className="flex gap-4">
-                            <Link href="/registro">
+                            <Link href="/auth?mode=signup">
                                 <LiquidButton onClick={() => console.log("Get Started!")}>
                                     Get Started!
                                 </LiquidButton>
                             </Link>
-                            <Link href="/sobre-nosotros">
+                            <Link href="/about-us">
                                 <OutlineButton className="py-4">
                                     See more
                                 </OutlineButton>

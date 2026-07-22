@@ -11,16 +11,16 @@ export default function RegisterForm() {
           <label className="text-sm font-medium text-white/80 ml-1">Nombre</label>
           <input 
             type="text" 
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white/10 focus:ring-1 focus:ring-[#8C6CFF]" 
-            placeholder="Tu nombre"
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+            placeholder="Your name"
           />
         </div>
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-medium text-white/80 ml-1">Apellido</label>
           <input 
             type="text" 
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white/10 focus:ring-1 focus:ring-[#8C6CFF]" 
-            placeholder="Tu apellido"
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+            placeholder="Your lastname"
           />
         </div>
       </div>
@@ -30,8 +30,8 @@ export default function RegisterForm() {
         <label className="text-sm font-medium text-white/80 ml-1">Email</label>
         <input 
           type="email" 
-          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white/10 focus:ring-1 focus:ring-[#8C6CFF]" 
-          placeholder="correo@ejemplo.com"
+          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+          placeholder="email@example.com"
         />
       </div>
 
@@ -41,7 +41,7 @@ export default function RegisterForm() {
           <label className="text-sm font-medium text-white/80 ml-1">Password</label>
           <input 
             type="password" 
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white/10 focus:ring-1 focus:ring-[#8C6CFF]" 
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
             placeholder="••••••••"
           />
         </div>
@@ -49,7 +49,7 @@ export default function RegisterForm() {
           <label className="text-sm font-medium text-white/80 ml-1">Repetir Password</label>
           <input 
             type="password" 
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white/10 focus:ring-1 focus:ring-[#8C6CFF]" 
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
             placeholder="••••••••"
           />
         </div>
@@ -68,9 +68,9 @@ export default function RegisterForm() {
       </div>
 
       {/* Fila 5: Botón */}
-      <div className="mt-4 flex justify-center">
+      <div className="mt-4 flex justify-center p-5">
         <LiquidButton className="w-full" onClick={() => {}}>
-          Registrarse
+          Sign up
         </LiquidButton>
       </div>
     </form>

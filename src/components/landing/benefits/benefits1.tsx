@@ -10,7 +10,7 @@ export default function Benefits1() {
                     <h2 className="h2_title dark-mesh-gradient">
                         Decide what your plan is and make it happen
                     </h2>
-                    <div className="flex flex-col gap-20 xl:flex-row">
+                    <div className="flex flex-col gap-10 xl:flex-row">
                         <div className="flex-2">
                             <BenefitsCarousel />
                             <BentoAnimatedGridBenefits />

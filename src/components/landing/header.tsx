@@ -31,9 +31,9 @@ export default function Header() {
         {/* NAVIGATION */}
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex gap-4 text-lg">
-            <Link href="/quienes-somos">Quienes somos</Link>
-            <Link href="/promocionar">Promocionar</Link>
-            <Link href="/contacto">Contacto</Link>
+            <Link href="/about-us">About us</Link>
+            <Link href="/promotion">Promotion</Link>
+            <Link href="/contact">Contact</Link>
           </nav>
 
           {/* ACCOUNT MENU */}
@@ -62,9 +62,9 @@ export default function Header() {
       </div>
       {isMobileMenuOpen && (
         <nav className="md:hidden flex flex-col gap-4 px-6 py-4 border-t">
-          <Link href="/quienes-somos">Quienes somos</Link>
-          <Link href="/promocionar">Promocionar</Link>
-          <Link href="/contacto">Contacto</Link>
+          <Link href="/quienes-somos">About us</Link>
+          <Link href="/promocionar">Promotion</Link>
+          <Link href="/contacto">Contaxct</Link>
         </nav>
       )}
     </header>
