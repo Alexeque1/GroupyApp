@@ -31,11 +31,6 @@ export default function ProfileHeader() {
                             Alexander Sequera
                         </h3>
 
-                        {/* Descripción */}
-                        <p className="mt-2 text-lg">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </p>
-
                         {/* Estadísticas */}
                         <div className="mt-8 grid w-full grid-cols-3 gap-4 md:justify-items-start">
 

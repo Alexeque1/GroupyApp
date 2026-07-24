@@ -4,12 +4,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import ProfileSectionGroups from "./profile-main-section-groups";
+import ProfileSectionCommunities from "./profile-main-section-communities";
 
-// Definimos las pestañas que tendrá tu navegación
-const TABS = ["Grupos", "Comunidades", "Amigos"];
+const TABS = ["Groups", "Communities", "Friends"];
 
 export default function ProfileMain() {
-    // Estado para controlar qué pestaña está activa. Inicia en la primera ("Grupos")
     const [activeTab, setActiveTab] = useState(TABS[0]);
 
     return (
@@ -44,9 +43,7 @@ export default function ProfileMain() {
                 ))}
             </header>
 
-            {/* =========================================
-                CONTENIDO DINÁMICO
-                ========================================= */}
+            {/* CONTENIDO DINÁMICO */}
             <div className="flex-1 p-6 relative">
                 <AnimatePresence mode="wait">
                     <motion.div
@@ -58,32 +55,26 @@ export default function ProfileMain() {
                         className="h-full"
                     >
                         {/* Aquí renderizamos el contenido dependiendo del tab activo */}
-                        {activeTab === "Grupos" && (
+                        {activeTab === "Groups" && (
                             <div className="flex flex-col gap-4">
-                                <h3 className="text-xl font-bold text-black/80">Tus Grupos</h3>
-                                <p className="text-black/60">Aquí aparecerá el listado de grupos a los que pertenece el usuario...</p>
+                                <h3 className="text-xl font-bold text-black/80">Alex's Groups</h3>
+                                <p className="text-black/60">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat magnam saepe iste, minus ut quibusdam enim quis est necessitatibus eaque dicta, commodi amet debitis et soluta dolorum numquam a reiciendis.</p>
                                 <ProfileSectionGroups/>
                             </div>
                         )}
 
-                        {activeTab === "Comunidades" && (
+                        {activeTab === "Communities" && (
                             <div className="flex flex-col gap-4">
-                                <h3 className="text-xl font-bold text-black/80">Comunidades</h3>
-                                <p className="text-black/60">Aquí verás las comunidades que sigues o administras...</p>
+                                <h3 className="text-xl font-bold text-black/80">Alex's Communities</h3>
+                                <p className="text-black/60">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit eaque at commodi aperiam itaque expedita accusamus, doloremque numquam veniam ut praesentium eius, harum nostrum iure repudiandae sapiente non, ratione quod?</p>
+                                <ProfileSectionCommunities/>
                             </div>
                         )}
 
-                        {activeTab === "Eventos" && (
+                        {activeTab === "Friends" && (
                             <div className="flex flex-col gap-4">
-                                <h3 className="text-xl font-bold text-black/80">Próximos Eventos</h3>
-                                <p className="text-black/60">Calendario y lista de eventos confirmados...</p>
-                            </div>
-                        )}
-
-                        {activeTab === "Amigos" && (
-                            <div className="flex flex-col gap-4">
-                                <h3 className="text-xl font-bold text-black/80">Lista de Amigos</h3>
-                                <p className="text-black/60">Grid con los avatares de tus conexiones...</p>
+                                <h3 className="text-xl font-bold text-black/80">Alex's friends list</h3>
+                                <p className="text-black/60">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptate magnam accusamus ullam. Quos vero ducimus rerum incidunt, in quidem error! Placeat molestiae reprehenderit laborum? Veniam delectus atque amet eum.</p>
                             </div>
                         )}
                     </motion.div>
