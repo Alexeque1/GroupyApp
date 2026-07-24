@@ -12,12 +12,15 @@ export default function ProtectedLayout({
         <div className="relative min-h-screen w-full flex flex-col overflow-hidden text-white">
 
             {/* NAVBAR */}
-            <FloatingLiquidMenu/>
+            <FloatingLiquidMenu />
 
+            <main className="flex justify-center align-center">
+                <div className="flex gap-2">
+                    <SideMenu />
 
-            <main className="flex gap-5 justify-center align-center">
-                <div className="container py-10">
-                    {children}
+                    <div className="container py-10">
+                        {children}
+                    </div>
                 </div>
             </main>
         </div>

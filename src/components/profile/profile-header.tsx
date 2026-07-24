@@ -7,6 +7,7 @@ export default function ProfileHeader() {
     return (
         <section className="flex justify-center">
             <div className="relative z-10 h-full md:h-[250px] overflow-hidden rounded-3xl border border-black/30">
+                {/* MESHY BACKGROUND */}
                 <AnimatedBackgroundLight />
 
                 <div className="relative z-10 grid h-full grid-cols-1 items-stretch md:grid-cols-[1fr_2fr_1fr]">
@@ -38,12 +39,12 @@ export default function ProfileHeader() {
                             <div className="flex flex-col items-center justify-center">
                                 {/* Cambiado de #C4B5FD a un morado más profundo y oscuro */}
                                 <span className="text-3xl font-bold text-[#6D28D9] md:text-4xl">
-                                    12
+                                    4
                                 </span>
 
                                 {/* Unificado a text-black/70 para mayor oscuridad/contraste */}
                                 <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
-                                    Grupos
+                                    Groups
                                 </span>
                             </div>
 
@@ -51,11 +52,11 @@ export default function ProfileHeader() {
                             <div className="flex flex-col items-center justify-center">
                                 {/* Cambiado de #A9FFD7 a un verde esmeralda oscuro */}
                                 <span className="text-3xl font-bold text-[#059669] md:text-4xl">
-                                    48
+                                    3
                                 </span>
 
                                 <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
-                                    Eventos
+                                    Communities
                                 </span>
                             </div>
 
@@ -63,11 +64,11 @@ export default function ProfileHeader() {
                             <div className="flex flex-col items-center justify-center">
                                 {/* Cambiado de #FFB199 a un naranja/terracota oscuro */}
                                 <span className="text-3xl font-bold text-[#EA580C] md:text-4xl">
-                                    256
+                                    0
                                 </span>
 
                                 <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
-                                    Amigos
+                                    Friends
                                 </span>
                             </div>
 

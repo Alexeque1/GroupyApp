@@ -10,11 +10,11 @@ export default function ProfileAside() {
                 SECCIÓN 1: INFO COMPLEMENTARIA
                 ========================================= */}
             <div className="flex flex-col gap-4">
-                <h3 className="text-lg font-bold text-black/80">Sobre mí</h3>
+                <h3 className="text-lg font-bold text-black/80">About it</h3>
                 
                 {/* Biografía corta */}
                 <p className="text-sm text-black/70 leading-relaxed">
-                    Amante de la tecnología, la música en vivo y el buen café. Siempre buscando nuevas aventuras y grupos para compartir intereses.
+                    A lover of technology, live music, and good coffee. Always seeking new adventures and groups to share interests with.
                 </p>
 
                 {/* Lista de detalles */}
@@ -29,11 +29,11 @@ export default function ProfileAside() {
                     </div>
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <Globe size={16} className="text-[#6D28D9]" />
-                        <span>Español, Inglés</span>
+                        <span>Spanish, English</span>
                     </div>
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <Calendar size={16} className="text-[#6D28D9]" />
-                        <span>Se unió en Octubre 2023</span>
+                        <span>Joined in October 2023</span>
                     </div>
                 </div>
             </div>
@@ -41,11 +41,9 @@ export default function ProfileAside() {
             {/* Separador */}
             <hr className="border-black/10" />
 
-            {/* =========================================
-                SECCIÓN 2: PRÓXIMOS EVENTOS
-                ========================================= */}
+            {/* SECCIÓN 2: PRÓXIMOS EVENTOS */}
             <div className="flex flex-col gap-4">
-                <h3 className="text-lg font-bold text-black/80">Próximos a asistir</h3>
+                <h3 className="text-lg font-bold text-black/80">Coming soon</h3>
                 
                 <ul className="flex flex-col gap-3">
                     {/* Evento 1 */}
@@ -85,21 +83,19 @@ export default function ProfileAside() {
             {/* Separador */}
             <hr className="border-black/10" />
 
-            {/* =========================================
-                SECCIÓN 3: TOP COMUNIDADES
-                ========================================= */}
+            {/* SECCIÓN 3: TOP COMUNIDADES */}
             <div className="flex flex-col gap-4">
-                <h3 className="text-lg font-bold text-black/80">Top Comunidades</h3>
+                <h3 className="text-lg font-bold text-black/80">Top Communities</h3>
                 
                 <div className="flex flex-col gap-3">
                     {/* Comunidad 1 */}
                     <div className="flex items-center gap-3 group cursor-pointer">
                         <div className="h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br from-[#8C6CFF] to-[#C4B5FD] transition-transform group-hover:scale-105" />
                         <div className="flex flex-col flex-1">
-                            <h4 className="text-sm font-semibold text-black/80 group-hover:text-[#6D28D9] transition-colors">Design Thinkers</h4>
+                            <h4 className="text-sm font-semibold text-black/80 group-hover:text-[#6D28D9] transition-colors">Developers on fire 🔥</h4>
                             <p className="flex items-center gap-1 text-xs text-black/50">
                                 <Users size={12} />
-                                3.2k miembros
+                                24.5k miembros
                             </p>
                         </div>
                     </div>
@@ -108,10 +104,10 @@ export default function ProfileAside() {
                     <div className="flex items-center gap-3 group cursor-pointer">
                         <div className="h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br from-[#A9FFD7] to-[#059669] opacity-80 transition-transform group-hover:scale-105" />
                         <div className="flex flex-col flex-1">
-                            <h4 className="text-sm font-semibold text-black/80 group-hover:text-[#059669] transition-colors">React Devs Arg</h4>
+                            <h4 className="text-sm font-semibold text-black/80 group-hover:text-[#059669] transition-colors">Techno lovers</h4>
                             <p className="flex items-center gap-1 text-xs text-black/50">
                                 <Users size={12} />
-                                1.5k miembros
+                                12.1k members
                             </p>
                         </div>
                     </div>

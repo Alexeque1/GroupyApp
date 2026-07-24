@@ -32,7 +32,7 @@ export default function FloatingLiquidMenu() {
             </AnimatePresence>
 
             {/* CONTENEDOR FLOTANTE  */}
-            <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
+            <div className="lg:hidden fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
 
                 {/* MENÚ DESPLEGABLE */}
                 <AnimatePresence>

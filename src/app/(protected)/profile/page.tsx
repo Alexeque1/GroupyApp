@@ -7,7 +7,7 @@ export default function Profile() {
         <div className="flex flex-col gap-8">
             <ProfileHeader />
 
-            <div className="flex flex-col gap-5 md:flex-row">
+            <div className="flex flex-col gap-5 md:flex-row p-5">
                 <ProfileAside />
                 <ProfileMain />
             </div>
