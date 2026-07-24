@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import NetworkIllustration from "./network-illustration";
-import LiquidButton from "@/components/ui/liquid_button";
+import LiquidButton from "@/components/ui/liquid-button";
 import OutlineButton from "../ui/outlined-button";
 
 const words = ["It's Groupy", "Discover", "Connect", "Have fun", "Share", "Enjoy", "Meet"];

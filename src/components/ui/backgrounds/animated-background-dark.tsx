@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-export default function AnimatedBackground() {
+export default function AnimatedBackgroundDark() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden blur-[90px] opacity-70 pointer-events-none">
 

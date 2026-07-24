@@ -1,5 +1,5 @@
 import FeedHeader from "@/components/feed/header";
-import AnimatedBackground from "@/components/ui/backgrounds/animated-background";
+import AnimatedBackgroundDark from "@/components/ui/backgrounds/animated-background-dark";
 
 
 export default function ProtectedLayout({
@@ -8,12 +8,9 @@ export default function ProtectedLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="relative min-h-screen w-full flex flex-col overflow-hidden bg-[#1a0f2e] text-white">
-            {/* FONDO MESHY */}
-            <AnimatedBackground />
+        <div className="relative min-h-screen w-full flex flex-col overflow-hidden text-white">
 
             {/* NAVBAR */}
-            <FeedHeader />
 
             <main className="flex justify-center align-center">
                 <div className="container py-10">

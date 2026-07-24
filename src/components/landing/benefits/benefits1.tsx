@@ -1,6 +1,6 @@
 import BenefitsCarousel from "./benefits-carousel";
 import BenefitsGrid from "./benefits-grid";
-import BentoAnimatedGridBenefits from "./benefits-bentoGrid";
+import BentoAnimatedGridBenefits from "./benefits-bento-grid";
 
 export default function Benefits1() {
     return (

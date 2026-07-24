@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import LiquidButton from "@/components/ui/liquid_button";
+import LiquidButton from "@/components/ui/liquid-button";
 
 export default function InteractiveCta() {
   const containerRef = useRef<HTMLDivElement>(null);

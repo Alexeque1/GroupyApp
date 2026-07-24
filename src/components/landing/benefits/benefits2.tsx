@@ -1,4 +1,4 @@
-import Benefit2Card from "./benefits2_cards";
+import Benefit2Card from "./benefits2-cards";
 
 const benefitsData = [
     {

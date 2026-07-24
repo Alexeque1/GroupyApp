@@ -1,5 +1,5 @@
 import AuthCard from "@/components/auth/auth-card";
-import AnimatedBackground from "@/components/ui/backgrounds/animated-background";
+import AnimatedBackground from "@/components/ui/backgrounds/animated-background-dark";
 
 interface AuthPageProps {
   searchParams: Promise<{

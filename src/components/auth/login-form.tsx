@@ -1,6 +1,6 @@
 "use client";
 
-import LiquidButton from "@/components/ui/liquid_button";
+import LiquidButton from "@/components/ui/liquid-button";
 
 export default function LoginForm() {
   return (
