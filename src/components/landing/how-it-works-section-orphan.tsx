@@ -9,7 +9,7 @@ const AnimatedStep1Icon = ({ color }: { color: string }) => (
     <div className="relative w-full h-full flex items-center justify-center">
         <motion.div
             animate={{ y: [-3, 3, -3] }}
-            transition={{ duration: 4, repeat: Infinity, ease: [0.42, 0, 0.58, 1] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         >
             <UserCircle size={32} color={color} />
         </motion.div>
@@ -24,7 +24,7 @@ const AnimatedStep1Icon = ({ color }: { color: string }) => (
         >
             <motion.div
                 animate={{ y: [-2, 2, -2] }}
-                transition={{ duration: 3, repeat: Infinity, ease: [0.42, 0, 0.58, 1], delay: 0.2 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
             >
                 <CheckCircle2 size={16} className="text-[#A9FFD7]" fill="#A9FFD7" stroke="#251842" strokeWidth={2} />
             </motion.div>
@@ -67,7 +67,7 @@ const AnimatedStep2Icon = ({ color }: { color: string }) => (
             className="absolute z-10 bg-[#251842] rounded-full p-[2px]"
             style={{ top: 'calc(50% - 12px)', left: 'calc(50% - 12px)' }}
             animate={{ scale: [1, 1.15, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: [0.42, 0, 0.58, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
             <User size={20} color={color} />
         </motion.div>
@@ -103,7 +103,7 @@ const AnimatedStep3Icon = ({ color }: { color: string }) => (
     <div className="relative w-full h-full flex items-center justify-center">
         <motion.div
             animate={{ scale: [1, 1.05, 1], rotate: [-3, 3, -3] }}
-            transition={{ duration: 3, repeat: Infinity, ease: [0.42, 0, 0.58, 1] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="z-10 bg-[#251842] rounded-full relative"
         >
             <Users size={32} color={color} />
@@ -223,7 +223,7 @@ export default function HowItWorksSection() {
                         initial={{ width: "0%" }}
                         whileInView={{ width: "100%" }}
                         viewport={{ once: true }}
-                        transition={{ duration: 1.5, ease: [0.42, 0, 0.58, 1], delay: 0.5 }}
+                        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
                     />
                 </div>
 

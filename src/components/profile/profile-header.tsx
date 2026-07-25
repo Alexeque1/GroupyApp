@@ -5,8 +5,17 @@ import Image from "next/image";
 
 export default function ProfileHeader() {
     return (
-        <section className="flex justify-center">
-            <div className="relative z-10 h-full md:h-[250px] overflow-hidden rounded-3xl border border-black/30">
+        <section className="flex flex-col items-center">
+
+            {/* PORTADA */}
+            <div className="relative h-[220px] w-full overflow-hidden rounded-bl-3xl rounded-br-3xl border border-black/30">
+                {/* Gradiente de portada. Para usar una imagen, reemplaza el div por:
+                <Image src="/cover-image.png" alt="Portada" fill className="object-cover" /> */}
+                <div className="h-full w-full bg-gradient-to-r from-[#8C6CFF] via-[#A9FFD7] to-[#FFB199]" />
+            </div>
+
+            {/* HEADER */}
+            <div className="bg-white relative z-10 -mt-28 w-[92%] md:w-[85%] h-full md:h-[250px] overflow-hidden rounded-3xl border border-black/30 shadow-[0_8px_30px_rgba(0,0,0,0.12)]">
                 {/* MESHY BACKGROUND */}
                 <AnimatedBackgroundLight />
 
