@@ -15,9 +15,10 @@ export interface FriendType {
 
 export default function FriendCard({ friend }: { friend: FriendType }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    // Nuevo estado para decidir si el menú abre hacia arriba o hacia abajo
+    const [menuPosition, setMenuPosition] = useState<"top" | "bottom">("bottom");
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // Cierra el menú si se hace clic fuera de él
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -40,7 +41,6 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
         >
             {/* AVATAR E INFO */}
             <div className="flex items-center gap-4">
-                {/* Avatar */}
                 <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full">
                     <Image 
                         src={friend.image}
@@ -50,7 +50,6 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
                     />
                 </div>
 
-                {/* Textos */}
                 <div className="flex flex-col">
                     <h4 className="text-sm font-bold text-black/90 group-hover:text-[#6D28D9] transition-colors">
                         {friend.name}
@@ -59,17 +58,23 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
                         {friend.username}
                     </span>
                     <span className="mt-0.5 text-[11px] text-black/40">
-                        {friend.mutualFriends} commun friends
+                        {friend.mutualFriends} mutual friends
                     </span>
                 </div>
             </div>
 
             {/* BOTÓN DE OPCIONES + DROPDOWN */}
             <div className="relative" ref={menuRef}>
-                {/* Botón Trigger */}
                 <button 
                     onClick={(e) => {
                         e.stopPropagation();
+                        // Si el menú está cerrado, calculamos el espacio antes de abrirlo
+                        if (!isMenuOpen) {
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            const spaceBelow = window.innerHeight - rect.bottom;
+                            // Si hay menos de 200px (aprox el alto del menú), lo abrimos hacia arriba
+                            setMenuPosition(spaceBelow < 200 ? "top" : "bottom");
+                        }
                         setIsMenuOpen(!isMenuOpen);
                     }}
                     className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
@@ -79,40 +84,48 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
                     <MoreHorizontal size={18} />
                 </button>
 
-                {/* Menú Desplegable (Dropdown) */}
                 <AnimatePresence>
                     {isMenuOpen && (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 10, transformOrigin: "top right" }}
+                            // Las animaciones cambian dependiendo de si abre hacia arriba o abajo
+                            initial={{ 
+                                opacity: 0, 
+                                scale: 0.9, 
+                                y: menuPosition === "bottom" ? 10 : -10, 
+                                transformOrigin: menuPosition === "bottom" ? "top right" : "bottom right" 
+                            }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                            exit={{ 
+                                opacity: 0, 
+                                scale: 0.9, 
+                                y: menuPosition === "bottom" ? 10 : -10 
+                            }}
                             transition={{ duration: 0.2 }}
-                            className="absolute right-0 top-12 z-50 flex w-48 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
+                            // Cambiamos top-12 por bottom-12 según corresponda
+                            className={`absolute right-0 z-50 flex w-48 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.12)] ${
+                                menuPosition === "bottom" ? "top-12" : "bottom-12"
+                            }`}
                         >
-                            {/* Opción 1: Agregar como amigo */}
                             <button 
-                                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); /* Lógica aquí */ }}
+                                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
                                 className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
                             >
                                 <UserPlus size={16} className="text-[#6D28D9]" />
                                 Add as friend
                             </button>
 
-                            {/* Opción 2: Invitar a grupo */}
                             <button 
-                                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); /* Lógica aquí */ }}
+                                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
                                 className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
                             >
                                 <Users size={16} className="text-[#059669]" />
                                 Invite group
                             </button>
 
-                            {/* Línea divisoria */}
                             <div className="my-1 h-px w-full bg-black/5" />
 
-                            {/* Opción 3: Enviar mensaje */}
                             <button 
-                                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); /* Lógica aquí */ }}
+                                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
                                 className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
                             >
                                 <MessageCircle size={16} className="text-[#EA580C]" />
