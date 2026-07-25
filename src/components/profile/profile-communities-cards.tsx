@@ -11,9 +11,9 @@ export interface CommunityType {
     colorFrom: string;
     colorTo: string;
     image: string;
-    location: string;    // Nuevo: Dónde es la comunidad (o si es online)
-    activity: string;    // Nuevo: Qué tan activa es
-    status: string;      // Ej: Pública, Privada
+    location: string;   
+    activity: string;    
+    status: string;
     statusClasses: string;
 }
 

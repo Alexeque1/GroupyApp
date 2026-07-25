@@ -32,6 +32,8 @@ export default function ProfileHeader() {
                             Alexander Sequera
                         </h3>
 
+                        <p className="text-black/60">@Alexeque1</p>
+
                         {/* Estadísticas */}
                         <div className="mt-8 grid w-full grid-cols-3 gap-4 md:justify-items-start">
 
@@ -79,12 +81,12 @@ export default function ProfileHeader() {
                     {/* COLUMNA 3: Derecha */}
                     <div className="flex md:flex-col gap-5 h-full items-center justify-center p-8">
                         <LiquidButtonDark
-                            className="px-2 py-2"
+                            className="px-2 py-2 h-full md:h-[30%]"
                             textClassName="text-sm"
                         >Enviar Solicitud
                         </LiquidButtonDark>
                         <LiquidButtonDark
-                            className="px-4 py-2"
+                            className="px-4 py-2 h-full md:h-[30%]"
                             textClassName="text-sm"
                         >Mensaje
                         </LiquidButtonDark>

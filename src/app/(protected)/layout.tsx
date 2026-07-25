@@ -1,5 +1,3 @@
-import FeedHeader from "@/components/feed/header";
-import AnimatedBackgroundDark from "@/components/ui/backgrounds/animated-background-dark";
 import FloatingLiquidMenu from "@/components/feed/floated-menu";
 import SideMenu from "@/components/feed/side-menu";
 
@@ -9,20 +7,21 @@ export default function ProtectedLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="relative min-h-screen w-full flex flex-col overflow-hidden text-white">
+        <div className="relative min-h-screen w-full overflow-hidden text-white">
 
-            {/* NAVBAR */}
-            <FloatingLiquidMenu />
+            {/* SIDEBAR */}
+            <SideMenu />
 
-            <main className="flex justify-center align-center">
-                <div className="flex gap-2">
-                    <SideMenu />
-
-                    <div className="container py-10">
-                        {children}
-                    </div>
+            {/* CONTENIDO PRINCIPAL */}
+            <main className="min-h-screen lg:pl-[80px]">
+                <div className="container mx-auto py-10">
+                    {children}
                 </div>
             </main>
+
+            {/* MENÚ FLOTANTE */}
+            <FloatingLiquidMenu />
+
         </div>
     );
 }

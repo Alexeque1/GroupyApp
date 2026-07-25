@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import ProfileSectionGroups from "./profile-main-section-groups";
 import ProfileSectionCommunities from "./profile-main-section-communities";
+import ProfileSectionFriendsList from "./profile-main-section-friendslist";
 
 const TABS = ["Groups", "Communities", "Friends"];
 
@@ -75,6 +76,7 @@ export default function ProfileMain() {
                             <div className="flex flex-col gap-4">
                                 <h3 className="text-xl font-bold text-black/80">Alex's friends list</h3>
                                 <p className="text-black/60">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptate magnam accusamus ullam. Quos vero ducimus rerum incidunt, in quidem error! Placeat molestiae reprehenderit laborum? Veniam delectus atque amet eum.</p>
+                                <ProfileSectionFriendsList/>
                             </div>
                         )}
                     </motion.div>
