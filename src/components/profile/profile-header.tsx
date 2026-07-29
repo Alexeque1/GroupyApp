@@ -75,7 +75,7 @@ export default function ProfileHeader() {
                             <div className="flex flex-col items-center justify-center">
                                 {/* Cambiado de #FFB199 a un naranja/terracota oscuro */}
                                 <span className="text-3xl font-bold text-[#EA580C] md:text-4xl">
-                                    0
+                                    6
                                 </span>
 
                                 <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">

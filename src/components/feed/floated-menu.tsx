@@ -9,8 +9,8 @@ export default function FloatingLiquidMenu() {
 
     // Opciones del menú
     const MENU_ITEMS = [
-        { icon: Home, label: "Home", href: "#" },
-        { icon: User, label: "Profile", href: "#" },
+        { icon: Home, label: "Home", href: "/feed" },
+        { icon: User, label: "Profile", href: "/profile" },
         { icon: Bell, label: "Discover", href: "#" },
         { icon: Settings, label: "Settings", href: "#" },
     ];

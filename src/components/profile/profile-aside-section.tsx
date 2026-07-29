@@ -20,9 +20,7 @@ export default function ProfileAside() {
             }}
             className="flex h-fit flex-1 flex-col gap-6 rounded-3xl border border-black/30 bg-white/5 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-sm"
         >
-            {/* =========================================
-                SECCIÓN 1: INFO COMPLEMENTARIA
-            ========================================= */}
+            {/* SECCIÓN 1: INFO COMPLEMENTARIA */}
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-black/80">
                     About it
@@ -59,12 +57,9 @@ export default function ProfileAside() {
                 </div>
             </div>
 
-            {/* Separador */}
             <hr className="border-black/10" />
 
-            {/* =========================================
-                SECCIÓN 2: PRÓXIMOS EVENTOS
-            ========================================= */}
+            {/* SECCIÓN 2: PRÓXIMOS EVENTOS */}
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-black/80">
                     Coming soon
@@ -131,9 +126,7 @@ export default function ProfileAside() {
             {/* Separador */}
             <hr className="border-black/10" />
 
-            {/* =========================================
-                SECCIÓN 3: TOP COMUNIDADES
-            ========================================= */}
+            {/* SECCIÓN 3: TOP COMUNIDADES */}
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-black/80">
                     Top Communities

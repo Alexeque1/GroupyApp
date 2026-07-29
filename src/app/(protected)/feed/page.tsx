@@ -1,7 +1,9 @@
-export default async function Feed() {
+"use client";
+
+export default function Feed() {
+
     return (
-        <div className="relative z-10">
-            
-        </div>
+        <>
+        </>
     );
 }

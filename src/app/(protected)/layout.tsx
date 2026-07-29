@@ -21,7 +21,6 @@ export default function ProtectedLayout({
 
             {/* MENÚ FLOTANTE */}
             <FloatingLiquidMenu />
-
         </div>
     );
 }
