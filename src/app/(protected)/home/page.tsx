@@ -1,13 +1,21 @@
 "use client";
 
 import HomeGreetings from "@/components/home/home-greetings";
+import HomeMain from "@/components/home/home-main";
+import HomeAside from "@/components/home/home-aside";
+import AnimatedBackgroundDark from "@/components/ui/backgrounds/animated-background-dark";
 
 export default function Feed() {
 
     return (
-        <div className="flex p-10">
-            <HomeGreetings name={"Alexander"}/>
+        <div className="relative flex flex-col py-10 px-2 gap-10">
+            <AnimatedBackgroundDark/>
             
+            <HomeGreetings name={"Alexander"} />
+            <div className="flex flex-col md:flex-row gap-5">
+                <HomeMain />
+                <HomeAside />
+            </div>
         </div>
     );
 }

@@ -1,25 +1,8 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Calendar, MapPin, Users, Briefcase, Globe } from "lucide-react";
 
 export default function ProfileAside() {
     return (
-        <motion.aside
-            initial={{
-                opacity: 0,
-                y: -30,
-            }}
-            animate={{
-                opacity: 1,
-                y: 0,
-            }}
-            transition={{
-                duration: 0.5,
-                ease: "easeOut",
-            }}
-            className="flex h-fit flex-1 flex-col gap-6 rounded-3xl border border-black/30 bg-white/5 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-sm"
-        >
+        <aside className="flex h-fit flex-1 flex-col gap-6 rounded-3xl border border-black/30 bg-white/5 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-sm">
             {/* SECCIÓN 1: INFO COMPLEMENTARIA */}
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-black/80">
@@ -168,6 +151,6 @@ export default function ProfileAside() {
 
                 </div>
             </div>
-        </motion.aside>
+        </aside>
     );
 }

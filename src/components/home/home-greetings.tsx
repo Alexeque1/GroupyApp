@@ -29,8 +29,8 @@ export default function HomeGreetings({ name}: HomeGreetingsProps) {
     }, [fullText]);
 
     return (
-        <div className="flex flex-col items-center">
-            <h2 className="flex items-center text-4xl md:text-6xl font-bold">
+        <section className="flex flex-col">
+            <h2 className="flex items-center text-3xl md:text-6xl font-bold">
                 {/* TEXTO CON GRADIENTE */}
                 <span className="dark-mesh-gradient">
                     {displayedText}
@@ -63,6 +63,6 @@ export default function HomeGreetings({ name}: HomeGreetingsProps) {
                     👋
                 </motion.span>
             </h2>
-        </div>
+        </section>
     );
 }
