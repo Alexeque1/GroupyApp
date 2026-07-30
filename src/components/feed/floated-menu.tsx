@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, User, Bell, Settings } from "lucide-react";
+import { Menu, X, Home, User, Bell, Settings, Compass, BadgePlus, LogOut } from "lucide-react";
 
 export default function FloatingLiquidMenu() {
     const [isOpen, setIsOpen] = useState(false);
 
-    // Opciones del menú
+    // Opciones del menú (Actualizadas para coincidir con el SideMenu)
     const MENU_ITEMS = [
-        { icon: Home, label: "Home", href: "/feed" },
+        { icon: Home, label: "Home", href: "/home" },
         { icon: User, label: "Profile", href: "/profile" },
-        { icon: Bell, label: "Discover", href: "#" },
+        { icon: Compass, label: "Discover", href: "#" },
+        { icon: Bell, label: "Notifications", href: "#" },
+        { icon: BadgePlus, label: "Create", href: "#" },
         { icon: Settings, label: "Settings", href: "#" },
     ];
 
@@ -44,7 +46,7 @@ export default function FloatingLiquidMenu() {
                             transition={{ type: "spring", stiffness: 400, damping: 25 }}
                             className="w-64 rounded-3xl border border-white/10 bg-[#1a0f2e]/90 p-4 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-md"
                         >
-                            <nav className="flex flex-col gap-2">
+                            <nav className="flex flex-col gap-1">
                                 {MENU_ITEMS.map((item, index) => {
                                     const Icon = item.icon;
                                     return (
@@ -53,15 +55,33 @@ export default function FloatingLiquidMenu() {
                                             href={item.href}
                                             initial={{ opacity: 0, x: -10 }}
                                             animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: index * 0.05 + 0.1 }}
-                                            className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                                            transition={{ delay: index * 0.03 + 0.1 }}
+                                            className="group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                                             onClick={() => setIsOpen(false)}
                                         >
-                                            <Icon size={18} className="text-[#A9FFD7]" />
+                                            <Icon size={18} className="transition-transform group-hover:scale-110 group-hover:text-[#A9FFD7]" />
                                             {item.label}
                                         </motion.a>
                                     );
                                 })}
+
+                                {/* LÍNEA DIVISORIA */}
+                                <div className="my-2 h-px w-full bg-white/10" />
+
+                                {/* BOTÓN CERRAR SESIÓN (ROJO) */}
+                                <motion.button
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: MENU_ITEMS.length * 0.03 + 0.1 }}
+                                    onClick={() => {
+                                        console.log("Cerrando sesión...");
+                                        setIsOpen(false);
+                                    }}
+                                    className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-red-400 transition-colors hover:bg-white/10 hover:text-red-500"
+                                >
+                                    <LogOut size={18} className="transition-transform group-hover:scale-110" />
+                                    Cerrar Sesión
+                                </motion.button>
                             </nav>
                         </motion.div>
                     )}
@@ -135,7 +155,6 @@ export default function FloatingLiquidMenu() {
                         </AnimatePresence>
                     </div>
                 </motion.button>
-
             </div>
         </>
     );

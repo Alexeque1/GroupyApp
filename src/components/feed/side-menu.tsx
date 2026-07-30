@@ -3,13 +3,15 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Bell, Settings } from "lucide-react";
+import { Home, User, Bell, Settings, Compass, BadgePlus, LogOut } from "lucide-react";
 import Image from "next/image";
 
 const MENU_ITEMS = [
-    { icon: Home, label: "Home", href: "/feed" },
+    { icon: Home, label: "Home", href: "/home" },
     { icon: User, label: "Profile", href: "/profile" },
-    { icon: Bell, label: "Discover", href: "#" },
+    { icon: Compass, label: "Discover", href: "/discover" },
+    { icon: Bell, label: "Notifications", href: "#" },
+    { icon: BadgePlus, label: "Create", href: "#" },
     { icon: Settings, label: "Settings", href: "#" },
 ];
 
@@ -30,12 +32,10 @@ export default function SideMenu() {
                 stiffness: 300,
                 damping: 25,
             }}
-            // AQUÍ ESTÁ LA NUEVA SOMBRA PREMIUM:
             className="fixed left-4 top-4 z-50 hidden h-[calc(100dvh-32px)] flex-col overflow-hidden rounded-[30px] border border-white/10 bg-[#0a0514]/95 shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_12px_rgba(140,108,255,0.08)] backdrop-blur-xl lg:flex transform-gpu will-change-auto"
         >
             {/* HEADER / LOGO */}
             <div className="relative h-24 shrink-0">
-                {/* CÍRCULO CON LOGO SIEMPRE EN LA MISMA POSICIÓN */}
                 <div className="absolute left-5 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#8C6CFF] bg-[#0a0514] shadow-[0_0_15px_rgba(140,108,255,0.4)]">
                     <Image
                         src="/logo.png"
@@ -121,6 +121,37 @@ export default function SideMenu() {
                     );
                 })}
             </nav>
+
+            {/* BOTÓN DE CERRAR SESIÓN (Fijo abajo) */}
+            <div className="mt-auto px-3 pb-6 pt-2">
+                <button
+                    onClick={() => console.log("Cerrando sesión...")}
+                    className="group relative flex w-full items-center rounded-2xl px-3 py-3 text-white/60 transition-colors hover:bg-white/10 hover:text-[#FFB199] cursor-pointer"
+                >
+                    {/* ICONO */}
+                    <div className="flex w-8 shrink-0 items-center justify-center">
+                        <LogOut
+                            size={22}
+                            className="transition-transform duration-300 group-hover:scale-110 group-hover:text-[#FFB199]"
+                        />
+                    </div>
+
+                    {/* TEXTO DEL MENÚ */}
+                    <AnimatePresence>
+                        {isHovered && (
+                            <motion.span
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -10 }}
+                                transition={{ duration: 0.2 }}
+                                className="ml-4 whitespace-nowrap text-sm font-medium"
+                            >
+                                Cerrar Sesión
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+                </button>
+            </div>
         </motion.aside>
     );
 }

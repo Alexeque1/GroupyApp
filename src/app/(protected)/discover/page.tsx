@@ -1,7 +1,6 @@
 "use client";
 
-export default function Feed() {
-
+export default function Discover() {
     return (
         <>
         </>

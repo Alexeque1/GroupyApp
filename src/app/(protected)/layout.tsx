@@ -14,7 +14,7 @@ export default function ProtectedLayout({
 
             {/* CONTENIDO PRINCIPAL */}
             <main className="min-h-screen lg:pl-[80px]">
-                <div className="container mx-auto py-0 md:px-6 lg:px-10 mb-[90px]">
+                <div className="w-full max-w-[1280px] mx-auto py-0 md:px-6 lg:px-10 mb-[90px]">
                     {children}
                 </div>
             </main>
