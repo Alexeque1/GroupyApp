@@ -29,7 +29,7 @@ export default function HomeGreetings({ name}: HomeGreetingsProps) {
     }, [fullText]);
 
     return (
-        <section className="flex flex-col text-center">
+        <section className="flex flex-col text-center z-10">
             <h2 className="flex items-center text-3xl md:text-6xl font-bold">
                 {/* TEXTO CON GRADIENTE */}
                 <span className="dark-mesh-gradient">

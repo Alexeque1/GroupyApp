@@ -19,7 +19,6 @@ interface NotificationType {
 }
 
 export default function HomeWhatsNew() {
-    // Estado para controlar el dropdown en versión móvil (cerrado por defecto)
     const [isMobileOpen, setIsMobileOpen] = useState(false);
 
     const NOTIFICATIONS_DATA: NotificationType[] = [
@@ -28,8 +27,8 @@ export default function HomeWhatsNew() {
             type: "friend_request",
             sourceType: "personal",
             sourceName: "Mateo R.",
-            content: "Te ha enviado una solicitud de amistad.",
-            time: "Hace 10 min",
+            content: "Sent you a friend request.",
+            time: "10 mins ago",
             image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop",
         },
         {
@@ -37,17 +36,17 @@ export default function HomeWhatsNew() {
             type: "join_request",
             sourceType: "group",
             sourceName: "UX/UI Designers Arg",
-            content: "Sofía L. solicitó unirse a tu grupo.",
-            time: "Hace 1 hora",
+            content: "Sofía L. requested to join your group.",
+            time: "1 hour ago",
             image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=200&auto=format&fit=crop",
         },
         {
             id: 3,
             type: "comment",
             sourceType: "community",
-            sourceName: "Desarrolladores Web",
-            content: "Lucas M. comentó: '¡Excelente aporte, me sirvió mucho!'",
-            time: "Hace 3 horas",
+            sourceName: "Web Developers",
+            content: "Lucas M. commented: 'Great contribution, it helped a lot!'",
+            time: "3 hours ago",
             image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=200&auto=format&fit=crop",
         },
         {
@@ -55,8 +54,8 @@ export default function HomeWhatsNew() {
             type: "event_rescheduled",
             sourceType: "group",
             sourceName: "Weekend Trekking",
-            content: "El grupi 'Salida a las Sierras' fue re-programado para el sábado.",
-            time: "Ayer",
+            content: "The event 'Mountain Hike' was rescheduled for Saturday.",
+            time: "Yesterday",
             image: "https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=200&auto=format&fit=crop",
         }
     ];
@@ -77,11 +76,11 @@ export default function HomeWhatsNew() {
     const getSourceTag = (source: SourceType) => {
         switch (source) {
             case "group":
-                return <span className="rounded-md bg-[#8C6CFF]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#6D28D9]">Grupo</span>;
+                return <span className="rounded-md bg-[#8C6CFF]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#6D28D9]">Group</span>;
             case "community":
-                return <span className="rounded-md bg-[#A9FFD7]/30 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#059669]">Comunidad</span>;
+                return <span className="rounded-md bg-[#A9FFD7]/30 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#059669]">Community</span>;
             case "personal":
-                return <span className="rounded-md bg-black/5 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black/50">Usuario</span>;
+                return <span className="rounded-md bg-black/5 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black/50">User</span>;
         }
     };
 
@@ -90,7 +89,6 @@ export default function HomeWhatsNew() {
 
             {/* HEADER INTERACTIVO */}
             <div 
-                // En móvil es clickable, en desktop el cursor es normal
                 className="flex cursor-pointer items-center justify-between px-1 md:cursor-default"
                 onClick={() => setIsMobileOpen(!isMobileOpen)}
             >
@@ -105,7 +103,6 @@ export default function HomeWhatsNew() {
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#8C6CFF]/10 text-[10px] font-bold text-[#6D28D9]">
                         {NOTIFICATIONS_DATA.length}
                     </span>
-                    {/* Flecha solo visible en móvil */}
                     <ChevronDown 
                         size={20} 
                         className={`text-black/40 transition-transform duration-300 md:hidden ${isMobileOpen ? "rotate-180" : ""}`} 
@@ -121,7 +118,7 @@ export default function HomeWhatsNew() {
             >
                 <div className="overflow-hidden">
                     
-                    {/* SEPARADOR (Movido adentro para que se oculte al colapsar) */}
+                    {/* SEPARADOR */}
                     <div className="mb-4 mt-4 h-px w-full bg-black/5" />
 
                     {/* LISTA DE NOTIFICACIONES */}
