@@ -163,7 +163,7 @@ export default function HomeWhatsNew() {
                     </div>
 
                     {/* BOTONES */}
-                    <div className="mt-5 flex justify-center gap-2">
+                    <div className="m-5 flex justify-center gap-2">
                         <Button
                             tone="dark"
                             className="px-6 py-2"
