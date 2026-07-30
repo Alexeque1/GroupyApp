@@ -46,9 +46,17 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-mint: var(--brand-mint);
+  --color-brand-peach: var(--brand-peach);
+  --color-brand-dark: var(--brand-dark);
 }
 
 :root {
+  --brand-purple: #8c6cff;
+  --brand-mint: #a9ffd7;
+  --brand-peach: #ffb199;
+  --brand-dark: #0a0514;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

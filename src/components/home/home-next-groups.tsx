@@ -1,18 +1,16 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Sparkles, Users } from "lucide-react"; // Agregué el ícono Users
+import { Sparkles, Users, Timer } from "lucide-react";
 import ProfileGroupCard, { GroupType } from "../profile/profile-groups-cards";
-import LiquidButtonDark from "../ui/liquid-button-light";
+import Button from "../ui/button";
 
 export default function HomeNextGroups() {
-    // Referencia al contenedor del scroll
     const carouselRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
-    // Lógica para arrastrar con el mouse
     const handleMouseDown = (e: React.MouseEvent) => {
         if (!carouselRef.current) return;
         setIsDragging(true);
@@ -36,7 +34,6 @@ export default function HomeNextGroups() {
         carouselRef.current.scrollLeft = scrollLeft - walk;
     };
 
-    // Datos (Si vacías este arreglo, verás el mensaje de "No groups")
     const GROUPS_DATA: GroupType[] = [
         {
             id: 1,
@@ -104,12 +101,13 @@ export default function HomeNextGroups() {
                     </h3>
                 </div>
                 <div className="flex justify-end">
-                    <LiquidButtonDark
-                        className="px-6 py-2" // Ajusté un poco el padding para que no sea tan gigante el botón superior
+                    <Button
+                        tone="dark"
+                        className="px-6 py-2"
                         textClassName="text-xs sm:text-sm"
                     >
                         Create group
-                    </LiquidButtonDark>
+                    </Button>
                 </div>
             </div>
 
@@ -119,39 +117,49 @@ export default function HomeNextGroups() {
             {/* RENDERIZADO CONDICIONAL: ¿Hay grupos o está vacío? */}
             {GROUPS_DATA.length > 0 ? (
                 
-                /* CARRUSEL ARRASTRABLE (Si hay grupos) */
                 <div
                     ref={carouselRef}
                     onMouseDown={handleMouseDown}
                     onMouseLeave={handleMouseLeave}
                     onMouseUp={handleMouseUp}
                     onMouseMove={handleMouseMove}
-                    className={`flex w-full flex-nowrap items-center gap-4 overflow-x-auto pb-4 pt-2 select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+                    className={`flex w-full flex-nowrap items-stretch gap-4 overflow-x-auto pb-4 pt-4 select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
                         isDragging ? "cursor-grabbing snap-none" : "cursor-grab snap-x snap-mandatory"
                     }`}
                 >
-                    {GROUPS_DATA.map((group) => (
+                    {GROUPS_DATA.map((group, index) => (
                         <div
                             key={group.id}
-                            className={`w-[80vw] shrink-0 snap-center w-[220px] md:w-[280px] ${isDragging ? "pointer-events-none" : ""}`}
+                            className={`relative shrink-0 snap-center w-[220px] flex flex-col ${isDragging ? "pointer-events-none" : ""}`}
                         >
-                            <ProfileGroupCard group={group} />
+                            {/* DISTINTIVO DE PRÓXIMO EVENTO (Solo aparece si es el primero) */}
+                            {index === 0 && (
+                                <div className="absolute -top-3 -right-2 z-20 flex items-center gap-1 rounded-full border border-white/20 bg-gradient-to-r from-[#FFB199] to-[#FF7A59] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-[0_4px_10px_rgba(255,122,89,0.4)]">
+                                    <Timer size={12} />
+                                    <span>Soon</span>
+                                </div>
+                            )}
+
+                            {/* Contenedor interno que estira la tarjeta al 100% */}
+                            <div className="flex h-full flex-col [&>*]:h-full">
+                                <ProfileGroupCard group={group} />
+                            </div>
                         </div>
                     ))}
                     
                     {/* BOTÓN AL FINAL DEL CARRUSEL */}
                     <div className="flex shrink-0 snap-center items-center justify-center pr-4">
-                        <LiquidButtonDark
+                        <Button
+                            tone="dark"
                             className="px-8 py-3"
                             textClassName="text-sm whitespace-nowrap"
                         >
                             All my groups
-                        </LiquidButtonDark>
+                        </Button>
                     </div>
                 </div>
 
             ) : (
-
                 
                 <div className="flex flex-col items-center justify-center py-10 text-center">
                     <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-black/5">

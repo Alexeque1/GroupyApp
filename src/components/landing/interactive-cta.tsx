@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import LiquidButton from "@/components/ui/liquid-button";
+import Button from "@/components/ui/button";
 
 export default function InteractiveCta() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -82,9 +82,9 @@ export default function InteractiveCta() {
           Are you ready for your <span className="text-[#A9FFD7] drop-shadow-[0_0_20px_rgba(169,255,215,0.5)]">new adventure?</span>
         </h3>
 
-        <LiquidButton onClick={() => console.log("Let's go!")}>
+        <Button onClick={() => console.log("Let's go!")}>
           Let's go!
-        </LiquidButton>
+        </Button>
       </div>
 
     </div>

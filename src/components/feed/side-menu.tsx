@@ -6,15 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Home, User, Bell, Settings, Compass, BadgePlus, LogOut } from "lucide-react";
 import Image from "next/image";
 import AlertFinishSession from "../ui/alerts/alert-finishsession";
-
-const MENU_ITEMS = [
-    { icon: Home, label: "Home", href: "/home" },
-    { icon: User, label: "Profile", href: "/profile" },
-    { icon: Compass, label: "Discover", href: "/discover" },
-    { icon: Bell, label: "Notifications", href: "#" },
-    { icon: BadgePlus, label: "Create", href: "#" },
-    { icon: Settings, label: "Settings", href: "#" },
-];
+import { MENU_ITEMS } from "@/lib/nav-items";
 
 export default function SideMenu() {
     const [isHovered, setIsHovered] = useState(false);

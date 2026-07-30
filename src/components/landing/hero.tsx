@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import NetworkIllustration from "./network-illustration";
-import LiquidButton from "@/components/ui/liquid-button";
-import OutlineButton from "../ui/outlined-button";
+import Button from "@/components/ui/button";
 
 const words = ["It's Groupy", "Discover", "Connect", "Have fun", "Share", "Enjoy", "Meet"];
 
@@ -60,14 +59,14 @@ export default function Hero() {
 
                         <div className="flex gap-4">
                             <Link href="/auth?mode=signup">
-                                <LiquidButton onClick={() => console.log("Get Started!")}>
+                                <Button onClick={() => console.log("Get Started!")}>
                                     Get Started!
-                                </LiquidButton>
+                                </Button>
                             </Link>
                             <Link href="/about-us">
-                                <OutlineButton className="py-4">
+                                <Button variant="outline" className="py-4">
                                     See more
-                                </OutlineButton>
+                                </Button>
                             </Link>
                         </div>
                     </div>

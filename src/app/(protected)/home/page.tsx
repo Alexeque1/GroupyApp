@@ -8,7 +8,7 @@ import AnimatedBackgroundDark from "@/components/ui/backgrounds/animated-backgro
 export default function Feed() {
 
     return (
-        <div className="relative flex flex-col py-10 px-2 gap-10">
+        <div className="relative flex flex-col py-10 px-5 gap-10">
             <AnimatedBackgroundDark/>
             
             <HomeGreetings name={"Alexander"} />

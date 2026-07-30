@@ -1,6 +1,6 @@
 "use client";
 
-import LiquidButton from "@/components/ui/liquid-button";
+import Button from "@/components/ui/button";
 
 export default function RegisterForm() {
   return (
@@ -69,9 +69,9 @@ export default function RegisterForm() {
 
       {/* Fila 5: Botón */}
       <div className="mt-4 flex justify-center p-5">
-        <LiquidButton className="w-full" onClick={() => {}}>
+        <Button className="w-full" onClick={() => {}}>
           Sign up
-        </LiquidButton>
+        </Button>
       </div>
     </form>
   );

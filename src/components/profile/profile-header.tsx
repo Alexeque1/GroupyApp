@@ -1,6 +1,5 @@
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
-import LiquidButton from "../ui/liquid-button";
-import LiquidButtonDark from "../ui/liquid-button-light";
+import Button from "../ui/button";
 import Image from "next/image";
 import { Pencil } from "lucide-react";
 import ProfileCover from "./profile-cover";
@@ -95,18 +94,20 @@ export default function ProfileHeader() {
                         {/* BOTONES */}
                         {/* Menos de 1200px: están en columna (flex-col). Más de 1200px: cambian a fila (flex-row) */}
                         <div className="flex px-5 w-full gap-3 sm:w-auto min-[1200px]:flex-row">
-                            <LiquidButtonDark
+                            <Button
+                                tone="dark"
                                 className="flex-1 px-8 py-3 sm:flex-none"
                                 textClassName="text-sm"
                             >
                                 Enviar Solicitud
-                            </LiquidButtonDark>
-                            <LiquidButtonDark
+                            </Button>
+                            <Button
+                                tone="dark"
                                 className="flex-1 px-8 py-3 sm:flex-none"
                                 textClassName="text-sm"
                             >
                                 Mensaje
-                            </LiquidButtonDark>
+                            </Button>
                         </div>
                     </div>
 

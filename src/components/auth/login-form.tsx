@@ -1,6 +1,6 @@
 "use client";
 
-import LiquidButton from "@/components/ui/liquid-button";
+import Button from "@/components/ui/button";
 
 export default function LoginForm() {
   return (
@@ -28,9 +28,9 @@ export default function LoginForm() {
       </div>
 
       <div className="mt-6 flex justify-center p-5">
-        <LiquidButton className="w-full">
+        <Button className="w-full">
           Ingresar
-        </LiquidButton>
+        </Button>
       </div>
     </form>
   );
