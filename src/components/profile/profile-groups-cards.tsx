@@ -1,29 +1,50 @@
 "use client";
 
 import Image from "next/image";
-import { Users, ArrowUpRight, Crown, Calendar } from "lucide-react";
+import { Users, ArrowUpRight, Crown, Calendar, Shield } from "lucide-react";
+
+export type GroupRole = "owner" | "admin" | "member";
 
 export interface GroupType {
     id: number;
     title: string;
     category: string;
+    categoryId: number;
     members: string;
     colorFrom: string;
     colorTo: string;
     image: string;
     startDate: string;
     owner: string;
+    role: GroupRole;
     status: string;
     statusClasses: string;
 }
 
-export default function ProfileGroupCard({ group }: { group: GroupType }) {
+const ROLE_BADGE: Record<
+    Exclude<GroupRole, "member">,
+    { label: string; Icon: typeof Crown; classes: string }
+> = {
+    owner: {
+        label: "Owner",
+        Icon: Crown,
+        classes: "bg-[#8C6CFF]/20 text-[#6D28D9] border-[#8C6CFF]/30",
+    },
+    admin: {
+        label: "Admin",
+        Icon: Shield,
+        classes: "bg-black/5 text-black/80 border-black/10",
+    },
+};
+
+export default function ProfileGroupCard({ group, className }: { group: GroupType, className?: string }) {
+    const roleBadge = group.role !== "member" ? ROLE_BADGE[group.role] : null;
+
     return (
-        <div className="group relative flex flex-col rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] overflow-hidden cursor-pointer">
+        <div className={`group relative flex flex-col rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] overflow-hidden cursor-pointer ${className}`}>
             
             {/* PORTADA DEL GRUPO */}
             <div className="relative h-32 w-full overflow-hidden">
-                {/* Imagen de fondo */}
                 <Image 
                     src={group.image}
                     alt={group.title}
@@ -62,10 +83,18 @@ export default function ProfileGroupCard({ group }: { group: GroupType }) {
                         </div>
                     </div>
                     
-                    <div>
+                    {/* CONTENEDOR DE BADGES (ESTATUS Y ROL JUNTOS) */}
+                    <div className="flex items-center gap-2 flex-wrap">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full border text-[10px] font-bold uppercase tracking-wider ${group.statusClasses}`}>
                             {group.status}
                         </span>
+
+                        {roleBadge && (
+                            <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full border text-[10px] font-bold uppercase tracking-wider ${roleBadge.classes}`}>
+                                <roleBadge.Icon size={12} />
+                                {roleBadge.label}
+                            </span>
+                        )}
                     </div>
                 </div>
 

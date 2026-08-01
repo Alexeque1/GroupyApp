@@ -1,6 +1,7 @@
 "use client";
 
 import ProfileCommunityCard, { CommunityType } from "./profile-communities-cards";
+import ProfileSectionGrid from "./profile-section-grid";
 
 // DATA DE EJEMPLO
 const COMMUNITIES_DATA: CommunityType[] = [
@@ -47,10 +48,9 @@ const COMMUNITIES_DATA: CommunityType[] = [
 
 export default function ProfileSectionCommunities() {
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
-            {COMMUNITIES_DATA.map((community) => (
-                <ProfileCommunityCard key={community.id} community={community} />
-            ))}
-        </div>
+        <ProfileSectionGrid
+            items={COMMUNITIES_DATA}
+            renderItem={(community) => <ProfileCommunityCard community={community} />}
+        />
     );
 }

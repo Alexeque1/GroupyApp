@@ -1,6 +1,7 @@
 "use client";
 
 import FriendsCards, {FriendType} from "./profile-friends-cards";
+import ProfileSectionGrid from "./profile-section-grid";
 
 // DATA DE EJEMPLO
 export const FRIENDS_DATA: FriendType[] = [
@@ -50,10 +51,10 @@ export const FRIENDS_DATA: FriendType[] = [
 
 export default function ProfileSectionFriendsList() {
     return (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 w-full">
-            {FRIENDS_DATA.map((friend) => (
-                <FriendsCards key={friend.id} friend={friend} />
-            ))}
-        </div>
+        <ProfileSectionGrid
+            items={FRIENDS_DATA}
+            columns="grid-cols-1 xl:grid-cols-3"
+            renderItem={(friend) => <FriendsCards friend={friend} />}
+        />
     );
 }

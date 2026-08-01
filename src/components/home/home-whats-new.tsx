@@ -19,7 +19,7 @@ interface NotificationType {
 }
 
 export default function HomeWhatsNew() {
-    const [isMobileOpen, setIsMobileOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     const NOTIFICATIONS_DATA: NotificationType[] = [
         {
@@ -89,8 +89,8 @@ export default function HomeWhatsNew() {
 
             {/* HEADER INTERACTIVO */}
             <div 
-                className="flex cursor-pointer items-center justify-between px-1 md:cursor-default"
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
+                className="flex cursor-pointer items-center justify-between px-1"
+                onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex items-center gap-2">
                     <Bell size={18} className="text-[#8C6CFF]" />
@@ -105,15 +105,15 @@ export default function HomeWhatsNew() {
                     </span>
                     <ChevronDown 
                         size={20} 
-                        className={`text-black/40 transition-transform duration-300 md:hidden ${isMobileOpen ? "rotate-180" : ""}`} 
+                        className={`text-black/40 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} 
                     />
                 </div>
             </div>
 
-            {/* CONTENEDOR COLAPSABLE (Magia CSS) */}
+            {/* CONTENEDOR COLAPSABLE */}
             <div 
-                className={`grid transition-all duration-300 ease-in-out md:grid-rows-[1fr] md:opacity-100 ${
-                    isMobileOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                 }`}
             >
                 <div className="overflow-hidden">
