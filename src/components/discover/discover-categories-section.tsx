@@ -8,24 +8,30 @@ import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
 import DiscoverGroups from "./discover-groups";
 
 export default function DiscoverCategoriesSection() {
-    // null = "All" (sin categoría seleccionada)
+    // La categoría la manejan los chips (null = "All")
     const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
     // DISCOVER FILTERS
-    const [dateFilter, setDateFilter] = useState<string>("all");
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [timeFilter, setTimeFilter] = useState<string>("all");
     const [capacityFilter, setCapacityFilter] = useState<string>("all");
 
     // PAGINATION STATE
     const [currentPage, setCurrentPage] = useState<number>(1);
 
-    // Handlers que resetean la paginación a la página 1 cuando el usuario filtra o cambia de categoría
+    // Cualquier cambio de filtro o categoría resetea la paginación a la página 1
     const handleCategoryChange = (catId: number | null) => {
         setActiveCategory((prev) => (prev === catId ? null : catId));
         setCurrentPage(1);
     };
 
-    const handleDateFilterChange = (value: string) => {
-        setDateFilter(value);
+    const handleSearchChange = (value: string) => {
+        setSearchQuery(value);
+        setCurrentPage(1);
+    };
+
+    const handleTimeFilterChange = (value: string) => {
+        setTimeFilter(value);
         setCurrentPage(1);
     };
 
@@ -95,8 +101,10 @@ export default function DiscoverCategoriesSection() {
             </div>
 
             <DiscoverFilters
-                dateFilter={dateFilter}
-                setDateFilter={handleDateFilterChange}
+                searchQuery={searchQuery}
+                setSearchQuery={handleSearchChange}
+                timeFilter={timeFilter}
+                setTimeFilter={handleTimeFilterChange}
                 capacityFilter={capacityFilter}
                 setCapacityFilter={handleCapacityFilterChange}
                 className="pl-[10px]"
@@ -106,7 +114,8 @@ export default function DiscoverCategoriesSection() {
             <div className="mt-6 w-full">
                 <DiscoverGroups
                     categoryId={activeCategory}
-                    dateFilter={dateFilter}
+                    searchQuery={searchQuery}
+                    timeFilter={timeFilter}
                     capacityFilter={capacityFilter}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}

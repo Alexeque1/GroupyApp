@@ -5,12 +5,13 @@ import { SearchX } from "lucide-react";
 import ProfileGroupCard, { GroupType } from "../profile/profile-groups-cards";
 import PaginationControls from "../ui/pagination-controls";
 import { GROUPS_DATA } from "@/lib/mock_data/group-data";
-import { matchesDate, matchesCapacity } from "@/lib/group-filters";
+import { matchesTime, matchesCapacity } from "@/lib/group-filters";
 import { paginate } from "@/lib/pagination";
 
 interface DiscoverGroupsProps {
     categoryId: number | null; // null = "All"
-    dateFilter: string;
+    searchQuery: string;
+    timeFilter: string;
     capacityFilter: string;
     currentPage: number;
     setCurrentPage: (page: number) => void;
@@ -20,21 +21,23 @@ const ITEMS_PER_PAGE = 8;
 
 export default function DiscoverGroups({
     categoryId,
-    dateFilter,
+    searchQuery,
+    timeFilter,
     capacityFilter,
     currentPage,
     setCurrentPage,
 }: DiscoverGroupsProps) {
-    const filteredGroups = useMemo(
-        () =>
-            GROUPS_DATA.filter(
-                (group: GroupType) =>
-                    (categoryId === null || group.categoryId === categoryId) &&
-                    matchesDate(group, dateFilter) &&
-                    matchesCapacity(group, capacityFilter)
-            ),
-        [categoryId, dateFilter, capacityFilter]
-    );
+    const filteredGroups = useMemo(() => {
+        const query = searchQuery.trim().toLowerCase();
+
+        return GROUPS_DATA.filter(
+            (group: GroupType) =>
+                (categoryId === null || group.categoryId === categoryId) &&
+                (query === "" || group.title.toLowerCase().includes(query)) &&
+                matchesTime(group, timeFilter) &&
+                matchesCapacity(group, capacityFilter)
+        );
+    }, [categoryId, searchQuery, timeFilter, capacityFilter]);
 
     const { pageItems, totalPages, safePage } = paginate(
         filteredGroups,

@@ -17,12 +17,13 @@ export function maxCapacity(members: string): number {
     return Number.isNaN(parsed) ? Infinity : parsed;
 }
 
-export function matchesDate(group: GroupType, filter: string): boolean {
+// Valores alineados con el <select> de DiscoverFilters.
+export function matchesTime(group: GroupType, filter: string): boolean {
     if (filter === "all") return true;
     const days = daysFromToday(group.startDate);
     if (days < 0) return false; // eventos pasados no aparecen en Discover
-    if (filter === "today") return days <= 7; // Today / This week
-    if (filter === "month") return days <= 31; // This month
+    if (filter === "today_week") return days <= 7; // Today / This week
+    if (filter === "this_month") return days <= 31; // This month
     return true; // "upcoming": cualquier futuro
 }
 

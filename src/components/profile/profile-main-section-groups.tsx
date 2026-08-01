@@ -17,7 +17,6 @@ const ITEMS_PER_PAGE = 6;
 const isManaged = (group: GroupType) =>
     group.role === "owner" || group.role === "admin";
 
-// Bloque de grupos con su propia paginación independiente, acordeón y filtros aplicados
 function GroupBlock({
     icon,
     label,
@@ -119,17 +118,17 @@ export default function ProfileSectionGroups() {
         []
     );
 
-    // Filtrado avanzado (Búsqueda por título, estado, categoría y ordenamiento por fecha de inicio o título)
+    {/* FILTRADO Y ORDENAMIENTO DE GRUPOS */}
     const filteredGroups = useMemo(() => {
         return GROUPS_DATA.filter((group) => {
-            // Filtro por búsqueda de texto (título)
+            {/* FILTRO POR BÚSQUEDA (TÍTULO) */}
             const matchesSearch = 
                 group.title.toLowerCase().includes(searchQuery.toLowerCase());
 
-            // Filtro por estado (status: "Upcoming", "Active", etc.)
+            {/* FILTRO POR ESTADO */}
             const matchesStatus = statusFilter === "all" || group.status === statusFilter;
 
-            // Filtro por categoría (category: "Meetings", "Nature", etc.)
+            {/* FILTRO POR CATEGORÍA */}
             const matchesCategory = categoryFilter === "all" || group.category === categoryFilter;
 
             return matchesSearch && matchesStatus && matchesCategory;
@@ -146,7 +145,7 @@ export default function ProfileSectionGroups() {
         });
     }, [searchQuery, statusFilter, categoryFilter, sortBy]);
 
-    // Separar los grupos filtrados en Managing y Joined
+    
     const managed = filteredGroups.filter(isManaged);
     const joined = filteredGroups.filter((group) => !isManaged(group));
 
