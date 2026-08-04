@@ -10,7 +10,7 @@ export default function CreateMainSection() {
     const { creationType, setCreationType } = useCreateContext();
 
     return (
-        <section className="relative z-10 flex min-h-[60vh] w-full flex-col items-center justify-center p-4">
+        <section className="relative z-10 flex min-h-[60vh] w-full flex-col items-center justify-center">
             
             {/* VISTA 1: SELECCIÓN */}
             {creationType === null && (
