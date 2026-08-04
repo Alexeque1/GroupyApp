@@ -15,7 +15,6 @@ export interface FriendType {
 
 export default function FriendCard({ friend }: { friend: FriendType }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    // Nuevo estado para decidir si el menú abre hacia arriba o hacia abajo
     const [menuPosition, setMenuPosition] = useState<"top" | "bottom">("bottom");
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +34,7 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
 
     return (
         <div 
-            className={`group relative flex items-center justify-between rounded-2xl border border-black/10 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] cursor-pointer ${
+            className={`group relative flex cursor-pointer items-center justify-between rounded-2xl border border-black/10 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] ${
                 isMenuOpen ? "z-50" : "z-10 hover:z-20"
             }`}
         >
@@ -51,7 +50,7 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
                 </div>
 
                 <div className="flex flex-col">
-                    <h4 className="text-sm font-bold text-black/90 group-hover:text-[#6D28D9] transition-colors">
+                    <h4 className="text-sm font-bold text-black/90 transition-colors group-hover:text-[#6D28D9]">
                         {friend.name}
                     </h4>
                     <span className="text-xs font-medium text-black/50">
@@ -68,16 +67,32 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
                 <button 
                     onClick={(e) => {
                         e.stopPropagation();
-                        // Si el menú está cerrado, calculamos el espacio antes de abrirlo
+                        
                         if (!isMenuOpen) {
-                            const rect = e.currentTarget.getBoundingClientRect();
-                            const spaceBelow = window.innerHeight - rect.bottom;
-                            // Si hay menos de 200px (aprox el alto del menú), lo abrimos hacia arriba
-                            setMenuPosition(spaceBelow < 200 ? "top" : "bottom");
+                            const button = e.currentTarget;
+                            const rect = button.getBoundingClientRect();
+                            
+                            // 1. Medimos el espacio contra la ventana entera (Viewport)
+                            const spaceBelowWindow = window.innerHeight - rect.bottom;
+                            
+                            // 2. Buscamos el contenedor padre más cercano que pueda estar cortando el dropdown
+                            const scrollParent = button.closest('.overflow-y-auto, .overflow-hidden, .overflow-scroll, .overflow-x-auto, [style*="overflow"]') as HTMLElement;
+                            let spaceBelowParent = spaceBelowWindow;
+
+                            if (scrollParent) {
+                                const parentRect = scrollParent.getBoundingClientRect();
+                                // Calculamos cuánto espacio hay desde el botón hasta el fondo de su contenedor
+                                spaceBelowParent = parentRect.bottom - rect.bottom;
+                            }
+
+                            const actualSpaceBelow = Math.min(spaceBelowWindow, spaceBelowParent);
+                            
+                            setMenuPosition(actualSpaceBelow < 180 ? "top" : "bottom");
                         }
+                        
                         setIsMenuOpen(!isMenuOpen);
                     }}
-                    className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
+                    className={`flex cursor-pointer h-10 w-10 items-center justify-center rounded-full transition-colors ${
                         isMenuOpen ? "bg-black/10 text-black" : "text-black/40 hover:bg-black/5 hover:text-black/70"
                     }`}
                 >
@@ -87,7 +102,6 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
                 <AnimatePresence>
                     {isMenuOpen && (
                         <motion.div
-                            // Las animaciones cambian dependiendo de si abre hacia arriba o abajo
                             initial={{ 
                                 opacity: 0, 
                                 scale: 0.9, 
@@ -101,14 +115,13 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
                                 y: menuPosition === "bottom" ? 10 : -10 
                             }}
                             transition={{ duration: 0.2 }}
-                            // Cambiamos top-12 por bottom-12 según corresponda
                             className={`absolute right-0 z-50 flex w-48 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.12)] ${
                                 menuPosition === "bottom" ? "top-12" : "bottom-12"
                             }`}
                         >
                             <button 
                                 onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
-                                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
+                                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
                             >
                                 <UserPlus size={16} className="text-[#6D28D9]" />
                                 Add as friend
@@ -116,7 +129,7 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
 
                             <button 
                                 onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
-                                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
+                                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
                             >
                                 <Users size={16} className="text-[#059669]" />
                                 Invite group
@@ -126,7 +139,7 @@ export default function FriendCard({ friend }: { friend: FriendType }) {
 
                             <button 
                                 onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
-                                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
+                                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
                             >
                                 <MessageCircle size={16} className="text-[#EA580C]" />
                                 Send message

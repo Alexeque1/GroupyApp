@@ -5,6 +5,7 @@ import { Sparkles, Users, Timer } from "lucide-react";
 import ProfileGroupCard, { GroupType } from "../profile/profile-groups-cards";
 import { GROUPS_DATA } from "@/lib/mock_data/group-data";
 import Button from "../ui/button";
+import Link from "next/link";
 
 export default function HomeNextGroups() {
     const carouselRef = useRef<HTMLDivElement>(null);
@@ -38,7 +39,7 @@ export default function HomeNextGroups() {
     };
 
     const currentDate = new Date("2026-07-31");
-    
+
     const filteredGroups = GROUPS_DATA.filter((group) => {
         const groupDate = new Date(group.startDate);
         return groupDate >= currentDate;
@@ -78,16 +79,14 @@ export default function HomeNextGroups() {
                     onMouseLeave={handleMouseLeave}
                     onMouseUp={handleMouseUp}
                     onMouseMove={handleMouseMove}
-                    className={`flex w-full flex-nowrap items-stretch gap-4 overflow-x-auto pb-4 pt-4 select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
-                        isDragging ? "cursor-grabbing snap-none" : "cursor-grab snap-x snap-mandatory"
-                    }`}
+                    className={`flex w-full flex-nowrap items-stretch gap-4 overflow-x-auto pb-4 pt-4 select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${isDragging ? "cursor-grabbing snap-none" : "cursor-grab snap-x snap-mandatory"
+                        }`}
                 >
                     {filteredGroups.map((group, index) => (
                         <div
                             key={group.id}
-                            className={`relative shrink-0 snap-center w-[220px] flex flex-col ${
-                                isDragging ? "pointer-events-none" : ""
-                            }`}
+                            className={`relative shrink-0 snap-center w-[220px] flex flex-col ${isDragging ? "pointer-events-none" : ""
+                                }`}
                         >
                             {index === 0 && (
                                 <div className="absolute top-3 right-3 z-20 flex items-center gap-1 rounded-full border border-white/20 bg-gradient-to-r from-[#FFB199] to-[#FF7A59] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-[0_4px_10px_rgba(255,122,89,0.4)]">
@@ -104,13 +103,15 @@ export default function HomeNextGroups() {
 
                     {/* BOTÓN AL FINAL DEL CARRUSEL */}
                     <div className="flex shrink-0 snap-center items-center justify-center pr-4">
-                        <Button
-                            tone="dark"
-                            className="px-8 py-3"
-                            textClassName="text-sm whitespace-nowrap"
-                        >
-                            All my groups
-                        </Button>
+                        <Link href="/profile#group_section">
+                            <Button
+                                tone="dark"
+                                className="px-8 py-3"
+                                textClassName="text-sm whitespace-nowrap"
+                            >
+                                All my groups
+                            </Button>
+                        </Link>
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@ export default function ProtectedLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="relative min-h-screen w-full overflow-hidden text-white">
+        <div className="relative min-h-screen w-full text-white">
 
             {/* SIDEBAR */}
             <SideMenu />

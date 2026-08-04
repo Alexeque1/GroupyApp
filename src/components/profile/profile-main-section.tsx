@@ -69,7 +69,7 @@ export default function ProfileMain() {
             </header>
 
             {/* CONTENIDO DINÁMICO */}
-            <div className="flex-1 p-6 relative flex flex-col">
+            <div id="group_section" className="flex-1 p-6 relative flex flex-col">
                 <AnimatePresence mode="wait">
                     {TABS_CONFIG.map(({ key, title, description, Component }) => {
                         if (activeTab !== key) return null;
