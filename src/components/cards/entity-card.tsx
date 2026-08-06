@@ -7,11 +7,6 @@ import { cn } from "@/lib/utils";
 export type GroupRole = "owner" | "admin" | "member";
 export type EntityCardKind = "group" | "community";
 
-/**
- * Single source of truth for what a "group" or "community" card shows.
- * Add/remove a field here and update the render below — every card
- * (home, profile, discover, and the create-flow preview) picks it up.
- */
 export interface EntityCardData {
     kind: EntityCardKind;
     id?: number;

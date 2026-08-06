@@ -4,6 +4,7 @@ import { useRef, useState, useCallback } from "react";
 import type { ChangeEvent, DragEvent, MouseEvent } from "react";
 import { ImagePlus, X, ZoomIn, ZoomOut } from "lucide-react";
 import Cropper, { type Area } from "react-easy-crop";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import Button from "@/components/ui/button"; // Asegúrate de que esta ruta sea correcta
 
@@ -42,11 +43,31 @@ export default function ImageDropzone({
 
     const handleFile = (file: File | null | undefined) => {
         if (!file || !file.type.startsWith("image/")) return;
-        
-        // En lugar de guardar el preview directo, guardamos la imagen cruda y abrimos el cropper
+
         const imageUrl = URL.createObjectURL(file);
-        setRawImage(imageUrl);
-        setIsCropping(true);
+
+        // Verificamos la orientación antes de abrir el cropper
+        const img = new Image();
+        img.onload = () => {
+            if (img.height > img.width) {
+                toast.error("Vertical images aren't supported", {
+                    description: "Please upload a horizontal (landscape) image for the cover.",
+                });
+                URL.revokeObjectURL(imageUrl);
+                return;
+            }
+
+            // En lugar de guardar el preview directo, guardamos la imagen cruda y abrimos el cropper
+            setRawImage(imageUrl);
+            setIsCropping(true);
+        };
+        img.onerror = () => {
+            toast.error("We couldn't read that image", {
+                description: "Try a different file.",
+            });
+            URL.revokeObjectURL(imageUrl);
+        };
+        img.src = imageUrl;
     };
 
     const handleDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -82,6 +103,9 @@ export default function ImageDropzone({
             setIsCropping(false);
         } catch (e) {
             console.error("Error cropping image:", e);
+            toast.error("We couldn't save that image", {
+                description: "Please try again.",
+            });
         }
     };
 
@@ -228,7 +252,6 @@ const createImage = (url: string): Promise<HTMLImageElement> =>
         const image = new Image();
         image.addEventListener("load", () => resolve(image));
         image.addEventListener("error", (error) => reject(error));
-        image.setAttribute("crossOrigin", "anonymous");
         image.src = url;
     });
 

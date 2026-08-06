@@ -57,13 +57,15 @@ export default function HomeNextGroups() {
                     </h3>
                 </div>
                 <div className="flex justify-end">
-                    <Button
-                        tone="dark"
-                        className="px-6 py-2"
-                        textClassName="text-xs sm:text-sm"
-                    >
-                        Create group
-                    </Button>
+                    <Link href={"/create"}>
+                        <Button
+                            tone="dark"
+                            className="px-6 py-2"
+                            textClassName="text-xs sm:text-sm"
+                        >
+                            Create group
+                        </Button>
+                    </Link>
                 </div>
             </div>
 

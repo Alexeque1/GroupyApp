@@ -145,7 +145,7 @@ export default function Button({
 
       <span
         className={cn(
-          "relative z-30 text-lg tracking-wide transition-colors duration-300",
+          "relative z-30 text-lg tracking-wide transition-colors duration-300 flex gap-2 items-center justify-center",
           styles.text,
           textClassName
         )}

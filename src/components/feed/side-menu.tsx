@@ -144,7 +144,7 @@ export default function SideMenu() {
                                     transition={{ duration: 0.2 }}
                                     className="ml-4 whitespace-nowrap text-sm font-medium"
                                 >
-                                    Cerrar Sesión
+                                    Log out
                                 </motion.span>
                             )}
                         </AnimatePresence>

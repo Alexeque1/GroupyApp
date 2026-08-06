@@ -6,5 +6,5 @@ export const MENU_ITEMS = [
     { icon: Compass, label: "Discover", href: "/discover" },
     { icon: BadgePlus, label: "Create", href: "/create" },
     { icon: Bell, label: "Notifications", href: "#" },
-    { icon: Settings, label: "Settings", href: "#" },
+    { icon: Settings, label: "Settings", href: "/settings" },
 ];
