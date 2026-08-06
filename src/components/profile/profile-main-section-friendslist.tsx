@@ -2,12 +2,11 @@
 
 import FriendsCards, {FriendType} from "./profile-friends-cards";
 import ProfileSectionGrid from "./profile-section-grid";
-import { FRIENDS_DATA } from "@/lib/mock_data/friends-data";
 
-export default function ProfileSectionFriendsList() {
+export default function ProfileSectionFriendsList({ friends }: { friends: FriendType[] }) {
     return (
         <ProfileSectionGrid
-            items={FRIENDS_DATA}
+            items={friends}
             columns="grid-cols-1 xl:grid-cols-3"
             renderItem={(friend) => <FriendsCards friend={friend} />}
         />

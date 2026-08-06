@@ -6,6 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProfileSectionGroups from "./profile-main-section-groups";
 import ProfileSectionCommunities from "./profile-main-section-communities";
 import ProfileSectionFriendsList from "./profile-main-section-friendslist";
+import { GroupType } from "./profile-groups-cards";
+import { CommunityType } from "./profile-communities-cards";
+import { FriendType } from "./profile-friends-cards";
 
 const TABS_CONFIG = [
     {
@@ -33,7 +36,17 @@ const TABS_CONFIG = [
 
 type TabType = (typeof TABS_CONFIG)[number]["key"];
 
-export default function ProfileMain() {
+type ProfileMainProps = {
+    user: {
+        name: string;
+        username: string;
+        groups: GroupType[];
+        communities: CommunityType[];
+        friends: FriendType[];
+    };
+};
+
+export default function ProfileMain({ user }: ProfileMainProps) {
     const [activeTab, setActiveTab] = useState<TabType>(TABS_CONFIG[0].key);
 
     return (
@@ -86,8 +99,14 @@ export default function ProfileMain() {
                                 <h3 className="text-xl font-bold text-black/80">{title}</h3>
                                 <p className="text-black/60">{description}</p>
 
-                                {/* Cada sección maneja su propia paginación internamente */}
-                                <Component />
+                                <Component
+                                    groups={user.groups}
+                                    communities={user.communities}
+                                    friends={user.friends}
+                                    isOwnProfile
+                                    profileName={user.name}
+                                    profileUsername={user.username}
+                                />
                             </motion.div>
                         );
                     })}

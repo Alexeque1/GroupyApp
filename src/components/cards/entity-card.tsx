@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Users, ArrowUpRight, Crown, Calendar, Shield, MapPin, Activity, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -55,134 +56,136 @@ export default function EntityCard({ data, variant = "full", className }: Entity
     const isDataUrl = data.image?.startsWith("blob:") || data.image?.startsWith("data:");
 
     return (
-        <div
-            className={cn(
-                "group relative flex flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 dark:border-white/10 dark:bg-[#0a0514]",
-                !isPreview && "cursor-pointer hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]",
-                className
-            )}
-        >
-            {/* COVER */}
-            <div className="relative h-32 w-full overflow-hidden bg-black/5 dark:bg-white/5">
-                {data.image ? (
-                    isDataUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                            src={data.image}
-                            alt={data.title || "Cover"}
-                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                    ) : (
-                        <Image
-                            src={data.image}
-                            alt={data.title || "Cover"}
-                            fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                    )
-                ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                        <ImageIcon size={28} className="text-black/20 dark:text-white/20" />
-                    </div>
+        <Link href={isPreview ? "#" : `/group/${data.id}`}>
+            <div
+                className={cn(
+                    "group relative flex flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 dark:border-white/10 dark:bg-[#0a0514]",
+                    !isPreview && "cursor-pointer hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]",
+                    className
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md">
-                    {data.category || (isGroup ? "Category" : "Community")}
-                </span>
-            </div>
-
-            {/* CONTENT */}
-            <div className="flex flex-col p-5">
-                <div className="flex items-start justify-between">
-                    <h4 className={cn("line-clamp-2 text-lg font-bold leading-tight text-black/90 transition-colors dark:text-white", accentHover)}>
-                        {data.title || (isGroup ? "Untitled group" : "Untitled community")}
-                    </h4>
-
-                    {!isPreview && (
-                        <div className="flex h-8 w-8 shrink-0 -translate-x-2 items-center justify-center rounded-full bg-black/5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 dark:bg-white/10">
-                            <ArrowUpRight size={16} className="text-black/70 dark:text-white/70" />
+            >
+                {/* COVER */}
+                <div className="relative h-32 w-full overflow-hidden bg-black/5 dark:bg-white/5">
+                    {data.image ? (
+                        isDataUrl ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                                src={data.image}
+                                alt={data.title || "Cover"}
+                                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                        ) : (
+                            <Image
+                                src={data.image}
+                                alt={data.title || "Cover"}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                        )
+                    ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                            <ImageIcon size={28} className="text-black/20 dark:text-white/20" />
                         </div>
                     )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <span className="absolute left-4 top-4 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md">
+                        {data.category || (isGroup ? "Category" : "Community")}
+                    </span>
                 </div>
 
-                <div className="mt-4 flex flex-col gap-3">
-                    {(isPreview || data.owner || data.activity) && (
-                        <div className="flex items-center justify-between text-xs font-medium text-black/60 dark:text-white/50">
-                            <div className="flex items-center gap-1.5">
-                                {isGroup ? (
-                                    <Crown size={14} className="text-black/40 dark:text-white/30" />
-                                ) : (
-                                    <Activity size={14} className="text-black/40 dark:text-white/30" />
-                                )}
-                                <span className="max-w-[100px] truncate">
-                                    {isGroup ? data.owner || "No owner yet" : data.activity || "No activity yet"}
-                                </span>
+                {/* CONTENT */}
+                <div className="flex flex-col p-5">
+                    <div className="flex items-start justify-between">
+                        <h4 className={cn("line-clamp-2 text-lg font-bold leading-tight text-black/90 transition-colors dark:text-white", accentHover)}>
+                            {data.title || (isGroup ? "Untitled group" : "Untitled community")}
+                        </h4>
+
+                        {!isPreview && (
+                            <div className="flex h-8 w-8 shrink-0 -translate-x-2 items-center justify-center rounded-full bg-black/5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 dark:bg-white/10">
+                                <ArrowUpRight size={16} className="text-black/70 dark:text-white/70" />
                             </div>
-                            <div className="flex items-center gap-1.5">
-                                <MapPin size={14} className="text-black/40 dark:text-white/30" />
-                                <span>{data.location || "No location yet"}</span>
-                            </div>
-                        </div>
-                    )}
-
-                    {isGroup && (isPreview || data.startDate) && (
-                        <div className="flex items-center gap-1.5 text-xs font-medium text-black/60 dark:text-white/50">
-                            <Calendar size={14} className="text-black/40 dark:text-white/30" />
-                            <span>{data.startDate || "No date yet"}</span>
-                        </div>
-                    )}
-
-                    {(data.status || roleBadge) && (
-                        <div className="flex flex-wrap items-center gap-2">
-                            {data.status && (
-                                <span
-                                    className={cn(
-                                        "inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
-                                        data.statusClasses
-                                    )}
-                                >
-                                    {data.status}
-                                </span>
-                            )}
-                            {roleBadge && (
-                                <span
-                                    className={cn(
-                                        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
-                                        roleBadge.classes
-                                    )}
-                                >
-                                    <roleBadge.Icon size={12} />
-                                    {roleBadge.label}
-                                </span>
-                            )}
-                        </div>
-                    )}
-                </div>
-
-                {/* FOOTER */}
-                <div className="mt-5 flex items-center justify-between border-t border-black/5 pt-4 dark:border-white/10">
-                    <div className="flex items-center gap-1.5 text-sm font-medium text-black/60 dark:text-white/60">
-                        <Users size={16} />
-                        <span>{data.members}</span>
+                        )}
                     </div>
 
-                    {!isPreview && (
-                        <div className="flex -space-x-2">
-                            <div
-                                className={cn(
-                                    "z-30 h-8 w-8 rounded-full border-2 border-white bg-gradient-to-br dark:border-[#0a0514]",
-                                    data.colorFrom,
-                                    data.colorTo
-                                )}
-                            />
-                            <div className="z-20 h-8 w-8 rounded-full border-2 border-white bg-black/20 dark:border-[#0a0514]" />
-                            <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 text-[10px] font-bold text-black/50 dark:border-[#0a0514]">
-                                +{isGroup ? 5 : 12}
+                    <div className="mt-4 flex flex-col gap-3">
+                        {(isPreview || data.owner || data.activity) && (
+                            <div className="flex items-center justify-between text-xs font-medium text-black/60 dark:text-white/50">
+                                <div className="flex items-center gap-1.5">
+                                    {isGroup ? (
+                                        <Crown size={14} className="text-black/40 dark:text-white/30" />
+                                    ) : (
+                                        <Activity size={14} className="text-black/40 dark:text-white/30" />
+                                    )}
+                                    <span className="max-w-[100px] truncate">
+                                        {isGroup ? data.owner || "No owner yet" : data.activity || "No activity yet"}
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                    <MapPin size={14} className="text-black/40 dark:text-white/30" />
+                                    <span>{data.location || "No location yet"}</span>
+                                </div>
                             </div>
+                        )}
+
+                        {isGroup && (isPreview || data.startDate) && (
+                            <div className="flex items-center gap-1.5 text-xs font-medium text-black/60 dark:text-white/50">
+                                <Calendar size={14} className="text-black/40 dark:text-white/30" />
+                                <span>{data.startDate || "No date yet"}</span>
+                            </div>
+                        )}
+
+                        {(data.status || roleBadge) && (
+                            <div className="flex flex-wrap items-center gap-2">
+                                {data.status && (
+                                    <span
+                                        className={cn(
+                                            "inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+                                            data.statusClasses
+                                        )}
+                                    >
+                                        {data.status}
+                                    </span>
+                                )}
+                                {roleBadge && (
+                                    <span
+                                        className={cn(
+                                            "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+                                            roleBadge.classes
+                                        )}
+                                    >
+                                        <roleBadge.Icon size={12} />
+                                        {roleBadge.label}
+                                    </span>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* FOOTER */}
+                    <div className="mt-5 flex items-center justify-between border-t border-black/5 pt-4 dark:border-white/10">
+                        <div className="flex items-center gap-1.5 text-sm font-medium text-black/60 dark:text-white/60">
+                            <Users size={16} />
+                            <span>{data.members}</span>
                         </div>
-                    )}
+
+                        {!isPreview && (
+                            <div className="flex -space-x-2">
+                                <div
+                                    className={cn(
+                                        "z-30 h-8 w-8 rounded-full border-2 border-white bg-gradient-to-br dark:border-[#0a0514]",
+                                        data.colorFrom,
+                                        data.colorTo
+                                    )}
+                                />
+                                <div className="z-20 h-8 w-8 rounded-full border-2 border-white bg-black/20 dark:border-[#0a0514]" />
+                                <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 text-[10px] font-bold text-black/50 dark:border-[#0a0514]">
+                                    +{isGroup ? 5 : 12}
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

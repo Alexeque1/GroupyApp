@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Crown, Users, ChevronDown, SearchX, Search, ArrowUpDown, X } from "lucide-react";
+import { Crown, Users, ChevronDown, SearchX, Search, ArrowUpDown, X, User } from "lucide-react";
 
 import ProfileGroupCard, { GroupType } from "./profile-groups-cards";
 import ProfileSectionGrid from "./profile-section-grid";
-import PaginationControls from "../ui/pagination-controls";
-import { GROUPS_DATA } from "@/lib/mock_data/group-data";
+import PaginationControls from "../ui/pagination-controls"; // Asegúrate de ajustar esta ruta según tu proyecto
 import { paginate } from "@/lib/pagination";
 
 type SortBy = "newest" | "oldest" | "title";
@@ -21,7 +20,7 @@ function GroupBlock({
     icon,
     label,
     items,
-    defaultOpen = true,
+    defaultOpen = false,
 }: {
     icon: React.ReactNode;
     label: string;
@@ -102,48 +101,63 @@ function GroupBlock({
     );
 }
 
-export default function ProfileSectionGroups() {
+export default function ProfileSectionGroups({
+    groups,
+    isOwnProfile = true,
+    profileName = "Alexander Sequera",
+    profileUsername = "Alexeque1"
+}: {
+    groups: GroupType[];
+    isOwnProfile?: boolean;
+    profileName?: string;
+    profileUsername?: string;
+}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState<string>("all");
     const [categoryFilter, setCategoryFilter] = useState<string>("all");
+    const [creatorFilter, setCreatorFilter] = useState<string>("all");
     const [sortBy, setSortBy] = useState<SortBy>("newest");
 
-    // Opciones de filtro derivadas de la data (no hardcodeadas)
+    // Opciones de filtro derivadas de la data
     const categories = useMemo(
-        () => Array.from(new Set(GROUPS_DATA.map((g) => g.category))),
-        []
+        () => Array.from(new Set(groups.map((g) => g.category))),
+        [groups]
     );
     const statuses = useMemo(
-        () => Array.from(new Set(GROUPS_DATA.map((g) => g.status))),
-        []
+        () => Array.from(new Set(groups.map((g) => g.status))),
+        [groups]
     );
+
+    // Lógica para los textos del creador
+    const creatorLabel = isOwnProfile ? "Created by me" : `Created by ${profileName}`;
 
     {/* FILTRADO Y ORDENAMIENTO DE GRUPOS */}
     const filteredGroups = useMemo(() => {
-        return GROUPS_DATA.filter((group) => {
-            {/* FILTRO POR BÚSQUEDA (TÍTULO) */}
-            const matchesSearch = 
-                group.title.toLowerCase().includes(searchQuery.toLowerCase());
-
-            {/* FILTRO POR ESTADO */}
+        return groups.filter((group) => {
+            
+            const matchesSearch = group.title.toLowerCase().includes(searchQuery.toLowerCase());
             const matchesStatus = statusFilter === "all" || group.status === statusFilter;
-
-            {/* FILTRO POR CATEGORÍA */}
             const matchesCategory = categoryFilter === "all" || group.category === categoryFilter;
 
-            return matchesSearch && matchesStatus && matchesCategory;
+            {/* FILTRO POR CREADOR (USANDO EL USERNAME ÚNICO) */}
+            const matchesCreator = 
+                creatorFilter === "all" ||
+                (creatorFilter === "owner" && group.ownerUsername === profileUsername) ||
+                (creatorFilter === "others" && group.ownerUsername !== profileUsername);
+
+            return matchesSearch && matchesStatus && matchesCategory && matchesCreator;
+
         }).sort((a, b) => {
             if (sortBy === "title") {
                 return a.title.localeCompare(b.title);
             }
             
-            // Convertir startDate ("Aug 2, 2026") a objeto Date para ordenar correctamente por fecha
             const dateA = new Date(a.startDate).getTime();
             const dateB = new Date(b.startDate).getTime();
 
             return sortBy === "newest" ? dateB - dateA : dateA - dateB;
         });
-    }, [searchQuery, statusFilter, categoryFilter, sortBy]);
+    }, [groups, searchQuery, statusFilter, categoryFilter, creatorFilter, sortBy, profileUsername]);
 
     
     const managed = filteredGroups.filter(isManaged);
@@ -153,87 +167,102 @@ export default function ProfileSectionGroups() {
         setSearchQuery("");
         setStatusFilter("all");
         setCategoryFilter("all");
+        setCreatorFilter("all");
         setSortBy("newest");
     };
 
-    const hasActiveFilters = searchQuery !== "" || statusFilter !== "all" || categoryFilter !== "all" || sortBy !== "newest";
+    const hasActiveFilters = searchQuery !== "" || statusFilter !== "all" || categoryFilter !== "all" || creatorFilter !== "all" || sortBy !== "newest";
 
     return (
         <div className="flex flex-col gap-6">
             {/* BARRA DE BÚSQUEDA Y FILTROS */}
             <div className="flex flex-col gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm">
-                <div className="flex flex-col lg:flex-row items-center gap-3">
-                    {/* Input de Búsqueda por Título */}
-                    <div className="relative flex-1 w-full">
-                        <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-black/40" />
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Search groups by title..."
-                            className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-[#6D28D9]/40 focus:bg-white focus:ring-2 focus:ring-[#6D28D9]/10"
-                        />
-                        {searchQuery && (
-                            <button 
-                                onClick={() => setSearchQuery("")}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 hover:text-black cursor-pointer"
-                            >
-                                <X size={15} />
-                            </button>
-                        )}
+                
+                {/* 1. INPUT DE BÚSQUEDA (Ocupa el 100% arriba) */}
+                <div className="relative w-full">
+                    <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-black/40" />
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search groups by title..."
+                        className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-[#6D28D9]/40 focus:bg-white focus:ring-2 focus:ring-[#6D28D9]/10"
+                    />
+                    {searchQuery && (
+                        <button 
+                            onClick={() => setSearchQuery("")}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 hover:text-black cursor-pointer"
+                        >
+                            <X size={15} />
+                        </button>
+                    )}
+                </div>
+
+                {/* 2. CONTENEDOR DE SELECTS DE FILTROS (Abajo) */}
+                <div className="flex flex-col sm:flex-row flex-wrap items-center gap-2 w-full">
+                    
+                    {/* Filtro por Creador */}
+                    <div className="relative w-full sm:flex-1 sm:min-w-[140px]">
+                        <select
+                            value={creatorFilter}
+                            onChange={(e) => setCreatorFilter(e.target.value)}
+                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
+                        >
+                            <option value="all">Any creator</option>
+                            <option value="owner">{creatorLabel}</option>
+                            <option value="others">Created by others</option>
+                        </select>
+                        <User size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
                     </div>
 
-                    {/* Contenedor de Selects de Filtros */}
-                    <div className="flex flex-col sm:flex-row flex-wrap items-center gap-2 w-full lg:w-auto">
-                        {/* Filtro por Estado */}
-                        <div className="relative w-[100%] flex-1 sm:w-36">
-                            <select
-                                value={statusFilter}
-                                onChange={(e) => setStatusFilter(e.target.value)}
-                                className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
-                            >
-                                <option value="all">All statuses</option>
-                                {statuses.map((status) => (
-                                    <option key={status} value={status}>{status}</option>
-                                ))}
-                            </select>
-                            <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
-                        </div>
+                    {/* Filtro por Estado */}
+                    <div className="relative w-full sm:flex-1 sm:min-w-[140px]">
+                        <select
+                            value={statusFilter}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
+                        >
+                            <option value="all">All statuses</option>
+                            {statuses.map((status) => (
+                                <option key={status} value={status}>{status}</option>
+                            ))}
+                        </select>
+                        <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
+                    </div>
 
-                        {/* Filtro por Categoría */}
-                        <div className="relative w-[100%] flex-1 sm:w-36">
-                            <select
-                                value={categoryFilter}
-                                onChange={(e) => setCategoryFilter(e.target.value)}
-                                className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
-                            >
-                                <option value="all">All categories</option>
-                                {categories.map((cat) => (
-                                    <option key={cat} value={cat}>{cat}</option>
-                                ))}
-                            </select>
-                            <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
-                        </div>
+                    {/* Filtro por Categoría */}
+                    <div className="relative w-full sm:flex-1 sm:min-w-[140px]">
+                        <select
+                            value={categoryFilter}
+                            onChange={(e) => setCategoryFilter(e.target.value)}
+                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
+                        >
+                            <option value="all">All categories</option>
+                            {categories.map((cat) => (
+                                <option key={cat} value={cat}>{cat}</option>
+                            ))}
+                        </select>
+                        <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
+                    </div>
 
-                        {/* Ordenamiento por Fecha / Título */}
-                        <div className="relative w-[100%] flex-1 sm:w-36">
-                            <select
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value as SortBy)}
-                                className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
-                            >
-                                <option value="newest">Newest date</option>
-                                <option value="oldest">Oldest date</option>
-                                <option value="title">Alphabetical</option>
-                            </select>
-                            <ArrowUpDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
-                        </div>
+                    {/* Ordenamiento */}
+                    <div className="relative w-full sm:flex-1 sm:min-w-[140px]">
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value as SortBy)}
+                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
+                        >
+                            <option value="newest">Newest date</option>
+                            <option value="oldest">Oldest date</option>
+                            <option value="title">Alphabetical</option>
+                        </select>
+                        <ArrowUpDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
                     </div>
                 </div>
 
                 {/* Indicador de filtros activos */}
                 {hasActiveFilters && (
-                    <div className="flex items-center justify-between pt-2 border-t border-black/5 px-1">
+                    <div className="flex items-center justify-between pt-2 border-t border-black/5 px-1 mt-1">
                         <span className="text-xs text-black/50">
                             Showing filtered groups
                         </span>
@@ -267,7 +296,7 @@ export default function ProfileSectionGroups() {
                             icon={<Crown size={18} className="text-[#6D28D9]" />}
                             label="Managing"
                             items={managed}
-                            defaultOpen={true}
+                            defaultOpen={false} // Puedes cambiarlo a true si prefieres que inicie abierto
                         />
                     )}
 
@@ -276,7 +305,7 @@ export default function ProfileSectionGroups() {
                             icon={<Users size={18} className="text-black/50" />}
                             label="Joined"
                             items={joined}
-                            defaultOpen={true}
+                            defaultOpen={false}
                         />
                     )}
                 </div>

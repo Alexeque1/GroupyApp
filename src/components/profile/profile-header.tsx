@@ -4,7 +4,19 @@ import Image from "next/image";
 import { Pencil } from "lucide-react";
 import ProfileCover from "./profile-cover";
 
-export default function ProfileHeader() {
+type ProfileHeaderProps = {
+    user: {
+        name: string;
+        lastName: string;
+        username: string;
+        profileImage: string;
+        groups: unknown[];
+        communities: unknown[];
+        friends: unknown[];
+    };
+};
+
+export default function ProfileHeader({ user }: ProfileHeaderProps) {
     return (
         <section className="flex flex-col items-center">
             {/* CARD */}
@@ -26,7 +38,7 @@ export default function ProfileHeader() {
                         <div className="relative -mt-14 h-28 w-28 shrink-0 md:-mt-16 md:h-36 md:w-36">
                             <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-white bg-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
                                 <Image
-                                    src="/profile-image.png"
+                                    src={user.profileImage}
                                     alt="Foto de perfil"
                                     fill
                                     className="object-cover"
@@ -44,14 +56,12 @@ export default function ProfileHeader() {
                         {/* NOMBRE + USUARIO */}
                         <div className="flex flex-col items-center pb-1 text-center md:items-start md:text-left">
                             <h3 className="dark-mesh-gradient text-2xl font-bold tracking-tight md:text-3xl">
-                                Alexander Sequera
+                                {user.name} {user.lastName}
                             </h3>
-                            <p className="text-black/60">@Alexeque1</p>
+                            <p className="text-black/60">@{user.username}</p>
                         </div>
                     </div>
 
-                    {/* BLOQUE INFERIOR: Estadísticas + Botones */}
-                    {/* Al superar los 1200px: se vuelve fila (flex-row) y separa ambos bloques (justify-between) */}
                     <div className="relative z-10 mt-6 flex flex-col items-center gap-6 border-t border-black/10 pt-5 min-[1200px]:flex-row min-[1200px]:justify-between">
                         
                         {/* ESTADÍSTICAS */}
@@ -59,7 +69,7 @@ export default function ProfileHeader() {
                             {/* Grupos */}
                             <div className="flex flex-col items-center">
                                 <span className="text-2xl font-bold text-[#6D28D9] md:text-3xl">
-                                    4
+                                    {user.groups.length}
                                 </span>
                                 <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
                                     Groups
@@ -71,7 +81,7 @@ export default function ProfileHeader() {
                             {/* Comunidades */}
                             <div className="flex flex-col items-center">
                                 <span className="text-2xl font-bold text-[#059669] md:text-3xl">
-                                    3
+                                    {user.communities.length}
                                 </span>
                                 <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
                                     Communities
@@ -83,7 +93,7 @@ export default function ProfileHeader() {
                             {/* Amigos */}
                             <div className="flex flex-col items-center">
                                 <span className="text-2xl font-bold text-[#EA580C] md:text-3xl">
-                                    6
+                                    {user.friends.length}
                                 </span>
                                 <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
                                     Friends

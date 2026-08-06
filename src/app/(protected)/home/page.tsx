@@ -7,6 +7,8 @@ import AnimatedBackgroundDark from "@/components/ui/backgrounds/animated-backgro
 import AnimatedBackgroundLight from "@/components/ui/backgrounds/animated-background-light";
 import { motion } from "framer-motion";
 
+import { PROFILE_INFO } from "@/lib/mock_data/profile-info";
+
 export default function Feed() {
 
     return (
@@ -18,10 +20,10 @@ export default function Feed() {
         >
             <AnimatedBackgroundLight />
 
-            <HomeGreetings name={"Alexander"} />
+            <HomeGreetings name={PROFILE_INFO.name} />
             <div className="flex flex-col md:flex-row gap-5">
                 <HomeAside />
-                <HomeMain />
+                <HomeMain user={PROFILE_INFO} />
             </div>
         </motion.div>
     );

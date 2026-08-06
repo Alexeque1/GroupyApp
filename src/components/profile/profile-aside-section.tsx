@@ -1,6 +1,17 @@
 import { Calendar, MapPin, Users, Briefcase, Globe } from "lucide-react";
 
-export default function ProfileAside() {
+type ProfileAsideProps = {
+    user: {
+        bio: string;
+        city: string;
+        country: string;
+        profession: string;
+        languages: string[];
+        joined: string;
+    };
+};
+
+export default function ProfileAside({ user }: ProfileAsideProps) {
     return (
         <aside className="flex h-fit flex-1 flex-col gap-6 rounded-3xl border border-black/30 bg-white/5 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-sm">
             {/* SECCIÓN 1: INFO COMPLEMENTARIA */}
@@ -11,31 +22,29 @@ export default function ProfileAside() {
 
                 {/* Biografía corta */}
                 <p className="text-sm leading-relaxed text-black/70">
-                    A lover of technology, live music, and good coffee.
-                    Always seeking new adventures and groups to share
-                    interests with.
+                    {user.bio}
                 </p>
 
                 {/* Lista de detalles */}
                 <div className="mt-1 flex flex-col gap-3">
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <MapPin size={16} className="text-[#6D28D9]" />
-                        <span>Buenos Aires, Argentina</span>
+                        <span>{user.city}, {user.country}</span>
                     </div>
 
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <Briefcase size={16} className="text-[#6D28D9]" />
-                        <span>UX/UI Designer</span>
+                        <span>{user.profession}</span>
                     </div>
 
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <Globe size={16} className="text-[#6D28D9]" />
-                        <span>Spanish, English</span>
+                        <span>{user.languages.join(", ")}</span>
                     </div>
 
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <Calendar size={16} className="text-[#6D28D9]" />
-                        <span>Joined in October 2023</span>
+                        <span>Joined in {user.joined}</span>
                     </div>
                 </div>
             </div>
@@ -73,33 +82,6 @@ export default function ProfileAside() {
                             <p className="mt-0.5 flex items-center gap-1 text-xs text-black/50">
                                 <Calendar size={12} />
                                 18:00 hs
-                            </p>
-                        </div>
-                    </li>
-
-                    {/* Evento 2 */}
-                    <li className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/5 bg-black/5 p-3 transition-colors hover:bg-black/10">
-
-                        {/* Fecha */}
-                        <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-[#FFB199]/30 text-[#EA580C]">
-                            <span className="text-[10px] font-bold uppercase tracking-wider">
-                                Nov
-                            </span>
-
-                            <span className="text-sm font-black">
-                                02
-                            </span>
-                        </div>
-
-                        {/* Info Evento */}
-                        <div className="flex flex-1 flex-col overflow-hidden">
-                            <h4 className="truncate text-sm font-semibold text-black/80">
-                                Festival de Jazz
-                            </h4>
-
-                            <p className="mt-0.5 flex items-center gap-1 text-xs text-black/50">
-                                <Calendar size={12} />
-                                20:30 hs
                             </p>
                         </div>
                     </li>

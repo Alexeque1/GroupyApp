@@ -32,6 +32,7 @@ export default function DiscoverGroups({
 
         return GROUPS_DATA.filter(
             (group: GroupType) =>
+                group.role === undefined &&
                 (categoryId === null || group.categoryId === categoryId) &&
                 (query === "" || group.title.toLowerCase().includes(query)) &&
                 matchesTime(group, timeFilter) &&

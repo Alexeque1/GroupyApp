@@ -16,7 +16,8 @@ export interface GroupType {
     location: string;
     startDate: string;
     owner: string;
-    role: GroupRole;
+    ownerUsername: string;
+    role?: GroupRole;
     status: string;
     statusClasses: string;
 }

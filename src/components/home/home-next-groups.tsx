@@ -3,21 +3,25 @@
 import { useRef, useState } from "react";
 import { Sparkles, Users, Timer } from "lucide-react";
 import ProfileGroupCard, { GroupType } from "../profile/profile-groups-cards";
-import { GROUPS_DATA } from "@/lib/mock_data/group-data";
 import Button from "../ui/button";
 import Link from "next/link";
 
-export default function HomeNextGroups() {
+export default function HomeNextGroups({userGroups}: {userGroups: GroupType[]}) {
     const carouselRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
+    // Solo se activa cuando hubo un movimiento real del mouse, no en el simple mousedown de un click.
+    // Se usa para bloquear la navegación de las tarjetas mientras se arrastra el carrusel.
+    const [hasDragged, setHasDragged] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
     const GROUPS_LIMIT = 4;
+    const DRAG_THRESHOLD = 5;
 
     const handleMouseDown = (e: React.MouseEvent) => {
         if (!carouselRef.current) return;
         setIsDragging(true);
+        setHasDragged(false);
         setStartX(e.pageX - carouselRef.current.offsetLeft);
         setScrollLeft(carouselRef.current.scrollLeft);
     };
@@ -35,12 +39,21 @@ export default function HomeNextGroups() {
         e.preventDefault();
         const x = e.pageX - carouselRef.current.offsetLeft;
         const walk = (x - startX) * 2;
+        if (Math.abs(walk) > DRAG_THRESHOLD) {
+            setHasDragged(true);
+        }
         carouselRef.current.scrollLeft = scrollLeft - walk;
+    };
+
+    // Los links/imágenes son "draggable" nativamente en el navegador: sin esto, el navegador
+    // intenta iniciar su propio drag-and-drop (ghost image) y compite con el scroll manual de arriba.
+    const handleDragStart = (e: React.DragEvent) => {
+        e.preventDefault();
     };
 
     const currentDate = new Date("2026-07-31");
 
-    const filteredGroups = GROUPS_DATA.filter((group) => {
+    const filteredGroups = userGroups.filter((group) => {
         const groupDate = new Date(group.startDate);
         return groupDate >= currentDate;
     }).slice(0, GROUPS_LIMIT);
@@ -81,13 +94,14 @@ export default function HomeNextGroups() {
                     onMouseLeave={handleMouseLeave}
                     onMouseUp={handleMouseUp}
                     onMouseMove={handleMouseMove}
+                    onDragStart={handleDragStart}
                     className={`flex w-full flex-nowrap items-stretch gap-4 overflow-x-auto pb-4 pt-4 select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${isDragging ? "cursor-grabbing snap-none" : "cursor-grab snap-x snap-mandatory"
                         }`}
                 >
                     {filteredGroups.map((group, index) => (
                         <div
                             key={group.id}
-                            className={`relative shrink-0 snap-center w-[220px] flex flex-col ${isDragging ? "pointer-events-none" : ""
+                            className={`relative shrink-0 snap-center w-[220px] flex flex-col ${hasDragged ? "pointer-events-none" : ""
                                 }`}
                         >
                             {index === 0 && (
