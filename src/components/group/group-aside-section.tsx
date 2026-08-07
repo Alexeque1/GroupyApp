@@ -15,10 +15,8 @@ type GroupAsideProps = {
 };
 
 export default function GroupAsideSection({ group }: GroupAsideProps) {
-    // 1. Buscamos al dueño
-    const owner = USERS_DATA.find((user) => user.id === group.ownerId);
 
-    // 2. Buscamos a los demás administradores
+    const owner = USERS_DATA.find((user) => user.id === group.ownerId);
     const otherAdmins = group.adminIds
         .map((id) => USERS_DATA.find((user) => user.id === id))
         .filter((user) => user !== undefined);
@@ -93,7 +91,6 @@ export default function GroupAsideSection({ group }: GroupAsideProps) {
                         </Link>
                     )}
 
-                    {/* --- 2. DEMÁS ADMINISTRADORES --- */}
                     {otherAdmins.length > 0 && (
                         <div className="flex flex-col gap-3 mt-1">
                             {otherAdmins.map((admin) => (

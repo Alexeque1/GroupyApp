@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Users, ArrowUpRight, Crown, Calendar, Shield, MapPin, Activity, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { USERS_DATA } from "@/lib/mock_data/users-data";
 
 export type GroupRole = "owner" | "admin" | "member";
 export type EntityCardKind = "group" | "community";
@@ -20,11 +21,9 @@ export interface EntityCardData {
     colorTo: string;
     status?: string;
     statusClasses?: string;
-    // group-only
     owner?: string;
     startDate?: string;
     role?: GroupRole;
-    // community-only
     activity?: string;
 }
 
@@ -43,7 +42,6 @@ const ROLE_BADGE: Record<Exclude<GroupRole, "member">, { label: string; Icon: ty
 
 interface EntityCardProps {
     data: EntityCardData;
-    /** "full" = real, clickable data (default). "preview" = create-flow live preview: no link affordances, friendly fallbacks for empty fields. */
     variant?: "full" | "preview";
     className?: string;
 }
@@ -54,6 +52,50 @@ export default function EntityCard({ data, variant = "full", className }: Entity
     const accentHover = isGroup ? "group-hover:text-[#6D28D9]" : "group-hover:text-[#059669]";
     const roleBadge = data.role && data.role !== "member" ? ROLE_BADGE[data.role] : null;
     const isDataUrl = data.image?.startsWith("blob:") || data.image?.startsWith("data:");
+
+    // --- LÓGICA DE MIEMBROS Y AVATARES ---
+    let displayMembers: typeof USERS_DATA = [];
+    if (!isPreview && data.id) {
+        if (isGroup) {
+            displayMembers = USERS_DATA.filter((user) =>
+                user.groups?.owner?.includes(data.id!) ||
+                user.groups?.admin?.includes(data.id!) ||
+                user.groups?.member?.includes(data.id!)
+            );
+        } else {
+            displayMembers = USERS_DATA.filter((user) =>
+                user.communityIds?.includes(data.id!)
+            );
+        }
+    }
+
+    // Calcular la cantidad real de miembros desde el string (ej. "8/10", "24.5k")
+    let totalMembers = displayMembers.length;
+    let badgeText = "";
+
+    if (!isPreview && data.members) {
+        if (data.members.includes("/")) {
+            // Caso "8/10" -> 8
+            totalMembers = parseInt(data.members.split("/")[0], 10) || totalMembers;
+        } else if (data.members.toLowerCase().includes("k")) {
+            // Caso "24.5k"
+            totalMembers = 10000; // Forzar que sea > 3
+            const match = data.members.match(/([\d.]+k)/i);
+            badgeText = match ? `+${match[1]}` : "+99";
+        } else {
+            // Caso "50" o "120"
+            const parsed = parseInt(data.members.replace(/[^0-9]/g, ""), 10);
+            if (!isNaN(parsed)) totalMembers = parsed;
+        }
+    }
+
+    const maxImages = totalMembers > 3 ? 2 : 3;
+    const imagesToShow = displayMembers.slice(0, maxImages);
+    const remainingCount = totalMembers - imagesToShow.length;
+    
+    if (!badgeText && remainingCount > 0) {
+        badgeText = `+${remainingCount}`;
+    }
 
     return (
         <Link href={isPreview ? "#" : `/group/${data.id}`}>
@@ -170,17 +212,31 @@ export default function EntityCard({ data, variant = "full", className }: Entity
 
                         {!isPreview && (
                             <div className="flex -space-x-2">
-                                <div
-                                    className={cn(
-                                        "z-30 h-8 w-8 rounded-full border-2 border-white bg-gradient-to-br dark:border-[#0a0514]",
-                                        data.colorFrom,
-                                        data.colorTo
-                                    )}
-                                />
-                                <div className="z-20 h-8 w-8 rounded-full border-2 border-white bg-black/20 dark:border-[#0a0514]" />
-                                <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 text-[10px] font-bold text-black/50 dark:border-[#0a0514]">
-                                    +{isGroup ? 5 : 12}
-                                </div>
+                                {imagesToShow.length > 0 ? (
+                                    <>
+                                        {imagesToShow.map((u, i) => {
+                                            const zIndexClasses = ["z-30", "z-20", "z-10"];
+                                            return (
+                                                <div key={u.id} className={cn("relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-black/5 dark:border-[#0a0514]", zIndexClasses[i])}>
+                                                    <Image src={u.profileImage} alt={u.username} fill className="object-cover" />
+                                                </div>
+                                            );
+                                        })}
+                                        {remainingCount > 0 && (
+                                            <div className={cn("z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 font-bold text-black/50 dark:border-[#0a0514]", badgeText.length > 3 ? "text-[8px]" : "text-[10px]")}>
+                                                {badgeText}
+                                            </div>
+                                        )}
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className={cn("z-30 h-8 w-8 rounded-full border-2 border-white bg-gradient-to-br dark:border-[#0a0514]", data.colorFrom, data.colorTo)} />
+                                        <div className="z-20 h-8 w-8 rounded-full border-2 border-white bg-black/20 dark:border-[#0a0514]" />
+                                        <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 text-[10px] font-bold text-black/50 dark:border-[#0a0514]">
+                                            +{isGroup ? 5 : 12}
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         )}
                     </div>
