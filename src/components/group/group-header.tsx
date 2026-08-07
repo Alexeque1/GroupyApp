@@ -1,7 +1,8 @@
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
 import Button from "../ui/button";
 import Image from "next/image";
-import { Users, Share2 } from "lucide-react";
+import { Users, Share2, ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type GroupHeaderProps = {
     groupData: {
@@ -14,6 +15,8 @@ type GroupHeaderProps = {
 };
 
 export default function GroupHeader({ groupData }: GroupHeaderProps) {
+    const router = useRouter(); 
+
     return (
         <section className="flex flex-col items-center">
             {/* CARD */}
@@ -21,6 +24,15 @@ export default function GroupHeader({ groupData }: GroupHeaderProps) {
                 
                 {/* PORTADA (COVER) */}
                 <div className="relative h-48 w-full md:h-72">
+                    {/* BOTÓN VOLVER */}
+                    <button
+                        onClick={() => router.back()}
+                        className="absolute left-4 top-20 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 text-black/70 backdrop-blur-md transition-colors hover:bg-white hover:text-black dark:border-white/20 dark:bg-black/50 dark:text-white/70 dark:hover:bg-black/70 dark:hover:text-white"
+                        aria-label="Volver atrás"
+                    >
+                        <ArrowLeft size={18} />
+                    </button>
+
                     <Image
                         src={groupData.coverImage}
                         alt={`Portada de ${groupData.title}`}
@@ -37,7 +49,7 @@ export default function GroupHeader({ groupData }: GroupHeaderProps) {
 
                     {/* BLOQUE SUPERIOR: Título del Grupo (Sin avatar) */}
                     <div className="relative z-10 flex flex-col items-start gap-2">
-                        {/* Insignia de categoría (Opcional, le da un toque muy premium) */}
+                        {/* Insignia de categoría */}
                         <span className="rounded-full bg-[#8C6CFF]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#6D28D9]">
                             {groupData.category}
                         </span>
