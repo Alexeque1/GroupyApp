@@ -8,6 +8,7 @@ export default function ProfileSectionFriendsList({ friends }: { friends: Friend
         <ProfileSectionGrid
             items={friends}
             columns="grid-cols-1 xl:grid-cols-3"
+            linkTo={(friend) => `/profile/${friend.id}`}
             renderItem={(friend) => <FriendsCards friend={friend} />}
         />
     );

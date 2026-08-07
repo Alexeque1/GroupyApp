@@ -84,7 +84,7 @@ export default function ProfileMain({ user }: ProfileMainProps) {
             {/* CONTENIDO DINÁMICO */}
             <div id="group_section" className="flex-1 p-6 relative flex flex-col">
                 <AnimatePresence mode="wait">
-                    {TABS_CONFIG.map(({ key, title, description, Component }) => {
+                    {TABS_CONFIG.map(({ key, description, Component }) => {
                         if (activeTab !== key) return null;
 
                         return (
@@ -96,7 +96,7 @@ export default function ProfileMain({ user }: ProfileMainProps) {
                                 transition={{ duration: 0.2, ease: "easeInOut" }}
                                 className="flex flex-col gap-4 flex-1 h-full"
                             >
-                                <h3 className="text-xl font-bold text-black/80">{title}</h3>
+                                <h3 className="text-xl font-bold text-black/80">{user.name}&apos;s {key}</h3>
                                 <p className="text-black/60">{description}</p>
 
                                 <Component

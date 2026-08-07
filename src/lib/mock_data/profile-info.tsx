@@ -1,19 +1,9 @@
-import {GROUPS_DATA} from "./group-data";
-import {FRIENDS_DATA} from "./friends-data";
-import {COMMUNITIES_DATA} from "./community-data";
+import { getProfileViewModel } from "./profile-selectors";
 
-export const PROFILE_INFO = {
-    name: "Alexander",
-    lastName: "Sequera",
-    profileImage: "/profile-image.png",
-    username: "Alexeque1",
-    groups: GROUPS_DATA.filter((group) => group.role !== undefined),
-    friends: FRIENDS_DATA,
-    communities: COMMUNITIES_DATA,
-    country: "Argentina",
-    city: "Buenos Aires",
-    bio: "A lover of technology, live music, and good coffee. Always seeking new adventures and groups to share interests with.",
-    profession: "UX/UI Designer",
-    languages: ["English", "Spanish"],
-    joined: "October 2023"
-}
+// Hasta que exista autenticación real, "el usuario logueado" es Alexander (id 1).
+// Cuando haya auth, este id vendrá de la sesión en vez de estar fijo.
+export const CURRENT_USER_ID = 1;
+
+// PROFILE_INFO ya no es un mock a mano: se calcula desde USERS_DATA con el
+// mismo selector que usa /profile/[id], así ambos quedan siempre consistentes.
+export const PROFILE_INFO = getProfileViewModel(CURRENT_USER_ID)!;

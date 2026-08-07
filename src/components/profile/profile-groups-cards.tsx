@@ -8,6 +8,7 @@ export interface GroupType {
     id: number;
     title: string;
     category: string;
+    description: string;
     categoryId: number;
     members: string;
     colorFrom: string;
@@ -18,8 +19,11 @@ export interface GroupType {
     owner: string;
     ownerUsername: string;
     role?: GroupRole;
+    adminIds: number[];
+    ownerId: number;
     status: string;
     statusClasses: string;
+    createdAt: string;
 }
 
 export default function ProfileGroupCard({ group, className }: { group: GroupType; className?: string }) {

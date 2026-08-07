@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, Crown, Search, Shield, UserX, X } from "lucide-react";
 import Button from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { FRIENDS_DATA } from "@/lib/mock_data/friends-data";
+import { PROFILE_INFO } from "@/lib/mock_data/profile-info";
 import type { FriendType } from "@/components/profile/profile-friends-cards";
 
 interface CreateModalAdminSelectorProps {
@@ -36,7 +36,7 @@ export default function CreateModalAdminSelector({
         }
     }
 
-    const filteredFriends = FRIENDS_DATA.filter((friend) => {
+    const filteredFriends = PROFILE_INFO.friends.filter((friend) => {
         const query = search.trim().toLowerCase();
         if (!query) return true;
         return (
@@ -52,7 +52,7 @@ export default function CreateModalAdminSelector({
     };
 
     const handleConfirm = () => {
-        const selectedFriends = FRIENDS_DATA.filter((friend) => selectedIds.includes(friend.id));
+        const selectedFriends = PROFILE_INFO.friends.filter((friend) => selectedIds.includes(friend.id));
         onConfirm(selectedFriends);
         onClose();
     };

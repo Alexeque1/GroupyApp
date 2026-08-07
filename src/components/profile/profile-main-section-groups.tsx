@@ -176,7 +176,7 @@ export default function ProfileSectionGroups({
     return (
         <div className="flex flex-col gap-6">
             {/* BARRA DE BÚSQUEDA Y FILTROS */}
-            <div className="flex flex-col gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm">
+            <div className="flex flex-col gap-3 rounded-3xl">
                 
                 {/* 1. INPUT DE BÚSQUEDA (Ocupa el 100% arriba) */}
                 <div className="relative w-full">

@@ -109,14 +109,14 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
                                 className="flex-1 px-8 py-3 sm:flex-none"
                                 textClassName="text-sm"
                             >
-                                Enviar Solicitud
+                                Follow
                             </Button>
                             <Button
                                 tone="dark"
                                 className="flex-1 px-8 py-3 sm:flex-none"
                                 textClassName="text-sm"
                             >
-                                Mensaje
+                                Send message
                             </Button>
                         </div>
                     </div>
