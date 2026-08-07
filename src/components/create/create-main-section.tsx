@@ -19,7 +19,7 @@ export default function CreateMainSection() {
                         What are we creating today?
                     </h2>
                     
-                    <div className="flex flex-col gap-6 sm:flex-row sm:gap-8">
+                    <div className="flex flex-wrap gap-6 sm:gap-8 justify-center">
 
                         <ButtonCreate
                             title="Group"

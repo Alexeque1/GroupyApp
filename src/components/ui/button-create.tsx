@@ -54,7 +54,7 @@ export default function ButtonCreate({
       whileHover="hover"
       animate="rest"
       className={cn(
-        "group relative flex aspect-square w-48 cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden rounded-[2rem] font-medium transition-transform duration-300 hover:-translate-y-2",
+        "group relative flex aspect-square w-35 md:w-48 cursor-pointer flex-col items-center justify-center gap-4 overflow-hidden rounded-[2rem] font-medium transition-transform duration-300 hover:-translate-y-2",
         styles.bg,
         className
       )}
