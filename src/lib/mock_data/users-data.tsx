@@ -1,7 +1,7 @@
 export interface UserGroups {
-    owner: number[];  // Array de IDs de los grupos que creó
-    admin: number[];  // Array de IDs de los grupos donde es admin
-    member: number[]; // Array de IDs de los grupos donde es un usuario normal
+    owner: number[]; 
+    admin: number[];
+    member: number[]; 
 }
 
 export interface UserType {

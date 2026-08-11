@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, User, Bell, Settings, Compass, BadgePlus, LogOut } from "lucide-react";
 import Image from "next/image";
-import AlertFinishSession from "../ui/alerts/alert-finishsession";
+import ConfirmAlert from "../ui/alerts/confirm-alert";
 import { MENU_ITEMS } from "@/lib/nav-items";
 
 export default function SideMenu() {
@@ -19,7 +19,16 @@ export default function SideMenu() {
 
     return (
         <>
-            <AlertFinishSession isOpen={finishSession} onClose={handleFinishSession} onConfirm={() => { }} />
+            <ConfirmAlert
+                isOpen={finishSession}
+                onClose={handleFinishSession}
+                onConfirm={() => { }}
+                icon={LogOut}
+                title="Loggin Out"
+                description="You are about to log out of your account. You will need to log back in to access your groups."
+                confirmLabel="Yes, log out"
+                variant="danger"
+            />
             <motion.aside
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}

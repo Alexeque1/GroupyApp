@@ -94,9 +94,8 @@ export default function GroupAsideSection({ group }: GroupAsideProps) {
                     {otherAdmins.length > 0 && (
                         <div className="flex flex-col gap-3 mt-1">
                             {otherAdmins.map((admin) => (
-                                // eslint-disable-next-line react/jsx-key
-                                <Link href={`/profile/${admin!.id}`}>
-                                    <div key={admin!.id} className="group flex cursor-pointer items-center gap-3">
+                                <Link key={admin!.id} href={`/profile/${admin!.id}`}>
+                                    <div className="group flex cursor-pointer items-center gap-3">
 
                                         <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl border border-black/5 bg-black/5 transition-transform group-hover:scale-105">
                                             <Image

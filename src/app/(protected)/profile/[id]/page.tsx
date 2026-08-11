@@ -16,6 +16,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
     const { id } = use(params);
     const profile = getProfileViewModel(Number(id));
     const isOwnProfile = Number(id) === CURRENT_USER_ID;
+    const isUserFollowing =  profile?.friends.some((friend) => friend.id === CURRENT_USER_ID) ?? false;
 
     if (!profile) {
         return (
@@ -32,7 +33,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
             >
-                <ProfileHeader user={profile} isOwnProfile={isOwnProfile} />
+                <ProfileHeader user={profile} isOwnProfile={isOwnProfile} isUserFollowing={isUserFollowing} />
             </motion.div>
 
             <div className="flex flex-col gap-5 md:flex-row items-start p-5">

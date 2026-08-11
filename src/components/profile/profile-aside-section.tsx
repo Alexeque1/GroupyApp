@@ -17,7 +17,7 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
             {/* SECCIÓN 1: INFO COMPLEMENTARIA */}
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-black/80">
-                    About it
+                    About me
                 </h3>
 
                 {/* Biografía corta */}
@@ -88,7 +88,6 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                 </ul>
             </div>
 
-            {/* Separador */}
             <hr className="border-black/10" />
 
             {/* SECCIÓN 3: TOP COMUNIDADES */}
@@ -131,6 +130,17 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            <hr className="border-black/10" />
+            <div className="flex flex-col gap-4">
+                <h3 className="text-lg font-bold text-black/80">
+                    Interests
+                </h3>
+
+                <div className="flex flex-col gap-3">
+                    
                 </div>
             </div>
         </aside>

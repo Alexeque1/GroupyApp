@@ -3,38 +3,40 @@
 import { Construction, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/button";
+import AnimatedBackgroundLight from "@/components/ui/backgrounds/animated-background-light";
+import { motion } from "framer-motion";
+import SettingsAsideSection from "@/components/settings/settings-aside-section";
+import SettingsMainSection from "@/components/settings/settings-main-section";
+import ProfileHeader from "@/components/profile/profile-header";
+import { CURRENT_USER_ID } from "@/lib/mock_data/profile-info";
+import { getProfileViewModel } from "@/lib/mock_data/profile-selectors";
 
 export default function Settings() {
     const router = useRouter();
+    const profile = getProfileViewModel(Number(CURRENT_USER_ID));
+
+    if (!profile) {
+        return (
+            <div className="flex items-center justify-center h-full p-5">
+                <p>User not found.</p>
+            </div>
+        );
+    }
 
     return (
-        <div className="flex min-h-[70vh] w-full flex-col items-center justify-center px-4 text-center animate-in fade-in zoom-in-95 duration-500">
-            
-            {/* Ícono destacado con animación suave */}
-            <div className="relative mb-6 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-brand-purple/10 text-brand-purple shadow-inner dark:bg-brand-purple/20">
-                <div className="absolute inset-0 rounded-[2rem] border border-brand-purple/20 dark:border-brand-purple/30" />
-                <Construction size={40} className="animate-pulse" />
-            </div>
-            
-            {/* Textos */}
-            <h1 className="mb-3 text-3xl font-black tracking-tight text-[#1a0f2e] dark:text-white sm:text-4xl">
-                Under Construction
-            </h1>
-            
-            <p className="mb-10 max-w-md text-black/60 dark:text-white/50 text-base sm:text-lg">
-                We are working hard behind the scenes to bring you a powerful and seamless settings experience. Check back soon!
-            </p>
+        <motion.div
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="flex flex-col gap-8 -mt-10"
+        >
+            <AnimatedBackgroundLight />
 
-            {/* Botón de regreso */}
-            <Button 
-                onClick={() => router.back()} 
-                tone="dark" 
-                className="flex items-center gap-2 px-8"
-            >
-                <ArrowLeft size={18} />
-                Go Back
-            </Button>
-            
-        </div>
+            <ProfileHeader user={profile} isOwnProfile={true} isUserFollowing={false} isSettings={true} />
+            <div className="flex flex-col md:flex-row gap-5">
+                <SettingsAsideSection />
+                <SettingsMainSection />
+            </div>
+        </motion.div>
     );
 }
