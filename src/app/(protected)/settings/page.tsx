@@ -2,10 +2,11 @@
 
 import { Construction, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Button from "@/components/ui/button";
 import AnimatedBackgroundLight from "@/components/ui/backgrounds/animated-background-light";
 import { motion } from "framer-motion";
-import SettingsAsideSection from "@/components/settings/settings-aside-section";
+import SettingsAsideSection, { type SettingsSection } from "@/components/settings/settings-aside-section";
 import SettingsMainSection from "@/components/settings/settings-main-section";
 import ProfileHeader from "@/components/profile/profile-header";
 import { CURRENT_USER_ID } from "@/lib/mock_data/profile-info";
@@ -13,6 +14,7 @@ import { getProfileViewModel } from "@/lib/mock_data/profile-selectors";
 
 export default function Settings() {
     const router = useRouter();
+    const [activeSection, setActiveSection] = useState<SettingsSection>("account");
     const profile = getProfileViewModel(Number(CURRENT_USER_ID));
 
     if (!profile) {
@@ -33,9 +35,9 @@ export default function Settings() {
             <AnimatedBackgroundLight />
 
             <ProfileHeader user={profile} isOwnProfile={true} isUserFollowing={false} isSettings={true} />
-            <div className="flex flex-col md:flex-row gap-5">
-                <SettingsAsideSection />
-                <SettingsMainSection />
+            <div className="flex flex-col md:flex-row gap-5 p-5">
+                <SettingsAsideSection activeSection={activeSection} onSectionChange={setActiveSection} />
+                <SettingsMainSection section={activeSection} user={profile} />
             </div>
         </motion.div>
     );

@@ -5,7 +5,6 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-// Mapeo de colores por variante: éxito y error
 const iconWrapperVariants = cva(
     "mb-4 flex h-14 w-14 items-center justify-center rounded-full",
     {
@@ -13,6 +12,7 @@ const iconWrapperVariants = cva(
             type: {
                 success: "bg-emerald-100 text-emerald-600",
                 error: "bg-red-100 text-red-600",
+                warning: "bg-yellow-100 text-yellow-600"
             },
         },
         defaultVariants: {
@@ -25,11 +25,10 @@ interface StatusAlertProps {
     isOpen: boolean;
     onClose: () => void;
     description: string;
-    type: "success" | "error";
+    type: "success" | "error" | "warning";
     duration?: number; 
 }
 
-// Variantes de Framer Motion para la animación de trazado del icono
 const iconPathVariants: Variants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: {
@@ -42,7 +41,6 @@ const iconPathVariants: Variants = {
     },
 };
 
-// Componente para el Icono de Check Animado
 const AnimatedCheck = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +63,6 @@ const AnimatedCheck = () => (
     </svg>
 );
 
-// Componente para el Icono de Equis Animado
 const AnimatedX = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +84,40 @@ const AnimatedX = () => (
         />
         <motion.path
             d="M6 6 18 18"
+            variants={iconPathVariants}
+            initial="hidden"
+            animate="visible"
+        />
+    </svg>
+);
+
+const AnimatedExclamation = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="lucide lucide-alert-triangle"
+    >
+        <motion.line
+            x1="12"
+            y1="4"
+            x2="12"
+            y2="14"
+            variants={iconPathVariants}
+            initial="hidden"
+            animate="visible"
+        />
+        <motion.circle
+            cx="12"
+            cy="19"
+            r="0.5"
+            fill="currentColor"
             variants={iconPathVariants}
             initial="hidden"
             animate="visible"
@@ -127,7 +158,6 @@ export default function StatusAlert({
                         className="absolute inset-0 bg-[#0a0514]/40 backdrop-blur-sm"
                     />
 
-                    {/* CONTENEDOR DEL MODAL (Reutilizado y ajustado para ser compacto) */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -143,11 +173,14 @@ export default function StatusAlert({
                         
                         {/* CONTENEDOR DEL ÍCONO (Adaptado) */}
                         <div className={cn(iconWrapperVariants({ type }))}>
-                            {/* Renderizado condicional del icono animado */}
-                            {type === "success" ? (
+                            {type === "success" && (
                                 <AnimatedCheck />
-                            ) : (
+                            )}
+                            {type === "error" && (
                                 <AnimatedX />
+                            )}
+                            {type === "warning" && (
+                                <AnimatedExclamation />
                             )}
                         </div>
 

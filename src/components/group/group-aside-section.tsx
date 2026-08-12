@@ -11,7 +11,9 @@ type GroupAsideProps = {
         createdAt: string;
         ownerId: number;
         adminIds: number[];
+        startDate: string;
     };
+    isUserMember?: boolean;
 };
 
 export default function GroupAsideSection({ group }: GroupAsideProps) {
@@ -45,7 +47,7 @@ export default function GroupAsideSection({ group }: GroupAsideProps) {
                     </div>
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <Calendar size={16} className="text-[#6D28D9]" />
-                        <span>Created in {group.createdAt}</span>
+                        <span>Created in {group.startDate}</span>
                     </div>
                 </div>
             </div>
@@ -60,13 +62,11 @@ export default function GroupAsideSection({ group }: GroupAsideProps) {
 
                 <div className="flex flex-col gap-4">
 
-                    {/* --- 1. DUEÑO DESTACADO (FOTO MÁS GRANDE Y SIN CORONA) --- */}
                     {owner && (
                         <Link href={`/profile/${owner.id}`}>
                             <div className="group flex items-center justify-between rounded-2xl border border-brand-purple/20 bg-brand-purple/5 p-3 transition-colors hover:bg-brand-purple/10 dark:border-brand-purple/30 dark:bg-brand-purple/10">
                                 <div className="flex items-center gap-3.5">
 
-                                    {/* Foto de perfil más grande */}
                                     <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-brand-purple/20 bg-white shadow-sm">
                                         <Image
                                             src={owner.profileImage}
@@ -76,7 +76,6 @@ export default function GroupAsideSection({ group }: GroupAsideProps) {
                                         />
                                     </div>
 
-                                    {/* Nombre y Etiqueta limpia */}
                                     <div className="flex flex-col">
                                         <span className="text-[15px] font-bold text-black transition-colors group-hover:text-brand-purple dark:text-white">
                                             {owner.firstName} {owner.lastName}
