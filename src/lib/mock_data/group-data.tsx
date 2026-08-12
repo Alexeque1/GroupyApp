@@ -16,7 +16,7 @@ export const GROUPS_DATA: GroupType[] = [
         owner: "Alex S.",
         ownerUsername: "Alexeque1",
         ownerId: 1,
-        adminIds: [10], // Valentina Ortiz
+        adminIds: [10],
         role: "owner",
         status: "Upcoming",
         statusClasses: "bg-[#8C6CFF]/20 text-[#6D28D9] border-[#8C6CFF]/30",

@@ -8,6 +8,7 @@ import Button from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PROFILE_INFO } from "@/lib/mock_data/profile-info";
 import type { FriendType } from "@/components/profile/profile-friends-cards";
+import Portal from "@/components/ui/portal";
 
 interface CreateModalAdminSelectorProps {
     isOpen: boolean;
@@ -58,6 +59,7 @@ export default function CreateModalAdminSelector({
     };
 
     return (
+        <Portal>
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto p-4 py-8">
@@ -213,5 +215,6 @@ export default function CreateModalAdminSelector({
                 </div>
             )}
         </AnimatePresence>
+        </Portal>
     );
 }

@@ -37,7 +37,14 @@ export default function Settings() {
             <ProfileHeader user={profile} isOwnProfile={true} isUserFollowing={false} isSettings={true} />
             <div className="flex flex-col md:flex-row gap-5 p-5">
                 <SettingsAsideSection activeSection={activeSection} onSectionChange={setActiveSection} />
-                <SettingsMainSection section={activeSection} user={profile} />
+                <SettingsMainSection
+                    section={activeSection}
+                    user={{
+                        ...profile,
+                        location: `${profile.city}, ${profile.country}`,
+                        interests: profile.interests.join(", "),
+                    }}
+                />
             </div>
         </motion.div>
     );

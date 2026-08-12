@@ -53,7 +53,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                     transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
                     className="flex flex-[2] flex-col"
                 >
-                    <ProfileMain user={profile} />
+                    <ProfileMain user={profile} isOwnProfile={isOwnProfile} currentUserId={CURRENT_USER_ID} />
                 </motion.div>
             </div>
         </div>

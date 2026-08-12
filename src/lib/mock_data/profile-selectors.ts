@@ -22,6 +22,7 @@ export interface ProfileViewModel {
     bio: string;
     profession: string;
     languages: string[];
+    interests: string[];
     joined: string;
 }
 
@@ -44,7 +45,7 @@ function resolveCommunities(user: UserType): CommunityType[] {
         .filter((c): c is CommunityType => Boolean(c));
 }
 
-function countMutualFriends(userId: number, friendId: number): number {
+export function countMutualFriends(userId: number, friendId: number): number {
     const user = USERS_DATA.find((u) => u.id === userId);
     const friend = USERS_DATA.find((u) => u.id === friendId);
     if (!user || !friend) return 0;
@@ -62,7 +63,6 @@ function resolveFriends(user: UserType): FriendType[] {
             name: `${friend.firstName} ${friend.lastName}`,
             username: `@${friend.username}`,
             image: friend.profileImage,
-            mutualFriends: countMutualFriends(user.id, friend.id),
         }));
 }
 
@@ -86,6 +86,7 @@ export function getProfileViewModel(userId: number): ProfileViewModel | null {
         bio: user.bio,
         profession: user.profession,
         languages: user.languages,
+        interests: user.interests,
         joined: user.joined,
     };
 }

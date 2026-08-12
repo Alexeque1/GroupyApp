@@ -128,7 +128,6 @@ export default function ProfileSectionGroups({
         [groups]
     );
 
-    // Lógica para los textos del creador
     const creatorLabel = isOwnProfile ? "Created by me" : `Created by ${profileName}`;
 
     {/* FILTRADO Y ORDENAMIENTO DE GRUPOS */}
@@ -175,7 +174,6 @@ export default function ProfileSectionGroups({
 
     return (
         <div className="flex flex-col gap-6">
-            {/* BARRA DE BÚSQUEDA Y FILTROS */}
             <div className="flex flex-col gap-3 rounded-3xl">
                 
                 {/* 1. INPUT DE BÚSQUEDA (Ocupa el 100% arriba) */}

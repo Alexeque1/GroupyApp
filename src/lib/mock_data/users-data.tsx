@@ -18,6 +18,7 @@ export interface UserType {
     country: string;
     profession: string;
     languages: string[];
+    interests: string[];
     joined: string; // Mes y año de registro, ej: "October 2023"
 }
 
@@ -40,6 +41,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "UX/UI Designer",
         languages: ["English", "Spanish"],
+        interests: ["Technology", "Live Music", "Coffee", "Design"],
         joined: "October 2023",
     },
     {
@@ -60,6 +62,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Marketing Specialist",
         languages: ["Spanish", "Portuguese"],
+        interests: ["Outdoor Adventures", "Marketing", "Travel"],
         joined: "January 2024",
     },
     {
@@ -80,6 +83,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Sound Engineer",
         languages: ["Spanish", "English"],
+        interests: ["Techno Music", "DJing", "Nightlife"],
         joined: "March 2024",
     },
     {
@@ -100,6 +104,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Barista & Coffee Roaster",
         languages: ["Spanish"],
+        interests: ["Coffee", "Slow Living", "Conversation"],
         joined: "February 2024",
     },
     {
@@ -120,6 +125,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Event Planner",
         languages: ["Spanish", "English"],
+        interests: ["Event Planning", "Nightlife", "Networking"],
         joined: "November 2023",
     },
     {
@@ -140,6 +146,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Personal Trainer",
         languages: ["Spanish"],
+        interests: ["Fitness", "Nutrition", "Wellness"],
         joined: "December 2023",
     },
     {
@@ -160,6 +167,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Dance Instructor",
         languages: ["Spanish", "Italian"],
+        interests: ["Dance", "Latin Music", "Teaching"],
         joined: "April 2024",
     },
     {
@@ -180,6 +188,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Musician",
         languages: ["Spanish", "English"],
+        interests: ["Jazz", "Piano", "Live Music"],
         joined: "January 2024",
     },
     {
@@ -200,6 +209,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Outdoor Guide",
         languages: ["Spanish", "English"],
+        interests: ["Hiking", "Nature", "Trekking"],
         joined: "May 2024",
     },
     {
@@ -220,6 +230,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Product Manager",
         languages: ["Spanish", "English"],
+        interests: ["Product Management", "Board Games", "Strategy"],
         joined: "September 2023",
     },
     {
@@ -240,6 +251,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Software Engineer",
         languages: ["Spanish", "English"],
+        interests: ["Board Games", "Software Development", "Tabletop Gaming"],
         joined: "June 2024",
     },
     {
@@ -260,6 +272,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Yoga Instructor",
         languages: ["Spanish"],
+        interests: ["Yoga", "Mindfulness", "Wellness"],
         joined: "July 2024",
     },
     {
@@ -280,6 +293,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Homebrewer",
         languages: ["Spanish", "German"],
+        interests: ["Craft Beer", "Brewing", "Tasting"],
         joined: "August 2024",
     },
 
@@ -292,12 +306,13 @@ export const USERS_DATA: UserType[] = [
         profileImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
         groups: { owner: [], admin: [], member: [2, 4] },
         communityIds: [1, 3],
-        friendIds: [1, 2, 13], // El 1 es Alex
+        friendIds: [1, 2, 13, 15], // El 1 es Alex; 15 (Lucas) es amigo en común con Alex
         bio: "Creative soul with a love for design, music festivals, and travel.",
         city: "Buenos Aires",
         country: "Argentina",
         profession: "Graphic Designer",
         languages: ["Spanish", "English"],
+        interests: ["Design", "Music Festivals", "Travel"],
         joined: "October 2023",
     },
     {
@@ -308,12 +323,13 @@ export const USERS_DATA: UserType[] = [
         profileImage: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop",
         groups: { owner: [], admin: [], member: [1, 8] },
         communityIds: [2],
-        friendIds: [1, 3, 9, 13],
+        friendIds: [1, 3, 9, 13, 14], // 14 (Sofía) es amiga en común con Alex
         bio: "Backend developer who spends weekends exploring the city's live music scene.",
         city: "Buenos Aires",
         country: "Argentina",
         profession: "Backend Developer",
         languages: ["Spanish", "English"],
+        interests: ["Software Development", "Live Music", "Backend"],
         joined: "November 2023",
     },
     {
@@ -324,12 +340,13 @@ export const USERS_DATA: UserType[] = [
         profileImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
         groups: { owner: [], admin: [], member: [6, 12] },
         communityIds: [1, 2, 3],
-        friendIds: [1, 2, 10],
+        friendIds: [1, 2, 10, 17], // 17 (Mateo) es amigo en común con Alex
         bio: "Building communities online and offline, one event at a time.",
         city: "Buenos Aires",
         country: "Argentina",
         profession: "Community Manager",
         languages: ["Spanish", "English", "Portuguese"],
+        interests: ["Community Building", "Events", "Social Media"],
         joined: "September 2023",
     },
     {
@@ -340,12 +357,13 @@ export const USERS_DATA: UserType[] = [
         profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
         groups: { owner: [], admin: [], member: [3, 7] },
         communityIds: [2, 3],
-        friendIds: [1, 3, 6],
+        friendIds: [1, 3, 6, 16], // 16 (Valentina) es amiga en común con Alex
         bio: "Photographer chasing warehouse parties and golden hour light.",
         city: "Rosario",
         country: "Argentina",
         profession: "Photographer",
         languages: ["Spanish"],
+        interests: ["Photography", "Nightlife", "Travel"],
         joined: "December 2023",
     },
     {
@@ -362,6 +380,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Illustrator",
         languages: ["Spanish", "English"],
+        interests: ["Illustration", "Yoga", "Comedy"],
         joined: "October 2023",
     },
     {
@@ -378,6 +397,7 @@ export const USERS_DATA: UserType[] = [
         country: "Argentina",
         profession: "Civil Engineer",
         languages: ["Spanish"],
+        interests: ["Hiking", "Engineering", "Outdoors"],
         joined: "August 2023",
     }
 ];

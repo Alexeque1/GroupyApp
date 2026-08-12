@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import Portal from "@/components/ui/portal";
 
 const iconWrapperVariants = cva(
     "mb-4 flex h-14 w-14 items-center justify-center rounded-full",
@@ -144,10 +145,11 @@ export default function StatusAlert({
     }, [isOpen, onClose, duration]);
 
     return (
+        <Portal>
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-                    
+
                     {/* FONDO OSCURO CON BLUR (Reutilizado) */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -192,5 +194,6 @@ export default function StatusAlert({
                 </div>
             )}
         </AnimatePresence>
+        </Portal>
     );
 }

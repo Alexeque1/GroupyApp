@@ -7,6 +7,7 @@ import Cropper, { type Area } from "react-easy-crop";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import Button from "@/components/ui/button"; // Asegúrate de que esta ruta sea correcta
+import Portal from "@/components/ui/portal";
 
 interface ImageDropzoneProps {
     label?: string;
@@ -183,6 +184,7 @@ export default function ImageDropzone({
 
             {/* MODAL DE RECORTADO (CROPPER) */}
             {isCropping && rawImage && (
+                <Portal>
                 <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/90 p-4 backdrop-blur-sm animate-in fade-in duration-200">
                     <div className="relative flex h-[70vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl bg-[#0a0514] border border-white/10 shadow-2xl">
                         
@@ -239,6 +241,7 @@ export default function ImageDropzone({
 
                     </div>
                 </div>
+                </Portal>
             )}
         </>
     );

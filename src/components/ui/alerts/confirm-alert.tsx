@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LucideIcon } from "lucide-react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import Portal from "@/components/ui/portal";
 
 // Mapeo de colores por variante: dónde aplica cada acción (logout, unfollow, delete...)
 const iconWrapperVariants = cva(
@@ -66,6 +67,7 @@ export default function ConfirmAlert({
     variant = "danger",
 }: ConfirmAlertProps) {
     return (
+        <Portal>
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
@@ -122,5 +124,6 @@ export default function ConfirmAlert({
                 </div>
             )}
         </AnimatePresence>
+        </Portal>
     );
 }

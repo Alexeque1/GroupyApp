@@ -7,6 +7,7 @@ import { Crown, Search, UserX, X } from "lucide-react";
 import Button from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { UserType } from "@/lib/mock_data/users-data";
+import Portal from "@/components/ui/portal";
 
 interface GroupModalTransferOwnershipProps {
     isOpen: boolean;
@@ -52,6 +53,7 @@ export default function GroupModalTransferOwnership({
     };
 
     return (
+        <Portal>
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto p-4 py-8">
@@ -204,5 +206,6 @@ export default function GroupModalTransferOwnership({
                 </div>
             )}
         </AnimatePresence>
+        </Portal>
     );
 }

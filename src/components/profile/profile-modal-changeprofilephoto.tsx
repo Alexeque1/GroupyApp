@@ -8,6 +8,7 @@ import Cropper, { type Area } from "react-easy-crop";
 import { toast } from "sonner";
 import Button from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Portal from "@/components/ui/portal";
 
 interface ProfileModalChangeProfilePhotoProps {
     isOpen: boolean;
@@ -101,6 +102,7 @@ export default function ProfileModalChangeProfilePhoto({
     };
 
     return (
+        <Portal>
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto p-4 py-8">
@@ -270,6 +272,7 @@ export default function ProfileModalChangeProfilePhoto({
                 </div>
             )}
         </AnimatePresence>
+        </Portal>
     );
 }
 
