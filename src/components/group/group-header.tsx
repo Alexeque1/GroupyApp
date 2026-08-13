@@ -90,6 +90,26 @@ export default function GroupHeader({
         });
     };
 
+    const handleShare = async () => {
+        const shareUrl = window.location.href;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({ title: groupData.title, url: shareUrl });
+            } catch {
+                // El usuario canceló el share sheet — no es un error real, no mostramos alerta.
+            }
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(shareUrl);
+            setStatusAlert({ description: "Link copied to clipboard.", type: "success" });
+        } catch {
+            setStatusAlert({ description: "Couldn't copy the link.", type: "error" });
+        }
+    };
+
     return (
         <section className="flex flex-col items-center">
             <ConfirmAlert
@@ -175,7 +195,8 @@ export default function GroupHeader({
                         </h1>
                     </div>
 
-                    <div className="relative z-10 mt-6 flex flex-col items-start gap-6 border-t border-black/10 pt-5 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:justify-between">
+                    {/* ESTADÍSTICAS Y BOTONES */}
+                    <div className="relative z-10 mt-6 flex w-full flex-col items-start gap-6 border-t border-black/10 pt-5 md:flex-row md:items-center md:justify-between">
 
                         {/* ESTADÍSTICAS */}
                         <div className="flex items-center gap-6 md:gap-10">
@@ -196,13 +217,13 @@ export default function GroupHeader({
                         </div>
 
                         {/* BOTONES */}
-                        <div className="flex w-full px-0 gap-3 sm:w-auto min-[1200px]:flex-row">
+                        <div className="flex w-full flex-row items-center gap-3 md:w-auto md:flex-nowrap">
                             {isMember ? (
                                 <Button
                                     tone="following"
                                     variant="outline"
                                     onClick={handleJoinToggle}
-                                    className="flex-1 px-8 py-3 sm:flex-none"
+                                    className="h-12 flex-1 px-4 md:flex-none md:px-8"
                                     textClassName="text-sm flex items-center gap-2 justify-center"
                                 >
                                     <Check size={16} />
@@ -212,20 +233,36 @@ export default function GroupHeader({
                                 <Button
                                     tone="dark"
                                     onClick={handleJoinToggle}
-                                    className="flex-1 px-8 py-3 sm:flex-none"
+                                    className="h-12 flex-1 px-4 md:flex-none md:px-8"
                                     textClassName="text-sm flex items-center gap-2 justify-center"
                                 >
                                     {isFull ? "Group full" : "Join Group"}
                                 </Button>
                             )}
 
-                            <button
-                                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-black/10 bg-black/5 text-black/60 transition-all hover:bg-black/10 hover:text-black sm:h-auto sm:w-auto sm:px-6 cursor-pointer"
-                                aria-label="Share Group"
+                            {isUserOwner && (
+                                <Button
+                                    tone="dark"
+                                    onClick={() => { }}
+                                    className="h-12 flex-1 px-4 md:flex-none md:px-8"
+                                    textClassName="text-sm flex items-center gap-2 justify-center"
+                                >
+                                    Edit profile
+                                </Button>
+                            )}
+
+                            {/* BOTÓN SHARE - Usando tu componente Button */}
+                            <Button
+                                tone="dark"
+                                onClick={handleShare}
+                                className="h-12 w-12 shrink-0 flex-none p-0 md:w-auto md:px-6"
+                                textClassName="flex items-center justify-center text-sm"
                             >
-                                <Share2 size={18} className="cursor-pointer" />
-                                <span className="hidden sm:ml-2 cursor-pointer sm:inline-block sm:text-sm sm:font-semibold">Share</span>
-                            </button>
+                                <Share2 size={18} />
+                                <span className="hidden md:ml-2 md:inline-block md:font-semibold">
+                                    Share
+                                </span>
+                            </Button>
                         </div>
                     </div>
 
