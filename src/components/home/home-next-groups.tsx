@@ -5,12 +5,11 @@ import { Sparkles, Users, Timer } from "lucide-react";
 import ProfileGroupCard, { GroupType } from "../profile/profile-groups-cards";
 import Button from "../ui/button";
 import Link from "next/link";
+import { getToday } from "@/lib/group-filters";
 
 export default function HomeNextGroups({userGroups}: {userGroups: GroupType[]}) {
     const carouselRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
-    // Solo se activa cuando hubo un movimiento real del mouse, no en el simple mousedown de un click.
-    // Se usa para bloquear la navegación de las tarjetas mientras se arrastra el carrusel.
     const [hasDragged, setHasDragged] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
@@ -51,11 +50,10 @@ export default function HomeNextGroups({userGroups}: {userGroups: GroupType[]}) 
         e.preventDefault();
     };
 
-    const currentDate = new Date("2026-07-31");
-
+    const today = getToday();
     const filteredGroups = userGroups.filter((group) => {
         const groupDate = new Date(group.startDate);
-        return groupDate >= currentDate;
+        return groupDate >= today;
     }).slice(0, GROUPS_LIMIT);
 
     return (

@@ -2,6 +2,7 @@ import { Calendar, MapPin, Tag } from "lucide-react";
 import Image from "next/image";
 import { USERS_DATA } from "@/lib/mock_data/users-data";
 import Link from "next/link";
+import { formatEventDate } from "@/lib/date";
 
 type GroupAsideProps = {
     group: {
@@ -47,7 +48,7 @@ export default function GroupAsideSection({ group }: GroupAsideProps) {
                     </div>
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <Calendar size={16} className="text-[#6D28D9]" />
-                        <span>Created in {group.startDate}</span>
+                        <span>Starts {formatEventDate(group.startDate)}</span>
                     </div>
                 </div>
             </div>

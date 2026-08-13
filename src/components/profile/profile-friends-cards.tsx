@@ -73,7 +73,6 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
             className={cn(
                 "group relative flex cursor-pointer items-center justify-between rounded-2xl border p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]",
                 isMenuOpen ? "z-50" : "z-10 hover:z-20",
-                // El usuario logueado se destaca con el morado de la marca; sus amigos con un azul de negocio.
                 isSelf
                     ? "border-[#6D28D9]/20 bg-[#6D28D9]/5"
                     : isFriend
@@ -156,16 +155,13 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                             const button = e.currentTarget;
                             const rect = button.getBoundingClientRect();
 
-                            // 1. Medimos el espacio contra la ventana entera (Viewport)
                             const spaceBelowWindow = window.innerHeight - rect.bottom;
 
-                            // 2. Buscamos el contenedor padre más cercano que pueda estar cortando el dropdown
                             const scrollParent = button.closest('.overflow-y-auto, .overflow-hidden, .overflow-scroll, .overflow-x-auto, [style*="overflow"]') as HTMLElement;
                             let spaceBelowParent = spaceBelowWindow;
 
                             if (scrollParent) {
                                 const parentRect = scrollParent.getBoundingClientRect();
-                                // Calculamos cuánto espacio hay desde el botón hasta el fondo de su contenedor
                                 spaceBelowParent = parentRect.bottom - rect.bottom;
                             }
 
@@ -229,23 +225,27 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                                 </button>
                             )}
 
-                            <button
-                                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
-                                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
-                            >
-                                <Users size={16} className="text-[#059669]" />
-                                Invite group
-                            </button>
+                            {!isSelf && (
+                                <>
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
+                                        className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
+                                    >
+                                        <Users size={16} className="text-[#059669]" />
+                                        Invite group
+                                    </button>
 
-                            <div className="my-1 h-px w-full bg-black/5" />
+                                    <div className="my-1 h-px w-full bg-black/5" />
 
-                            <button
-                                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
-                                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
-                            >
-                                <MessageCircle size={16} className="text-[#EA580C]" />
-                                Send message
-                            </button>
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
+                                        className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
+                                    >
+                                        <MessageCircle size={16} className="text-[#EA580C]" />
+                                        Send message
+                                    </button>
+                                </>
+                            )}
                         </motion.div>
                     )}
                 </AnimatePresence>

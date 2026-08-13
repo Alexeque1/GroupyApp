@@ -2,13 +2,15 @@
 
 import { Button } from "@base-ui/react";
 import { ArrowLeft, Construction } from "lucide-react";
-import router from "next/router";
+import {useRouter} from "next/navigation";
 
 interface CommunityProps {
     params: Promise<{ id: string }>;
 }
 
 export default function Community({ params }: CommunityProps) {
+    const router = useRouter();
+    
     return (
         <div className="flex min-h-[70vh] w-full flex-col items-center justify-center px-4 text-center animate-in fade-in zoom-in-95 duration-500">
 

@@ -5,9 +5,6 @@ import type { GroupType, GroupRole } from "@/components/profile/profile-groups-c
 import type { CommunityType } from "@/components/profile/profile-communities-cards";
 import type { FriendType } from "@/components/profile/profile-friends-cards";
 
-// Shape que consumen ProfileHeader / ProfileAside / ProfileMain (y HomeMain).
-// Es el mismo "view model" que antes vivía hardcodeado en profile-info.tsx,
-// pero ahora se calcula para CUALQUIER usuario a partir de USERS_DATA.
 export interface ProfileViewModel {
     id: number;
     name: string;

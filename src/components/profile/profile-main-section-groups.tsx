@@ -7,12 +7,12 @@ import ProfileGroupCard, { GroupType } from "./profile-groups-cards";
 import ProfileSectionGrid from "./profile-section-grid";
 import PaginationControls from "../ui/pagination-controls"; // Asegúrate de ajustar esta ruta según tu proyecto
 import { paginate } from "@/lib/pagination";
+import { getGroupStatus } from "@/lib/group-status";
 
 type SortBy = "newest" | "oldest" | "title";
 
 const ITEMS_PER_PAGE = 6;
 
-// El usuario administra los grupos donde es owner o admin.
 const isManaged = (group: GroupType) =>
     group.role === "owner" || group.role === "admin";
 
@@ -124,7 +124,7 @@ export default function ProfileSectionGroups({
         [groups]
     );
     const statuses = useMemo(
-        () => Array.from(new Set(groups.map((g) => g.status))),
+        () => Array.from(new Set(groups.map((g) => getGroupStatus(g.startDate)))),
         [groups]
     );
 
@@ -135,7 +135,7 @@ export default function ProfileSectionGroups({
         return groups.filter((group) => {
             
             const matchesSearch = group.title.toLowerCase().includes(searchQuery.toLowerCase());
-            const matchesStatus = statusFilter === "all" || group.status === statusFilter;
+            const matchesStatus = statusFilter === "all" || getGroupStatus(group.startDate) === statusFilter;
             const matchesCategory = categoryFilter === "all" || group.category === categoryFilter;
 
             {/* FILTRO POR CREADOR (USANDO EL USERNAME ÚNICO) */}

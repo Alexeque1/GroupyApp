@@ -47,7 +47,6 @@ export default function ImageDropzone({
 
         const imageUrl = URL.createObjectURL(file);
 
-        // Verificamos la orientación antes de abrir el cropper
         const img = new Image();
         img.onload = () => {
             if (img.height > img.width) {
@@ -285,10 +284,11 @@ async function getCroppedImg(
         pixelCrop.height
     );
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         canvas.toBlob((blob) => {
             if (!blob) {
                 console.error("Canvas is empty");
+                reject(new Error("Canvas is empty"));
                 return;
             }
             const previewUrl = URL.createObjectURL(blob);

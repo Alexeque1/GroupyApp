@@ -1,6 +1,8 @@
 "use client";
 
 import EntityCard, { type EntityCardData, type GroupRole } from "@/components/cards/entity-card";
+import { getGroupStatus, getGroupStatusInfo } from "@/lib/group-status";
+import { formatEventDate } from "@/lib/date";
 
 export type { GroupRole };
 
@@ -21,12 +23,12 @@ export interface GroupType {
     role?: GroupRole;
     adminIds: number[];
     ownerId: number;
-    status: string;
-    statusClasses: string;
     createdAt: string;
 }
 
 export default function ProfileGroupCard({ group, className }: { group: GroupType; className?: string }) {
+    const statusInfo = getGroupStatusInfo(getGroupStatus(group.startDate));
+
     const data: EntityCardData = {
         kind: "group",
         id: group.id,
@@ -37,10 +39,10 @@ export default function ProfileGroupCard({ group, className }: { group: GroupTyp
         members: group.members,
         colorFrom: group.colorFrom,
         colorTo: group.colorTo,
-        status: group.status,
-        statusClasses: group.statusClasses,
+        status: statusInfo.label,
+        statusClasses: statusInfo.badgeClasses,
         owner: group.owner,
-        startDate: group.startDate,
+        startDate: formatEventDate(group.startDate),
         role: group.role,
     };
 

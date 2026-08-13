@@ -1,6 +1,7 @@
 "use client";
 
 import EntityCard, { type EntityCardData } from "@/components/cards/entity-card";
+import { getCommunityStatusInfo } from "@/lib/community-status";
 
 export interface CommunityType {
     id: number;
@@ -13,10 +14,13 @@ export interface CommunityType {
     location: string;
     activity: string;
     status: string;
-    statusClasses: string;
 }
 
 export default function ProfileCommunityCard({ community, className }: { community: CommunityType; className?: string }) {
+    // statusClasses no se guarda: se busca a partir de status, así nunca puede
+    // quedar desincronizado del texto que se está mostrando.
+    const statusInfo = getCommunityStatusInfo(community.status);
+
     const data: EntityCardData = {
         kind: "community",
         id: community.id,
@@ -27,8 +31,8 @@ export default function ProfileCommunityCard({ community, className }: { communi
         members: community.members,
         colorFrom: community.colorFrom,
         colorTo: community.colorTo,
-        status: community.status,
-        statusClasses: community.statusClasses,
+        status: statusInfo.label,
+        statusClasses: statusInfo.badgeClasses,
         activity: community.activity,
     };
 

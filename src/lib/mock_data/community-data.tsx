@@ -12,7 +12,6 @@ export const COMMUNITIES_DATA: CommunityType[] = [
         location: "Global",
         activity: "+100 posts today",
         status: "Public",
-        statusClasses: "bg-[#A9FFD7]/30 text-[#059669] border-[#059669]/20",
     },
     {
         id: 2,
@@ -25,7 +24,6 @@ export const COMMUNITIES_DATA: CommunityType[] = [
         location: "Berlin, DE",
         activity: "Very Active",
         status: "Private",
-        statusClasses: "bg-[#8C6CFF]/20 text-[#6D28D9] border-[#8C6CFF]/30",
     },
     {
         id: 3,
@@ -38,6 +36,5 @@ export const COMMUNITIES_DATA: CommunityType[] = [
         location: "Online",
         activity: "Daily discussions",
         status: "Public",
-        statusClasses: "bg-[#A9FFD7]/30 text-[#059669] border-[#059669]/20",
     }
 ];

@@ -8,7 +8,6 @@ import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
 import DiscoverGroups from "./discover-groups";
 
 export default function DiscoverCategoriesSection() {
-    // La categoría la manejan los chips (null = "All")
     const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
     // DISCOVER FILTERS
@@ -92,7 +91,6 @@ export default function DiscoverCategoriesSection() {
                         key={cat.id}
                         category={cat}
                         isActive={activeCategory === cat.id}
-                        // Volver a tocar la categoría activa la deselecciona (vuelve a "All")
                         onClick={() => handleCategoryChange(cat.id)}
                     />
                 ))}

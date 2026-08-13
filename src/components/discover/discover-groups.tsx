@@ -6,10 +6,11 @@ import ProfileGroupCard, { GroupType } from "../profile/profile-groups-cards";
 import PaginationControls from "../ui/pagination-controls";
 import { GROUPS_DATA } from "@/lib/mock_data/group-data";
 import { matchesTime, matchesCapacity } from "@/lib/group-filters";
+import { getGroupStatus } from "@/lib/group-status";
 import { paginate } from "@/lib/pagination";
 
 interface DiscoverGroupsProps {
-    categoryId: number | null; // null = "All"
+    categoryId: number | null;
     searchQuery: string;
     timeFilter: string;
     capacityFilter: string;
@@ -35,6 +36,7 @@ export default function DiscoverGroups({
                 group.role === undefined &&
                 (categoryId === null || group.categoryId === categoryId) &&
                 (query === "" || group.title.toLowerCase().includes(query)) &&
+                getGroupStatus(group.startDate) !== "Past" &&
                 matchesTime(group, timeFilter) &&
                 matchesCapacity(group, capacityFilter)
         );

@@ -24,7 +24,6 @@ type GroupHeaderProps = {
     };
     isUserMember?: boolean;
     isUserOwner?: boolean;
-    // Candidatos a nuevo dueño: los demás miembros del grupo (sin el dueño actual).
     groupMembers?: UserType[];
 };
 

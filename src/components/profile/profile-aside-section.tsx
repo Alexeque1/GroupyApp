@@ -3,6 +3,7 @@ import { Calendar, MapPin, Users, Briefcase, Globe, CalendarX, UsersRound } from
 import { cn } from "@/lib/utils";
 import type { GroupType } from "./profile-groups-cards";
 import type { CommunityType } from "./profile-communities-cards";
+import { getToday } from "@/lib/group-filters";
 
 type ProfileAsideProps = {
     user: {
@@ -18,9 +19,7 @@ type ProfileAsideProps = {
 };
 
 function getNearestGroup(groups: GroupType[]): GroupType | null {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
+    const today = getToday();
     const upcoming = groups
         .map((group) => ({ group, date: new Date(group.startDate) }))
         .filter(({ date }) => !isNaN(date.getTime()) && date.getTime() >= today.getTime())

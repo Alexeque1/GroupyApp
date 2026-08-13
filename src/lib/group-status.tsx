@@ -1,19 +1,17 @@
 import { Clock, Radio, CheckCircle2 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { daysFromToday } from "@/lib/group-filters";
 
 export type GroupStatus = "Upcoming" | "Active" | "Past";
 
 export interface GroupStatusInfo {
     label: string;
     icon: LucideIcon;
-    badgeClasses: string; // bg + text + border de la pill
-    dotClasses: string; // color sólido para el indicador circular
-    pulse?: boolean; // "en vivo ahora" — punto animado
+    badgeClasses: string;
+    dotClasses: string; 
+    pulse?: boolean;
 }
 
-// Fuente única de verdad para color + ícono + copy por estado de grupo.
-// Las mismas clases de badge que ya estaban duplicadas en cada registro de
-// GROUPS_DATA (status/statusClasses), ahora centralizadas acá.
 export const GROUP_STATUS_DATA: Record<GroupStatus, GroupStatusInfo> = {
     Upcoming: {
         label: "Upcoming",
@@ -36,7 +34,6 @@ export const GROUP_STATUS_DATA: Record<GroupStatus, GroupStatusInfo> = {
     },
 };
 
-// Fallback defensivo por si llega un status que no está en el mapa.
 export const FALLBACK_STATUS_INFO: GroupStatusInfo = {
     label: "Unknown",
     icon: Clock,
@@ -46,4 +43,11 @@ export const FALLBACK_STATUS_INFO: GroupStatusInfo = {
 
 export function getGroupStatusInfo(status: string): GroupStatusInfo {
     return GROUP_STATUS_DATA[status as GroupStatus] ?? FALLBACK_STATUS_INFO;
+}
+
+export function getGroupStatus(startDate: string): GroupStatus {
+    const days = daysFromToday(startDate);
+    if (days > 0) return "Upcoming";
+    if (days === 0) return "Active";
+    return "Past";
 }

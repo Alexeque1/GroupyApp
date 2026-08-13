@@ -7,6 +7,7 @@ import AnimatedBackgroundLight from "@/components/ui/backgrounds/animated-backgr
 import { GROUPS_DATA } from "@/lib/mock_data/group-data";
 import { USERS_DATA } from "@/lib/mock_data/users-data";
 import { CURRENT_USER_ID } from "@/lib/mock_data/profile-info";
+import { getGroupStatus } from "@/lib/group-status";
 import { motion } from "framer-motion";
 import { use } from "react";
 
@@ -57,7 +58,7 @@ export default function Group({ params }: GroupProps) {
                         memberCount,
                         memberLimit,
                         category: group.category,
-                        status: group.status,
+                        status: getGroupStatus(group.startDate),
                     }}
                     isUserMember={isUserMember}
                     isUserOwner={userIsOwner}
