@@ -163,106 +163,108 @@ export default function GroupHeader({
                 <div className="relative px-6 pb-6 pt-6 md:px-10 md:pb-8">
 
                     {/* MESHY BACKGROUND */}
-                    <AnimatedBackgroundLight />
+                    <AnimatedBackgroundLight variant="blue" />
 
-                    {/* BLOQUE SUPERIOR */}
-                    <div className="relative z-10 flex flex-col items-start gap-2">
-                        <div className="flex flex-wrap items-center gap-2">
-                            <span className="rounded-full bg-[#8C6CFF]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#6D28D9]">
-                                {groupData.category}
-                            </span>
+                    <div className="z-20">
+                        {/* BLOQUE SUPERIOR */}
+                        <div className="relative z-10 flex flex-col items-start gap-2">
+                            <div className="flex flex-wrap items-center gap-2">
+                                <span className="rounded-full bg-[#8C6CFF]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#6D28D9]">
+                                    {groupData.category}
+                                </span>
 
-                            <span
-                                className={cn(
-                                    "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wider",
-                                    statusInfo.badgeClasses
-                                )}
-                            >
-                                {statusInfo.pulse ? (
-                                    <span className="relative flex h-2 w-2">
-                                        <span className={cn("absolute inline-flex h-full w-full animate-ping rounded-full opacity-75", statusInfo.dotClasses)} />
-                                        <span className={cn("relative inline-flex h-2 w-2 rounded-full", statusInfo.dotClasses)} />
-                                    </span>
-                                ) : (
-                                    <StatusIcon size={12} />
-                                )}
-                                {statusInfo.label}
-                            </span>
-                        </div>
-
-                        <h1 className="dark-mesh-gradient text-3xl font-black tracking-tight md:text-4xl lg:text-5xl">
-                            {groupData.title}
-                        </h1>
-                    </div>
-
-                    {/* ESTADÍSTICAS Y BOTONES */}
-                    <div className="relative z-10 mt-6 flex w-full flex-col items-start gap-6 border-t border-black/10 pt-5 md:flex-row md:items-center md:justify-between">
-
-                        {/* ESTADÍSTICAS */}
-                        <div className="flex items-center gap-6 md:gap-10">
-                            <div className="flex flex-col">
-                                <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-bold text-[#6D28D9] md:text-4xl">
-                                        {memberCount}
-                                    </span>
-                                    <span className="text-xl font-bold text-black/30 md:text-2xl">
-                                        / {groupData.memberLimit}
-                                    </span>
-                                </div>
-                                <span className="mt-1 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
-                                    <Users size={14} className="text-[#6D28D9]" />
-                                    Members
+                                <span
+                                    className={cn(
+                                        "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wider",
+                                        statusInfo.badgeClasses
+                                    )}
+                                >
+                                    {statusInfo.pulse ? (
+                                        <span className="relative flex h-2 w-2">
+                                            <span className={cn("absolute inline-flex h-full w-full animate-ping rounded-full opacity-75", statusInfo.dotClasses)} />
+                                            <span className={cn("relative inline-flex h-2 w-2 rounded-full", statusInfo.dotClasses)} />
+                                        </span>
+                                    ) : (
+                                        <StatusIcon size={12} />
+                                    )}
+                                    {statusInfo.label}
                                 </span>
                             </div>
+
+                            <h1 className="dark-mesh-gradient text-3xl font-black tracking-tight md:text-4xl lg:text-5xl">
+                                {groupData.title}
+                            </h1>
                         </div>
 
-                        {/* BOTONES */}
-                        <div className="flex w-full flex-row items-center gap-3 md:w-auto md:flex-nowrap">
-                            {isMember ? (
-                                <Button
-                                    tone="following"
-                                    variant="outline"
-                                    onClick={handleJoinToggle}
-                                    className="h-12 flex-1 px-4 md:flex-none md:px-8"
-                                    textClassName="text-sm flex items-center gap-2 justify-center"
-                                >
-                                    <Check size={16} />
-                                    Joined
-                                </Button>
-                            ) : (
+                        {/* ESTADÍSTICAS Y BOTONES */}
+                        <div className="relative z-10 mt-6 flex w-full flex-col items-start gap-6 border-t border-black/10 pt-5 md:flex-row md:items-center md:justify-between">
+
+                            {/* ESTADÍSTICAS */}
+                            <div className="flex items-center gap-6 md:gap-10">
+                                <div className="flex flex-col">
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-3xl font-bold text-[#6D28D9] md:text-4xl">
+                                            {memberCount}
+                                        </span>
+                                        <span className="text-xl font-bold text-black/30 md:text-2xl">
+                                            / {groupData.memberLimit}
+                                        </span>
+                                    </div>
+                                    <span className="mt-1 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
+                                        <Users size={14} className="text-[#6D28D9]" />
+                                        Members
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* BOTONES */}
+                            <div className="flex w-full flex-row items-center gap-3 md:w-auto md:flex-nowrap">
+                                {isMember ? (
+                                    <Button
+                                        tone="following"
+                                        variant="outline"
+                                        onClick={handleJoinToggle}
+                                        className="h-12 flex-1 px-4 md:flex-none md:px-8"
+                                        textClassName="text-sm flex items-center gap-2 justify-center"
+                                    >
+                                        <Check size={16} />
+                                        Joined
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        tone="dark"
+                                        onClick={handleJoinToggle}
+                                        className="h-12 flex-1 px-4 md:flex-none md:px-8"
+                                        textClassName="text-sm flex items-center gap-2 justify-center"
+                                    >
+                                        {isFull ? "Group full" : "Join Group"}
+                                    </Button>
+                                )}
+
+                                {isUserOwner && (
+                                    <Button
+                                        tone="dark"
+                                        onClick={() => { }}
+                                        className="h-12 flex-1 px-4 md:flex-none md:px-8"
+                                        textClassName="text-sm flex items-center gap-2 justify-center"
+                                    >
+                                        Edit profile
+                                    </Button>
+                                )}
+
+                                {/* BOTÓN SHARE - Usando tu componente Button */}
                                 <Button
                                     tone="dark"
-                                    onClick={handleJoinToggle}
-                                    className="h-12 flex-1 px-4 md:flex-none md:px-8"
-                                    textClassName="text-sm flex items-center gap-2 justify-center"
+                                    onClick={handleShare}
+                                    className="h-12 w-12 shrink-0 flex-none p-0 md:w-auto md:px-6"
+                                    textClassName="flex items-center justify-center text-sm"
                                 >
-                                    {isFull ? "Group full" : "Join Group"}
+                                    <Share2 size={18} />
+                                    <span className="hidden md:ml-2 md:inline-block md:font-semibold">
+                                        Share
+                                    </span>
                                 </Button>
-                            )}
-
-                            {isUserOwner && (
-                                <Button
-                                    tone="dark"
-                                    onClick={() => { }}
-                                    className="h-12 flex-1 px-4 md:flex-none md:px-8"
-                                    textClassName="text-sm flex items-center gap-2 justify-center"
-                                >
-                                    Edit profile
-                                </Button>
-                            )}
-
-                            {/* BOTÓN SHARE - Usando tu componente Button */}
-                            <Button
-                                tone="dark"
-                                onClick={handleShare}
-                                className="h-12 w-12 shrink-0 flex-none p-0 md:w-auto md:px-6"
-                                textClassName="flex items-center justify-center text-sm"
-                            >
-                                <Share2 size={18} />
-                                <span className="hidden md:ml-2 md:inline-block md:font-semibold">
-                                    Share
-                                </span>
-                            </Button>
+                            </div>
                         </div>
                     </div>
 

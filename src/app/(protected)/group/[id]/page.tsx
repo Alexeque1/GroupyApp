@@ -26,7 +26,7 @@ export default function Group({ params }: GroupProps) {
     );
     const userIsOwner = group?.ownerId === currentUser?.id
 
-    if (!group) {
+    if (!group || !currentUser) {
         return (
             <div className="flex items-center justify-center h-full p-5">
                 <p>Group not found.</p>
@@ -80,9 +80,9 @@ export default function Group({ params }: GroupProps) {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-                    className="flex flex-[2] flex-col"
+                    className="flex flex-[2] flex-col w-full"
                 >
-                    <GroupMainSection />
+                    <GroupMainSection user={currentUser} groupId={group.id}/>
                 </motion.div>
             </div>
         </div>

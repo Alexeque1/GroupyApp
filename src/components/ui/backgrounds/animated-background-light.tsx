@@ -1,13 +1,33 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-export default function AnimatedBackgroundLight() {
+interface AnimatedBackgroundProps {
+  variant?: "default" | "blue";
+}
+
+export default function AnimatedBackground({ variant = "default" }: AnimatedBackgroundProps) {
+  // Definimos las paletas de colores según la variante
+  const colorPalettes = {
+    default: {
+      ball1: "bg-[#8C6CFF]/40",
+      ball2: "bg-[#FFB199]/40",
+      ball3: "bg-[#A9FFD7]/50",
+    },
+    blue: {
+      ball1: "bg-[#3B82F6]/40",
+      ball2: "bg-[#06B6D4]/40",
+      ball3: "bg-[#8C6CFF]/40", 
+    },
+  };
+
+  const colors = colorPalettes[variant];
+
   return (
-    // Opacidad al 100% y un blur un poco menor para que los colores resalten sobre fondos blancos
     <div className="absolute inset-0 z-0 overflow-hidden blur-[80px] opacity-100 pointer-events-none">
-
-      {/* Bola 1 - Morada */}
+      
+      {/* Bola 1 */}
       <motion.div
         animate={{
           x: ["-30%", "40%", "-10%", "-30%"],
@@ -19,11 +39,13 @@ export default function AnimatedBackgroundLight() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        // Se mantiene la transparencia pero los colores base brillan más por el contenedor
-        className="absolute top-0 left-0 h-[500px] w-[500px] rounded-full bg-[#8C6CFF]/40"
+        className={cn(
+          "absolute top-0 left-0 h-[500px] w-[500px] rounded-full transition-colors duration-1000",
+          colors.ball1
+        )}
       />
 
-      {/* Bola 2 - Naranja Suave */}
+      {/* Bola 2 */}
       <motion.div
         animate={{
           x: ["40%", "-20%", "20%", "40%"],
@@ -35,10 +57,13 @@ export default function AnimatedBackgroundLight() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-[#FFB199]/40"
+        className={cn(
+          "absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full transition-colors duration-1000",
+          colors.ball2
+        )}
       />
 
-      {/* Bola 3 - Menta */}
+      {/* Bola 3 */}
       <motion.div
         animate={{
           x: ["-20%", "30%", "-10%", "-20%"],
@@ -50,8 +75,10 @@ export default function AnimatedBackgroundLight() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        // Un poco más de fuerza a este color para contrastar con el fondo claro
-        className="absolute left-1/4 top-1/4 h-[400px] w-[400px] rounded-full bg-[#A9FFD7]/50"
+        className={cn(
+          "absolute left-1/4 top-1/4 h-[400px] w-[400px] rounded-full transition-colors duration-1000",
+          colors.ball3
+        )}
       />
     </div>
   );

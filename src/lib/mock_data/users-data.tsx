@@ -22,6 +22,8 @@ export interface UserType {
     joined: string; // Mes y año de registro, ej: "October 2023"
 }
 
+export type FeedUser = Pick<UserType, "firstName" | "lastName" | "username" | "profileImage">;
+
 export const USERS_DATA: UserType[] = [
     {
         id: 1,
