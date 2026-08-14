@@ -1,19 +1,3 @@
-export type PostCategory = "Announcement" | "Media";
-
-export interface PostType {
-    id: number;
-    groupId: number;
-    authorId: number;
-    category: PostCategory;
-    content: string;
-    createdAt: string;
-    viewCount: number;
-    likeCount: number;
-    likedByUserIds: number[];
-    commentCount: number;
-    imageUrl?: string;
-}
-
 export const POSTS_DATA: PostType[] = [
     {
         id: 1,
@@ -40,4 +24,204 @@ export const POSTS_DATA: PostType[] = [
         commentCount: 0,
         imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop"
     },
+    {
+        id: 3,
+        groupId: 2,
+        authorId: 4,
+        category: "Announcement",
+        content: "Welcome everyone to the new semester study group! Please check the pinned resources channel.",
+        createdAt: "2026-08-01T10:00:00Z",
+        viewCount: 65,
+        likeCount: 8,
+        likedByUserIds: [1, 3, 5, 8],
+        commentCount: 5,
+    },
+    {
+        id: 4,
+        groupId: 2,
+        authorId: 12,
+        category: "Media",
+        content: "Check out this mind map I made for the upcoming architecture exam.",
+        createdAt: "2026-08-04T16:20:00Z",
+        viewCount: 34,
+        likeCount: 5,
+        likedByUserIds: [4, 7, 12],
+        commentCount: 1,
+        imageUrl: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+        id: 5,
+        groupId: 3,
+        authorId: 2,
+        category: "Announcement",
+        content: "Our weekly sync meeting has been moved to Thursday at 5 PM EST. Don't miss it!",
+        createdAt: "2026-08-07T11:00:00Z",
+        viewCount: 29,
+        likeCount: 2,
+        likedByUserIds: [6, 11],
+        commentCount: 3,
+    },
+    {
+        id: 6,
+        groupId: 4,
+        authorId: 15,
+        category: "Media",
+        content: "First draft of the UI component library concept. Feedback is appreciated!",
+        createdAt: "2026-08-08T18:45:00Z",
+        viewCount: 50,
+        likeCount: 12,
+        likedByUserIds: [1, 3, 9, 14],
+        commentCount: 4,
+        imageUrl: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+        id: 7,
+        groupId: 5,
+        authorId: 8,
+        category: "Announcement",
+        content: "Code freeze for the sprint 1 deliverables is scheduled for midnight. Make sure your PRs are merged.",
+        createdAt: "2026-08-09T20:10:00Z",
+        viewCount: 88,
+        likeCount: 7,
+        likedByUserIds: [2, 5, 10, 13],
+        commentCount: 6,
+    },
+    {
+        id: 8,
+        groupId: 6,
+        authorId: 11,
+        category: "Media",
+        content: "Working late from the home office setup tonight. Coffee is the real MVP.",
+        createdAt: "2026-08-10T22:05:00Z",
+        viewCount: 22,
+        likeCount: 4,
+        likedByUserIds: [4, 8],
+        commentCount: 1,
+        imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+        id: 9,
+        groupId: 7,
+        authorId: 3,
+        category: "Announcement",
+        content: "Guest speaker announcement: Sarah Jenkins from TechCorp will join us next Tuesday to talk about cloud scaling.",
+        createdAt: "2026-08-11T08:30:00Z",
+        viewCount: 95,
+        likeCount: 15,
+        likedByUserIds: [1, 2, 3, 4, 5, 6],
+        commentCount: 8,
+    },
+    {
+        id: 10,
+        groupId: 8,
+        authorId: 9,
+        category: "Media",
+        content: "Quick snippet of the sound design test for our indie game project.",
+        createdAt: "2026-08-12T14:12:00Z",
+        viewCount: 41,
+        likeCount: 9,
+        likedByUserIds: [7, 10, 12],
+        commentCount: 2,
+        imageUrl: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+        id: 11,
+        groupId: 9,
+        authorId: 6,
+        category: "Announcement",
+        content: "Please fill out the availability form for the upcoming regional hackathon before Friday afternoon.",
+        createdAt: "2026-08-12T17:50:00Z",
+        viewCount: 31,
+        likeCount: 3,
+        likedByUserIds: [1, 8],
+        commentCount: 0,
+    },
+    {
+        id: 12,
+        groupId: 10,
+        authorId: 14,
+        category: "Media",
+        content: "Captured this awesome setup at the local maker space today.",
+        createdAt: "2026-08-13T12:00:00Z",
+        viewCount: 56,
+        likeCount: 11,
+        likedByUserIds: [2, 4, 11, 15],
+        commentCount: 3,
+        imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+        id: 13,
+        groupId: 11,
+        authorId: 7,
+        category: "Announcement",
+        content: "New guidelines for documentation are up on the wiki. Please review them prior to your next commit.",
+        createdAt: "2026-08-13T15:20:00Z",
+        viewCount: 27,
+        likeCount: 2,
+        likedByUserIds: [3, 9],
+        commentCount: 1,
+    },
+    {
+        id: 14,
+        groupId: 12,
+        authorId: 13,
+        category: "Media",
+        content: "Anyone else experimenting with local LLMs this week? Here are my benchmark results.",
+        createdAt: "2026-08-14T09:00:00Z",
+        viewCount: 74,
+        likeCount: 18,
+        likedByUserIds: [1, 5, 8, 10, 12, 14],
+        commentCount: 7,
+        imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+        id: 15,
+        groupId: 13,
+        authorId: 5,
+        category: "Announcement",
+        content: "Maintenance window tonight from 2:00 AM to 4:00 AM UTC. Services might experience brief downtime.",
+        createdAt: "2026-08-14T10:30:00Z",
+        viewCount: 39,
+        likeCount: 4,
+        likedByUserIds: [2, 6, 7],
+        commentCount: 0,
+    },
+    {
+        id: 16,
+        groupId: 14,
+        authorId: 16,
+        category: "Media",
+        content: "Inspiration board for our rebranding phase. Let me know your thoughts on the color palette.",
+        createdAt: "2026-08-14T11:45:00Z",
+        viewCount: 48,
+        likeCount: 10,
+        likedByUserIds: [3, 4, 11, 15],
+        commentCount: 5,
+        imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1000&auto=format&fit=crop"
+    },
+    {
+        id: 17,
+        groupId: 15,
+        authorId: 2,
+        category: "Announcement",
+        content: "Welcome to Group 15! We will be focusing on cloud-native applications and microservices architecture.",
+        createdAt: "2026-08-14T13:00:00Z",
+        viewCount: 19,
+        likeCount: 5,
+        likedByUserIds: [1, 8, 12],
+        commentCount: 2,
+    },
+    {
+        id: 18,
+        groupId: 16,
+        authorId: 10,
+        category: "Media",
+        content: "Debugging session fuel: too much coffee and not enough sleep. Send help.",
+        createdAt: "2026-08-14T14:20:00Z",
+        viewCount: 62,
+        likeCount: 14,
+        likedByUserIds: [3, 6, 9, 13, 16],
+        commentCount: 4,
+        imageUrl: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1000&auto=format&fit=crop"
+    }
 ];
