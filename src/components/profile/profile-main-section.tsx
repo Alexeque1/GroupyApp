@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProfileSectionGroups from "./profile-main-section-groups";
 import ProfileSectionCommunities from "./profile-main-section-communities";
 import ProfileSectionFriendsList from "./profile-main-section-friendslist";
+import NavigationTabButton from "../ui/navigation-tab-button"; // <-- Importa tu nuevo componente
 import { GroupType } from "./profile-groups-cards";
 import { CommunityType } from "./profile-communities-cards";
 import { FriendType } from "./profile-friends-cards";
@@ -47,38 +48,23 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
     const activeConfig = TABS_CONFIG.find((tab) => tab.key === activeTab)!;
 
     return (
-        <section className="z-10 flex flex-col flex-[2] rounded-3xl border border-black/30 shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-white/5 backdrop-blur-md overflow-hidden min-h-[500px]">
-            {/* HEADER TIPO NAV */}
-            <header className="flex w-full border-b border-black/10 overflow-x-auto hide-scrollbar">
+        <section className="z-10 flex min-h-[500px] flex-[2] flex-col overflow-hidden rounded-3xl bg-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md pt-2 md:pt-4">
+            
+            {/* HEADER TIPO CARPETAS */}
+            <header className="flex w-full items-end gap-1 px-4 overflow-x-auto hide-scrollbar">
                 {TABS_CONFIG.map(({ key }) => (
-                    <button
+                    <NavigationTabButton
                         key={key}
+                        label={key}
+                        isActive={activeTab === key}
                         onClick={() => setActiveTab(key)}
-                        className={`relative cursor-pointer px-6 py-4 text-sm font-semibold transition-colors duration-300 ${
-                            activeTab === key
-                                ? "text-[#6D28D9]"
-                                : "text-black/50 hover:text-black/80"
-                        }`}
-                    >
-                        {key}
-
-                        {activeTab === key && (
-                            <motion.div
-                                layoutId="active-tab-indicator"
-                                className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#6D28D9]"
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 500,
-                                    damping: 30,
-                                }}
-                            />
-                        )}
-                    </button>
+                        layoutId="profile-tabs"
+                    />
                 ))}
             </header>
 
             {/* CONTENIDO DINÁMICO */}
-            <div id="group_section" className="flex-1 p-6 relative flex flex-col">
+            <div id="group_section" className="relative flex flex-1 flex-col p-6 md:p-8 bg-white rounded-b-3xl">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={activeTab}
@@ -86,9 +72,11 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2, ease: "easeInOut" }}
-                        className="flex flex-col gap-4 flex-1 h-full"
+                        className="flex h-full flex-1 flex-col gap-4"
                     >
-                        <h3 className="text-xl font-bold text-black/80">{user.name}&apos;s {activeTab}</h3>
+                        <h3 className="text-xl font-bold text-black/80">
+                            {user.name}&apos;s {activeTab}
+                        </h3>
                         <p className="text-black/60">{activeConfig.description}</p>
 
                         {activeTab === "Groups" && (
