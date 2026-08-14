@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { MoreVertical, Heart, MessageCircle, Bookmark, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -7,6 +8,7 @@ import { getPostCategoryInfo } from "@/lib/post-category";
 import { getCommentsForPost } from "@/lib/posts-selector";
 import { PostViewModel } from "@/lib/posts-selector";
 import { FeedUser } from "@/lib/mock_data/users-data";
+import SendButton from "../ui/send-button";
 
 interface FeedPostCardProps {
     post: PostViewModel;
@@ -20,15 +22,46 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
     // Obtenemos los comentarios para este post
     const postComments = getCommentsForPost(post.id);
 
+    // --- ESTADOS PARA EL NUEVO COMENTARIO ---
+    const [commentText, setCommentText] = useState("");
+    const hasText = commentText.trim().length > 0;
+
+    const handleSendComment = () => {
+        if (!hasText) return;
+        // TODO: Lógica para enviar el comentario al backend
+        console.log("Enviando comentario:", commentText);
+        setCommentText(""); // Limpiamos el input
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleSendComment();
+        }
+    };
+
     return (
         <div
             className={cn(
-                "flex flex-col gap-4 rounded-3xl border p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all",
-                categoryInfo.cardClasses // Aplica el fondo entintado clarito y el borde dinámicamente
+                "relative mt-4 flex flex-col gap-4 rounded-3xl border p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all",
+                categoryInfo.cardClasses 
             )}
         >
+            {/* --- ETIQUETA FLOTANTE (ESTILO PESTAÑA) --- */}
+            <div className="absolute -top-3.5 left-6 z-10 rounded-xl bg-white dark:bg-[#0a0514]">
+                <span
+                    className={cn(
+                        "flex items-center gap-1.5 rounded-xl border px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider shadow-sm",
+                        categoryInfo.badgeClasses
+                    )}
+                >
+                    <CategoryIcon size={14} strokeWidth={2.5} />
+                    {categoryInfo.label}
+                </span>
+            </div>
+
             {/* 1. HEADER DEL POST */}
-            <div className="flex items-start justify-between">
+            <div className="flex items-start justify-between pt-1">
                 <div className="flex items-center gap-3">
                     {/* Avatar */}
                     <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-black/10 shadow-sm dark:border-white/10">
@@ -50,22 +83,10 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                     </div>
                 </div>
 
-                {/* Badge de Categoría + Botón Opciones */}
-                <div className="flex items-center gap-2">
-                    {/* ETIQUETA MODERNA: Estilo pastilla, sin mayúsculas, sutil */}
-                    <span
-                        className={cn(
-                            "hidden items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold shadow-sm backdrop-blur-md sm:flex",
-                            categoryInfo.badgeClasses
-                        )}
-                    >
-                        <CategoryIcon size={14} strokeWidth={2.5} />
-                        {categoryInfo.label}
-                    </span>
-                    <button className="cursor-pointer rounded-full p-1.5 text-black/40 transition-colors hover:bg-black/5 hover:text-black dark:text-white/40 dark:hover:bg-white/10 dark:hover:text-white">
-                        <MoreVertical size={20} />
-                    </button>
-                </div>
+                {/* Botón Opciones */}
+                <button className="cursor-pointer rounded-full p-1.5 text-black/40 transition-colors hover:bg-black/5 hover:text-black dark:text-white/40 dark:hover:bg-white/10 dark:hover:text-white">
+                    <MoreVertical size={20} />
+                </button>
             </div>
 
             {/* 2. CONTENIDO (Texto + Hashtags) */}
@@ -169,11 +190,19 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                             className="object-cover"
                         />
                     </div>
-                    <div className="flex-1 rounded-full border border-black/10 bg-white px-4 py-2.5 shadow-sm transition-colors focus-within:border-[#8C6CFF]/50 dark:border-white/10 dark:bg-[#0a0514] dark:focus-within:border-[#8C6CFF]/50">
+                    {/* Modificamos las clases aquí: flex, flex-1, pl-4, pr-1.5, py-1.5 para alinear y contener el botón */}
+                    <div className="flex flex-1 items-center gap-2 rounded-full border border-black/10 bg-white pl-4 pr-1.5 py-1.5 shadow-sm transition-colors focus-within:border-[#8C6CFF]/50 dark:border-white/10 dark:bg-[#0a0514] dark:focus-within:border-[#8C6CFF]/50">
                         <input
                             type="text"
+                            value={commentText}
+                            onChange={(e) => setCommentText(e.target.value)}
+                            onKeyDown={handleKeyDown}
                             placeholder="Write a comment..."
                             className="w-full bg-transparent text-sm text-black outline-none placeholder:text-black/40 dark:text-white dark:placeholder:text-white/40"
+                        />
+                        <SendButton 
+                            isDisabled={!hasText} 
+                            onClick={handleSendComment} 
                         />
                     </div>
                 </div>

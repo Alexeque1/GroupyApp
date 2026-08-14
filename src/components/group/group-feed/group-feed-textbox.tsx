@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { Smile, LayoutGrid, ChevronDown } from "lucide-react";
 import type { FeedUser } from "@/lib/mock_data/users-data";
+import SendButton from "@/components/ui/send-button";
 
 type GroupFeedProps = {
     user: FeedUser;
@@ -18,18 +19,27 @@ export default function GroupFeedTextBox({ user }: GroupFeedProps) {
         console.log("Abrir modal de tipo de publicación");
     };
 
+    const handleSendPost = () => {
+        if (!text.trim()) return;
+        // TODO: Lógica para enviar el post al backend
+        console.log("Enviando post:", text);
+        setText(""); // Limpiamos la caja después de enviar
+        if (textareaRef.current) textareaRef.current.style.height = "auto";
+    };
+
     // Función para manejar el cambio de texto y el auto-ajuste de altura
     const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
         
         // Magia para auto-expandir el textarea
         if (textareaRef.current) {
-            // Reseteamos la altura a auto para calcular el nuevo tamaño correctamente si se borra texto
             textareaRef.current.style.height = "auto";
-            // Asignamos el scrollHeight como la nueva altura
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
     };
+
+    // El botón se habilitará solo si hay texto (ignorando espacios en blanco)
+    const hasText = text.trim().length > 0;
 
     return (
         <div className="flex flex-col gap-4 rounded-3xl border border-black/10 bg-white p-4 shadow-[0_2px_15px_rgba(0,0,0,0.03)] dark:border-white/10 dark:bg-[#0a0514]">
@@ -47,7 +57,6 @@ export default function GroupFeedTextBox({ user }: GroupFeedProps) {
                 </div>
 
                 {/* Caja de texto (auto-expandible) */}
-                {/* Usamos rounded-3xl en lugar de full para que mantenga buena forma al crecer, y items-end para el botón de emoji */}
                 <div className="flex flex-1 items-end gap-2 rounded-3xl bg-black/5 px-4 py-3 transition-all focus-within:ring-1 focus-within:ring-[#8C6CFF] dark:bg-white/5">
                     <textarea
                         ref={textareaRef}
@@ -55,13 +64,14 @@ export default function GroupFeedTextBox({ user }: GroupFeedProps) {
                         value={text}
                         onChange={handleTextChange}
                         placeholder="Share something..."
-                        className="w-full resize-none overflow-hidden bg-transparent text-sm text-black outline-none placeholder:text-black/40 dark:text-white dark:placeholder:text-white/40 leading-relaxed max-h-[250px] overflow-y-auto"
+                        className="w-full resize-none overflow-hidden bg-transparent text-sm leading-relaxed text-black outline-none placeholder:text-black/40 dark:text-white dark:placeholder:text-white/40 max-h-[250px] overflow-y-auto"
                     />
                 </div>
             </div>
 
-            {/* FILA INFERIOR: Botón de tipo de publicación */}
-            <div className="flex items-center pl-[56px]">
+            {/* FILA INFERIOR: Botón de tipo de publicación y Botón de Enviar */}
+            {/* Usamos justify-between para separar ambos botones a los extremos */}
+            <div className="flex items-center justify-between pl-[56px]">
                 <button
                     type="button"
                     onClick={handleOpenPostTypeModal}
@@ -71,6 +81,11 @@ export default function GroupFeedTextBox({ user }: GroupFeedProps) {
                     <span>Post Type</span>
                     <ChevronDown size={14} className="ml-1 opacity-50 transition-transform group-hover:translate-y-0.5" />
                 </button>
+
+                <SendButton 
+                    isDisabled={!hasText} 
+                    onClick={handleSendPost} 
+                />
             </div>
             
         </div>
