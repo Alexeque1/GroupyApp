@@ -42,7 +42,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-                    className="flex flex-1 flex-col"
+                    className="flex w-full min-w-0 flex-1 flex-col"
                 >
                     <ProfileAside user={profile} />
                 </motion.div>
@@ -51,7 +51,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-                    className="flex flex-[2] flex-col"
+                    className="flex w-full min-w-0 flex-[2] flex-col"
                 >
                     <ProfileMain user={profile} isOwnProfile={isOwnProfile} currentUserId={CURRENT_USER_ID} />
                 </motion.div>
