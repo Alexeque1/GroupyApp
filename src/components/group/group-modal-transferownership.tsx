@@ -27,7 +27,6 @@ export default function GroupModalTransferOwnership({
     const [search, setSearch] = useState("");
     const [selectedId, setSelectedId] = useState<number | null>(null);
 
-    // Resetea la búsqueda y la selección cada vez que el modal se vuelve a abrir.
     const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
     if (isOpen !== prevIsOpen) {
         setPrevIsOpen(isOpen);

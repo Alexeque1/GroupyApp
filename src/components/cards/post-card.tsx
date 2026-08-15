@@ -173,8 +173,8 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                     </div>
                 ) : (
                     // ESTADO VACÍO
-                    <div className="flex items-center justify-center rounded-2xl border border-dashed border-black/10 bg-black/[0.02] py-6 dark:border-white/10 dark:bg-white/[0.02]">
-                        <p className="text-sm text-black/50 dark:text-white/50">
+                    <div className="flex items-center justify-center rounded-2xl dark:border-white/10 dark:bg-white/[0.02]">
+                        <p className="text-sm text-black/80 dark:text-white/50">
                             No comments yet. <span className="font-semibold text-[#8C6CFF]">Be the first to share your thoughts!</span>
                         </p>
                     </div>
@@ -190,7 +190,6 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                             className="object-cover"
                         />
                     </div>
-                    {/* Modificamos las clases aquí: flex, flex-1, pl-4, pr-1.5, py-1.5 para alinear y contener el botón */}
                     <div className="flex flex-1 items-center gap-2 rounded-full border border-black/10 bg-white pl-4 pr-1.5 py-1.5 shadow-sm transition-colors focus-within:border-[#8C6CFF]/50 dark:border-white/10 dark:bg-[#0a0514] dark:focus-within:border-[#8C6CFF]/50">
                         <input
                             type="text"
