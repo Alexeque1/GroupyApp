@@ -92,16 +92,18 @@ export default function EntityCard({ data, variant = "full", className }: Entity
     const maxImages = totalMembers > 3 ? 2 : 3;
     const imagesToShow = displayMembers.slice(0, maxImages);
     const remainingCount = totalMembers - imagesToShow.length;
-    
+
     if (!badgeText && remainingCount > 0) {
         badgeText = `+${remainingCount}`;
     }
 
     return (
-        <Link href={isPreview ? "#" : `/group/${data.id}`}>
+        <Link
+            href={isPreview ? "#" : `/group/${data.id}`}
+            className="block h-full">
             <div
                 className={cn(
-                    "group relative flex flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 dark:border-white/10 dark:bg-[#0a0514]",
+                    "group relative flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 dark:border-white/10 dark:bg-[#0a0514]",
                     !isPreview && "cursor-pointer hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]",
                     className
                 )}
@@ -136,7 +138,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                 </div>
 
                 {/* CONTENT */}
-                <div className="flex flex-col p-5">
+                <div className="flex flex-1 flex-col p-5">
                     <div className="flex items-start justify-between">
                         <h4 className={cn("line-clamp-2 text-lg font-bold leading-tight text-black/90 transition-colors dark:text-white", accentHover)}>
                             {data.title || (isGroup ? "Untitled group" : "Untitled community")}

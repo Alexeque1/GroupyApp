@@ -99,7 +99,7 @@ export default function HomeNextGroups({userGroups}: {userGroups: GroupType[]}) 
                     {filteredGroups.map((group, index) => (
                         <div
                             key={group.id}
-                            className={`relative shrink-0 snap-center w-[220px] flex flex-col ${hasDragged ? "pointer-events-none" : ""
+                            className={`relative shrink-0 snap-center w-[240px] flex flex-col ${hasDragged ? "pointer-events-none" : ""
                                 }`}
                         >
                             {index === 0 && (

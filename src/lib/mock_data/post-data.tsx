@@ -1,3 +1,19 @@
+export type PostCategory = "Announcement" | "Media";
+
+export interface PostType {
+    id: number;
+    groupId: number;
+    authorId: number;
+    category: PostCategory;
+    content: string;
+    createdAt: string;
+    viewCount: number;
+    likeCount: number;
+    likedByUserIds: number[];
+    commentCount: number;
+    imageUrl?: string;
+}
+
 export const POSTS_DATA: PostType[] = [
     {
         id: 1,
