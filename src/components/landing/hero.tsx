@@ -19,7 +19,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className="relative min-h-[700px] md:min-h-[750px] lg:min-h-[800px] overflow-hidden bg-[#1a0f2e] text-white m-auto">
+        <section className="relative min-h-[700px] md:min-h-[750px] lg:min-h-[800px] overflow-hidden bg-brand-violet text-white m-auto">
             
             {/* MESH BACKGROUND */}
             <div className="mesh-bg" />

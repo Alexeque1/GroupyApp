@@ -4,9 +4,6 @@ export interface PaginationResult<T> {
     safePage: number;
 }
 
-// Paginación pura y reutilizable: clampa la página al rango válido y
-// devuelve el slice correspondiente. Sirve tanto para paginación
-// controlada (page desde props) como interna (page desde useState).
 export function paginate<T>(
     items: T[],
     page: number,

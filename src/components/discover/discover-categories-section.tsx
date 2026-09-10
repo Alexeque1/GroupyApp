@@ -45,7 +45,7 @@ export default function DiscoverCategoriesSection() {
             {/* ENCABEZADO */}
             <div className="mb-4 flex items-center justify-between px-1">
                 <div className="flex items-center gap-2">
-                    <LayoutGrid size={22} className="text-[#8C6CFF]" />
+                    <LayoutGrid size={22} className="text-brand-purple" />
                     <h2 className="text-xl font-bold text-black/90">
                         Explore Categories
                     </h2>

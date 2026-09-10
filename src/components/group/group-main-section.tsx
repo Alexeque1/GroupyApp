@@ -1,7 +1,6 @@
 import { useState } from "react";
 import NavigationTabButton from "../ui/navigation-tab-button";
 import { AnimatePresence, motion } from "framer-motion";
-import GroupFeedTextBox from "./group-feed/group-feed-textbox";
 import type { FeedUser } from "@/lib/mock_data/users-data";
 import GroupFeed from "./group-feed/group-feed-section";
 
@@ -32,7 +31,6 @@ type GroupMainSectionProps = {
 
 export default function GroupMainSection({user, groupId}:GroupMainSectionProps) {
     const [activeTab, setActiveTab] = useState<TabType>(TABS_CONFIG[0].key);
-    const activeConfig = TABS_CONFIG.find((tab) => tab.key === activeTab)!;
 
     return (
         <section className="z-10 flex min-h-[500px] flex-[2] flex-col overflow-hidden rounded-3xl bg-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md pt-2 md:pt-4">

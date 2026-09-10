@@ -35,7 +35,7 @@ export default function InteractiveCta() {
       className="relative z-10 flex flex-col items-center justify-center gap-10 rounded-3xl border border-white/10 py-28 px-4 text-center overflow-hidden"
     >
       {/* FONDO OSCURO TRASLÚCIDO BASE */}
-      <div className="absolute inset-0 z-0 bg-[#251842]/60 backdrop-blur-md" />
+      <div className="absolute inset-0 z-0 bg-brand-plum/60 backdrop-blur-md" />
 
       {/* =========================================
           ANIMACIÓN MESHY + MOUSE FOLLOW
@@ -51,7 +51,7 @@ export default function InteractiveCta() {
             scale: [1, 1.4, 0.9, 1],
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-0 left-0 h-[400px] w-[400px] rounded-full bg-[#8C6CFF]/50"
+          className="absolute top-0 left-0 h-[400px] w-[400px] rounded-full bg-brand-purple/50"
         />
 
         {/* Bola 2 - Naranja Suave (Movimiento automático invertido) */}
@@ -62,14 +62,14 @@ export default function InteractiveCta() {
             scale: [0.8, 1.3, 1.1, 0.8],
           }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-[#FFB199]/40"
+          className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-brand-peach/40"
         />
 
         {/* Bola 3 - LUZ INTERACTIVA (Sigue al mouse) */}
         {/* Es color menta para que resalte mucho cuando pasas por el botón o el texto */}
         <motion.div
           style={{ x: smoothX, y: smoothY }}
-          className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#A9FFD7]/50"
+          className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-mint/50"
         />
       </div>
 
@@ -79,11 +79,11 @@ export default function InteractiveCta() {
       <div className="relative z-10 flex flex-col items-center gap-10">
         {/* Sombras añadidas al texto para que no se pierda entre las luces del fondo */}
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight drop-shadow-xl">
-          Are you ready for your <span className="text-[#A9FFD7] drop-shadow-[0_0_20px_rgba(169,255,215,0.5)]">new adventure?</span>
+          Are you ready for your <span className="text-brand-mint drop-shadow-[0_0_20px_rgba(169,255,215,0.5)]">new adventure?</span>
         </h3>
 
         <Button onClick={() => console.log("Let's go!")}>
-          Let's go!
+          Let&apos;s go!
         </Button>
       </div>
 

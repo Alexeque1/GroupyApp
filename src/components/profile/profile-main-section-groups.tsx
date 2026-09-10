@@ -103,14 +103,14 @@ function GroupBlock({
 
 export default function ProfileSectionGroups({
     groups,
-    isOwnProfile = true,
-    profileName = "Alexander Sequera",
-    profileUsername = "Alexeque1"
+    isOwnProfile,
+    profileName,
+    profileUsername
 }: {
     groups: GroupType[];
-    isOwnProfile?: boolean;
-    profileName?: string;
-    profileUsername?: string;
+    isOwnProfile: boolean;
+    profileName: string;
+    profileUsername: string;
 }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -184,7 +184,7 @@ export default function ProfileSectionGroups({
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search groups by title..."
-                        className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-[#6D28D9]/40 focus:bg-white focus:ring-2 focus:ring-[#6D28D9]/10"
+                        className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-brand-purple-deep/40 focus:bg-white focus:ring-2 focus:ring-brand-purple-deep/10"
                     />
                     {searchQuery && (
                         <button 
@@ -204,7 +204,7 @@ export default function ProfileSectionGroups({
                         <select
                             value={creatorFilter}
                             onChange={(e) => setCreatorFilter(e.target.value)}
-                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
+                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-brand-purple-deep/40 focus:bg-white"
                         >
                             <option value="all">Any creator</option>
                             <option value="owner">{creatorLabel}</option>
@@ -218,7 +218,7 @@ export default function ProfileSectionGroups({
                         <select
                             value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value)}
-                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
+                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-brand-purple-deep/40 focus:bg-white"
                         >
                             <option value="all">All statuses</option>
                             {statuses.map((status) => (
@@ -233,7 +233,7 @@ export default function ProfileSectionGroups({
                         <select
                             value={categoryFilter}
                             onChange={(e) => setCategoryFilter(e.target.value)}
-                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
+                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-brand-purple-deep/40 focus:bg-white"
                         >
                             <option value="all">All categories</option>
                             {categories.map((cat) => (
@@ -248,7 +248,7 @@ export default function ProfileSectionGroups({
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value as SortBy)}
-                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-[#6D28D9]/40 focus:bg-white"
+                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-brand-purple-deep/40 focus:bg-white"
                         >
                             <option value="newest">Newest date</option>
                             <option value="oldest">Oldest date</option>
@@ -266,7 +266,7 @@ export default function ProfileSectionGroups({
                         </span>
                         <button
                             onClick={handleClearFilters}
-                            className="text-xs font-semibold text-[#6D28D9] hover:underline cursor-pointer"
+                            className="text-xs font-semibold text-brand-purple-deep hover:underline cursor-pointer"
                         >
                             Clear filters
                         </button>
@@ -291,7 +291,7 @@ export default function ProfileSectionGroups({
                 <div className="flex flex-col gap-6">
                     {managed.length > 0 && (
                         <GroupBlock
-                            icon={<Crown size={18} className="text-[#6D28D9]" />}
+                            icon={<Crown size={18} className="text-brand-purple-deep" />}
                             label="Managing"
                             items={managed}
                             defaultOpen={false} // Puedes cambiarlo a true si prefieres que inicie abierto

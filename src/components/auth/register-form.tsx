@@ -17,7 +17,7 @@ export default function RegisterForm() {
           <label className="ml-1 text-sm font-medium text-white/80">Nombre</label>
           <input 
             type="text" 
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-brand-purple focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-brand-purple not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
             placeholder="Your name"
           />
         </div>
@@ -25,7 +25,7 @@ export default function RegisterForm() {
           <label className="ml-1 text-sm font-medium text-white/80">Apellido</label>
           <input 
             type="text" 
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-brand-purple focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-brand-purple not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
             placeholder="Your lastname"
           />
         </div>
@@ -37,7 +37,7 @@ export default function RegisterForm() {
           <label className="ml-1 text-sm font-medium text-white/80">Username</label>
           <input 
             type="text" 
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-brand-purple focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-brand-purple not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
             placeholder="@yourusername"
           />
         </div>
@@ -45,7 +45,7 @@ export default function RegisterForm() {
           <label className="ml-1 text-sm font-medium text-white/80">Email</label>
           <input 
             type="email" 
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-brand-purple focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-brand-purple not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
             placeholder="email@example.com"
           />
         </div>
@@ -59,7 +59,7 @@ export default function RegisterForm() {
             <input 
               type={showPassword ? "text" : "password"} 
               // Agregamos 'peer' y 'pr-12' para dejar espacio al ícono
-              className="peer w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-4 pr-12 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+              className="peer w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-4 pr-12 text-white placeholder-white/30 outline-none transition-all focus:border-brand-purple focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-brand-purple not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
               placeholder="••••••••"
             />
             <button
@@ -78,7 +78,7 @@ export default function RegisterForm() {
           <div className="relative">
             <input 
               type={showConfirmPassword ? "text" : "password"} 
-              className="peer w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-4 pr-12 text-white placeholder-white/30 outline-none transition-all focus:border-[#8C6CFF] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#8C6CFF] not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
+              className="peer w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-4 pr-12 text-white placeholder-white/30 outline-none transition-all focus:border-brand-purple focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-brand-purple not-placeholder-shown:bg-white not-placeholder-shown:text-black" 
               placeholder="••••••••"
             />
             <button
@@ -97,7 +97,7 @@ export default function RegisterForm() {
         <input 
           type="checkbox" 
           id="terms" 
-          className="h-4 w-4 rounded border-white/20 bg-white/10 text-[#A9FFD7] focus:ring-[#A9FFD7] focus:ring-offset-0"
+          className="h-4 w-4 rounded border-white/20 bg-white/10 text-brand-mint focus:ring-brand-mint focus:ring-offset-0"
         />
         <label htmlFor="terms" className="cursor-pointer select-none text-sm text-white/70">
           Aceptar términos y condiciones

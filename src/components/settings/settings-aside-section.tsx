@@ -83,13 +83,13 @@ export default function SettingsAsideSection({ activeSection, onSectionChange }:
                                     className={cn(
                                         "flex cursor-pointer items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium transition-colors",
                                         isActive
-                                            ? "bg-[#6D28D9]/10 text-[#6D28D9]"
+                                            ? "bg-brand-purple-deep/10 text-brand-purple-deep"
                                             : "text-black/60 hover:bg-black/5 hover:text-black"
                                     )}
                                 >
                                     <Icon
                                         size={18}
-                                        className={isActive ? "text-[#6D28D9]" : "text-black/40"}
+                                        className={isActive ? "text-brand-purple-deep" : "text-black/40"}
                                     />
                                     {label}
                                 </button>

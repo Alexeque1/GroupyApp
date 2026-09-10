@@ -4,11 +4,7 @@ import { Button } from "@base-ui/react";
 import { ArrowLeft, Construction } from "lucide-react";
 import {useRouter} from "next/navigation";
 
-interface CommunityProps {
-    params: Promise<{ id: string }>;
-}
-
-export default function Community({ params }: CommunityProps) {
+export default function Community() {
     const router = useRouter();
     
     return (
@@ -20,7 +16,7 @@ export default function Community({ params }: CommunityProps) {
             </div>
 
             {/* Textos */}
-            <h1 className="mb-3 text-3xl font-black tracking-tight text-[#1a0f2e] dark:text-white sm:text-4xl">
+            <h1 className="mb-3 text-3xl font-black tracking-tight text-brand-violet dark:text-white sm:text-4xl">
                 Under Construction
             </h1>
 

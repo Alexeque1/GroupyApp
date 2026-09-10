@@ -17,7 +17,7 @@ export default function Benefits1() {
                         </div>
                         <div className="flex-1 text-center content-center">
                             <p className="mx-auto mt-10 max-w-4xl text-center text-lg leading-8">
-                                Whether you're planning a road trip, a football match, a study
+                                Whether you&apos;re planning a road trip, a football match, a study
                                 session or simply grabbing a coffee, Groupy helps you find the
                                 right people to make it happen.
                             </p>

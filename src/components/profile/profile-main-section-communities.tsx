@@ -1,5 +1,3 @@
-"use client";
-
 import ProfileCommunityCard, { CommunityType } from "./profile-communities-cards";
 import ProfileSectionGrid from "./profile-section-grid";
 

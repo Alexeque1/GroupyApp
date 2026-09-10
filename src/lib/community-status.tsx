@@ -10,11 +10,11 @@ export interface CommunityStatusInfo {
 export const COMMUNITY_STATUS_DATA: Record<CommunityStatus, CommunityStatusInfo> = {
     Public: {
         label: "Public",
-        badgeClasses: "bg-[#A9FFD7]/30 text-[#059669] border-[#059669]/20",
+        badgeClasses: "bg-brand-mint/30 text-brand-green border-brand-green/20",
     },
     Private: {
         label: "Private",
-        badgeClasses: "bg-[#8C6CFF]/20 text-[#6D28D9] border-[#8C6CFF]/30",
+        badgeClasses: "bg-brand-purple/20 text-brand-purple-deep border-brand-purple/30",
     },
 };
 

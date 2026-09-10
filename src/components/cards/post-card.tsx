@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { MoreVertical, Heart, MessageCircle, Bookmark, Send } from "lucide-react";
+import { MoreVertical, Heart, MessageCircle, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getPostCategoryInfo } from "@/lib/post-category";
-import { getCommentsForPost } from "@/lib/posts-selector";
+import { CommentViewModel, getCommentsForPost } from "@/lib/posts-selector";
 import { PostViewModel } from "@/lib/posts-selector";
 import { FeedUser } from "@/lib/mock_data/users-data";
 import SendButton from "../ui/send-button";
+import { formatTimeAgo } from "@/lib/date";
 
 interface FeedPostCardProps {
     post: PostViewModel;
@@ -48,7 +49,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
             )}
         >
             {/* --- ETIQUETA FLOTANTE (ESTILO PESTAÑA) --- */}
-            <div className="absolute -top-3.5 left-6 z-10 rounded-xl bg-white dark:bg-[#0a0514]">
+            <div className="absolute -top-3.5 left-6 z-10 rounded-xl bg-white dark:bg-brand-dark">
                 <span
                     className={cn(
                         "flex items-center gap-1.5 rounded-xl border px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider shadow-sm",
@@ -78,7 +79,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                             {`${post.author.firstName} ${post.author.lastName}`}
                         </span>
                         <span className="text-xs font-medium text-black/50 dark:text-white/50">
-                            {post.createdAt}
+                            {formatTimeAgo(post.createdAt)}
                         </span>
                     </div>
                 </div>
@@ -116,7 +117,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                     </button>
 
                     {/* Comment */}
-                    <button className="group flex cursor-pointer items-center gap-1.5 text-black/60 transition-colors hover:text-[#8C6CFF] dark:text-white/60">
+                    <button className="group flex cursor-pointer items-center gap-1.5 text-black/60 transition-colors hover:text-brand-purple dark:text-white/60">
                         <MessageCircle size={20} className="transition-transform group-hover:scale-110" />
                         <span className="text-sm font-semibold">{post.commentCount}</span>
                     </button>
@@ -134,7 +135,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                 {/* LISTA DE COMENTARIOS O ESTADO VACÍO */}
                 {postComments && postComments.length > 0 ? (
                     <div className="flex flex-col gap-3">
-                        {postComments.map((comment: any) => (
+                        {postComments.map((comment: CommentViewModel) => (
                             <div key={comment.id} className="flex items-start gap-2.5">
                                 {/* Avatar del comentario */}
                                 <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full border border-black/10 dark:border-white/10">
@@ -175,7 +176,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                     // ESTADO VACÍO
                     <div className="flex items-center justify-center rounded-2xl dark:border-white/10 dark:bg-white/[0.02]">
                         <p className="text-sm text-black/80 dark:text-white/50">
-                            No comments yet. <span className="font-semibold text-[#8C6CFF]">Be the first to share your thoughts!</span>
+                            No comments yet. <span className="font-semibold text-brand-purple">Be the first to share your thoughts!</span>
                         </p>
                     </div>
                 )}
@@ -190,7 +191,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                             className="object-cover"
                         />
                     </div>
-                    <div className="flex flex-1 items-center gap-2 rounded-full border border-black/10 bg-white pl-4 pr-1.5 py-1.5 shadow-sm transition-colors focus-within:border-[#8C6CFF]/50 dark:border-white/10 dark:bg-[#0a0514] dark:focus-within:border-[#8C6CFF]/50">
+                    <div className="flex flex-1 items-center gap-2 rounded-full border border-black/10 bg-white pl-4 pr-1.5 py-1.5 shadow-sm transition-colors focus-within:border-brand-purple/50 dark:border-white/10 dark:bg-brand-dark dark:focus-within:border-brand-purple/50">
                         <input
                             type="text"
                             value={commentText}

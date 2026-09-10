@@ -1,9 +1,6 @@
 "use client";
 
-import { Construction, ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Button from "@/components/ui/button";
 import AnimatedBackgroundLight from "@/components/ui/backgrounds/animated-background-light";
 import { motion } from "framer-motion";
 import SettingsAsideSection, { type SettingsSection } from "@/components/settings/settings-aside-section";
@@ -13,7 +10,6 @@ import { CURRENT_USER_ID } from "@/lib/mock_data/profile-info";
 import { getProfileViewModel } from "@/lib/mock_data/profile-selectors";
 
 export default function Settings() {
-    const router = useRouter();
     const [activeSection, setActiveSection] = useState<SettingsSection>("account");
     const profile = getProfileViewModel(Number(CURRENT_USER_ID));
 

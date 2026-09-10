@@ -129,10 +129,10 @@ export default function ImageDropzone({
                     className={cn(
                         "group relative flex h-56 w-full cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border-2 border-dashed transition-all md:h-64",
                         isDragging
-                            ? "border-[#8C6CFF] bg-[#8C6CFF]/10"
+                            ? "border-brand-purple bg-brand-purple/10"
                             : preview 
                                 ? "border-transparent bg-transparent cursor-default" 
-                                : "border-black/15 bg-black/5 hover:border-[#8C6CFF]/50 hover:bg-black/[0.07] dark:border-white/15 dark:bg-white/5 dark:hover:border-[#8C6CFF]/50 dark:hover:bg-white/10"
+                                : "border-black/15 bg-black/5 hover:border-brand-purple/50 hover:bg-black/[0.07] dark:border-white/15 dark:bg-white/5 dark:hover:border-brand-purple/50 dark:hover:bg-white/10"
                     )}
                 >
                     <input
@@ -171,10 +171,10 @@ export default function ImageDropzone({
                         <>
                             <ImagePlus
                                 size={32}
-                                className="text-black/40 transition-colors group-hover:text-[#8C6CFF] dark:text-white/40"
+                                className="text-black/40 transition-colors group-hover:text-brand-purple dark:text-white/40"
                             />
                             <p className="px-4 text-center text-sm text-black/50 dark:text-white/50">
-                                <span className="font-semibold text-[#8C6CFF]">Click to upload</span> or drag and drop an image
+                                <span className="font-semibold text-brand-purple">Click to upload</span> or drag and drop an image
                             </p>
                         </>
                     )}
@@ -185,7 +185,7 @@ export default function ImageDropzone({
             {isCropping && rawImage && (
                 <Portal>
                 <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/90 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="relative flex h-[70vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl bg-[#0a0514] border border-white/10 shadow-2xl">
+                    <div className="relative flex h-[70vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl bg-brand-dark border border-white/10 shadow-2xl">
                         
                         {/* Header del Modal */}
                         <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
@@ -209,7 +209,7 @@ export default function ImageDropzone({
                         </div>
 
                         {/* Controles y Botones */}
-                        <div className="flex flex-col gap-4 border-t border-white/10 bg-[#0a0514] p-6">
+                        <div className="flex flex-col gap-4 border-t border-white/10 bg-brand-dark p-6">
                             <div className="flex items-center gap-4">
                                 <ZoomOut size={18} className="text-white/50" />
                                 <input
@@ -220,7 +220,7 @@ export default function ImageDropzone({
                                     step={0.1}
                                     aria-labelledby="Zoom"
                                     onChange={(e) => setZoom(Number(e.target.value))}
-                                    className="h-1 flex-1 cursor-pointer appearance-none rounded-lg bg-white/20 accent-[#8C6CFF]"
+                                    className="h-1 flex-1 cursor-pointer appearance-none rounded-lg bg-white/20 accent-brand-purple"
                                 />
                                 <ZoomIn size={18} className="text-white/50" />
                             </div>

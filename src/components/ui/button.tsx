@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
@@ -52,7 +52,7 @@ const STYLE_CONFIG = {
         "linear-gradient(115deg, #000000 15%, #112a53 30%, #d97d25 48%, #4b9cdb 53%, #ffffff 58%, #09172f 70%, #000000 85%)",
       border: "border-black/5 group-hover:border-white/20",
       insetShadow: "shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]",
-      text: "text-[#1a0f2e] group-hover:text-white drop-shadow-sm group-hover:drop-shadow-md",
+      text: "text-brand-violet group-hover:text-white drop-shadow-sm group-hover:drop-shadow-md",
     },
     dark: {
       overlayBg: "bg-white",
@@ -60,7 +60,7 @@ const STYLE_CONFIG = {
         "linear-gradient(115deg, #ffffff 15%, #e8deff 30%, #ffdfd1 48%, #caffeb 53%, #ffffff 58%, #f2eeff 70%, #ffffff 85%)",
       border: "border-white/10 group-hover:border-black/5",
       insetShadow: "shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]",
-      text: "text-white font-semibold group-hover:text-[#1a0f2e] drop-shadow-md group-hover:drop-shadow-none",
+      text: "text-white font-semibold group-hover:text-brand-violet drop-shadow-md group-hover:drop-shadow-none",
     },
     following: {
       // Fallback por si se usa liquid + following (hereda de dark)
@@ -69,7 +69,7 @@ const STYLE_CONFIG = {
         "linear-gradient(115deg, #ffffff 15%, #e8deff 30%, #ffdfd1 48%, #caffeb 53%, #ffffff 58%, #f2eeff 70%, #ffffff 85%)",
       border: "border-white/10 group-hover:border-black/5",
       insetShadow: "shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]",
-      text: "text-white font-semibold group-hover:text-[#1a0f2e]",
+      text: "text-white font-semibold group-hover:text-brand-violet",
     },
   },
   outline: {
@@ -79,7 +79,7 @@ const STYLE_CONFIG = {
         "linear-gradient(115deg, #ffffff 15%, #e8deff 30%, #ffdfd1 48%, #caffeb 53%, #ffffff 58%, #f2eeff 70%, #ffffff 85%)",
       border: "border-white/60 group-hover:border-transparent",
       insetShadow: "shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]",
-      text: "text-white group-hover:text-[#1a0f2e] drop-shadow-sm group-hover:drop-shadow-none",
+      text: "text-white group-hover:text-brand-violet drop-shadow-sm group-hover:drop-shadow-none",
     },
     dark: {
       overlayBg: "bg-[#0d0d0d]",
@@ -90,7 +90,7 @@ const STYLE_CONFIG = {
       text: "text-black dark:text-white group-hover:text-white",
     },
     following: {
-      overlayBg: "bg-[#6D28D9]",
+      overlayBg: "bg-brand-purple-deep",
       overlayGradient:
         "linear-gradient(115deg, #4c1d95 15%, #6D28D9 30%, #a78bfa 48%, #8C6CFF 53%, #4c1d95 58%, #6D28D9 70%, #4c1d95 85%)",
       border: "border-black/20 dark:border-white/20 group-hover:border-transparent",
@@ -120,6 +120,18 @@ export default function Button({
   // Aseguramos que tenemos estilos válidos usando aserciones de no nulidad porque los defaults garantizan la existencia
   const styles = STYLE_CONFIG[variant!][tone!];
 
+  // Si el usuario pidió "reducir movimiento", no arrancamos ningún bucle infinito.
+  const reduceMotion = useReducedMotion();
+
+  // Cada bola flota solo mientras el botón está en reposo; al hacer hover se
+  // detiene (y el contenedor se desvanece igualmente). Con reduceMotion queda quieta.
+  const floatVariants = (x: number[], y: number[], duration: number) => ({
+    rest: reduceMotion
+      ? { x: 0, y: 0 }
+      : { x, y, transition: { duration, repeat: Infinity, ease: "easeInOut" as const } },
+    hover: { x: 0, y: 0 },
+  });
+
   return (
     <motion.button
       type={type}
@@ -133,18 +145,15 @@ export default function Button({
       {variant === "liquid" && (
         <div className="absolute inset-0 z-0 overflow-hidden opacity-80 blur-[20px] transition-opacity duration-300 group-hover:opacity-0">
           <motion.div
-            animate={{ x: [0, 30, -10, 0], y: [0, -20, 20, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            variants={floatVariants([0, 30, -10, 0], [0, -20, 20, 0], 6)}
             className="absolute -left-1/4 -top-1/4 h-[120%] w-[120%] rounded-full bg-brand-purple/40"
           />
           <motion.div
-            animate={{ x: [0, -30, 20, 0], y: [0, 30, -10, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            variants={floatVariants([0, -30, 20, 0], [0, 30, -10, 0], 8)}
             className="absolute -bottom-1/4 -right-1/4 h-[120%] w-[120%] rounded-full bg-brand-mint/40"
           />
           <motion.div
-            animate={{ x: [0, 20, -30, 0], y: [0, -10, 30, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            variants={floatVariants([0, 20, -30, 0], [0, -10, 30, 0], 7)}
             className="absolute -right-1/4 -top-1/4 h-[100%] w-[100%] rounded-full bg-brand-peach/40"
           />
         </div>
@@ -157,7 +166,10 @@ export default function Button({
         className={cn("absolute inset-0 z-10 overflow-hidden", styles.overlayBg)}
       >
         <motion.div
-          variants={{ rest: { x: "-50%" }, hover: { x: ["-50%", "0%", "-50%"] } }}
+          variants={{
+            rest: { x: "-50%" },
+            hover: reduceMotion ? { x: "-50%" } : { x: ["-50%", "0%", "-50%"] },
+          }}
           transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
           className="absolute -left-1/2 -top-1/2 h-[200%] w-[200%]"
           style={{ background: styles.overlayGradient, filter: "blur(12px)" }}

@@ -1,5 +1,3 @@
-"use client";
-
 import { Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -21,7 +19,7 @@ export default function SendButton({
                 "group flex items-center gap-2 rounded-full px-5 py-1.5 text-sm font-bold transition-all",
                 isDisabled || isLoading
                     ? "cursor-not-allowed bg-black/5 text-black/30 dark:bg-white/5 dark:text-white/30"
-                    : "cursor-pointer bg-[#8C6CFF] text-white shadow-md hover:bg-[#7a5ce6] hover:shadow-lg",
+                    : "cursor-pointer bg-brand-purple text-white shadow-md hover:bg-[#7a5ce6] hover:shadow-lg",
                 className
             )}
             {...props}

@@ -47,16 +47,28 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   --color-brand-purple: var(--brand-purple);
+  --color-brand-purple-deep: var(--brand-purple-deep);
   --color-brand-mint: var(--brand-mint);
   --color-brand-peach: var(--brand-peach);
   --color-brand-dark: var(--brand-dark);
+  --color-brand-violet: var(--brand-violet);
+  --color-brand-plum: var(--brand-plum);
+  --color-brand-green: var(--brand-green);
+  --color-brand-orange: var(--brand-orange);
 }
 
 :root {
+  /* Primitivos de marca. Mismo valor en light y dark: la identidad no cambia
+     con el tema. Cada "-deep"/tono oscuro es la version legible sobre fondo claro. */
   --brand-purple: #8c6cff;
+  --brand-purple-deep: #6d28d9;
   --brand-mint: #a9ffd7;
   --brand-peach: #ffb199;
   --brand-dark: #0a0514;
+  --brand-violet: #1a0f2e;
+  --brand-plum: #251842;
+  --brand-green: #059669;
+  --brand-orange: #ea580c;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -145,6 +157,33 @@
     -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
     caret-color: #000000;
     transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* iOS Safari hace zoom automatico al enfocar un campo con texto < 16px.
+     Forzamos 16px en pantallas pequenas para evitar ese salto molesto. */
+  @media (max-width: 640px) {
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
+}
+
+/* ===========================
+   ACCESIBILIDAD / RENDIMIENTO
+   Respeta "Reducir movimiento" del sistema operativo. Mucha gente
+   (sobre todo en movil) lo tiene activado para ahorrar bateria y
+   evitar mareos. Con esto cortamos casi todas las animaciones.
+=========================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

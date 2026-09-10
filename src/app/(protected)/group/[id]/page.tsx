@@ -3,7 +3,6 @@
 import GroupAsideSection from "@/components/group/group-aside-section";
 import GroupHeader from "@/components/group/group-header";
 import GroupMainSection from "@/components/group/group-main-section";
-import AnimatedBackgroundLight from "@/components/ui/backgrounds/animated-background-light";
 import { GROUPS_DATA } from "@/lib/mock_data/group-data";
 import { USERS_DATA } from "@/lib/mock_data/users-data";
 import { CURRENT_USER_ID } from "@/lib/mock_data/profile-info";

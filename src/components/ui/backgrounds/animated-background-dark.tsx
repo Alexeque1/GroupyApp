@@ -18,7 +18,7 @@ export default function AnimatedBackgroundDark() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-0 left-0 h-[500px] w-[500px] rounded-full bg-[#8C6CFF]/50"
+        className="absolute top-0 left-0 h-[500px] w-[500px] rounded-full bg-brand-purple/50"
       />
 
       {/* Bola 2 */}
@@ -33,7 +33,7 @@ export default function AnimatedBackgroundDark() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-[#FFB199]/40"
+        className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-brand-peach/40"
       />
 
       {/* Bola 3 */}
@@ -48,7 +48,7 @@ export default function AnimatedBackgroundDark() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute left-1/4 top-1/4 h-[400px] w-[400px] rounded-full bg-[#A9FFD7]/40"
+        className="absolute left-1/4 top-1/4 h-[400px] w-[400px] rounded-full bg-brand-mint/40"
       />
     </div>
   );

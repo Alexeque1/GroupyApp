@@ -12,9 +12,16 @@ export default function HomeGreetings({ name}: HomeGreetingsProps) {
     const fullText = `Hello, ${name}!`;
     const isTypingComplete = displayedText === fullText;
 
+    // Reinicia la animación durante el render cuando cambia el nombre,
+    // en vez de llamar a setState de forma síncrona dentro del efecto.
+    const [prevFullText, setPrevFullText] = useState(fullText);
+    if (fullText !== prevFullText) {
+        setPrevFullText(fullText);
+        setDisplayedText("");
+    }
+
     useEffect(() => {
         let currentIndex = 0;
-        setDisplayedText(""); 
 
         const interval = setInterval(() => {
             if (currentIndex <= fullText.length) {
@@ -41,7 +48,7 @@ export default function HomeGreetings({ name}: HomeGreetingsProps) {
                     <motion.span
                         animate={{ opacity: [1, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, ease: "linear" }}
-                        className="ml-1 inline-block h-[50px] w-[5px] bg-[#8C6CFF]" 
+                        className="ml-1 inline-block h-[50px] w-[5px] bg-brand-purple" 
                     />
                 )}
 

@@ -11,14 +11,14 @@ export default function AnimatedBackground({ variant = "default" }: AnimatedBack
   // Definimos las paletas de colores según la variante
   const colorPalettes = {
     default: {
-      ball1: "bg-[#8C6CFF]/40",
-      ball2: "bg-[#FFB199]/40",
-      ball3: "bg-[#A9FFD7]/50",
+      ball1: "bg-brand-purple/40",
+      ball2: "bg-brand-peach/40",
+      ball3: "bg-brand-mint/50",
     },
     blue: {
       ball1: "bg-[#3B82F6]/40",
       ball2: "bg-[#06B6D4]/40",
-      ball3: "bg-[#8C6CFF]/40", 
+      ball3: "bg-brand-purple/40", 
     },
   };
 

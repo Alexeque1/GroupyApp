@@ -1,5 +1,3 @@
-"use client";
-
 import EntityCard, { type EntityCardData, type GroupRole } from "@/components/cards/entity-card";
 import { getGroupStatus, getGroupStatusInfo } from "@/lib/group-status";
 import { formatEventDate } from "@/lib/date";

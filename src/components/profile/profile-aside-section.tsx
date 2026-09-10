@@ -66,22 +66,22 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                 {/* Lista de detalles */}
                 <div className="mt-1 flex flex-col gap-3">
                     <div className="flex items-center gap-3 text-sm text-black/70">
-                        <MapPin size={16} className="text-[#6D28D9]" />
+                        <MapPin size={16} className="text-brand-purple-deep" />
                         <span>{user.city}, {user.country}</span>
                     </div>
 
                     <div className="flex items-center gap-3 text-sm text-black/70">
-                        <Briefcase size={16} className="text-[#6D28D9]" />
+                        <Briefcase size={16} className="text-brand-purple-deep" />
                         <span>{user.profession}</span>
                     </div>
 
                     <div className="flex items-center gap-3 text-sm text-black/70">
-                        <Globe size={16} className="text-[#6D28D9]" />
+                        <Globe size={16} className="text-brand-purple-deep" />
                         <span>{user.languages.join(", ")}</span>
                     </div>
 
                     <div className="flex items-center gap-3 text-sm text-black/70">
-                        <Calendar size={16} className="text-[#6D28D9]" />
+                        <Calendar size={16} className="text-brand-purple-deep" />
                         <span>Joined in {user.joined}</span>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                                 className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/5 bg-black/5 p-3 transition-colors hover:bg-black/10"
                             >
                                 {/* Fecha */}
-                                <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-[#6D28D9]/10 text-[#6D28D9]">
+                                <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-brand-purple-deep/10 text-brand-purple-deep">
                                     <span className="text-[10px] font-bold uppercase tracking-wider">
                                         {new Date(nearestGroup.startDate).toLocaleDateString("en-US", { month: "short" })}
                                     </span>
@@ -158,7 +158,7 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                                 />
 
                                 <div className="flex flex-1 flex-col overflow-hidden">
-                                    <h4 className="truncate text-sm font-semibold text-black/80 transition-colors group-hover:text-[#6D28D9]">
+                                    <h4 className="truncate text-sm font-semibold text-black/80 transition-colors group-hover:text-brand-purple-deep">
                                         {community.title}
                                     </h4>
 

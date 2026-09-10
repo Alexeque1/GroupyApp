@@ -46,12 +46,12 @@ export default function DiscoverFilters({
     // Funciones auxiliares para manejar los estilos visuales activos vs inactivos
     const getSelectStyles = (isActive: boolean) => {
         return isActive 
-            ? "border-[#6D28D9]/40 bg-white text-black ring-2 ring-[#6D28D9]/10" 
-            : "border-black/10 bg-black/[0.02] text-black hover:bg-white focus:border-[#6D28D9]/40 focus:bg-white focus:ring-2 focus:ring-[#6D28D9]/10";
+            ? "border-brand-purple-deep/40 bg-white text-black ring-2 ring-brand-purple-deep/10" 
+            : "border-black/10 bg-black/[0.02] text-black hover:bg-white focus:border-brand-purple-deep/40 focus:bg-white focus:ring-2 focus:ring-brand-purple-deep/10";
     };
 
     const getIconColor = (isActive: boolean) => {
-        return isActive ? "text-[#6D28D9]" : "text-black/40";
+        return isActive ? "text-brand-purple-deep" : "text-black/40";
     };
 
     return (
@@ -143,7 +143,7 @@ export default function DiscoverFilters({
                     <button
                         type="button"
                         onClick={handleClearFilters}
-                        className="text-xs font-semibold text-[#6D28D9] hover:underline cursor-pointer"
+                        className="text-xs font-semibold text-brand-purple-deep hover:underline cursor-pointer"
                     >
                         Clear filters ({activeCount})
                     </button>

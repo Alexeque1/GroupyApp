@@ -1,5 +1,3 @@
-"use client";
-
 import EntityCard, { type EntityCardData } from "@/components/cards/entity-card";
 import { getCommunityStatusInfo } from "@/lib/community-status";
 

@@ -169,7 +169,7 @@ export default function GroupHeader({
                         {/* BLOQUE SUPERIOR */}
                         <div className="relative z-10 flex flex-col items-start gap-2">
                             <div className="flex flex-wrap items-center gap-2">
-                                <span className="rounded-full bg-[#8C6CFF]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#6D28D9]">
+                                <span className="rounded-full bg-brand-purple/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-purple-deep">
                                     {groupData.category}
                                 </span>
 
@@ -203,7 +203,7 @@ export default function GroupHeader({
                             <div className="flex items-center gap-6 md:gap-10">
                                 <div className="flex flex-col">
                                     <div className="flex items-baseline gap-1">
-                                        <span className="text-3xl font-bold text-[#6D28D9] md:text-4xl">
+                                        <span className="text-3xl font-bold text-brand-purple-deep md:text-4xl">
                                             {memberCount}
                                         </span>
                                         <span className="text-xl font-bold text-black/30 md:text-2xl">
@@ -211,7 +211,7 @@ export default function GroupHeader({
                                         </span>
                                     </div>
                                     <span className="mt-1 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
-                                        <Users size={14} className="text-[#6D28D9]" />
+                                        <Users size={14} className="text-brand-purple-deep" />
                                         Members
                                     </span>
                                 </div>

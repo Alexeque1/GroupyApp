@@ -3,7 +3,6 @@
 import HomeGreetings from "@/components/home/home-greetings";
 import HomeMain from "@/components/home/home-main";
 import HomeAside from "@/components/home/home-aside";
-import AnimatedBackgroundDark from "@/components/ui/backgrounds/animated-background-dark";
 import AnimatedBackgroundLight from "@/components/ui/backgrounds/animated-background-light";
 import { motion } from "framer-motion";
 

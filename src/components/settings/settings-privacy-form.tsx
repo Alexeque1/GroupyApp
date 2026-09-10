@@ -206,7 +206,7 @@ export default function SettingsPrivacyForm() {
                         <div className="flex items-center justify-between py-3">
                             <div className="flex flex-col">
                                 <span className="text-sm font-medium text-black/80 dark:text-white/80">
-                                    Show when you're online
+                                    Show when you&apos;re online
                                 </span>
                                 <span className="text-xs text-black/50 dark:text-white/50">
                                     Allows your friends to see when you are active on the platform.
@@ -224,7 +224,7 @@ export default function SettingsPrivacyForm() {
                                     Show read receipts
                                 </span>
                                 <span className="text-xs text-black/50 dark:text-white/50">
-                                    Let people know when you've seen their direct messages.
+                                    Let people know when you&apos;ve seen their direct messages.
                                 </span>
                             </div>
                             <Switch 

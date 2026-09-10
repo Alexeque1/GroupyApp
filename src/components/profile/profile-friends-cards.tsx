@@ -11,11 +11,14 @@ import ConfirmAlert from "../ui/alerts/confirm-alert";
 import StatusAlert from "../ui/alerts/status-alert";
 import { cn } from "@/lib/utils";
 
+export type FriendStatus = "online" | "offline";
+
 export interface FriendType {
     id: number;
     name: string;
     username: string;
     image: string;
+    status?: FriendStatus;
 }
 
 interface FriendCardProps {
@@ -74,7 +77,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                 "group relative flex cursor-pointer items-center justify-between rounded-2xl border p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]",
                 isMenuOpen ? "z-50" : "z-10 hover:z-20",
                 isSelf
-                    ? "border-[#6D28D9]/20 bg-[#6D28D9]/5"
+                    ? "border-brand-purple-deep/20 bg-brand-purple-deep/5"
                     : isFriend
                         ? "border-[#2563EB]/20 bg-[#2563EB]/5"
                         : "border-black/10 bg-white"
@@ -106,7 +109,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                         <div
                             className={cn(
                                 "relative h-full w-full overflow-hidden rounded-full",
-                                isSelf && "ring-2 ring-[#6D28D9] ring-offset-2 ring-offset-white",
+                                isSelf && "ring-2 ring-brand-purple-deep ring-offset-2 ring-offset-white",
                                 !isSelf && isFriend && "ring-2 ring-[#2563EB] ring-offset-2 ring-offset-white"
                             )}
                         >
@@ -119,7 +122,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                         </div>
 
                         {isSelf ? (
-                            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#6D28D9] px-1.5 py-[1px] text-[8px] font-black uppercase tracking-wider text-white shadow-sm">
+                            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-brand-purple-deep px-1.5 py-[1px] text-[8px] font-black uppercase tracking-wider text-white shadow-sm">
                                 You
                             </span>
                         ) : isFriend && (
@@ -130,7 +133,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                     </div>
 
                     <div className="flex flex-col">
-                        <h4 className="text-sm font-bold text-black/90 transition-colors group-hover:text-[#6D28D9]">
+                        <h4 className="text-sm font-bold text-black/90 transition-colors group-hover:text-brand-purple-deep">
                             {friend.name}
                         </h4>
                         <span className="text-xs font-medium text-black/50">
@@ -218,7 +221,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                                         </>
                                     ) : (
                                         <>
-                                            <UserPlus size={16} className="text-[#6D28D9]" />
+                                            <UserPlus size={16} className="text-brand-purple-deep" />
                                             Add as friend
                                         </>
                                     )}
@@ -231,7 +234,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                                         onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
                                         className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
                                     >
-                                        <Users size={16} className="text-[#059669]" />
+                                        <Users size={16} className="text-brand-green" />
                                         Invite group
                                     </button>
 
@@ -241,7 +244,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                                         onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
                                         className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
                                     >
-                                        <MessageCircle size={16} className="text-[#EA580C]" />
+                                        <MessageCircle size={16} className="text-brand-orange" />
                                         Send message
                                     </button>
                                 </>

@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Users, ArrowUpRight, Crown, Calendar, Shield, MapPin, Activity, ImageIcon } from "lucide-react";
@@ -31,7 +29,7 @@ const ROLE_BADGE: Record<Exclude<GroupRole, "member">, { label: string; Icon: ty
     owner: {
         label: "Owner",
         Icon: Crown,
-        classes: "bg-[#8C6CFF]/20 text-[#6D28D9] border-[#8C6CFF]/30",
+        classes: "bg-brand-purple/20 text-brand-purple-deep border-brand-purple/30",
     },
     admin: {
         label: "Admin",
@@ -49,7 +47,7 @@ interface EntityCardProps {
 export default function EntityCard({ data, variant = "full", className }: EntityCardProps) {
     const isPreview = variant === "preview";
     const isGroup = data.kind === "group";
-    const accentHover = isGroup ? "group-hover:text-[#6D28D9]" : "group-hover:text-[#059669]";
+    const accentHover = isGroup ? "group-hover:text-brand-purple-deep" : "group-hover:text-brand-green";
     const roleBadge = data.role && data.role !== "member" ? ROLE_BADGE[data.role] : null;
     const isDataUrl = data.image?.startsWith("blob:") || data.image?.startsWith("data:");
 
@@ -103,7 +101,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
             className="block h-full">
             <div
                 className={cn(
-                    "group relative flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 dark:border-white/10 dark:bg-[#0a0514]",
+                    "group relative flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 dark:border-white/10 dark:bg-brand-dark",
                     !isPreview && "cursor-pointer hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]",
                     className
                 )}
@@ -219,22 +217,22 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                                         {imagesToShow.map((u, i) => {
                                             const zIndexClasses = ["z-30", "z-20", "z-10"];
                                             return (
-                                                <div key={u.id} className={cn("relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-black/5 dark:border-[#0a0514]", zIndexClasses[i])}>
+                                                <div key={u.id} className={cn("relative h-8 w-8 overflow-hidden rounded-full border-2 border-white bg-black/5 dark:border-brand-dark", zIndexClasses[i])}>
                                                     <Image src={u.profileImage} alt={u.username} fill className="object-cover" />
                                                 </div>
                                             );
                                         })}
                                         {remainingCount > 0 && (
-                                            <div className={cn("z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 font-bold text-black/50 dark:border-[#0a0514]", badgeText.length > 3 ? "text-[8px]" : "text-[10px]")}>
+                                            <div className={cn("z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 font-bold text-black/50 dark:border-brand-dark", badgeText.length > 3 ? "text-[8px]" : "text-[10px]")}>
                                                 {badgeText}
                                             </div>
                                         )}
                                     </>
                                 ) : (
                                     <>
-                                        <div className={cn("z-30 h-8 w-8 rounded-full border-2 border-white bg-gradient-to-br dark:border-[#0a0514]", data.colorFrom, data.colorTo)} />
-                                        <div className="z-20 h-8 w-8 rounded-full border-2 border-white bg-black/20 dark:border-[#0a0514]" />
-                                        <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 text-[10px] font-bold text-black/50 dark:border-[#0a0514]">
+                                        <div className={cn("z-30 h-8 w-8 rounded-full border-2 border-white bg-gradient-to-br dark:border-brand-dark", data.colorFrom, data.colorTo)} />
+                                        <div className="z-20 h-8 w-8 rounded-full border-2 border-white bg-black/20 dark:border-brand-dark" />
+                                        <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 text-[10px] font-bold text-black/50 dark:border-brand-dark">
                                             +{isGroup ? 5 : 12}
                                         </div>
                                     </>

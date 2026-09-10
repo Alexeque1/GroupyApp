@@ -157,7 +157,7 @@ export default function StatusAlert({
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
                         onClick={onClose}
-                        className="absolute inset-0 bg-[#0a0514]/40 backdrop-blur-sm"
+                        className="absolute inset-0 bg-brand-dark/40 backdrop-blur-sm"
                     />
 
                     <motion.div

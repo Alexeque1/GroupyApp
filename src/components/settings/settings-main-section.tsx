@@ -41,7 +41,7 @@ export default function SettingsMainSection({ section, user }: SettingsMainSecti
                 >
                     <div className="flex items-center gap-3">
                         {Icon && (
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#6D28D9]/10 text-[#6D28D9]">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-purple-deep/10 text-brand-purple-deep">
                                 <Icon size={20} />
                             </div>
                         )}

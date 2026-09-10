@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Bell, Settings, Compass, BadgePlus, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import ConfirmAlert from "../ui/alerts/confirm-alert";
 import { MENU_ITEMS } from "@/lib/nav-items";
 
@@ -41,11 +42,11 @@ export default function SideMenu() {
                     stiffness: 300,
                     damping: 25,
                 }}
-                className="fixed left-4 top-4 z-50 hidden h-[calc(100dvh-32px)] flex-col overflow-hidden rounded-[30px] border border-white/10 bg-[#0a0514]/95 shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_12px_rgba(140,108,255,0.08)] backdrop-blur-xl lg:flex transform-gpu will-change-auto"
+                className="fixed left-4 top-4 z-50 hidden h-[calc(100dvh-32px)] flex-col overflow-hidden rounded-[30px] border border-white/10 bg-brand-dark/95 shadow-[0_8px_24px_rgba(0,0,0,0.25),_0_0_12px_rgba(140,108,255,0.08)] backdrop-blur-xl lg:flex transform-gpu will-change-auto"
             >
                 {/* HEADER / LOGO */}
                 <div className="relative h-24 shrink-0">
-                    <div className="absolute left-5 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#8C6CFF] bg-[#0a0514] shadow-[0_0_15px_rgba(140,108,255,0.4)]">
+                    <div className="absolute left-5 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brand-purple bg-brand-dark shadow-[0_0_15px_rgba(140,108,255,0.4)]">
                         <Image
                             src="/logo.png"
                             alt="Logo de Groupy"
@@ -78,7 +79,7 @@ export default function SideMenu() {
                         const isActive = pathname === item.href;
 
                         return (
-                            <a
+                            <Link
                                 key={item.label}
                                 href={item.href}
                                 className={`group relative flex items-center rounded-2xl px-3 py-3 transition-colors ${isActive
@@ -91,8 +92,8 @@ export default function SideMenu() {
                                     <Icon
                                         size={22}
                                         className={`transition-transform duration-300 group-hover:scale-110 ${isActive
-                                            ? "text-[#A9FFD7]"
-                                            : "group-hover:text-[#A9FFD7]"
+                                            ? "text-brand-mint"
+                                            : "group-hover:text-brand-mint"
                                             }`}
                                     />
                                 </div>
@@ -116,7 +117,7 @@ export default function SideMenu() {
                                 {isActive && (
                                     <motion.div
                                         layoutId="active-menu-item"
-                                        className="absolute right-0 h-6 w-1 rounded-l-full bg-[#A9FFD7]"
+                                        className="absolute right-0 h-6 w-1 rounded-l-full bg-brand-mint"
                                         transition={{
                                             type: "spring",
                                             stiffness: 400,
@@ -124,7 +125,7 @@ export default function SideMenu() {
                                         }}
                                     />
                                 )}
-                            </a>
+                            </Link>
                         );
                     })}
                 </nav>
@@ -133,13 +134,13 @@ export default function SideMenu() {
                 <div className="mt-auto px-3 pb-6 pt-2">
                     <button
                         onClick={handleFinishSession}
-                        className="group relative flex w-full items-center rounded-2xl px-3 py-3 text-white/60 transition-colors hover:bg-white/10 hover:text-[#FFB199] cursor-pointer"
+                        className="group relative flex w-full items-center rounded-2xl px-3 py-3 text-white/60 transition-colors hover:bg-white/10 hover:text-brand-peach cursor-pointer"
                     >
                         {/* ICONO */}
                         <div className="flex w-8 shrink-0 items-center justify-center">
                             <LogOut
                                 size={22}
-                                className="transition-transform duration-300 group-hover:scale-110 group-hover:text-[#FFB199]"
+                                className="transition-transform duration-300 group-hover:scale-110 group-hover:text-brand-peach"
                             />
                         </div>
 

@@ -55,7 +55,7 @@ export default function GroupFeedSelectCategoryModal({
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                             onClick={onClose}
-                            className="fixed inset-0 bg-[#0a0514]/40 backdrop-blur-sm"
+                            className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm"
                         />
 
                         {/* CONTENEDOR DEL MODAL */}
@@ -65,16 +65,16 @@ export default function GroupFeedSelectCategoryModal({
                             exit={{ opacity: 0, scale: 0.95, y: 10 }}
                             transition={{ type: "spring", stiffness: 300, damping: 25 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="relative flex max-h-[85vh] w-full max-w-md flex-col overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.2)] dark:border-white/5 dark:bg-[#0a0514]"
+                            className="relative flex max-h-[85vh] w-full max-w-md flex-col overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.2)] dark:border-white/5 dark:bg-brand-dark"
                         >
                             {/* HEADER */}
                             <div className="flex shrink-0 items-start justify-between gap-4 border-b border-black/10 p-6 dark:border-white/10">
                                 <div className="flex items-center gap-3">
-                                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#8C6CFF]/15 text-[#8C6CFF]">
+                                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-purple/15 text-brand-purple">
                                         <LayoutGrid size={20} />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-bold text-[#1a0f2e] dark:text-white">
+                                        <h3 className="text-lg font-bold text-brand-violet dark:text-white">
                                             Post Type
                                         </h3>
                                         <p className="text-xs text-black/50 dark:text-white/50">
@@ -104,7 +104,7 @@ export default function GroupFeedSelectCategoryModal({
                                             className={cn(
                                                 "flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border p-4 text-left transition-colors",
                                                 isSelected
-                                                    ? "border-[#8C6CFF]/40 bg-[#8C6CFF]/5 dark:border-[#8C6CFF]/40 dark:bg-[#8C6CFF]/10"
+                                                    ? "border-brand-purple/40 bg-brand-purple/5 dark:border-brand-purple/40 dark:bg-brand-purple/10"
                                                     : "border-black/10 bg-transparent hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/5"
                                             )}
                                         >
@@ -126,12 +126,12 @@ export default function GroupFeedSelectCategoryModal({
                                                 className={cn(
                                                     "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                                                     isSelected
-                                                        ? "border-[#8C6CFF]"
+                                                        ? "border-brand-purple"
                                                         : "border-black/20 dark:border-white/20"
                                                 )}
                                             >
                                                 {isSelected && (
-                                                    <div className="h-2.5 w-2.5 rounded-full bg-[#8C6CFF]" />
+                                                    <div className="h-2.5 w-2.5 rounded-full bg-brand-purple" />
                                                 )}
                                             </div>
                                         </button>

@@ -63,22 +63,22 @@ export default function HomeWhatsNew() {
     const getNotificationIcon = (type: NotifType) => {
         switch (type) {
             case "friend_request":
-                return <UserPlus size={12} className="text-[#FFB199]" />;
+                return <UserPlus size={12} className="text-brand-peach" />;
             case "join_request":
-                return <ShieldQuestion size={12} className="text-[#A9FFD7]" />;
+                return <ShieldQuestion size={12} className="text-brand-mint" />;
             case "comment":
-                return <MessageCircle size={12} className="text-[#8C6CFF]" />;
+                return <MessageCircle size={12} className="text-brand-purple" />;
             case "event_rescheduled":
-                return <CalendarClock size={12} className="text-[#FFB199]" />;
+                return <CalendarClock size={12} className="text-brand-peach" />;
         }
     };
 
     const getSourceTag = (source: SourceType) => {
         switch (source) {
             case "group":
-                return <span className="rounded-md bg-[#8C6CFF]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#6D28D9]">Group</span>;
+                return <span className="rounded-md bg-brand-purple/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-purple-deep">Group</span>;
             case "community":
-                return <span className="rounded-md bg-[#A9FFD7]/30 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#059669]">Community</span>;
+                return <span className="rounded-md bg-brand-mint/30 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-green">Community</span>;
             case "personal":
                 return <span className="rounded-md bg-black/5 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black/50">User</span>;
         }
@@ -93,14 +93,14 @@ export default function HomeWhatsNew() {
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex items-center gap-2">
-                    <Bell size={18} className="text-[#8C6CFF]" />
+                    <Bell size={18} className="text-brand-purple" />
                     <h3 className="text-xl font-bold text-black/90">
-                        What's new?
+                        What&apos;s new?
                     </h3>
                 </div>
                 
                 <div className="flex items-center gap-3">
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#8C6CFF]/10 text-[10px] font-bold text-[#6D28D9]">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-purple/10 text-[10px] font-bold text-brand-purple-deep">
                         {NOTIFICATIONS_DATA.length}
                     </span>
                     <ChevronDown 
@@ -135,7 +135,7 @@ export default function HomeWhatsNew() {
                                         fill
                                         className="rounded-full object-cover shadow-sm"
                                     />
-                                    <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-[#0a0514]">
+                                    <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-brand-dark">
                                         {getNotificationIcon(notif.type)}
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@ export default function HomeWhatsNew() {
                                     </span>
                                 </div>
 
-                                <div className="mt-2 flex h-2.5 w-2.5 shrink-0 items-center justify-center rounded-full bg-[#8C6CFF] shadow-[0_0_8px_rgba(140,108,255,0.6)]" />
+                                <div className="mt-2 flex h-2.5 w-2.5 shrink-0 items-center justify-center rounded-full bg-brand-purple shadow-[0_0_8px_rgba(140,108,255,0.6)]" />
                             </div>
                         ))}
                     </div>

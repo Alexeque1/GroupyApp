@@ -1,5 +1,3 @@
-"use client";
-
 import CreationPreviewCard from "./creation-preview-card";
 
 export default function CreateAsideSection() {

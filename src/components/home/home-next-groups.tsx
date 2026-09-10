@@ -62,7 +62,7 @@ export default function HomeNextGroups({userGroups}: {userGroups: GroupType[]}) 
             {/* TÍTULO DE LA SECCIÓN Y BOTÓN CREATE */}
             <div className="mb-4 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
-                    <Sparkles size={20} className="text-[#8C6CFF]" />
+                    <Sparkles size={20} className="text-brand-purple" />
                     <h3 className="text-xl font-bold text-black/90">
                         Your next groups
                     </h3>
@@ -103,7 +103,7 @@ export default function HomeNextGroups({userGroups}: {userGroups: GroupType[]}) 
                                 }`}
                         >
                             {index === 0 && (
-                                <div className="absolute top-3 right-3 z-20 flex items-center gap-1 rounded-full border border-white/20 bg-gradient-to-r from-[#FFB199] to-[#FF7A59] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-[0_4px_10px_rgba(255,122,89,0.4)]">
+                                <div className="absolute top-3 right-3 z-20 flex items-center gap-1 rounded-full border border-white/20 bg-gradient-to-r from-brand-peach to-[#FF7A59] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-[0_4px_10px_rgba(255,122,89,0.4)]">
                                     <Timer size={12} />
                                     <span>Soon</span>
                                 </div>

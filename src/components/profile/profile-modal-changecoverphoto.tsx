@@ -136,7 +136,7 @@ export default function ProfileModalChangeCoverPhoto({
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-[#0a0514]/40 backdrop-blur-sm"
+                        className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm"
                     />
 
                     {/* CONTENEDOR DEL MODAL */}
@@ -155,7 +155,7 @@ export default function ProfileModalChangeCoverPhoto({
                                     <Images size={20} />
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-bold text-[#1a0f2e] dark:text-white">
+                                    <h3 className="text-lg font-bold text-brand-violet dark:text-white">
                                         Change cover photo
                                     </h3>
                                     <p className="text-xs text-black/50 dark:text-white/50">

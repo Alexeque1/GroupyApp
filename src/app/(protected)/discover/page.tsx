@@ -10,8 +10,8 @@ export default function Discover() {
             <AnimatedBackgroundLight />
 
             <motion.div
-                initial={{ opacity: 0, y: -40 }} // Empieza transparente y 40px más arriba
-                animate={{ opacity: 1, y: 0 }}   // Termina 100% visible y en su posición original
+                initial={{ opacity: 0, y: -40 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
             >
                 <DiscoverCategoriesSection />

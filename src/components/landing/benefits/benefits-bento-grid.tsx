@@ -57,7 +57,7 @@ export default function BentoAnimatedGridBenefits() {
         {displayImages.map((imageSrc, index) => (
           <div
             key={`bento-slot-${index}`}
-            className={`group relative w-full h-full rounded-[32px] overflow-hidden bg-[#251842]/40 border border-white/10 shadow-lg ${BENTO_POSITIONS[index]}`}
+            className={`group relative w-full h-full rounded-[32px] overflow-hidden bg-brand-plum/40 border border-white/10 shadow-lg ${BENTO_POSITIONS[index]}`}
           >
 
             <AnimatePresence>

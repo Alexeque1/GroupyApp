@@ -34,7 +34,7 @@ export default function CreationPreviewCard() {
         category: previewData.category,
         location: previewData.city,
         members: previewData.participantsLimit ? `0/${previewData.participantsLimit}` : "No limit set",
-        colorFrom: "from-[#8C6CFF]",
+        colorFrom: "from-brand-purple",
         colorTo: "to-[#C4B5FD]",
         startDate: formattedDate,
     };

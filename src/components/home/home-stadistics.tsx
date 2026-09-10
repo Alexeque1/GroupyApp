@@ -8,8 +8,8 @@ export default function HomeMainStatistics() {
             value: "12",
             detail: "+2 this month",
             icon: Users,
-            iconColor: "text-[#8C6CFF]",
-            bgColor: "bg-[#8C6CFF]/10",
+            iconColor: "text-brand-purple",
+            bgColor: "bg-brand-purple/10",
         },
         {
             id: 2,
@@ -17,8 +17,8 @@ export default function HomeMainStatistics() {
             value: "3",
             detail: "Scheduled meetings",
             icon: CalendarDays,
-            iconColor: "text-[#059669]",
-            bgColor: "bg-[#A9FFD7]/40",
+            iconColor: "text-brand-green",
+            bgColor: "bg-brand-mint/40",
         },
         {
             id: 3,
@@ -26,8 +26,8 @@ export default function HomeMainStatistics() {
             value: "2",
             detail: "Awaiting response",
             icon: UserPlus,
-            iconColor: "text-[#EA580C]",
-            bgColor: "bg-[#FFB199]/30",
+            iconColor: "text-brand-orange",
+            bgColor: "bg-brand-peach/30",
         },
         {
             id: 4,
@@ -35,7 +35,7 @@ export default function HomeMainStatistics() {
             value: "4",
             detail: "Unread alerts",
             icon: Bell,
-            iconColor: "text-[#6D28D9]",
+            iconColor: "text-brand-purple-deep",
             bgColor: "bg-[#C4B5FD]/30",
         }
     ];

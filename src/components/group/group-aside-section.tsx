@@ -39,15 +39,15 @@ export default function GroupAsideSection({ group }: GroupAsideProps) {
 
                 <div className="mt-1 flex flex-col gap-3">
                     <div className="flex items-center gap-3 text-sm text-black/70">
-                        <MapPin size={16} className="text-[#6D28D9]" />
+                        <MapPin size={16} className="text-brand-purple-deep" />
                         <span>{group.location}</span>
                     </div>
                     <div className="flex items-center gap-3 text-sm text-black/70">
-                        <Tag size={16} className="text-[#6D28D9]" />
+                        <Tag size={16} className="text-brand-purple-deep" />
                         <span>{group.category}</span>
                     </div>
                     <div className="flex items-center gap-3 text-sm text-black/70">
-                        <Calendar size={16} className="text-[#6D28D9]" />
+                        <Calendar size={16} className="text-brand-purple-deep" />
                         <span>Starts {formatEventDate(group.startDate)}</span>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ export default function GroupAsideSection({ group }: GroupAsideProps) {
                                         </div>
 
                                         <div className="flex flex-1 flex-col">
-                                            <h4 className="text-sm font-semibold text-black/80 transition-colors group-hover:text-[#6D28D9]">
+                                            <h4 className="text-sm font-semibold text-black/80 transition-colors group-hover:text-brand-purple-deep">
                                                 {admin!.firstName} {admin!.lastName}
                                             </h4>
                                             <p className="flex items-center gap-1 text-xs text-black/50">

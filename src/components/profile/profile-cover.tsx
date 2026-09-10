@@ -14,7 +14,7 @@ export default function ProfileCover({ canEdit = false, image = null, onEditClic
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={image} alt="Foto de portada" className="h-full w-full object-cover" />
             ) : (
-                <div className="h-full w-full bg-gradient-to-r from-[#8C6CFF] via-[#A9FFD7] to-[#FFB199]" />
+                <div className="h-full w-full bg-gradient-to-r from-brand-purple via-brand-mint to-brand-peach" />
             )}
 
             {/* BOTÓN DEL LÁPIZ */}

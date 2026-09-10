@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, User, Bell, Settings, Compass, BadgePlus, LogOut } from "lucide-react";
+import Link from "next/link";
+import { Menu, X, LogOut } from "lucide-react";
 import { MENU_ITEMS } from "@/lib/nav-items";
+
+const MotionLink = motion.create(Link);
 
 export default function FloatingLiquidMenu() {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +22,7 @@ export default function FloatingLiquidMenu() {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                         onClick={() => setIsOpen(false)}
-                        className="fixed inset-0 z-40 bg-[#0a0514]/60 backdrop-blur-sm"
+                        className="fixed inset-0 z-40 bg-brand-dark/60 backdrop-blur-sm"
                     />
                 )}
             </AnimatePresence>
@@ -35,13 +38,13 @@ export default function FloatingLiquidMenu() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 20, scale: 0.9 }}
                             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                            className="w-64 rounded-3xl border border-white/10 bg-[#1a0f2e]/90 p-4 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-md"
+                            className="w-64 rounded-3xl border border-white/10 bg-brand-violet/90 p-4 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-md"
                         >
                             <nav className="flex flex-col gap-1">
                                 {MENU_ITEMS.map((item, index) => {
                                     const Icon = item.icon;
                                     return (
-                                        <motion.a
+                                        <MotionLink
                                             key={item.label}
                                             href={item.href}
                                             initial={{ opacity: 0, x: -10 }}
@@ -50,9 +53,9 @@ export default function FloatingLiquidMenu() {
                                             className="group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                                             onClick={() => setIsOpen(false)}
                                         >
-                                            <Icon size={18} className="transition-transform group-hover:scale-110 group-hover:text-[#A9FFD7]" />
+                                            <Icon size={18} className="transition-transform group-hover:scale-110 group-hover:text-brand-mint" />
                                             {item.label}
-                                        </motion.a>
+                                        </MotionLink>
                                     );
                                 })}
 
@@ -90,7 +93,7 @@ export default function FloatingLiquidMenu() {
                         repeat: Infinity,
                         ease: "easeInOut"
                     }}
-                    className="group relative flex h-14 w-32 cursor-pointer items-center justify-center overflow-hidden bg-[#0a0514] shadow-[0_8px_30px_rgba(140,108,255,0.3)] transition-transform duration-300 hover:scale-105 active:scale-95"
+                    className="group relative flex h-14 w-32 cursor-pointer items-center justify-center overflow-hidden bg-brand-dark shadow-[0_8px_30px_rgba(140,108,255,0.3)] transition-transform duration-300 hover:scale-105 active:scale-95"
                 >
                     {/* FONDO LÍQUIDO (Plasma en movimiento) */}
                     <div className="absolute inset-0 z-0 overflow-hidden opacity-80 blur-[12px]">
@@ -98,19 +101,19 @@ export default function FloatingLiquidMenu() {
                         <motion.div
                             animate={{ x: [0, 40, -10, 0], y: [0, -20, 20, 0] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute -left-1/4 -top-1/4 h-[150%] w-[150%] rounded-full bg-[#8C6CFF]/60"
+                            className="absolute -left-1/4 -top-1/4 h-[150%] w-[150%] rounded-full bg-brand-purple/60"
                         />
                         {/* Bola Verde */}
                         <motion.div
                             animate={{ x: [0, -30, 20, 0], y: [0, 30, -10, 0] }}
                             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute -bottom-1/4 -right-1/4 h-[150%] w-[150%] rounded-full bg-[#A9FFD7]/60"
+                            className="absolute -bottom-1/4 -right-1/4 h-[150%] w-[150%] rounded-full bg-brand-mint/60"
                         />
                         {/* Bola Naranja */}
                         <motion.div
                             animate={{ x: [0, 20, -30, 0], y: [0, -10, 30, 0] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute left-1/4 top-1/4 h-[100%] w-[100%] rounded-full bg-[#FFB199]/50"
+                            className="absolute left-1/4 top-1/4 h-[100%] w-[100%] rounded-full bg-brand-peach/50"
                         />
                     </div>
 

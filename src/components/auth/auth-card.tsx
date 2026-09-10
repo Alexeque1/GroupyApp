@@ -29,7 +29,7 @@ export default function AuthCard({
 
       <div className="text-center">
         <h3 className="text-3xl font-bold tracking-tight">
-          Welcome to <span className="text-[#A9FFD7] drop-shadow-[0_0_15px_rgba(169,255,215,0.4)]">Groupy</span>
+          Welcome to <span className="text-brand-mint drop-shadow-[0_0_15px_rgba(169,255,215,0.4)]">Groupy</span>
         </h3>
         <p className="mt-2 text-sm text-white/60">
           {mode === "login" ? "Log in to your account to continue" : "Create your account and join the community"}
@@ -41,7 +41,7 @@ export default function AuthCard({
         <button
           onClick={() => setMode("login")}
           className={`px-4 py-2 font-medium transition-colors ${
-            mode === "login" ? "text-[#A9FFD7] border-b-2 border-[#A9FFD7]" : "text-white/50 hover:text-white"
+            mode === "login" ? "text-brand-mint border-b-2 border-brand-mint" : "text-white/50 hover:text-white"
           }`}
         >
           Log in
@@ -49,7 +49,7 @@ export default function AuthCard({
         <button
           onClick={() => setMode("register")}
           className={`px-4 py-2 font-medium transition-colors ${
-            mode === "register" ? "text-[#A9FFD7] border-b-2 border-[#A9FFD7]" : "text-white/50 hover:text-white"
+            mode === "register" ? "text-brand-mint border-b-2 border-brand-mint" : "text-white/50 hover:text-white"
           }`}
         >
           Register

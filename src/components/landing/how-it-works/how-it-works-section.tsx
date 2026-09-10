@@ -16,7 +16,7 @@ export default function HowItWorksSection() {
                     transition={{ duration: 0.5 }}
                     className="h2_title mb-4"
                 >
-                    How does <span className="text-[#8C6CFF]">Groupy</span> work?
+                    How does <span className="text-brand-purple">Groupy</span> work?
                 </motion.h2>
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
@@ -35,7 +35,7 @@ export default function HowItWorksSection() {
                 {/* Línea conectora de fondo (Solo visible en desktop) */}
                 <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white/10 -translate-y-1/2 hidden md:block z-0">
                     <motion.div
-                        className="h-full bg-gradient-to-r from-[#8C6CFF] via-[#A9FFD7] to-[#FFB199]"
+                        className="h-full bg-gradient-to-r from-brand-purple via-brand-mint to-brand-peach"
                         initial={{ width: "0%" }}
                         whileInView={{ width: "100%" }}
                         viewport={{ once: true }}
@@ -57,7 +57,7 @@ export default function HowItWorksSection() {
                                 key={index}
                                 variants={cardVariants}
                                 whileHover={{ y: -10 }}
-                                className="group relative flex flex-col h-full bg-[#251842]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 overflow-hidden transition-colors hover:border-white/30"
+                                className="group relative flex flex-col h-full bg-brand-plum/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 overflow-hidden transition-colors hover:border-white/30"
                                 style={{ boxShadow: `0 0 0 0 ${step.color}00` }}
                             >
                                 {/* Resplandor hover (Glow) */}

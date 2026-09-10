@@ -60,7 +60,7 @@ export default function CreateGroupForm({ onBack }: CreateGroupFormProps) {
                 <div className="mb-8 flex items-center justify-between">
                     <div>
                         <Users size={48} className="mb-4 text-brand-purple" />
-                        <h2 className="mb-2 text-2xl font-bold text-[#1a0f2e] dark:text-white">Create a New Group</h2>
+                        <h2 className="mb-2 text-2xl font-bold text-brand-violet dark:text-white">Create a New Group</h2>
                         <p className="text-sm text-black/50 dark:text-white/50">
                             Fill in the details to start building your community.
                         </p>

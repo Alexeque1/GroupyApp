@@ -18,29 +18,26 @@ export default function ProfileSectionFriendsList({ friends, currentUserId }: Pr
     const [sortBy, setSortBy] = useState<SortBy>("newest");
 
     const filteredFriends = useMemo(() => {
-        return friends.filter((friend) => {
-            const friendName = (friend as any).name || (friend as any).username || "";
-            const matchesSearch = friendName.toLowerCase().includes(searchQuery.toLowerCase());
-            
-            // Asumiendo que FriendType podría tener un 'status' (ej: 'online', 'offline')
-            const friendStatus = (friend as any).status || "offline";
-            const matchesStatus = statusFilter === "all" || friendStatus === statusFilter;
+        return friends
+            .filter((friend) => {
+                const friendName = `${friend.name} ${friend.username}`.trim().toLowerCase();
+                const matchesSearch = friendName.includes(searchQuery.toLowerCase());
 
-            return matchesSearch && matchesStatus;
+                const friendStatus = friend.status ?? "offline";
+                const matchesStatus = statusFilter === "all" || friendStatus === statusFilter;
 
-        }).sort((a, b) => {
-            const nameA = (a as any).name || "";
-            const nameB = (b as any).name || "";
+                return matchesSearch && matchesStatus;
+            })
+            .sort((a, b) => {
+                if (sortBy === "name-asc") {
+                    return a.name.localeCompare(b.name);
+                }
+                if (sortBy === "name-desc") {
+                    return b.name.localeCompare(a.name);
+                }
 
-            if (sortBy === "name-asc") {
-                return nameA.localeCompare(nameB);
-            }
-            if (sortBy === "name-desc") {
-                return nameB.localeCompare(nameA);
-            }
-            
-            return 0; 
-        });
+                return 0;
+            });
     }, [friends, searchQuery, statusFilter, sortBy]);
 
     const handleClearFilters = () => {
@@ -64,7 +61,7 @@ export default function ProfileSectionFriendsList({ friends, currentUserId }: Pr
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search friends by name..."
-                        className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-[#6D28D9]/40 focus:bg-white focus:ring-2 focus:ring-[#6D28D9]/10"
+                        className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-brand-purple-deep/40 focus:bg-white focus:ring-2 focus:ring-brand-purple-deep/10"
                     />
                     {searchQuery && (
                         <button 
@@ -83,7 +80,7 @@ export default function ProfileSectionFriendsList({ friends, currentUserId }: Pr
                         <select
                             value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value)}
-                            className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-[#6D28D9]/40 focus:bg-white"
+                            className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
                         >
                             <option value="all">All statuses</option>
                             <option value="online">Online</option>
@@ -97,7 +94,7 @@ export default function ProfileSectionFriendsList({ friends, currentUserId }: Pr
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value as SortBy)}
-                            className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-[#6D28D9]/40 focus:bg-white"
+                            className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
                         >
                             <option value="newest">Recently added</option>
                             <option value="name-asc">Alphabetical (A-Z)</option>
@@ -115,7 +112,7 @@ export default function ProfileSectionFriendsList({ friends, currentUserId }: Pr
                         </span>
                         <button
                             onClick={handleClearFilters}
-                            className="cursor-pointer text-xs font-semibold text-[#6D28D9] hover:underline"
+                            className="cursor-pointer text-xs font-semibold text-brand-purple-deep hover:underline"
                         >
                             Clear filters
                         </button>
@@ -142,7 +139,6 @@ export default function ProfileSectionFriendsList({ friends, currentUserId }: Pr
                 <ProfileSectionGrid
                     items={filteredFriends}
                     columns="grid-cols-1 xl:grid-cols-3"
-                    linkTo={(friend) => `/profile/${friend.id}`}
                     renderItem={(friend) => <FriendsCards friend={friend} currentUserId={currentUserId} />}
                 />
             )}

@@ -15,7 +15,7 @@ export default function LoginForm() {
         <label className="ml-1 text-sm font-medium text-white/80">Email</label>
         <input
           type="email"
-          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-[#A9FFD7] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#A9FFD7] not-placeholder-shown:bg-white not-placeholder-shown:text-black"
+          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-white/30 outline-none transition-all focus:border-brand-mint focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-brand-mint not-placeholder-shown:bg-white not-placeholder-shown:text-black"
           placeholder="correo@ejemplo.com"
         />
       </div>
@@ -24,7 +24,7 @@ export default function LoginForm() {
       <div className="flex flex-col gap-1.5">
         <div className="ml-1 flex items-center justify-between">
           <label className="text-sm font-medium text-white/80">Password</label>
-          <a href="#" className="text-xs text-[#8C6CFF] transition-colors hover:text-white">
+          <a href="#" className="text-xs text-brand-purple transition-colors hover:text-white">
             ¿Olvidaste tu contraseña?
           </a>
         </div>
@@ -33,7 +33,7 @@ export default function LoginForm() {
           <input
             type={showPassword ? "text" : "password"}
             // Agregamos 'peer' y 'pr-12' para dejar espacio al ícono
-            className="peer w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-4 pr-12 text-white placeholder-white/30 outline-none transition-all focus:border-[#A9FFD7] focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-[#A9FFD7] not-placeholder-shown:bg-white not-placeholder-shown:text-black"
+            className="peer w-full rounded-xl border border-white/10 bg-white/5 py-3 pl-4 pr-12 text-white placeholder-white/30 outline-none transition-all focus:border-brand-mint focus:bg-white focus:text-black focus:placeholder-black focus:ring-1 focus:ring-brand-mint not-placeholder-shown:bg-white not-placeholder-shown:text-black"
             placeholder="••••••••"
           />
           <button

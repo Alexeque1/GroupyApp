@@ -18,13 +18,13 @@ export const AnimatedStep1Icon = ({ color }: { color: string }) => (
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
-            className="absolute bottom-2 right-2 bg-[#251842] rounded-full"
+            className="absolute bottom-2 right-2 bg-brand-plum rounded-full"
         >
             <motion.div
                 animate={{ y: [-2, 2, -2] }}
                 transition={{ duration: 3, repeat: Infinity, ease: [0.42, 0, 0.58, 1], delay: 0.2 }}
             >
-                <CheckCircle2 size={16} className="text-[#A9FFD7]" fill="#A9FFD7" stroke="#251842" strokeWidth={2} />
+                <CheckCircle2 size={16} className="text-brand-mint" fill="#A9FFD7" stroke="#251842" strokeWidth={2} />
             </motion.div>
         </motion.div>
     </div>
@@ -62,7 +62,7 @@ export const AnimatedStep2Icon = ({ color }: { color: string }) => (
 
         {/* Nodo Central */}
         <motion.div
-            className="absolute z-10 bg-[#251842] rounded-full p-[2px]"
+            className="absolute z-10 bg-brand-plum rounded-full p-[2px]"
             style={{ top: 'calc(50% - 12px)', left: 'calc(50% - 12px)' }}
             animate={{ scale: [1, 1.15, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: [0.42, 0, 0.58, 1] }}
@@ -72,7 +72,7 @@ export const AnimatedStep2Icon = ({ color }: { color: string }) => (
 
         {/* Nodos Periféricos */}
         <motion.div
-            className="absolute z-10 bg-[#251842] rounded-full p-[2px]"
+            className="absolute z-10 bg-brand-plum rounded-full p-[2px]"
             style={{ top: 'calc(25% - 8px)', left: 'calc(25% - 8px)' }}
             initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
         >
@@ -80,7 +80,7 @@ export const AnimatedStep2Icon = ({ color }: { color: string }) => (
         </motion.div>
 
         <motion.div
-            className="absolute z-10 bg-[#251842] rounded-full p-[2px]"
+            className="absolute z-10 bg-brand-plum rounded-full p-[2px]"
             style={{ top: 'calc(35% - 8px)', left: 'calc(80% - 8px)' }}
             initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
         >
@@ -88,7 +88,7 @@ export const AnimatedStep2Icon = ({ color }: { color: string }) => (
         </motion.div>
 
         <motion.div
-            className="absolute z-10 bg-[#251842] rounded-full p-[2px]"
+            className="absolute z-10 bg-brand-plum rounded-full p-[2px]"
             style={{ top: 'calc(80% - 8px)', left: 'calc(65% - 8px)' }}
             initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.6 }}
         >
@@ -102,7 +102,7 @@ export const AnimatedStep3Icon = ({ color }: { color: string }) => (
         <motion.div
             animate={{ scale: [1, 1.05, 1], rotate: [-3, 3, -3] }}
             transition={{ duration: 3, repeat: Infinity, ease: [0.42, 0, 0.58, 1] }}
-            className="z-10 bg-[#251842] rounded-full relative"
+            className="z-10 bg-brand-plum rounded-full relative"
         >
             <Users size={32} color={color} />
         </motion.div>

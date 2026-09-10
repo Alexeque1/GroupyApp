@@ -16,14 +16,14 @@ export const GROUP_STATUS_DATA: Record<GroupStatus, GroupStatusInfo> = {
     Upcoming: {
         label: "Upcoming",
         icon: Clock,
-        badgeClasses: "bg-[#8C6CFF]/20 text-[#6D28D9] border-[#8C6CFF]/30",
-        dotClasses: "bg-[#6D28D9]",
+        badgeClasses: "bg-brand-purple/20 text-brand-purple-deep border-brand-purple/30",
+        dotClasses: "bg-brand-purple-deep",
     },
     Active: {
         label: "Happening now",
         icon: Radio,
-        badgeClasses: "bg-[#059669]/20 text-[#059669] border-[#059669]/30",
-        dotClasses: "bg-[#059669]",
+        badgeClasses: "bg-brand-green/20 text-brand-green border-brand-green/30",
+        dotClasses: "bg-brand-green",
         pulse: true,
     },
     Past: {

@@ -158,7 +158,7 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                                     <div className="flex items-center justify-center gap-6 md:justify-start md:gap-10">
                                         {/* Grupos */}
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl font-bold text-[#6D28D9] md:text-3xl">
+                                            <span className="text-2xl font-bold text-brand-purple-deep md:text-3xl">
                                                 {user.groups.length}
                                             </span>
                                             <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
@@ -170,7 +170,7 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
 
                                         {/* Comunidades */}
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl font-bold text-[#059669] md:text-3xl">
+                                            <span className="text-2xl font-bold text-brand-green md:text-3xl">
                                                 {user.communities.length}
                                             </span>
                                             <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
@@ -182,7 +182,7 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
 
                                         {/* Amigos */}
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl font-bold text-[#EA580C] md:text-3xl">
+                                            <span className="text-2xl font-bold text-brand-orange md:text-3xl">
                                                 {user.friends.length}
                                             </span>
                                             <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">

@@ -1,5 +1,3 @@
-import { CommunityType } from "../profile/profile-communities-cards";
-import { FriendType } from "../profile/profile-friends-cards";
 import { GroupType } from "../profile/profile-groups-cards";
 import HomeNextGroups from "./home-next-groups";
 import HomeMainStatistics from "./home-stadistics";
