@@ -3,7 +3,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
-export type CreateType = "group" | "community" | null;
+export type CreateType = "event" | "community" | null;
 
 export interface CreatePreviewData {
     imagePreview: string | null;

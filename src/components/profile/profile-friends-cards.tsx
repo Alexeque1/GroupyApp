@@ -235,7 +235,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                                         className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
                                     >
                                         <Users size={16} className="text-brand-green" />
-                                        Invite group
+                                        Invite event
                                     </button>
 
                                     <div className="my-1 h-px w-full bg-black/5" />

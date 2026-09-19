@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Calendar, MapPin, Users, Briefcase, Globe, CalendarX, UsersRound } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { GroupType } from "./profile-groups-cards";
+import type { EventType } from "./profile-events-cards";
 import type { CommunityType } from "./profile-communities-cards";
-import { getToday } from "@/lib/group-filters";
+import { getToday } from "@/lib/event-filters";
 
 type ProfileAsideProps = {
     user: {
@@ -13,19 +13,19 @@ type ProfileAsideProps = {
         profession: string;
         languages: string[];
         joined: string;
-        groups: GroupType[];
+        events: EventType[];
         communities: CommunityType[];
     };
 };
 
-function getNearestGroup(groups: GroupType[]): GroupType | null {
+function getNearestEvent(events: EventType[]): EventType | null {
     const today = getToday();
-    const upcoming = groups
-        .map((group) => ({ group, date: new Date(group.startDate) }))
+    const upcoming = events
+        .map((event) => ({ event, date: new Date(event.startDate) }))
         .filter(({ date }) => !isNaN(date.getTime()) && date.getTime() >= today.getTime())
         .sort((a, b) => a.date.getTime() - b.date.getTime());
 
-    return upcoming[0]?.group ?? null;
+    return upcoming[0]?.event ?? null;
 }
 
 function parseMemberCount(value: string): number {
@@ -47,7 +47,7 @@ function getTopCommunities(communities: CommunityType[], limit = 2): CommunityTy
 }
 
 export default function ProfileAside({ user }: ProfileAsideProps) {
-    const nearestGroup = getNearestGroup(user.groups);
+    const nearestEvent = getNearestEvent(user.events);
     const topCommunities = getTopCommunities(user.communities);
 
     return (
@@ -89,39 +89,39 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
 
             <hr className="border-black/10" />
 
-            {/* SECCIÓN 2: PRÓXIMO GRUPO */}
+            {/* SECCIÓN 2: PRÓXIMO EVENTO */}
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-black/80">
                     Coming soon
                 </h3>
 
-                {nearestGroup ? (
+                {nearestEvent ? (
                     <ul className="flex flex-col gap-3">
                         <li>
                             <Link
-                                href={`/group/${nearestGroup.id}`}
+                                href={`/event/${nearestEvent.id}`}
                                 className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/5 bg-black/5 p-3 transition-colors hover:bg-black/10"
                             >
                                 {/* Fecha */}
                                 <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-brand-purple-deep/10 text-brand-purple-deep">
                                     <span className="text-[10px] font-bold uppercase tracking-wider">
-                                        {new Date(nearestGroup.startDate).toLocaleDateString("en-US", { month: "short" })}
+                                        {new Date(nearestEvent.startDate).toLocaleDateString("en-US", { month: "short" })}
                                     </span>
 
                                     <span className="text-sm font-black">
-                                        {new Date(nearestGroup.startDate).getDate()}
+                                        {new Date(nearestEvent.startDate).getDate()}
                                     </span>
                                 </div>
 
-                                {/* Info del grupo */}
+                                {/* Info del evento */}
                                 <div className="flex flex-1 flex-col overflow-hidden">
                                     <h4 className="truncate text-sm font-semibold text-black/80">
-                                        {nearestGroup.title}
+                                        {nearestEvent.title}
                                     </h4>
 
                                     <p className="mt-0.5 flex items-center gap-1 text-xs text-black/50">
                                         <MapPin size={12} />
-                                        {nearestGroup.location}
+                                        {nearestEvent.location}
                                     </p>
                                 </div>
                             </Link>
@@ -131,7 +131,7 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                     <div className="flex flex-col items-center gap-2 rounded-2xl border border-black/5 bg-black/5 p-4 text-center">
                         <CalendarX size={20} className="text-black/40" />
                         <p className="text-xs text-black/50">
-                            No upcoming groups yet.
+                            No upcoming events yet.
                         </p>
                     </div>
                 )}

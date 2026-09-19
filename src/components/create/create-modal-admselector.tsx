@@ -93,7 +93,7 @@ export default function CreateModalAdminSelector({
                                         Add Administrators
                                     </h3>
                                     <p className="text-xs text-black/50 dark:text-white/50">
-                                        Choose who can help you manage this group.
+                                        Choose who can help you manage this event.
                                     </p>
                                 </div>
                             </div>

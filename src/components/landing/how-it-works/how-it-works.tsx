@@ -4,7 +4,7 @@ import InteractiveCta from "../interactive-cta";
 export default function HowItWorks() {
   return (
     <section className="relative overflow-hidden bg-brand-violet text-white">
-      <div className="container mx-auto flex flex-col gap-20 px-4 py-20">
+      <div className="container mx-auto flex flex-col gap-20 py-20">
         <HowItWorksSection />
         <InteractiveCta />
       </div>

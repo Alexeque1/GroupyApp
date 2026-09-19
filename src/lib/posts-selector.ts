@@ -14,7 +14,7 @@ export interface PostWithCommentsViewModel extends PostViewModel {
     comments: CommentViewModel[];
 }
 
-export function getPostsForGroup(groupId: number): PostViewModel[] {
+export function getPostsForEvent(groupId: number): PostViewModel[] {
     return POSTS_DATA
         .filter((post) => post.groupId === groupId)
         .map((post): PostViewModel | null => {
@@ -64,10 +64,10 @@ export function getCommentsForPost(postId: number): CommentViewModel[] {
         );
 }
 
-export function getPostsWithCommentsForGroup(
+export function getPostsWithCommentsForEvent(
     groupId: number
 ): PostWithCommentsViewModel[] {
-    const posts = getPostsForGroup(groupId);
+    const posts = getPostsForEvent(groupId);
 
     return posts.map((post) => ({
         ...post,

@@ -220,7 +220,7 @@ export const POSTS_DATA: PostType[] = [
         groupId: 15,
         authorId: 2,
         category: "Announcement",
-        content: "Welcome to Group 15! We will be focusing on cloud-native applications and microservices architecture.",
+        content: "Welcome to Event 15! We will be focusing on cloud-native applications and microservices architecture.",
         createdAt: "2026-08-14T13:00:00Z",
         viewCount: 19,
         likeCount: 5,

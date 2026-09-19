@@ -3,17 +3,17 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import ProfileSectionGroups from "./profile-main-section-groups";
+import ProfileSectionEvents from "./profile-main-section-events";
 import ProfileSectionCommunities from "./profile-main-section-communities";
 import ProfileSectionFriendsList from "./profile-main-section-friendslist";
 import NavigationTabButton from "../ui/navigation-tab-button"; // <-- Importa tu nuevo componente
-import { GroupType } from "./profile-groups-cards";
+import { EventType } from "./profile-events-cards";
 import { CommunityType } from "./profile-communities-cards";
 import { FriendType } from "./profile-friends-cards";
 
 const TABS_CONFIG = [
     {
-        key: "Groups",
+        key: "Events",
         description:
             "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat magnam saepe iste, minus ut quibusdam enim quis est necessitatibus eaque dicta, commodi amet debitis et soluta dolorum numquam a reiciendis.",
     },
@@ -35,7 +35,7 @@ type ProfileMainProps = {
     user: {
         name: string;
         username: string;
-        groups: GroupType[];
+        events: EventType[];
         communities: CommunityType[];
         friends: FriendType[];
     };
@@ -79,9 +79,9 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
                         </h3>
                         <p className="text-black/60">{activeConfig.description}</p>
 
-                        {activeTab === "Groups" && (
-                            <ProfileSectionGroups
-                                groups={user.groups}
+                        {activeTab === "Events" && (
+                            <ProfileSectionEvents
+                                events={user.events}
                                 isOwnProfile={isOwnProfile}
                                 profileName={user.name}
                                 profileUsername={user.username}

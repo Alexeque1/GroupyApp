@@ -1,7 +1,7 @@
-import { GROUPS_DATA } from "./group-data";
+import { EVENTS_DATA } from "./event-data";
 import { COMMUNITIES_DATA } from "./community-data";
 import { USERS_DATA, UserType } from "./users-data";
-import type { GroupType, GroupRole } from "@/components/profile/profile-groups-cards";
+import type { EventType, EventRole } from "@/components/profile/profile-events-cards";
 import type { CommunityType } from "@/components/profile/profile-communities-cards";
 import type { FriendType } from "@/components/profile/profile-friends-cards";
 
@@ -11,7 +11,7 @@ export interface ProfileViewModel {
     lastName: string;
     username: string;
     profileImage: string;
-    groups: GroupType[];
+    events: EventType[];
     friends: FriendType[];
     communities: CommunityType[];
     country: string;
@@ -23,17 +23,17 @@ export interface ProfileViewModel {
     joined: string;
 }
 
-function resolveGroups(user: UserType): GroupType[] {
-    const withRole = (id: number, role: GroupRole): GroupType | undefined => {
-        const group = GROUPS_DATA.find((g) => g.id === id);
-        return group ? { ...group, role } : undefined;
+function resolveEvents(user: UserType): EventType[] {
+    const withRole = (id: number, role: EventRole): EventType | undefined => {
+        const event = EVENTS_DATA.find((g) => g.id === id);
+        return event ? { ...event, role } : undefined;
     };
 
     return [
-        ...user.groups.owner.map((id) => withRole(id, "owner")),
-        ...user.groups.admin.map((id) => withRole(id, "admin")),
-        ...user.groups.member.map((id) => withRole(id, "member")),
-    ].filter((g): g is GroupType => Boolean(g));
+        ...user.events.owner.map((id) => withRole(id, "owner")),
+        ...user.events.admin.map((id) => withRole(id, "admin")),
+        ...user.events.member.map((id) => withRole(id, "member")),
+    ].filter((g): g is EventType => Boolean(g));
 }
 
 function resolveCommunities(user: UserType): CommunityType[] {
@@ -75,7 +75,7 @@ export function getProfileViewModel(userId: number): ProfileViewModel | null {
         lastName: user.lastName,
         username: user.username,
         profileImage: user.profileImage,
-        groups: resolveGroups(user),
+        events: resolveEvents(user),
         friends: resolveFriends(user),
         communities: resolveCommunities(user),
         country: user.country,

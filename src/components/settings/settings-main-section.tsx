@@ -15,7 +15,7 @@ interface SettingsMainSectionProps {
         lastName: string;
         username: string;
         profileImage: string;
-        groups: unknown[];
+        events: unknown[];
         communities: unknown[];
         friends: unknown[];
         bio: string;

@@ -15,7 +15,7 @@ const benefits = [
         icon: <Calendar className="h-8 w-8" />,
         title: "Everything in one place",
         description:
-            "Organize groups, events and conversations without jumping between different apps.",
+            "Organize events, events and conversations without jumping between different apps.",
     },
     {
         icon: <Users className="h-8 w-8" />,
@@ -25,7 +25,7 @@ const benefits = [
     },
     {
         icon: <Folder className="h-8 w-8" />,
-        title: "Keep your groups organized",
+        title: "Keep your events organized",
         description:
             "Separate friends, work, university or any community into dedicated spaces.",
     },
@@ -41,7 +41,7 @@ export default function BenefitsGrid() {
     return (
         <div className="text-center">
             <h2 className="h2_title dark-mesh-gradient">
-                Groupy helps you build your group
+                Groupy helps you build your event
             </h2>
 
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">

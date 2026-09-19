@@ -4,22 +4,22 @@ const benefitsData = [
     {
         title: "Community",
         description: "Join a group of vibrant people and create meaningful connections. The foundation of great experiences starts with a strong community.",
-        imageSrc: "/benefits_typegroups/community.jpg",
+        imageSrc: "/benefits_typegroups/community.webp",
     },
     {
         title: "Shared Spaces",
         description: "Whether you're working or creating, our coworking environments are designed to foster collaboration and productivity.",
-        imageSrc: "/benefits_typegroups/coworking.jpg",
+        imageSrc: "/benefits_typegroups/coworking.webp",
     },
     {
         title: "Meet New People",
         description: "Break the ice in relaxed environments and meet fascinating profiles. There's always someone interesting to share a coffee with.",
-        imageSrc: "/benefits_typegroups/new people.jpg",
+        imageSrc: "/benefits_typegroups/new-people.webp",
     },
     {
         title: "New Friends",
         description: "Beyond networking, foster lasting friendships based on hobbies, interests, and shared experiences.",
-        imageSrc: "/benefits_typegroups/friends.jpg",
+        imageSrc: "/benefits_typegroups/friends.webp",
     },
 ];
 
@@ -38,7 +38,7 @@ export default function Benefits2Section() {
             </div>
 
             {/* Contenido principal */}
-            <div className="relative z-10 container mx-auto px-4 py-16">
+            <div className="relative z-10 container mx-auto py-16">
                 <div className="mb-12 text-center">
                     <h2 className="h2_title dark-mesh-gradient">
                         Live unique experiences with friends or new people

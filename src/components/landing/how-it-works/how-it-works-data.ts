@@ -13,7 +13,7 @@ export const steps = [
         color: "#8C6CFF", // Morado Groupy
     },
     {
-        title: "Discover groups",
+        title: "Discover events",
         description: "Explore communities and events that match perfectly with your vibe. There's always something new happening near you.",
         IconComponent: AnimatedStep2Icon,
         color: "#A9FFD7", // Verde menta

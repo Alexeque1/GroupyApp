@@ -5,7 +5,7 @@ import BentoAnimatedGridBenefits from "./benefits-bento-grid";
 export default function Benefits1() {
     return (
         <section className="overflow-hidden">
-            <div className="container mx-auto flex flex-col gap-20 px-4 py-20">
+            <div className="container mx-auto flex flex-col gap-20 py-20">
                 <div className="text-center">
                     <h2 className="h2_title dark-mesh-gradient">
                         Decide what your plan is and make it happen

@@ -12,7 +12,9 @@ export default function ProfileSectionGrid<T extends { id: number }>({
     return (
         <div className={`grid ${columns} gap-6 w-full`}>
             {items.map((item) =>
-                <Fragment key={item.id}>{renderItem(item)}</Fragment>
+                <Fragment key={item.id}>
+                    {renderItem(item)}
+                </Fragment>
             )}
         </div>
     );

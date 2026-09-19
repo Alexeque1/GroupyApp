@@ -26,7 +26,7 @@ export default function SideMenu() {
                 onConfirm={() => { }}
                 icon={LogOut}
                 title="Loggin Out"
-                description="You are about to log out of your account. You will need to log back in to access your groups."
+                description="You are about to log out of your account. You will need to log back in to access your events."
                 confirmLabel="Yes, log out"
                 variant="danger"
             />

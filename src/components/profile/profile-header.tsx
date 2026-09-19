@@ -21,7 +21,7 @@ type ProfileHeaderProps = {
         lastName: string;
         username: string;
         profileImage: string;
-        groups: unknown[];
+        events: unknown[];
         communities: unknown[];
         friends: unknown[];
     };
@@ -159,10 +159,10 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                                         {/* Grupos */}
                                         <div className="flex flex-col items-center">
                                             <span className="text-2xl font-bold text-brand-purple-deep md:text-3xl">
-                                                {user.groups.length}
+                                                {user.events.length}
                                             </span>
                                             <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
-                                                Groups
+                                                Events
                                             </span>
                                         </div>
 

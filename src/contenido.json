@@ -1,0 +1,4 @@
+db.libros.updateOne(
+  { _id: ObjectId("6aa9821ca123d437449fffbb") },
+  { $addToSet: { categorias: "Aventura" } }
+)

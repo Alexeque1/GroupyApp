@@ -6,12 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // 1. Define aquí todas las imágenes de tu galería (deben ser más de 4 para que roten)
 const ALL_IMAGES = [
-  "/benefits_carrousel/party_carrousel.jpg",
-  "/benefits_carrousel/fitness_carrousel.jpg",
-  "/benefits_carrousel/hobbies_carrousel.jpg",
-  "/benefits_carrousel/nature_carrousel.jpg",
-  "/benefits_carrousel/meeting_carrousel.jpg",
-  "/benefits_carrousel/events_carrousel.jpg",
+  "/benefits_carrousel/party_carrousel.webp",
+  "/benefits_carrousel/fitness_carrousel.webp",
+  "/benefits_carrousel/hobbies_carrousel.webp",
+  "/benefits_carrousel/nature_carrousel.webp",
+  "/benefits_carrousel/meeting_carrousel.webp",
+  "/benefits_carrousel/events_carrousel.webp",
 ];
 
 // 2. Definimos las posiciones exactas en el Grid para replicar el diseño asimétrico

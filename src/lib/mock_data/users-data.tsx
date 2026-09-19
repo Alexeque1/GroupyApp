@@ -1,4 +1,4 @@
-export interface UserGroups {
+export interface UserEvents {
     owner: number[]; 
     admin: number[];
     member: number[]; 
@@ -10,7 +10,7 @@ export interface UserType {
     lastName: string;
     username: string;
     profileImage: string;
-    groups: UserGroups;
+    events: UserEvents;
     communityIds: number[]; // IDs de las comunidades a las que pertenece
     friendIds: number[];    // IDs de sus amigos
     bio: string;
@@ -31,14 +31,14 @@ export const USERS_DATA: UserType[] = [
         lastName: "Sequera",
         username: "Alexeque1",
         profileImage: "/profile-image.png",
-        groups: {
+        events: {
             owner: [1, 3, 6],
             admin: [2],
             member: [4],
         },
         communityIds: [1, 2, 3],
         friendIds: [14, 15, 16, 17, 18, 19],
-        bio: "A lover of technology, live music, and good coffee. Always seeking new adventures and groups to share interests with.",
+        bio: "A lover of technology, live music, and good coffee. Always seeking new adventures and events to share interests with.",
         city: "Buenos Aires",
         country: "Argentina",
         profession: "UX/UI Designer",
@@ -52,7 +52,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Garcia",
         username: "Maria123",
         profileImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [2],
             admin: [4],
             member: [1],
@@ -73,7 +73,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Rodriguez",
         username: "LucasRock",
         profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [4],
             admin: [3],
             member: [1, 2],
@@ -94,7 +94,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Pérez",
         username: "LucyCoffee",
         profileImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [5],
             admin: [],
             member: [12, 15],
@@ -115,7 +115,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Ríos",
         username: "CamiR",
         profileImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [7, 16],
             admin: [9],
             member: [1, 8],
@@ -136,7 +136,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Paz",
         username: "JuliFit",
         profileImage: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [8],
             admin: [14],
             member: [2],
@@ -157,7 +157,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Méndez",
         username: "SofiDance",
         profileImage: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [9],
             admin: [],
             member: [3, 7],
@@ -178,7 +178,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Fernández",
         username: "DiegoJazz",
         profileImage: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [10],
             admin: [4],
             member: [13],
@@ -199,7 +199,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "López",
         username: "MartiTrek",
         profileImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [11],
             admin: [2],
             member: [8],
@@ -220,7 +220,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Ortiz",
         username: "ValePM",
         profileImage: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [12],
             admin: [1, 6],
             member: [5],
@@ -241,7 +241,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Vargas",
         username: "NicoBoard",
         profileImage: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [13],
             admin: [],
             member: [15, 10],
@@ -262,7 +262,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Torres",
         username: "FloYoga",
         profileImage: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [14],
             admin: [8],
             member: [2, 11],
@@ -283,7 +283,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Díaz",
         username: "NachoBeer",
         profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=500&auto=format&fit=crop",
-        groups: {
+        events: {
             owner: [15],
             admin: [],
             member: [13, 7],
@@ -306,7 +306,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Martínez",
         username: "sofiam",
         profileImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
-        groups: { owner: [], admin: [], member: [2, 4] },
+        events: { owner: [], admin: [], member: [2, 4] },
         communityIds: [1, 3],
         friendIds: [1, 2, 13, 15], // El 1 es Alex; 15 (Lucas) es amigo en común con Alex
         bio: "Creative soul with a love for design, music festivals, and travel.",
@@ -323,7 +323,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Pereira",
         username: "lucasp",
         profileImage: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop",
-        groups: { owner: [], admin: [], member: [1, 8] },
+        events: { owner: [], admin: [], member: [1, 8] },
         communityIds: [2],
         friendIds: [1, 3, 9, 13, 14], // 14 (Sofía) es amiga en común con Alex
         bio: "Backend developer who spends weekends exploring the city's live music scene.",
@@ -340,7 +340,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Gómez",
         username: "valegomez",
         profileImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
-        groups: { owner: [], admin: [], member: [6, 12] },
+        events: { owner: [], admin: [], member: [6, 12] },
         communityIds: [1, 2, 3],
         friendIds: [1, 2, 10, 17], // 17 (Mateo) es amigo en común con Alex
         bio: "Building communities online and offline, one event at a time.",
@@ -357,7 +357,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Silva",
         username: "mateo_s",
         profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-        groups: { owner: [], admin: [], member: [3, 7] },
+        events: { owner: [], admin: [], member: [3, 7] },
         communityIds: [2, 3],
         friendIds: [1, 3, 6, 16], // 16 (Valentina) es amiga en común con Alex
         bio: "Photographer chasing warehouse parties and golden hour light.",
@@ -374,7 +374,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Ruiz",
         username: "camiruiz",
         profileImage: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
-        groups: { owner: [], admin: [], member: [14, 16] },
+        events: { owner: [], admin: [], member: [14, 16] },
         communityIds: [1, 3],
         friendIds: [1, 5, 12],
         bio: "Illustrator inspired by yoga retreats and stand-up comedy nights.",
@@ -391,7 +391,7 @@ export const USERS_DATA: UserType[] = [
         lastName: "Herrera",
         username: "nico_h",
         profileImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
-        groups: { owner: [], admin: [], member: [5, 11] },
+        events: { owner: [], admin: [], member: [5, 11] },
         communityIds: [1, 2],
         friendIds: [1, 10, 11],
         bio: "Engineer during the week, hiking guide on weekends.",

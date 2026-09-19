@@ -4,6 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Contenedor de la landing.
+   - max-width: tope de caja para que las líneas de texto no se hagan eternas.
+   - padding-inline con clamp(): el "aire" lateral es fluido, nunca fijo.
+       ~1rem en móvil  ->  ~5vw mientras crece  ->  tope de 7rem.
+     Ej: a 1500px de viewport da ~75px por lado; a 2400px sigue creciendo
+     (tope 7rem) y además aparecen márgenes automáticos por el max-width.
+   - margin-inline: auto centra la caja cuando el viewport supera el max-width.
+   Las secciones ya NO necesitan `px-*`: el gutter vive aquí. */
+@utility container {
+  width: 100%;
+  max-width: 90rem; /* 1440px */
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 7rem);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

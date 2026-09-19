@@ -3,9 +3,32 @@ import Link from "next/link";
 import { Users, ArrowUpRight, Crown, Calendar, Shield, MapPin, Activity, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { USERS_DATA } from "@/lib/mock_data/users-data";
+import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
 
-export type GroupRole = "owner" | "admin" | "member";
-export type EntityCardKind = "group" | "community";
+// Paleta de respaldo para categorías que no están en DISCOVER_CATEGORIES (ej. comunidades)
+const FALLBACK_CATEGORY_COLORS = [
+    "bg-indigo-500",
+    "bg-teal-500",
+    "bg-fuchsia-500",
+    "bg-amber-500",
+    "bg-sky-500",
+    "bg-lime-600",
+];
+
+function getCategoryBadgeColor(category: string) {
+    const match = DISCOVER_CATEGORIES.find((c) => c.name.toLowerCase() === category?.toLowerCase());
+    if (match) return match.solid;
+    if (!category) return "bg-black/60";
+
+    let hash = 0;
+    for (let i = 0; i < category.length; i++) {
+        hash = category.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return FALLBACK_CATEGORY_COLORS[Math.abs(hash) % FALLBACK_CATEGORY_COLORS.length];
+}
+
+export type EventRole = "owner" | "admin" | "member";
+export type EntityCardKind = "event" | "community";
 
 export interface EntityCardData {
     kind: EntityCardKind;
@@ -21,11 +44,11 @@ export interface EntityCardData {
     statusClasses?: string;
     owner?: string;
     startDate?: string;
-    role?: GroupRole;
+    role?: EventRole;
     activity?: string;
 }
 
-const ROLE_BADGE: Record<Exclude<GroupRole, "member">, { label: string; Icon: typeof Crown; classes: string }> = {
+const ROLE_BADGE: Record<Exclude<EventRole, "member">, { label: string; Icon: typeof Crown; classes: string }> = {
     owner: {
         label: "Owner",
         Icon: Crown,
@@ -46,19 +69,19 @@ interface EntityCardProps {
 
 export default function EntityCard({ data, variant = "full", className }: EntityCardProps) {
     const isPreview = variant === "preview";
-    const isGroup = data.kind === "group";
-    const accentHover = isGroup ? "group-hover:text-brand-purple-deep" : "group-hover:text-brand-green";
+    const isEvent = data.kind === "event";
+    const accentHover = isEvent ? "group-hover:text-brand-purple-deep" : "group-hover:text-brand-green";
     const roleBadge = data.role && data.role !== "member" ? ROLE_BADGE[data.role] : null;
     const isDataUrl = data.image?.startsWith("blob:") || data.image?.startsWith("data:");
 
     // --- LÓGICA DE MIEMBROS Y AVATARES ---
     let displayMembers: typeof USERS_DATA = [];
     if (!isPreview && data.id) {
-        if (isGroup) {
+        if (isEvent) {
             displayMembers = USERS_DATA.filter((user) =>
-                user.groups?.owner?.includes(data.id!) ||
-                user.groups?.admin?.includes(data.id!) ||
-                user.groups?.member?.includes(data.id!)
+                user.events?.owner?.includes(data.id!) ||
+                user.events?.admin?.includes(data.id!) ||
+                user.events?.member?.includes(data.id!)
             );
         } else {
             displayMembers = USERS_DATA.filter((user) =>
@@ -67,21 +90,17 @@ export default function EntityCard({ data, variant = "full", className }: Entity
         }
     }
 
-    // Calcular la cantidad real de miembros desde el string (ej. "8/10", "24.5k")
     let totalMembers = displayMembers.length;
     let badgeText = "";
 
     if (!isPreview && data.members) {
         if (data.members.includes("/")) {
-            // Caso "8/10" -> 8
             totalMembers = parseInt(data.members.split("/")[0], 10) || totalMembers;
         } else if (data.members.toLowerCase().includes("k")) {
-            // Caso "24.5k"
-            totalMembers = 10000; // Forzar que sea > 3
+            totalMembers = 10000;
             const match = data.members.match(/([\d.]+k)/i);
             badgeText = match ? `+${match[1]}` : "+99";
         } else {
-            // Caso "50" o "120"
             const parsed = parseInt(data.members.replace(/[^0-9]/g, ""), 10);
             if (!isNaN(parsed)) totalMembers = parsed;
         }
@@ -97,7 +116,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
 
     return (
         <Link
-            href={isPreview ? "#" : `/group/${data.id}`}
+            href={isPreview ? "#" : `/${isEvent ? "event" : "community"}/${data.id}`}
             className="block h-full">
             <div
                 className={cn(
@@ -129,37 +148,47 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                             <ImageIcon size={28} className="text-black/20 dark:text-white/20" />
                         </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <span className="absolute left-4 top-4 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md">
-                        {data.category || (isGroup ? "Category" : "Community")}
+                    
+                    {/* Badge superior izquierdo */}
+                    <span
+                        className={cn(
+                            "absolute left-4 top-4 z-10 rounded-full border border-white/30 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm",
+                            getCategoryBadgeColor(data.category)
+                        )}
+                    >
+                        {data.category || (isEvent ? "Category" : "Community")}
                     </span>
+
                 </div>
 
+                {/* Franja de color por categoría: Línea de acento fina (2px) */}
+                <div className={cn("h-[2px] w-full shrink-0 opacity-90", getCategoryBadgeColor(data.category))} />
+
                 {/* CONTENT */}
-                <div className="flex flex-1 flex-col p-5">
-                    <div className="flex items-start justify-between">
+                <div className="flex flex-1 flex-col p-5 pt-2">
+                    <div className="flex items-start justify-between min-h-[3rem]">
                         <h4 className={cn("line-clamp-2 text-lg font-bold leading-tight text-black/90 transition-colors dark:text-white", accentHover)}>
-                            {data.title || (isGroup ? "Untitled group" : "Untitled community")}
+                            {data.title || (isEvent ? "Untitled event" : "Untitled community")}
                         </h4>
 
                         {!isPreview && (
-                            <div className="flex h-8 w-8 shrink-0 -translate-x-2 items-center justify-center rounded-full bg-black/5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 dark:bg-white/10">
+                            <div className="mt-1 flex h-8 w-8 shrink-0 -translate-x-2 items-center justify-center rounded-full bg-black/5 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 dark:bg-white/10">
                                 <ArrowUpRight size={16} className="text-black/70 dark:text-white/70" />
                             </div>
                         )}
                     </div>
 
-                    <div className="mt-4 flex flex-col gap-3">
+                    <div className="mt-3 flex flex-col gap-3">
                         {(isPreview || data.owner || data.activity) && (
                             <div className="flex items-center justify-between text-xs font-medium text-black/60 dark:text-white/50">
                                 <div className="flex items-center gap-1.5">
-                                    {isGroup ? (
+                                    {isEvent ? (
                                         <Crown size={14} className="text-black/40 dark:text-white/30" />
                                     ) : (
                                         <Activity size={14} className="text-black/40 dark:text-white/30" />
                                     )}
                                     <span className="max-w-[100px] truncate">
-                                        {isGroup ? data.owner || "No owner yet" : data.activity || "No activity yet"}
+                                        {isEvent ? data.owner || "No owner yet" : data.activity || "No activity yet"}
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
@@ -169,7 +198,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                             </div>
                         )}
 
-                        {isGroup && (isPreview || data.startDate) && (
+                        {isEvent && (isPreview || data.startDate) && (
                             <div className="flex items-center gap-1.5 text-xs font-medium text-black/60 dark:text-white/50">
                                 <Calendar size={14} className="text-black/40 dark:text-white/30" />
                                 <span>{data.startDate || "No date yet"}</span>
@@ -203,8 +232,8 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                         )}
                     </div>
 
-                    {/* FOOTER */}
-                    <div className="mt-5 flex items-center justify-between border-t border-black/5 pt-4 dark:border-white/10">
+                    {/* FOOTER (Sin la franja superior) */}
+                    <div className="mt-auto flex items-center justify-between pt-4">
                         <div className="flex items-center gap-1.5 text-sm font-medium text-black/60 dark:text-white/60">
                             <Users size={16} />
                             <span>{data.members}</span>
@@ -233,7 +262,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                                         <div className={cn("z-30 h-8 w-8 rounded-full border-2 border-white bg-gradient-to-br dark:border-brand-dark", data.colorFrom, data.colorTo)} />
                                         <div className="z-20 h-8 w-8 rounded-full border-2 border-white bg-black/20 dark:border-brand-dark" />
                                         <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-black/10 text-[10px] font-bold text-black/50 dark:border-brand-dark">
-                                            +{isGroup ? 5 : 12}
+                                            +{isEvent ? 5 : 12}
                                         </div>
                                     </>
                                 )}

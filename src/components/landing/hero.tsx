@@ -25,7 +25,7 @@ export default function Hero() {
             <div className="mesh-bg" />
 
             {/* CONTENIDO PRINCIPAL */}
-            <div className="relative z-10 container mx-auto px-4 py-16">
+            <div className="relative z-10 container mx-auto py-16">
                 <div className="relative flex items-center justify-center md:justify-start min-h-[440px] sm:min-h-[480px] md:min-h-[520px] lg:min-h-[600px]">
                     
                     {/* ILUSTRACIÓN DE RED */}
@@ -44,7 +44,7 @@ export default function Hero() {
                                 {words[index]}
                             </h1>
                             <p className="mt-4 text-white/80">
-                                Connect with people, discover new groups, and share experiences with those who have the same interests as you.
+                                Connect with people, discover new events, and share experiences with those who have the same interests as you.
                             </p>
                         </div>
 

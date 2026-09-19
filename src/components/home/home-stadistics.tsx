@@ -4,7 +4,7 @@ export default function HomeMainStatistics() {
     const STATS_DATA = [
         {
             id: 1,
-            label: "Active Groups",
+            label: "Active Events",
             value: "12",
             detail: "+2 this month",
             icon: Users,
@@ -13,7 +13,7 @@ export default function HomeMainStatistics() {
         },
         {
             id: 2,
-            label: "Groups This Week",
+            label: "Events This Week",
             value: "3",
             detail: "Scheduled meetings",
             icon: CalendarDays,

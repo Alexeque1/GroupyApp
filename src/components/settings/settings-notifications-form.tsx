@@ -74,11 +74,11 @@ export default function SettingsNotificationsForm() {
         mention: true,
         directMessage: true,
         // Grupos
-        groupJoinRequest: true,
-        groupStatusChange: true,
-        groupNewPost: true,
-        groupNewMemberAdmin: true,
-        groupMadeAdmin: true,
+        eventJoinRequest: true,
+        eventStatusChange: true,
+        eventNewPost: true,
+        eventNewMemberAdmin: true,
+        eventMadeAdmin: true,
         // Comunidades
         commNewPost: true,
         commReplies: true,
@@ -160,15 +160,15 @@ export default function SettingsNotificationsForm() {
                         <div className="flex items-center gap-2 border-b border-black/10 pb-2 dark:border-white/10">
                             <UsersRound size={16} className="text-brand-purple" />
                             <h3 className="text-sm font-bold uppercase tracking-wider text-brand-purple">
-                                Groups
+                                Events
                             </h3>
                         </div>
                         <div className="flex flex-col px-1">
-                            <ToggleRow label="Requests to join your group" checked={prefs.groupJoinRequest} onChange={() => handleToggle('groupJoinRequest')} disabled={pauseAll} />
-                            <ToggleRow label="Accepted or rejected from a group" checked={prefs.groupStatusChange} onChange={() => handleToggle('groupStatusChange')} disabled={pauseAll} />
-                            <ToggleRow label="New posts or comments" checked={prefs.groupNewPost} onChange={() => handleToggle('groupNewPost')} disabled={pauseAll} />
-                            <ToggleRow label="New members in groups you manage" checked={prefs.groupNewMemberAdmin} onChange={() => handleToggle('groupNewMemberAdmin')} disabled={pauseAll} />
-                            <ToggleRow label="Made admin or moderator" checked={prefs.groupMadeAdmin} onChange={() => handleToggle('groupMadeAdmin')} disabled={pauseAll} />
+                            <ToggleRow label="Requests to join your event" checked={prefs.eventJoinRequest} onChange={() => handleToggle('eventJoinRequest')} disabled={pauseAll} />
+                            <ToggleRow label="Accepted or rejected from an event" checked={prefs.eventStatusChange} onChange={() => handleToggle('eventStatusChange')} disabled={pauseAll} />
+                            <ToggleRow label="New posts or comments" checked={prefs.eventNewPost} onChange={() => handleToggle('eventNewPost')} disabled={pauseAll} />
+                            <ToggleRow label="New members in events you manage" checked={prefs.eventNewMemberAdmin} onChange={() => handleToggle('eventNewMemberAdmin')} disabled={pauseAll} />
+                            <ToggleRow label="Made admin or moderator" checked={prefs.eventMadeAdmin} onChange={() => handleToggle('eventMadeAdmin')} disabled={pauseAll} />
                         </div>
                     </div>
 
@@ -198,7 +198,7 @@ export default function SettingsNotificationsForm() {
                         <div className="flex flex-col px-1">
                             <ToggleRow label="Event rescheduled or canceled" checked={prefs.eventRescheduled} onChange={() => handleToggle('eventRescheduled')} disabled={pauseAll} />
                             <ToggleRow label="Event reminders (24h / 1h before)" checked={prefs.eventReminder} onChange={() => handleToggle('eventReminder')} disabled={pauseAll} />
-                            <ToggleRow label="New events in your groups" checked={prefs.eventNew} onChange={() => handleToggle('eventNew')} disabled={pauseAll} />
+                            <ToggleRow label="New events in your events" checked={prefs.eventNew} onChange={() => handleToggle('eventNew')} disabled={pauseAll} />
                             <ToggleRow label="Event location changes" checked={prefs.eventLocationChanged} onChange={() => handleToggle('eventLocationChanged')} disabled={pauseAll} />
                         </div>
                     </div>
@@ -212,7 +212,7 @@ export default function SettingsNotificationsForm() {
                             </h3>
                         </div>
                         <div className="flex flex-col px-1">
-                            <ToggleRow label="Recommendations (groups you might like)" checked={prefs.sysRecommendations} onChange={() => handleToggle('sysRecommendations')} disabled={pauseAll} />
+                            <ToggleRow label="Recommendations (events you might like)" checked={prefs.sysRecommendations} onChange={() => handleToggle('sysRecommendations')} disabled={pauseAll} />
                             <ToggleRow label="Product updates & new features" checked={prefs.sysUpdates} onChange={() => handleToggle('sysUpdates')} disabled={pauseAll} />
                             
                             {/* Alerta de Seguridad Fija */}

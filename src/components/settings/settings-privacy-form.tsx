@@ -174,7 +174,7 @@ export default function SettingsPrivacyForm() {
                         {/* Invitaciones a grupos */}
                         <div className="flex flex-col gap-1.5 md:col-span-2">
                             <label className="ml-1 text-sm font-medium text-black/70 dark:text-white/70">
-                                Who can invite you to groups and communities?
+                                Who can invite you to events and communities?
                             </label>
                             <div className="relative">
                                 <Users size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40" />

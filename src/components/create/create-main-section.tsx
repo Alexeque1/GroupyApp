@@ -2,7 +2,7 @@
 
 import { Users, Globe } from "lucide-react";
 import ButtonCreate from "@/components/ui/button-create";
-import CreateGroupForm from "./create-group-form";
+import CreateEventForm from "./create-event-form";
 import CreateCommunityForm from "./create-community-form";
 import { useCreateContext } from "./create-context";
 
@@ -22,10 +22,10 @@ export default function CreateMainSection() {
                     <div className="flex flex-wrap gap-6 sm:gap-8 justify-center">
 
                         <ButtonCreate
-                            title="Group"
+                            title="Event"
                             icon={<Users size={32} />}
                             tone="dark"
-                            onClick={() => setCreationType("group")}
+                            onClick={() => setCreationType("event")}
                         />
 
                         <ButtonCreate
@@ -39,10 +39,10 @@ export default function CreateMainSection() {
                 </div>
             )}
 
-            {/* VISTA 2: FORMULARIO DE GRUPO */}
-            {creationType === "group" && (
+            {/* VISTA 2: FORMULARIO DE EVENTO */}
+            {creationType === "event" && (
                 <div className="w-full animate-in slide-in-from-bottom-4 fade-in duration-300">
-                    <CreateGroupForm onBack={() => setCreationType(null)} />
+                    <CreateEventForm onBack={() => setCreationType(null)} />
                 </div>
             )}
 

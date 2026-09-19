@@ -65,7 +65,7 @@ export default function DiscoverFilters({
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery?.(e.target.value)}
-                        placeholder="Search groups by title..."
+                        placeholder="Search events by title..."
                         className={`w-full rounded-2xl border pl-10 pr-9 py-2.5 text-sm outline-none transition-all placeholder:text-black/40 ${getSelectStyles(searchQuery !== "")}`}
                     />
                     {searchQuery && (
@@ -138,7 +138,7 @@ export default function DiscoverFilters({
             {activeCount > 0 && (
                 <div className="flex items-center justify-between pt-2 border-t border-black/5 px-1">
                     <span className="text-xs text-black/50">
-                        Showing filtered groups
+                        Showing filtered events
                     </span>
                     <button
                         type="button"

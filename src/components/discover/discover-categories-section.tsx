@@ -5,7 +5,7 @@ import { LayoutGrid, Sparkles } from "lucide-react";
 import DiscoverCategoryCard from "./discover-categories-cards";
 import DiscoverFilters from "./discover-filters";
 import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
-import DiscoverGroups from "./discover-groups";
+import DiscoverEvents from "./discover-events";
 
 export default function DiscoverCategoriesSection() {
     const [activeCategory, setActiveCategory] = useState<number | null>(null);
@@ -110,7 +110,7 @@ export default function DiscoverCategoriesSection() {
 
             {/* RESULTADOS Y PAGINACIÓN */}
             <div className="mt-6 w-full">
-                <DiscoverGroups
+                <DiscoverEvents
                     categoryId={activeCategory}
                     searchQuery={searchQuery}
                     timeFilter={timeFilter}

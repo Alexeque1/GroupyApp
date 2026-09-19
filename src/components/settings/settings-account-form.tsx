@@ -7,7 +7,7 @@ import ConfirmAlert from "@/components/ui/alerts/confirm-alert";
 import StatusAlert from "@/components/ui/alerts/status-alert";
 import { cn } from "@/lib/utils";
 
-// Mismo estilo de input que usan los forms de creación (create-group-form, create-community-form)
+// Mismo estilo de input que usan los forms de creación (create-event-form, create-community-form)
 const inputClass =
     "w-full rounded-xl border border-black/10 bg-black/5 px-4 py-3 text-black placeholder-black/30 outline-none transition-all focus:border-brand-purple focus:ring-1 focus:ring-brand-purple dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder-white/30";
 

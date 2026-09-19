@@ -5,7 +5,7 @@ import { steps, containerVariants, cardVariants } from "./how-it-works-data";
 
 export default function HowItWorksSection() {
     return (
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="relative z-10">
 
             {/* ENCABEZADO */}
             <div className="mb-16 text-center max-w-2xl mx-auto">

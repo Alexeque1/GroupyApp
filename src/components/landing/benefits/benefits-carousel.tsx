@@ -5,12 +5,12 @@ import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 
 const slides = [
-    { image: "/benefits_carrousel/party_carrousel.jpg", title: "Party" },
-    { image: "/benefits_carrousel/fitness_carrousel.jpg", title: "Fitness" },
-    { image: "/benefits_carrousel/hobbies_carrousel.jpg", title: "Hobbies" },
-    { image: "/benefits_carrousel/meeting_carrousel.jpg", title: "Meeting" },
-    { image: "/benefits_carrousel/nature_carrousel.jpg", title: "Nature" },
-    { image: "/benefits_carrousel/events_carrousel.jpg", title: "Events" },
+    { image: "/benefits_carrousel/party_carrousel.webp", title: "Party" },
+    { image: "/benefits_carrousel/fitness_carrousel.webp", title: "Fitness" },
+    { image: "/benefits_carrousel/hobbies_carrousel.webp", title: "Hobbies" },
+    { image: "/benefits_carrousel/meeting_carrousel.webp", title: "Meeting" },
+    { image: "/benefits_carrousel/nature_carrousel.webp", title: "Nature" },
+    { image: "/benefits_carrousel/events_carrousel.webp", title: "Events" },
 ];
 
 export default function BenefitsCarousel() {

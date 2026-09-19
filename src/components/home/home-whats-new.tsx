@@ -6,7 +6,7 @@ import { Bell, UserPlus, ShieldQuestion, MessageCircle, CalendarClock, ChevronDo
 import Button from "../ui/button";
 
 type NotifType = "friend_request" | "join_request" | "comment" | "event_rescheduled";
-type SourceType = "group" | "community" | "personal";
+type SourceType = "event" | "community" | "personal";
 
 interface NotificationType {
     id: number;
@@ -34,9 +34,9 @@ export default function HomeWhatsNew() {
         {
             id: 2,
             type: "join_request",
-            sourceType: "group",
+            sourceType: "event",
             sourceName: "UX/UI Designers Arg",
-            content: "Sofía L. requested to join your group.",
+            content: "Sofía L. requested to join your event.",
             time: "1 hour ago",
             image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=200&auto=format&fit=crop",
         },
@@ -52,7 +52,7 @@ export default function HomeWhatsNew() {
         {
             id: 4,
             type: "event_rescheduled",
-            sourceType: "group",
+            sourceType: "event",
             sourceName: "Weekend Trekking",
             content: "The event 'Mountain Hike' was rescheduled for Saturday.",
             time: "Yesterday",
@@ -75,8 +75,8 @@ export default function HomeWhatsNew() {
 
     const getSourceTag = (source: SourceType) => {
         switch (source) {
-            case "group":
-                return <span className="rounded-md bg-brand-purple/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-purple-deep">Group</span>;
+            case "event":
+                return <span className="rounded-md bg-brand-purple/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-purple-deep">Event</span>;
             case "community":
                 return <span className="rounded-md bg-brand-mint/30 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-brand-green">Community</span>;
             case "personal":
