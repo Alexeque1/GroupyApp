@@ -4,7 +4,7 @@ import { useState } from "react";
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
 import Button from "../ui/button";
 import Image from "next/image";
-import { ArrowLeft, Pencil, UserMinus } from "lucide-react";
+import { ArrowLeft, Pencil, UserMinus, BadgeCheck } from "lucide-react";
 import ProfileCover from "./profile-cover";
 import ProfileModalChangeProfilePhoto from "./profile-modal-changeprofilephoto";
 import ProfileModalChangeCoverPhoto from "./profile-modal-changecoverphoto";
@@ -19,11 +19,13 @@ type ProfileHeaderProps = {
     user: {
         name: string;
         lastName: string;
+        bio: string;
         username: string;
         profileImage: string;
         events: unknown[];
         communities: unknown[];
         friends: unknown[];
+        verified?: boolean;
     };
     isOwnProfile?: boolean;
     isUserFollowing?: boolean;
@@ -32,7 +34,7 @@ type ProfileHeaderProps = {
 
 export default function ProfileHeader({ user, isOwnProfile = false, isUserFollowing = false, isSettings = false }: ProfileHeaderProps) {
     const router = useRouter();
-    
+
     const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
     const [profileImage, setProfileImage] = useState(user.profileImage);
     const [isCoverModalOpen, setIsCoverModalOpen] = useState(false);
@@ -83,7 +85,7 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
             />
             <section className="flex flex-col items-center">
                 {/* CARD */}
-                <div className="relative z-10 w-[92%] overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)] md:w-[85%]">
+                <div className="relative z-10 w-full overflow-hidden md:rounded-3xl border border-black/10 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)] md:w-[85%]">
 
                     {/* PORTADA */}
                     <ProfileCover
@@ -114,7 +116,6 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                             <div className="relative -mt-14 h-28 w-28 shrink-0 md:-mt-16 md:h-36 md:w-36">
                                 <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-white bg-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
                                     {isLocalPreviewUrl(profileImage) ? (
-                                        // eslint-disable-next-line @next/next/no-img-element
                                         <img
                                             src={profileImage}
                                             alt="Foto de perfil"
@@ -143,10 +144,25 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
 
                             {/* NOMBRE + USUARIO */}
                             <div className="flex flex-col items-center pb-1 text-center md:items-start md:text-left">
-                                <h3 className="dark-mesh-gradient text-2xl font-bold tracking-tight md:text-3xl">
-                                    {user.name} {user.lastName}
-                                </h3>
+                                <div className="flex items-center gap-1.5">
+                                    <h3 className="dark-mesh-gradient text-2xl font-bold tracking-tight md:text-3xl">
+                                        {user.name} {user.lastName}
+                                    </h3>
+                                    {user.verified && (
+                                        <>
+                                            <BadgeCheck
+                                                size={20}
+                                                className="shrink-0 fill-brand-purple text-white md:h-5.5 md:w-5.5"
+                                                aria-label="Verified"
+                                            />
+                                        </>
+                                    )}
+                                </div>
                                 <p className="text-black/60">@{user.username}</p>
+                            </div>
+                            
+                            <div className="md:hidden text-center leading-relaxed text-black/70">
+                                {user.bio}
                             </div>
                         </div>
 
@@ -154,7 +170,7 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                             !isSettings && (
                                 <div className="relative z-10 mt-6 flex flex-col items-center gap-6 border-t border-black/10 pt-5 min-[1200px]:flex-row min-[1200px]:justify-between">
 
-                                    {/* ESTADÍSTICAS */}
+                                    {/* STATS */}
                                     <div className="flex items-center justify-center gap-6 md:justify-start md:gap-10">
                                         {/* Grupos */}
                                         <div className="flex flex-col items-center">
@@ -192,7 +208,7 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                                     </div>
 
                                     {/* BOTONES */}
-                                    <div className="flex px-5 w-full gap-3 sm:w-auto min-[1200px]:flex-row">
+                                    <div className="flex justify-center px-5 w-full gap-3 sm:w-auto min-[1200px]:flex-row">
                                         {isOwnProfile ? (
                                             <Link href="/settings">
                                                 <Button

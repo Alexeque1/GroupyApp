@@ -165,6 +165,13 @@
     @apply font-sans;
   }
 
+  /* iOS Safari resalta botones/links tocados con un rectángulo gris que
+     ignora el border-radius (Android no lo hace), dando la sensación de
+     que hay "otra caja" debajo cortando la sombra. Lo desactivamos. */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {

@@ -21,6 +21,7 @@ export interface ProfileViewModel {
     languages: string[];
     interests: string[];
     joined: string;
+    verified: boolean;
 }
 
 function resolveEvents(user: UserType): EventType[] {
@@ -85,5 +86,6 @@ export function getProfileViewModel(userId: number): ProfileViewModel | null {
         languages: user.languages,
         interests: user.interests,
         joined: user.joined,
+        verified: user.verified
     };
 }

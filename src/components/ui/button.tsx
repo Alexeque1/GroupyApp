@@ -6,7 +6,11 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-2xl font-medium transition-transform duration-300 hover:scale-105",
+  // La máscara es un workaround para un bug de Safari/iOS: al combinar
+  // overflow-hidden + border-radius con hijos que tienen filter:blur(),
+  // Safari a veces no recorta el blur a la esquina redondeada y se ve
+  // un "cuadro" rectangular detrás del botón (no pasa en Chrome/Android).
+  "group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-2xl font-medium transition-transform duration-300 hover:scale-105 [-webkit-mask-image:-webkit-radial-gradient(white,black)]",
   {
     variants: {
       variant: {

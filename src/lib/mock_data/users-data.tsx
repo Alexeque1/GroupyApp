@@ -20,6 +20,7 @@ export interface UserType {
     languages: string[];
     interests: string[];
     joined: string; // Mes y año de registro, ej: "October 2023"
+    verified: boolean;
 }
 
 export type FeedUser = Pick<UserType, "firstName" | "lastName" | "username" | "profileImage">;
@@ -45,6 +46,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["English", "Spanish"],
         interests: ["Technology", "Live Music", "Coffee", "Design"],
         joined: "October 2023",
+        verified: true
     },
     {
         id: 2,
@@ -66,6 +68,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "Portuguese"],
         interests: ["Outdoor Adventures", "Marketing", "Travel"],
         joined: "January 2024",
+        verified: false
     },
     {
         id: 3,
@@ -87,6 +90,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Techno Music", "DJing", "Nightlife"],
         joined: "March 2024",
+        verified: true
     },
     {
         id: 4,
@@ -108,6 +112,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Coffee", "Slow Living", "Conversation"],
         joined: "February 2024",
+        verified: false
     },
     {
         id: 5,
@@ -129,6 +134,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Event Planning", "Nightlife", "Networking"],
         joined: "November 2023",
+        verified: true
     },
     {
         id: 6,
@@ -150,6 +156,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Fitness", "Nutrition", "Wellness"],
         joined: "December 2023",
+        verified: false
     },
     {
         id: 7,
@@ -171,6 +178,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "Italian"],
         interests: ["Dance", "Latin Music", "Teaching"],
         joined: "April 2024",
+        verified: true
     },
     {
         id: 8,
@@ -192,6 +200,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Jazz", "Piano", "Live Music"],
         joined: "January 2024",
+        verified: false
     },
     {
         id: 9,
@@ -213,6 +222,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Hiking", "Nature", "Trekking"],
         joined: "May 2024",
+        verified: true
     },
     {
         id: 10,
@@ -234,6 +244,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Product Management", "Board Games", "Strategy"],
         joined: "September 2023",
+        verified: false
     },
     {
         id: 11,
@@ -255,6 +266,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Board Games", "Software Development", "Tabletop Gaming"],
         joined: "June 2024",
+        verified: true
     },
     {
         id: 12,
@@ -276,6 +288,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Yoga", "Mindfulness", "Wellness"],
         joined: "July 2024",
+        verified: false
     },
     {
         id: 13,
@@ -297,9 +310,10 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "German"],
         interests: ["Craft Beer", "Brewing", "Tasting"],
         joined: "August 2024",
+        verified: true
     },
 
-    // --- NUEVOS USUARIOS: LA LISTA DE AMIGOS DE ALEXANDER (IDs 14 al 19) ---
+    // --- LISTA DE AMIGOS DE ALEXANDER (IDs 14 al 19) ---
     {
         id: 14,
         firstName: "Sofía",
@@ -308,7 +322,7 @@ export const USERS_DATA: UserType[] = [
         profileImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
         events: { owner: [], admin: [], member: [2, 4] },
         communityIds: [1, 3],
-        friendIds: [1, 2, 13, 15], // El 1 es Alex; 15 (Lucas) es amigo en común con Alex
+        friendIds: [1, 2, 13, 15],
         bio: "Creative soul with a love for design, music festivals, and travel.",
         city: "Buenos Aires",
         country: "Argentina",
@@ -316,6 +330,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Design", "Music Festivals", "Travel"],
         joined: "October 2023",
+        verified: false
     },
     {
         id: 15,
@@ -325,7 +340,7 @@ export const USERS_DATA: UserType[] = [
         profileImage: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop",
         events: { owner: [], admin: [], member: [1, 8] },
         communityIds: [2],
-        friendIds: [1, 3, 9, 13, 14], // 14 (Sofía) es amiga en común con Alex
+        friendIds: [1, 3, 9, 13, 14],
         bio: "Backend developer who spends weekends exploring the city's live music scene.",
         city: "Buenos Aires",
         country: "Argentina",
@@ -333,6 +348,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Software Development", "Live Music", "Backend"],
         joined: "November 2023",
+        verified: true
     },
     {
         id: 16,
@@ -342,7 +358,7 @@ export const USERS_DATA: UserType[] = [
         profileImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop",
         events: { owner: [], admin: [], member: [6, 12] },
         communityIds: [1, 2, 3],
-        friendIds: [1, 2, 10, 17], // 17 (Mateo) es amigo en común con Alex
+        friendIds: [1, 2, 10, 17],
         bio: "Building communities online and offline, one event at a time.",
         city: "Buenos Aires",
         country: "Argentina",
@@ -350,6 +366,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English", "Portuguese"],
         interests: ["Community Building", "Events", "Social Media"],
         joined: "September 2023",
+        verified: false
     },
     {
         id: 17,
@@ -359,7 +376,7 @@ export const USERS_DATA: UserType[] = [
         profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
         events: { owner: [], admin: [], member: [3, 7] },
         communityIds: [2, 3],
-        friendIds: [1, 3, 6, 16], // 16 (Valentina) es amiga en común con Alex
+        friendIds: [1, 3, 6, 16],
         bio: "Photographer chasing warehouse parties and golden hour light.",
         city: "Rosario",
         country: "Argentina",
@@ -367,6 +384,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Photography", "Nightlife", "Travel"],
         joined: "December 2023",
+        verified: true
     },
     {
         id: 18,
@@ -384,6 +402,7 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Illustration", "Yoga", "Comedy"],
         joined: "October 2023",
+        verified: false
     },
     {
         id: 19,
@@ -401,5 +420,6 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Hiking", "Engineering", "Outdoors"],
         joined: "August 2023",
+        verified: true
     }
 ];
