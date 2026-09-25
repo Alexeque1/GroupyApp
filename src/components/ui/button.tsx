@@ -16,7 +16,7 @@ const buttonVariants = cva(
       tone: {
         light: "",
         dark: "",
-        following: "", 
+        following: "",
       },
     },
     compoundVariants: [

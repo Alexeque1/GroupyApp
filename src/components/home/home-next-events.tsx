@@ -54,7 +54,7 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
     const filteredEvents = userEvents.filter((event) => {
         const eventDate = new Date(event.startDate);
         return eventDate >= today;
-    }).slice(1, EVENTS_LIMIT);
+    }).slice(1, EVENTS_LIMIT).reverse();
 
     return (
         <div className="relative z-10 flex w-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
@@ -102,13 +102,6 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
                             className={`relative shrink-0 snap-center w-[240px] flex flex-col ${hasDragged ? "pointer-events-none" : ""
                                 }`}
                         >
-                            {index === 0 && (
-                                <div className="absolute top-3 right-3 z-20 flex items-center gap-1 rounded-full border border-white/20 bg-gradient-to-r from-brand-peach to-[#FF7A59] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-[0_4px_10px_rgba(255,122,89,0.4)]">
-                                    <Timer size={12} />
-                                    <span>Soon</span>
-                                </div>
-                            )}
-
                             <div className="flex h-full flex-col [&>*]:h-full">
                                 <ProfileEventCard event={event} />
                             </div>

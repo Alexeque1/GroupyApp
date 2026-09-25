@@ -19,10 +19,10 @@ export default function Feed() {
         >
             <AnimatedBackgroundLight />
 
-            <HomeGreetings name={PROFILE_INFO.name} />
+            <HomeGreetings name={PROFILE_INFO.name} events={PROFILE_INFO.events}/>
             <div className="flex flex-col md:flex-row gap-5">
-                <HomeAside />
                 <HomeMain user={PROFILE_INFO} />
+                <HomeAside events={PROFILE_INFO.events} />
             </div>
         </motion.div>
     );
