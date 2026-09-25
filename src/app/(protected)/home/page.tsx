@@ -27,16 +27,16 @@ export default function Feed() {
 
             {/* GRID responsive: apilado en mobile, 2 columnas parejas en tablet, 6 columnas (4/2) en desktop grande */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-5">
-                <div className="xl:col-span-4">
+                <div className="order-2 md:order-1 xl:col-span-4">
                     <HomeNextEventHero events={PROFILE_INFO.events} />
                 </div>
-                <div className="xl:col-span-2">
+                <div className="order-1 md:order-2 xl:col-span-2">
                     <HomeNeedsAction />
                 </div>
-                <div className="xl:col-span-4">
+                <div className="order-3 xl:col-span-4">
                     <HomeNextEvents userEvents={PROFILE_INFO.events} />
                 </div>
-                <div className="xl:col-span-2 flex flex-col gap-5">
+                <div className="order-4 xl:col-span-2 flex flex-col gap-5">
                     <HomeCommunities communities={PROFILE_INFO.communities} />
                     <HomeFastEvent/>
                 </div>
