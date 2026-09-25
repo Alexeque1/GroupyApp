@@ -35,6 +35,12 @@ export function matchesCapacity(event: EventType, filter: string): boolean {
     return true;
 }
 
+export function getSuggestedEvents(events: EventType[]): EventType[] {
+    return events.filter(
+        (event) => event.role === undefined && daysFromToday(event.startDate) >= 0
+    );
+}
+
 export function pickNextEvent(events: EventType[]): EventType | null {
     const now = Date.now();
     const upcoming = events

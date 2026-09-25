@@ -10,8 +10,9 @@ export const COMMUNITIES_DATA: CommunityType[] = [
         colorTo: "to-[#C4B5FD]",
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=500&auto=format&fit=crop",
         location: "Global",
-        activity: "+100 posts today",
+        activity: "3 new posts · Lucas M. commented",
         status: "Public",
+        activityCount: 3,
     },
     {
         id: 2,
@@ -22,8 +23,9 @@ export const COMMUNITIES_DATA: CommunityType[] = [
         colorTo: "to-brand-green",
         image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=500&auto=format&fit=crop",
         location: "Berlin, DE",
-        activity: "Very Active",
+        activity: "New event: Rooftop set · Sat",
         status: "Private",
+        activityCount: 1,
     },
     {
         id: 3,
@@ -34,7 +36,8 @@ export const COMMUNITIES_DATA: CommunityType[] = [
         colorTo: "to-brand-orange",
         image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=500&auto=format&fit=crop",
         location: "Online",
-        activity: "Daily discussions",
+        activity: "12 new members this week",
         status: "Public",
+        activityCount: 12,
     }
 ];

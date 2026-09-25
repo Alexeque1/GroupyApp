@@ -4,8 +4,10 @@ import { useRef, useState } from "react";
 import { Sparkles, Users, Timer } from "lucide-react";
 import ProfileEventCard, { EventType } from "../profile/profile-events-cards";
 import Button from "../ui/button";
+import CarouselScrollbar from "../ui/carousel-scrollbar";
 import Link from "next/link";
 import { getToday } from "@/lib/event-filters";
+import { useHorizontalScrollbar } from "@/hooks/use-horizontal-scrollbar";
 
 export default function HomeNextEvents({ userEvents }: { userEvents: EventType[] }) {
     const carouselRef = useRef<HTMLDivElement>(null);
@@ -56,6 +58,11 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
         return eventDate >= today;
     }).slice(1, EVENTS_LIMIT).reverse();
 
+    const { hasOverflow, thumbWidthPct, thumbLeftPct } = useHorizontalScrollbar(
+        carouselRef,
+        [filteredEvents.length]
+    );
+
     return (
         <div className="relative z-10 flex w-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
 
@@ -64,7 +71,7 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
                 <div className="flex items-center gap-2">
                     <Sparkles size={20} className="text-brand-purple" />
                     <h3 className="text-xl font-bold text-black/90">
-                        Your next events
+                        Your agenda
                     </h3>
                 </div>
                 <div className="flex justify-end">
@@ -122,7 +129,17 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
                     </div>
                 </div>
 
-            ) : (
+            ) : null}
+
+            <CarouselScrollbar
+                carouselRef={carouselRef}
+                hasOverflow={hasOverflow}
+                thumbWidthPct={thumbWidthPct}
+                thumbLeftPct={thumbLeftPct}
+                className="mt-1"
+            />
+
+            {filteredEvents.length === 0 && (
 
                 <div className="flex flex-col items-center justify-center py-10 text-center">
                     <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-black/5">

@@ -53,7 +53,7 @@ function HeroCard({ event }: { event: EventType }) {
     return (
         <>
             <section
-                className={`group/hero relative isolate flex min-h-[320px] w-full flex-col justify-end overflow-hidden rounded-3xl border cursor-pointer border-black/10 shadow-[0_8px_30px_rgba(0,0,0,0.1)] sm:min-h-[380px] ${!hasImage ? `bg-gradient-to-br ${event.colorFrom} ${event.colorTo}` : ""
+                className={`group/hero relative isolate flex min-h-[320px] w-full flex-col justify-end overflow-hidden rounded-3xl border h-[100%] cursor-pointer border-black/10 shadow-[0_8px_30px_rgba(0,0,0,0.1)] sm:min-h-[380px] ${!hasImage ? `bg-gradient-to-br ${event.colorFrom} ${event.colorTo}` : ""
                     }`}
             >
                 {/* PORTADA */}

@@ -12,6 +12,7 @@ export interface CommunityType {
     location: string;
     activity: string;
     status: string;
+    activityCount?: number;
 }
 
 export default function ProfileCommunityCard({ community, className }: { community: CommunityType; className?: string }) {

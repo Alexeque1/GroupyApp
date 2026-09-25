@@ -63,11 +63,15 @@ const ROLE_BADGE: Record<Exclude<EventRole, "member">, { label: string; Icon: ty
 
 interface EntityCardProps {
     data: EntityCardData;
-    variant?: "full" | "preview";
+    variant?: "full" | "preview" | "suggestion";
     className?: string;
 }
 
 export default function EntityCard({ data, variant = "full", className }: EntityCardProps) {
+    if (variant === "suggestion") {
+        return <SuggestionCard data={data} className={className} />;
+    }
+
     const isPreview = variant === "preview";
     const isEvent = data.kind === "event";
     const accentHover = isEvent ? "group-hover:text-brand-purple-deep" : "group-hover:text-brand-green";
@@ -268,6 +272,92 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                                 )}
                             </div>
                         )}
+                    </div>
+                </div>
+            </div>
+        </Link>
+    );
+}
+
+function SuggestionCard({ data, className }: { data: EntityCardData; className?: string }) {
+    const isEvent = data.kind === "event";
+    const isDataUrl = data.image?.startsWith("blob:") || data.image?.startsWith("data:");
+    const hasImage = Boolean(data.image);
+
+    let spotsLeftLabel: string | null = null;
+    if (data.members?.includes("/")) {
+        const [current, total] = data.members.split("/").map((n) => parseInt(n, 10));
+        if (!isNaN(current) && !isNaN(total)) {
+            const left = total - current;
+            spotsLeftLabel = left > 0 ? `${left} spot${left === 1 ? "" : "s"} left` : "Full";
+        }
+    }
+
+    return (
+        <Link href={data.id ? `/${isEvent ? "event" : "community"}/${data.id}` : "#"} className="block h-full">
+            <div
+                className={cn(
+                    "group relative flex h-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:border-white/10 dark:bg-brand-dark",
+                    className
+                )}
+            >
+                {/* COVER */}
+                <div
+                    className={cn(
+                        "relative h-28 w-full overflow-hidden",
+                        !hasImage && `bg-linear-to-br ${data.colorFrom} ${data.colorTo}`
+                    )}
+                >
+                    {hasImage && (
+                        isDataUrl ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                                src={data.image!}
+                                alt={data.title || "Cover"}
+                                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                        ) : (
+                            <Image
+                                src={data.image!}
+                                alt={data.title || "Cover"}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                        )
+                    )}
+
+                    <span className="absolute left-3 top-3 z-10 rounded-full bg-white/95 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black/80 shadow-sm">
+                        {data.category || (isEvent ? "Event" : "Community")}
+                    </span>
+                </div>
+
+                {/* CONTENT */}
+                <div className="flex flex-1 flex-col gap-1.5 p-4">
+                    <h4 className="line-clamp-1 text-base font-bold leading-tight text-black/90 dark:text-white">
+                        {data.title || (isEvent ? "Untitled event" : "Untitled community")}
+                    </h4>
+
+                    {data.startDate && (
+                        <div className="flex items-center gap-1.5 text-xs font-medium text-black/60 dark:text-white/60">
+                            <Calendar size={13} className="text-black/40 dark:text-white/30" />
+                            <span>{data.startDate}</span>
+                        </div>
+                    )}
+
+                    <div className="flex items-center gap-1.5 text-xs font-medium text-black/60 dark:text-white/60">
+                        <MapPin size={13} className="text-black/40 dark:text-white/30" />
+                        <span>
+                            {data.location || "No location yet"}
+                            {data.members ? ` · ${data.members}` : ""}
+                        </span>
+                    </div>
+
+                    {/* CHIP DE MATCH */}
+                    <div className="mt-2 flex items-center gap-1.5 self-start rounded-full bg-brand-purple/10 px-3 py-1.5 text-xs font-semibold text-brand-purple-deep">
+                        <MapPin size={12} />
+                        <span>
+                            Suggestion text
+                        </span>
                     </div>
                 </div>
             </div>
