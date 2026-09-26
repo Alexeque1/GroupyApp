@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Crown, Users, ChevronDown, SearchX, Search, ArrowUpDown, X, User, Filter } from "lucide-react";
 
@@ -86,9 +86,13 @@ export default function ProfileSectionEvents({
     const { pageItems, totalPages, safePage } = paginate(activeItems, page, ITEMS_PER_PAGE);
 
     // Cualquier cambio de tab o de filtros vuelve a la página 1
-    useEffect(() => {
+    // (se ajusta durante el render, como recomienda la doc de React, en vez de usar un useEffect)
+    const filtersKey = [activeTab, searchQuery, statusFilter, categoryFilter, creatorFilter, sortBy].join("|");
+    const [prevFiltersKey, setPrevFiltersKey] = useState(filtersKey);
+    if (prevFiltersKey !== filtersKey) {
+        setPrevFiltersKey(filtersKey);
         setPage(1);
-    }, [activeTab, searchQuery, statusFilter, categoryFilter, creatorFilter, sortBy]);
+    }
 
     const handleClearFilters = () => {
         setSearchQuery("");
