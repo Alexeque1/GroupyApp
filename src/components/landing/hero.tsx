@@ -59,7 +59,7 @@ export default function Hero() {
 
                         <div className="flex gap-4">
                             <Link href="/auth?mode=signup">
-                                <Button onClick={() => console.log("Get Started!")}>
+                                <Button>
                                     Get Started!
                                 </Button>
                             </Link>

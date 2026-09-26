@@ -82,7 +82,7 @@ export default function InteractiveCta() {
           Are you ready for your <span className="text-brand-mint drop-shadow-[0_0_20px_rgba(169,255,215,0.5)]">new adventure?</span>
         </h3>
 
-        <Button onClick={() => console.log("Let's go!")}>
+        <Button>
           Let&apos;s go!
         </Button>
       </div>

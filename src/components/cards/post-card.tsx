@@ -30,7 +30,6 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
     const handleSendComment = () => {
         if (!hasText) return;
         // TODO: Lógica para enviar el comentario al backend
-        console.log("Enviando comentario:", commentText);
         setCommentText(""); // Limpiamos el input
     };
 

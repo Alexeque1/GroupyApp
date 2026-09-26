@@ -91,8 +91,7 @@ export default function ProfileModalChangeProfilePhoto({
             const croppedImage = await getCroppedImg(rawImage, croppedAreaPixels);
             onSave(croppedImage);
             onClose();
-        } catch (error) {
-            console.error("Error cropping image:", error);
+        } catch {
             toast.error("We couldn't save your photo", {
                 description: "Please try again.",
             });
@@ -315,7 +314,6 @@ async function getCroppedImg(
         canvas.toBlob(
             (blob) => {
                 if (!blob) {
-                    console.error("Canvas is empty");
                     return;
                 }
                 resolve(URL.createObjectURL(blob));

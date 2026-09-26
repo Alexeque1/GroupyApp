@@ -34,7 +34,6 @@ export default function EventFeedTextBox({ user }: EventFeedProps) {
 
     const handleSendPost = () => {
         if (!text.trim()) return;
-        console.log("Enviando post:", text);
         setText(""); // Limpiamos la caja después de enviar
         if (textareaRef.current) textareaRef.current.style.height = "auto";
     };
