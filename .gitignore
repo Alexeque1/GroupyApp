@@ -45,3 +45,5 @@ next-env.d.ts
 
 # local scratch / AI tool output
 Claude outputs/
+
+!.env.example
