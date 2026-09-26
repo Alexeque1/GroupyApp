@@ -101,7 +101,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                 duration={3000}
             />
             {/* AVATAR E INFO */}
-            <Link href={`/profile/${friend.id}`} className="flex items-center gap-4">
+            <Link href={`/profile/${friend.username.replace(/^@/, "")}`} className="flex items-center gap-4">
                 <div className="flex items-center gap-4">
                     {/* Contenedor sin overflow-hidden para que la etiqueta "You" pueda
                         sobresalir del círculo; el recorte a círculo pasa al div de adentro. */}
@@ -201,7 +201,7 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                                 }`}
                         >
                             <Link
-                                href={`/profile/${friend.id}`}
+                                href={`/profile/${friend.username.replace(/^@/, "")}`}
                                 onClick={(e) => { e.stopPropagation(); setIsMenuOpen(false); }}
                                 className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black cursor-pointer"
                             >

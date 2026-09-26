@@ -64,7 +64,7 @@ export default function EventAsideSection({ event }: EventAsideProps) {
                 <div className="flex flex-col gap-4">
 
                     {owner && (
-                        <Link href={`/profile/${owner.id}`}>
+                        <Link href={`/profile/${owner.username}`}>
                             <div className="group flex items-center justify-between rounded-2xl border border-brand-purple/20 bg-brand-purple/5 p-3 transition-colors hover:bg-brand-purple/10 dark:border-brand-purple/30 dark:bg-brand-purple/10">
                                 <div className="flex items-center gap-3.5">
 
@@ -94,7 +94,7 @@ export default function EventAsideSection({ event }: EventAsideProps) {
                     {otherAdmins.length > 0 && (
                         <div className="flex flex-col gap-3 mt-1">
                             {otherAdmins.map((admin) => (
-                                <Link key={admin!.id} href={`/profile/${admin!.id}`}>
+                                <Link key={admin!.id} href={`/profile/${admin!.username}`}>
                                     <div className="group flex cursor-pointer items-center gap-3">
 
                                         <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl border border-black/5 bg-black/5 transition-transform group-hover:scale-105">
