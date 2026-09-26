@@ -1,0 +1,13 @@
+# Guardar siempre los archivos de texto con finales de línea LF (Linux/Mac),
+# aunque se editen en Windows. Evita que git marque archivos como modificados sin cambios reales.
+* text=auto eol=lf
+
+# Imágenes y binarios: no tocarlos
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
