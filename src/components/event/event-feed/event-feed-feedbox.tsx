@@ -9,8 +9,6 @@ interface EventFeedFeedBoxProps {
 
 export default function EventFeedFeedBox({ eventId, user }: EventFeedFeedBoxProps) {
     const posts = getPostsForEvent(eventId);
-    console.log(`El post es ${eventId}`)
-    console.log(`Hay posts: ${posts}`)
 
     return (
         <div className="flex flex-col gap-6">

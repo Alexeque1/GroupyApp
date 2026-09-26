@@ -101,8 +101,7 @@ export default function ImageDropzone({
             const croppedImage = await getCroppedImg(rawImage, croppedAreaPixels);
             setPreview(croppedImage);
             setIsCropping(false);
-        } catch (e) {
-            console.error("Error cropping image:", e);
+        } catch {
             toast.error("We couldn't save that image", {
                 description: "Please try again.",
             });
@@ -287,7 +286,6 @@ async function getCroppedImg(
     return new Promise((resolve, reject) => {
         canvas.toBlob((blob) => {
             if (!blob) {
-                console.error("Canvas is empty");
                 reject(new Error("Canvas is empty"));
                 return;
             }
