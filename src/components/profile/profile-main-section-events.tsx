@@ -1,105 +1,23 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Crown, Users, ChevronDown, SearchX, Search, ArrowUpDown, X, User } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Crown, Users, ChevronDown, SearchX, Search, ArrowUpDown, X, User, Filter } from "lucide-react";
 
 import ProfileEventCard, { EventType } from "./profile-events-cards";
 import ProfileSectionGrid from "./profile-section-grid";
-import PaginationControls from "../ui/pagination-controls"; // Asegúrate de ajustar esta ruta según tu proyecto
+import PaginationControls from "../ui/pagination-controls";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { paginate } from "@/lib/pagination";
 import { getEventStatus } from "@/lib/event-status";
 
 type SortBy = "newest" | "oldest" | "title";
+type EventsTab = "hosting" | "joined";
 
 const ITEMS_PER_PAGE = 6;
 
 const isManaged = (event: EventType) =>
     event.role === "owner" || event.role === "admin";
-
-function EventBlock({
-    icon,
-    label,
-    items,
-    defaultOpen = false,
-}: {
-    icon: React.ReactNode;
-    label: string;
-    items: EventType[];
-    defaultOpen?: boolean;
-}) {
-    const [isOpen, setIsOpen] = useState(defaultOpen);
-    const [internalPage, setInternalPage] = useState(1);
-
-    const { pageItems, totalPages, safePage } = paginate(
-        items,
-        internalPage,
-        ITEMS_PER_PAGE
-    );
-
-    return (
-        <section className="flex flex-col rounded-3xl border border-black/10 bg-white p-5 shadow-sm transition-shadow hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-            {/* HEADER INTERACTIVO */}
-            <button 
-                onClick={() => setIsOpen((prev) => !prev)}
-                className="flex w-full items-center justify-between cursor-pointer"
-            >
-                <div className="flex items-center gap-2">
-                    {icon}
-                    <h4 className="text-sm font-bold uppercase tracking-wider text-black/70">
-                        {label}
-                    </h4>
-                    <span className="rounded-full bg-black/5 px-2 py-0.5 text-xs font-semibold text-black/50">
-                        {items.length}
-                    </span>
-                </div>
-                
-                <ChevronDown
-                    size={20}
-                    className={`text-black/40 transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
-                    }`}
-                />
-            </button>
-
-            {/* CONTENEDOR COLAPSABLE */}
-            <div 
-                className={`grid transition-all duration-300 ease-in-out ${
-                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                }`}
-            >
-                <div className="overflow-hidden">
-                    <div className="mt-5 flex flex-col gap-4">
-                        {items.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center py-8 text-center bg-black/[0.02] rounded-2xl border border-dashed border-black/10">
-                                <SearchX size={24} className="text-black/30 mb-2" />
-                                <p className="text-xs font-medium text-black/50">No events match your filters</p>
-                            </div>
-                        ) : (
-                            <>
-                                <ProfileSectionGrid
-                                    items={pageItems}
-                                    renderItem={(event) => <ProfileEventCard key={event.id} event={event} />}
-                                />
-
-                                {/* CONTROLES DE PAGINACIÓN INTERNOS DEL BLOQUE */}
-                                {totalPages > 1 && (
-                                    <div className="mt-2 pt-2 border-t border-black/5">
-                                        <PaginationControls
-                                            page={safePage}
-                                            totalPages={totalPages}
-                                            onChange={setInternalPage}
-                                            size="sm"
-                                        />
-                                    </div>
-                                )}
-                            </>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-}
 
 export default function ProfileSectionEvents({
     events,
@@ -112,6 +30,9 @@ export default function ProfileSectionEvents({
     profileName: string;
     profileUsername: string;
 }) {
+    const [activeTab, setActiveTab] = useState<EventsTab>("hosting");
+    const [page, setPage] = useState(1);
+
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState<string>("all");
     const [categoryFilter, setCategoryFilter] = useState<string>("all");
@@ -150,7 +71,7 @@ export default function ProfileSectionEvents({
             if (sortBy === "title") {
                 return a.title.localeCompare(b.title);
             }
-            
+
             const dateA = new Date(a.startDate).getTime();
             const dateB = new Date(b.startDate).getTime();
 
@@ -158,9 +79,16 @@ export default function ProfileSectionEvents({
         });
     }, [events, searchQuery, statusFilter, categoryFilter, creatorFilter, sortBy, profileUsername]);
 
-    
     const managed = filteredEvents.filter(isManaged);
     const joined = filteredEvents.filter((event) => !isManaged(event));
+    const activeItems = activeTab === "hosting" ? managed : joined;
+
+    const { pageItems, totalPages, safePage } = paginate(activeItems, page, ITEMS_PER_PAGE);
+
+    // Cualquier cambio de tab o de filtros vuelve a la página 1
+    useEffect(() => {
+        setPage(1);
+    }, [activeTab, searchQuery, statusFilter, categoryFilter, creatorFilter, sortBy]);
 
     const handleClearFilters = () => {
         setSearchQuery("");
@@ -174,140 +102,197 @@ export default function ProfileSectionEvents({
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-3 rounded-3xl">
-                
-                {/* 1. INPUT DE BÚSQUEDA (Ocupa el 100% arriba) */}
-                <div className="relative w-full">
-                    <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-black/40" />
-                    <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search events by title..."
-                        className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-brand-purple-deep/40 focus:bg-white focus:ring-2 focus:ring-brand-purple-deep/10"
-                    />
-                    {searchQuery && (
-                        <button 
-                            onClick={() => setSearchQuery("")}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 hover:text-black cursor-pointer"
-                        >
-                            <X size={15} />
-                        </button>
-                    )}
-                </div>
-
-                {/* 2. CONTENEDOR DE SELECTS DE FILTROS (Abajo) */}
-                <div className="flex flex-col sm:flex-row flex-wrap items-center gap-2 w-full">
-                    
-                    {/* Filtro por Creador */}
-                    <div className="relative w-full sm:flex-1 sm:min-w-[140px]">
-                        <select
-                            value={creatorFilter}
-                            onChange={(e) => setCreatorFilter(e.target.value)}
-                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-brand-purple-deep/40 focus:bg-white"
-                        >
-                            <option value="all">Any creator</option>
-                            <option value="owner">{creatorLabel}</option>
-                            <option value="others">Created by others</option>
-                        </select>
-                        <User size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
-                    </div>
-
-                    {/* Filtro por Estado */}
-                    <div className="relative w-full sm:flex-1 sm:min-w-[140px]">
-                        <select
-                            value={statusFilter}
-                            onChange={(e) => setStatusFilter(e.target.value)}
-                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-brand-purple-deep/40 focus:bg-white"
-                        >
-                            <option value="all">All statuses</option>
-                            {statuses.map((status) => (
-                                <option key={status} value={status}>{status}</option>
-                            ))}
-                        </select>
-                        <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
-                    </div>
-
-                    {/* Filtro por Categoría */}
-                    <div className="relative w-full sm:flex-1 sm:min-w-[140px]">
-                        <select
-                            value={categoryFilter}
-                            onChange={(e) => setCategoryFilter(e.target.value)}
-                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-brand-purple-deep/40 focus:bg-white"
-                        >
-                            <option value="all">All categories</option>
-                            {categories.map((cat) => (
-                                <option key={cat} value={cat}>{cat}</option>
-                            ))}
-                        </select>
-                        <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
-                    </div>
-
-                    {/* Ordenamiento */}
-                    <div className="relative w-full sm:flex-1 sm:min-w-[140px]">
-                        <select
-                            value={sortBy}
-                            onChange={(e) => setSortBy(e.target.value as SortBy)}
-                            className="w-full appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all cursor-pointer focus:border-brand-purple-deep/40 focus:bg-white"
-                        >
-                            <option value="newest">Newest date</option>
-                            <option value="oldest">Oldest date</option>
-                            <option value="title">Alphabetical</option>
-                        </select>
-                        <ArrowUpDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 pointer-events-none" />
-                    </div>
-                </div>
-
-                {/* Indicador de filtros activos */}
-                {hasActiveFilters && (
-                    <div className="flex items-center justify-between pt-2 border-t border-black/5 px-1 mt-1">
-                        <span className="text-xs text-black/50">
-                            Showing filtered events
+            {/* TABS + BOTÓN DE FILTROS */}
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-1 rounded-2xl bg-black/5 p-1">
+                    <button
+                        type="button"
+                        onClick={() => setActiveTab("hosting")}
+                        className={`relative flex cursor-pointer items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold transition-colors ${activeTab === "hosting" ? "text-black" : "text-black/50 hover:text-black/70"
+                            }`}
+                    >
+                        {activeTab === "hosting" && (
+                            <motion.div
+                                layoutId="events-subtab-pill"
+                                className="absolute inset-0 rounded-xl bg-white shadow-sm"
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                            />
+                        )}
+                        <span className="relative z-10 flex items-center gap-1.5">
+                            <Crown size={14} className={activeTab === "hosting" ? "text-brand-purple-deep" : "text-black/40"} />
+                            Hosting
+                            <span className={`rounded-full px-1.5 py-0.5 text-xs font-bold ${activeTab === "hosting" ? "bg-brand-purple-deep/10 text-brand-purple-deep" : "bg-black/10 text-black/40"
+                                }`}>
+                                {managed.length}
+                            </span>
                         </span>
-                        <button
-                            onClick={handleClearFilters}
-                            className="text-xs font-semibold text-brand-purple-deep hover:underline cursor-pointer"
-                        >
-                            Clear filters
-                        </button>
-                    </div>
-                )}
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => setActiveTab("joined")}
+                        className={`relative flex cursor-pointer items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold transition-colors ${activeTab === "joined" ? "text-black" : "text-black/50 hover:text-black/70"
+                            }`}
+                    >
+                        {activeTab === "joined" && (
+                            <motion.div
+                                layoutId="events-subtab-pill"
+                                className="absolute inset-0 rounded-xl bg-white shadow-sm"
+                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                            />
+                        )}
+                        <span className="relative z-10 flex items-center gap-1.5">
+                            <Users size={14} className={activeTab === "joined" ? "text-brand-purple-deep" : "text-black/40"} />
+                            Joined
+                            <span className={`rounded-full px-1.5 py-0.5 text-xs font-bold ${activeTab === "joined" ? "bg-brand-purple-deep/10 text-brand-purple-deep" : "bg-black/10 text-black/40"
+                                }`}>
+                                {joined.length}
+                            </span>
+                        </span>
+                    </button>
+                </div>
+
+                <Popover>
+                    <PopoverTrigger className="relative flex cursor-pointer items-center gap-2 rounded-2xl border border-black/10 bg-white px-4 py-2.5 text-sm font-semibold text-black/70 shadow-sm transition-colors hover:bg-black/5">
+                        <Filter size={15} />
+                        Filter
+                        {hasActiveFilters && (
+                            <span className="h-1.5 w-1.5 rounded-full bg-brand-purple-deep" />
+                        )}
+                    </PopoverTrigger>
+
+                    <PopoverContent align="end" className="w-80 border border-black/10 bg-white p-4 shadow-xl">
+                        <div className="flex flex-col gap-3">
+                            {/* BÚSQUEDA */}
+                            <div className="relative w-full">
+                                <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-black/40" />
+                                <input
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    placeholder="Search events by title..."
+                                    className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-brand-purple-deep/40 focus:bg-white focus:ring-2 focus:ring-brand-purple-deep/10"
+                                />
+                                {searchQuery && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setSearchQuery("")}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-black/40 hover:text-black"
+                                    >
+                                        <X size={15} />
+                                    </button>
+                                )}
+                            </div>
+
+                            {/* Filtro por Creador */}
+                            <div className="relative w-full">
+                                <select
+                                    value={creatorFilter}
+                                    onChange={(e) => setCreatorFilter(e.target.value)}
+                                    className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
+                                >
+                                    <option value="all">Any creator</option>
+                                    <option value="owner">{creatorLabel}</option>
+                                    <option value="others">Created by others</option>
+                                </select>
+                                <User size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/40" />
+                            </div>
+
+                            {/* Filtro por Estado */}
+                            <div className="relative w-full">
+                                <select
+                                    value={statusFilter}
+                                    onChange={(e) => setStatusFilter(e.target.value)}
+                                    className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
+                                >
+                                    <option value="all">All statuses</option>
+                                    {statuses.map((status) => (
+                                        <option key={status} value={status}>{status}</option>
+                                    ))}
+                                </select>
+                                <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/40" />
+                            </div>
+
+                            {/* Filtro por Categoría */}
+                            <div className="relative w-full">
+                                <select
+                                    value={categoryFilter}
+                                    onChange={(e) => setCategoryFilter(e.target.value)}
+                                    className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
+                                >
+                                    <option value="all">All categories</option>
+                                    {categories.map((cat) => (
+                                        <option key={cat} value={cat}>{cat}</option>
+                                    ))}
+                                </select>
+                                <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/40" />
+                            </div>
+
+                            {/* Ordenamiento */}
+                            <div className="relative w-full">
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value as SortBy)}
+                                    className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
+                                >
+                                    <option value="newest">Newest date</option>
+                                    <option value="oldest">Oldest date</option>
+                                    <option value="title">Alphabetical</option>
+                                </select>
+                                <ArrowUpDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/40" />
+                            </div>
+
+                            {hasActiveFilters && (
+                                <button
+                                    type="button"
+                                    onClick={handleClearFilters}
+                                    className="cursor-pointer rounded-2xl border border-black/10 py-2 text-xs font-semibold text-brand-purple-deep hover:bg-black/5"
+                                >
+                                    Clear filters
+                                </button>
+                            )}
+                        </div>
+                    </PopoverContent>
+                </Popover>
             </div>
 
-            {/* LISTADO DE BLOQUES (Managing / Joined) */}
-            {managed.length === 0 && joined.length === 0 ? (
-                <div className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-black/10 bg-black/5 p-6 text-center">
-                    <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-black/5">
-                        <SearchX size={32} className="text-black/40" />
-                    </div>
-                    <h3 className="text-sm font-semibold text-black/60">
-                        No events found
-                    </h3>
-                    <p className="mt-1 text-xs text-black/50">
-                        Try adjusting your search query or filters.
-                    </p>
-                </div>
-            ) : (
-                <div className="flex flex-col gap-6">
-                    {managed.length > 0 && (
-                        <EventBlock
-                            icon={<Crown size={18} className="text-brand-purple-deep" />}
-                            label="Managing"
-                            items={managed}
-                            defaultOpen={false} // Puedes cambiarlo a true si prefieres que inicie abierto
-                        />
-                    )}
+            {/* GRID + PAGINACIÓN DE LA TAB ACTIVA */}
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={`${activeTab}-${safePage}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                >
+                    {activeItems.length === 0 ? (
+                        <div className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-black/10 bg-black/5 p-6 text-center">
+                            <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-black/5">
+                                <SearchX size={32} className="text-black/40" />
+                            </div>
+                            <h3 className="text-sm font-semibold text-black/60">
+                                No events found
+                            </h3>
+                            <p className="mt-1 text-xs text-black/50">
+                                Try adjusting your search query or filters.
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col gap-6">
+                            <ProfileSectionGrid
+                                items={pageItems}
+                                renderItem={(event) => <ProfileEventCard key={event.id} event={event} />}
+                            />
 
-                    {joined.length > 0 && (
-                        <EventBlock
-                            icon={<Users size={18} className="text-black/50" />}
-                            label="Joined"
-                            items={joined}
-                            defaultOpen={false}
-                        />
+                            <PaginationControls
+                                page={safePage}
+                                totalPages={totalPages}
+                                onChange={setPage}
+                            />
+                        </div>
                     )}
-                </div>
-            )}
+                </motion.div>
+            </AnimatePresence>
         </div>
     );
 }

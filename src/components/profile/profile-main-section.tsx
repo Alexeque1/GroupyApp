@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProfileSectionEvents from "./profile-main-section-events";
 import ProfileSectionCommunities from "./profile-main-section-communities";
 import ProfileSectionFriendsList from "./profile-main-section-friendslist";
-import NavigationTabButton from "../ui/navigation-tab-button"; // <-- Importa tu nuevo componente
+import ProfileSectionReviews from "./profile-main-section-reviews"
+
+import NavigationTabButton from "../ui/navigation-tab-button";
 import { EventType } from "./profile-events-cards";
 import { CommunityType } from "./profile-communities-cards";
 import { FriendType } from "./profile-friends-cards";
@@ -27,6 +29,12 @@ const TABS_CONFIG = [
         description:
             "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptate magnam accusamus ullam. Quos vero ducimus rerum incidunt, in quidem error! Placeat molestiae reprehenderit laborum? Veniam delectus atque amet eum.",
     },
+    {
+        key: "Reviews",
+        description:
+            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptate magnam accusamus ullam. Quos vero ducimus rerum incidunt, in quidem error! Placeat molestiae reprehenderit laborum? Veniam delectus atque amet eum.",
+        count: 3
+    }
 ] as const;
 
 type TabType = (typeof TABS_CONFIG)[number]["key"];
@@ -49,7 +57,7 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
 
     return (
         <section className="z-10 flex min-h-[500px] flex-[2] flex-col overflow-hidden rounded-3xl bg-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md pt-2 md:pt-4">
-            
+
             {/* HEADER TIPO CARPETAS */}
             <header className="flex w-full items-end gap-1 px-4 overflow-x-auto hide-scrollbar">
                 {TABS_CONFIG.map(({ key }) => (
@@ -64,7 +72,7 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
             </header>
 
             {/* CONTENIDO DINÁMICO */}
-            <div id="group_section" className="relative flex flex-1 flex-col p-6 md:p-8 bg-white rounded-b-3xl">
+            <div id="group_section" className="relative flex flex-1 flex-col p-6 md:p-8 bg-white sm:rounded-b-3xl">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={activeTab}
@@ -94,6 +102,10 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
 
                         {activeTab === "Friends" && (
                             <ProfileSectionFriendsList friends={user.friends} currentUserId={currentUserId} />
+                        )}
+
+                        {activeTab === "Reviews" && (
+                            <ProfileSectionReviews users={user.friends} currentUserId={currentUserId} />
                         )}
                     </motion.div>
                 </AnimatePresence>

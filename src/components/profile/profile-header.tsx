@@ -4,8 +4,9 @@ import { useState } from "react";
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
 import Button from "../ui/button";
 import Image from "next/image";
-import { ArrowLeft, Pencil, UserMinus, BadgeCheck } from "lucide-react";
+import { ArrowLeft, Pencil, UserMinus, BadgeCheck, Star } from "lucide-react";
 import ProfileCover from "./profile-cover";
+import type { EventType } from "./profile-events-cards";
 import ProfileModalChangeProfilePhoto from "./profile-modal-changeprofilephoto";
 import ProfileModalChangeCoverPhoto from "./profile-modal-changecoverphoto";
 import Link from "next/link";
@@ -22,10 +23,12 @@ type ProfileHeaderProps = {
         bio: string;
         username: string;
         profileImage: string;
-        events: unknown[];
+        events: EventType[];
         communities: unknown[];
         friends: unknown[];
         verified?: boolean;
+        rating: number;
+        reviewsCount: number;
     };
     isOwnProfile?: boolean;
     isUserFollowing?: boolean;
@@ -42,6 +45,9 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
     const [isFollowing, setIsFollowing] = useState(isUserFollowing);
     const [showUnfollow, setShowUnfollow] = useState(false);
     const [statusAlert, setStatusAlert] = useState<{ description: string; type: "success" | "error" } | null>(null);
+
+    const eventsAttended = user.events.filter((event) => event.role === "member").length;
+    const eventsHosted = user.events.filter((event) => event.role === "owner" || event.role === "admin").length;
 
     const handleFollowToggle = () => {
         if (isFollowing) {
@@ -171,38 +177,63 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                                 <div className="relative z-10 mt-6 flex flex-col items-center gap-6 border-t border-black/10 pt-5 min-[1200px]:flex-row min-[1200px]:justify-between">
 
                                     {/* STATS */}
-                                    <div className="flex items-center justify-center gap-6 md:justify-start md:gap-10">
-                                        {/* Grupos */}
+                                    <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 md:justify-start md:gap-x-7">
+                                        {/* Eventos a los que asistió */}
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl font-bold text-brand-purple-deep md:text-3xl">
-                                                {user.events.length}
+                                            <span className="text-lg font-bold text-black/90 md:text-xl">
+                                                {eventsAttended}
                                             </span>
-                                            <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
-                                                Events
+                                            <span className="mt-0.5 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.15em] text-black/70 md:text-[10px]">
+                                                Events attended
                                             </span>
                                         </div>
 
-                                        <div className="h-8 w-px bg-black/10" />
+                                        <div className="h-7 w-px bg-black/10" />
+
+                                        {/* Eventos que organizó */}
+                                        <div className="flex flex-col items-center">
+                                            <span className="text-lg font-bold text-black/90 md:text-xl">
+                                                {eventsHosted}
+                                            </span>
+                                            <span className="mt-0.5 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.15em] text-black/70 md:text-[10px]">
+                                                Hosted events
+                                            </span>
+                                        </div>
+
+                                        <div className="h-7 w-px bg-black/10" />
 
                                         {/* Comunidades */}
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl font-bold text-brand-green md:text-3xl">
+                                            <span className="text-lg font-bold text-black/90 md:text-xl">
                                                 {user.communities.length}
                                             </span>
-                                            <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
+                                            <span className="mt-0.5 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.15em] text-black/70 md:text-[10px]">
                                                 Communities
                                             </span>
                                         </div>
 
-                                        <div className="h-8 w-px bg-black/10" />
+                                        <div className="h-7 w-px bg-black/10" />
 
                                         {/* Amigos */}
                                         <div className="flex flex-col items-center">
-                                            <span className="text-2xl font-bold text-brand-orange md:text-3xl">
+                                            <span className="text-lg font-bold text-black/90 md:text-xl">
                                                 {user.friends.length}
                                             </span>
-                                            <span className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-black/70 md:text-xs">
+                                            <span className="mt-0.5 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.15em] text-black/70 md:text-[10px]">
                                                 Friends
+                                            </span>
+                                        </div>
+
+                                        <div className="h-7 w-px bg-black/10" />
+
+                                        {/* Rating: métrica destacada por sobre el resto */}
+                                        <div className="flex flex-col items-center rounded-xl bg-brand-purple/10 px-3 py-1">
+                                            <span className="flex items-center gap-1 text-lg font-bold text-brand-purple-deep md:text-xl">
+                                                <Star size={14} className="fill-brand-purple-deep md:h-4 md:w-4" />
+                                                {user.rating.toFixed(1)}
+                                            </span>
+                                            <span className="mt-0.5 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.15em] text-brand-purple-deep/70 md:text-[10px]">
+                                                Rating · {user.reviewsCount} reviews
                                             </span>
                                         </div>
                                     </div>

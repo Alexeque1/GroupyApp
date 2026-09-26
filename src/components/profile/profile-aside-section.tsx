@@ -51,9 +51,9 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
     const topCommunities = getTopCommunities(user.communities);
 
     return (
-        <aside className="flex h-fit flex-1 flex-col gap-6 rounded-3xl border border-black/30 bg-white/5 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-sm">
+        <aside className="flex h-fit flex-1 flex-col gap-5">
             {/* SECCIÓN 1: INFO COMPLEMENTARIA */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 rounded-3xl border border-black/10 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-sm">
                 <h3 className="text-lg font-bold text-black/80">
                     About me
                 </h3>
@@ -87,10 +87,8 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                 </div>
             </div>
 
-            <hr className="border-black/10" />
-
             {/* SECCIÓN 2: PRÓXIMO EVENTO */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 rounded-3xl border border-black/10 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-sm">
                 <h3 className="text-lg font-bold text-black/80">
                     Coming soon
                 </h3>
@@ -137,10 +135,8 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                 )}
             </div>
 
-            <hr className="border-black/10" />
-
             {/* SECCIÓN 3: TOP COMUNIDADES */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 rounded-3xl border border-black/10 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-sm">
                 <h3 className="text-lg font-bold text-black/80">
                     Top Communities
                 </h3>
@@ -180,8 +176,7 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                 )}
             </div>
 
-            <hr className="border-black/10" />
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 rounded-3xl border border-black/10 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-sm">
                 <h3 className="text-lg font-bold text-black/80">
                     Interests
                 </h3>

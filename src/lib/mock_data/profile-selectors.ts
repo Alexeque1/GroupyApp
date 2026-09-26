@@ -22,6 +22,8 @@ export interface ProfileViewModel {
     interests: string[];
     joined: string;
     verified: boolean;
+    rating: number;
+    reviewsCount: number;
 }
 
 function resolveEvents(user: UserType): EventType[] {
@@ -86,6 +88,8 @@ export function getProfileViewModel(userId: number): ProfileViewModel | null {
         languages: user.languages,
         interests: user.interests,
         joined: user.joined,
-        verified: user.verified
+        verified: user.verified,
+        rating: user.rating,
+        reviewsCount: user.reviewsCount
     };
 }

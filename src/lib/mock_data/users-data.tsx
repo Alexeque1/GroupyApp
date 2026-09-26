@@ -21,6 +21,8 @@ export interface UserType {
     interests: string[];
     joined: string; // Mes y año de registro, ej: "October 2023"
     verified: boolean;
+    rating: number;
+    reviewsCount: number;
 }
 
 export type FeedUser = Pick<UserType, "firstName" | "lastName" | "username" | "profileImage">;
@@ -46,7 +48,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["English", "Spanish"],
         interests: ["Technology", "Live Music", "Coffee", "Design"],
         joined: "October 2023",
-        verified: true
+        verified: true,
+        rating: 4.9,
+        reviewsCount: 18
     },
     {
         id: 2,
@@ -68,7 +72,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "Portuguese"],
         interests: ["Outdoor Adventures", "Marketing", "Travel"],
         joined: "January 2024",
-        verified: false
+        verified: false,
+        rating: 4.6,
+        reviewsCount: 9
     },
     {
         id: 3,
@@ -90,7 +96,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Techno Music", "DJing", "Nightlife"],
         joined: "March 2024",
-        verified: true
+        verified: true,
+        rating: 4.8,
+        reviewsCount: 14
     },
     {
         id: 4,
@@ -112,7 +120,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Coffee", "Slow Living", "Conversation"],
         joined: "February 2024",
-        verified: false
+        verified: false,
+        rating: 4.7,
+        reviewsCount: 6
     },
     {
         id: 5,
@@ -134,7 +144,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Event Planning", "Nightlife", "Networking"],
         joined: "November 2023",
-        verified: true
+        verified: true,
+        rating: 4.9,
+        reviewsCount: 21
     },
     {
         id: 6,
@@ -156,7 +168,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Fitness", "Nutrition", "Wellness"],
         joined: "December 2023",
-        verified: false
+        verified: false,
+        rating: 4.5,
+        reviewsCount: 11
     },
     {
         id: 7,
@@ -178,7 +192,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "Italian"],
         interests: ["Dance", "Latin Music", "Teaching"],
         joined: "April 2024",
-        verified: true
+        verified: true,
+        rating: 4.9,
+        reviewsCount: 16
     },
     {
         id: 8,
@@ -200,7 +216,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Jazz", "Piano", "Live Music"],
         joined: "January 2024",
-        verified: false
+        verified: false,
+        rating: 4.6,
+        reviewsCount: 8
     },
     {
         id: 9,
@@ -222,7 +240,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Hiking", "Nature", "Trekking"],
         joined: "May 2024",
-        verified: true
+        verified: true,
+        rating: 4.8,
+        reviewsCount: 12
     },
     {
         id: 10,
@@ -244,7 +264,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Product Management", "Board Games", "Strategy"],
         joined: "September 2023",
-        verified: false
+        verified: false,
+        rating: 4.7,
+        reviewsCount: 10
     },
     {
         id: 11,
@@ -266,7 +288,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Board Games", "Software Development", "Tabletop Gaming"],
         joined: "June 2024",
-        verified: true
+        verified: true,
+        rating: 4.5,
+        reviewsCount: 5
     },
     {
         id: 12,
@@ -288,7 +312,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Yoga", "Mindfulness", "Wellness"],
         joined: "July 2024",
-        verified: false
+        verified: false,
+        rating: 4.9,
+        reviewsCount: 13
     },
     {
         id: 13,
@@ -310,7 +336,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "German"],
         interests: ["Craft Beer", "Brewing", "Tasting"],
         joined: "August 2024",
-        verified: true
+        verified: true,
+        rating: 4.6,
+        reviewsCount: 7
     },
 
     // --- LISTA DE AMIGOS DE ALEXANDER (IDs 14 al 19) ---
@@ -330,7 +358,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Design", "Music Festivals", "Travel"],
         joined: "October 2023",
-        verified: false
+        verified: false,
+        rating: 4.7,
+        reviewsCount: 4
     },
     {
         id: 15,
@@ -348,7 +378,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Software Development", "Live Music", "Backend"],
         joined: "November 2023",
-        verified: true
+        verified: true,
+        rating: 4.8,
+        reviewsCount: 6
     },
     {
         id: 16,
@@ -366,7 +398,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English", "Portuguese"],
         interests: ["Community Building", "Events", "Social Media"],
         joined: "September 2023",
-        verified: false
+        verified: false,
+        rating: 4.6,
+        reviewsCount: 9
     },
     {
         id: 17,
@@ -384,7 +418,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Photography", "Nightlife", "Travel"],
         joined: "December 2023",
-        verified: true
+        verified: true,
+        rating: 4.9,
+        reviewsCount: 11
     },
     {
         id: 18,
@@ -402,7 +438,9 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish", "English"],
         interests: ["Illustration", "Yoga", "Comedy"],
         joined: "October 2023",
-        verified: false
+        verified: false,
+        rating: 4.7,
+        reviewsCount: 5
     },
     {
         id: 19,
@@ -420,6 +458,8 @@ export const USERS_DATA: UserType[] = [
         languages: ["Spanish"],
         interests: ["Hiking", "Engineering", "Outdoors"],
         joined: "August 2023",
-        verified: true
+        verified: true,
+        rating: 4.8,
+        reviewsCount: 7
     }
 ];
