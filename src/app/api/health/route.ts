@@ -9,7 +9,6 @@ export async function GET() {
     await mongoose.connection.db?.admin().ping();
     return Response.json({ ok: true, db: "connected" });
   } catch {
-    // No devolvemos el error real: podría mostrar datos de la conexión
     return Response.json({ ok: false, db: "error" }, { status: 500 });
   }
 }
