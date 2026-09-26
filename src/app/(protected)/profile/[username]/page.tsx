@@ -9,14 +9,14 @@ import { motion } from "framer-motion";
 import { use } from "react";
 
 interface ProfilePageProps {
-    params: Promise<{ id: string }>;
+    params: Promise<{ username: string }>;
 }
 
 export default function ProfilePage({ params }: ProfilePageProps) {
-    const { id } = use(params);
-    const profile = getProfileViewModel(Number(id));
-    const isOwnProfile = Number(id) === CURRENT_USER_ID;
-    const isUserFollowing =  profile?.friends.some((friend) => friend.id === CURRENT_USER_ID) ?? false;
+    const { username } = use(params);
+    const profile = getProfileViewModel(username);
+    const isOwnProfile = profile?.id === CURRENT_USER_ID;
+    const isUserFollowing = profile?.friends.some((friend) => friend.id === CURRENT_USER_ID) ?? false;
 
     if (!profile) {
         return (

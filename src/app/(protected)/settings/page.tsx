@@ -6,12 +6,12 @@ import { motion } from "framer-motion";
 import SettingsAsideSection, { type SettingsSection } from "@/components/settings/settings-aside-section";
 import SettingsMainSection from "@/components/settings/settings-main-section";
 import ProfileHeader from "@/components/profile/profile-header";
-import { CURRENT_USER_ID } from "@/lib/mock_data/profile-info";
+import { CURRENT_USERNAME } from "@/lib/mock_data/profile-info";
 import { getProfileViewModel } from "@/lib/mock_data/profile-selectors";
 
 export default function Settings() {
     const [activeSection, setActiveSection] = useState<SettingsSection>("account");
-    const profile = getProfileViewModel(Number(CURRENT_USER_ID));
+    const profile = getProfileViewModel(CURRENT_USERNAME);
 
     if (!profile) {
         return (
