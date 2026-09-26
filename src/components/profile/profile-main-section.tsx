@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProfileSectionEvents from "./profile-main-section-events";
 import ProfileSectionCommunities from "./profile-main-section-communities";
 import ProfileSectionFriendsList from "./profile-main-section-friendslist";
-import ProfileSectionReviews from "./profile-main-section-reviews"
 
 import NavigationTabButton from "../ui/navigation-tab-button";
 import { EventType } from "./profile-events-cards";
@@ -102,10 +101,6 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
 
                         {activeTab === "Friends" && (
                             <ProfileSectionFriendsList friends={user.friends} currentUserId={currentUserId} />
-                        )}
-
-                        {activeTab === "Reviews" && (
-                            <ProfileSectionReviews users={user.friends} currentUserId={currentUserId} />
                         )}
                     </motion.div>
                 </AnimatePresence>
