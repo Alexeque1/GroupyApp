@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 interface PortalProps {
     children: ReactNode;
 }
 
-export default function Portal({ children }: PortalProps) {
-    const [mounted, setMounted] = useState(false);
+// No hay nada a lo que suscribirse: solo necesitamos saber si estamos en el navegador.
+const subscribe = () => () => {};
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+export default function Portal({ children }: PortalProps) {
+    // true en el navegador, false durante el render del servidor (donde no existe document).
+    const mounted = useSyncExternalStore(subscribe, () => true, () => false);
 
     if (!mounted) return null;
 
