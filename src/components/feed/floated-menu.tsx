@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { logout } from "@/lib/actions/auth";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X, LogOut } from "lucide-react";
@@ -21,7 +22,9 @@ export default function FloatingLiquidMenu() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                            setIsOpen(false);
+                        }}
                         className="fixed inset-0 z-40 bg-brand-dark/60 backdrop-blur-sm"
                     />
                 )}
@@ -67,7 +70,10 @@ export default function FloatingLiquidMenu() {
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: MENU_ITEMS.length * 0.03 + 0.1 }}
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        logout();
+                                    }}
                                     className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-red-400 transition-colors hover:bg-white/10 hover:text-red-500"
                                 >
                                     <LogOut size={18} className="transition-transform group-hover:scale-110" />
@@ -81,7 +87,6 @@ export default function FloatingLiquidMenu() {
                 {/* BOTÓN LÍQUIDO RECTANGULAR */}
                 <motion.button
                     onClick={() => setIsOpen(!isOpen)}
-                    // Animación de "respiración" para hacerlo más orgánico
                     animate={{
                         borderRadius: ["16px", "20px", "16px"],
                     }}

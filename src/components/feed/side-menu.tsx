@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { logout } from "@/lib/actions/auth";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,7 +24,7 @@ export default function SideMenu() {
             <ConfirmAlert
                 isOpen={finishSession}
                 onClose={handleFinishSession}
-                onConfirm={() => { }}
+                onConfirm={() => logout()}
                 icon={LogOut}
                 title="Loggin Out"
                 description="You are about to log out of your account. You will need to log back in to access your events."
