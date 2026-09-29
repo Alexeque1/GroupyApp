@@ -17,10 +17,10 @@ export default async function Auth({
     return (
         <div className="relative min-h-dvh w-full flex flex-col items-center justify-center overflow-hidden bg-brand-violet text-white">
 
-            {/* FONDO MESHY */}
+            {/* MESHY BACKGROUND */}
             <AnimatedBackground/>
 
-            {/* CONTENIDO */}
+            {/* CONTENT */}
             <div className="relative z-10 flex flex-col items-center gap-6 rounded-3xl bg-brand-plum/40 border border-white/10 p-12 backdrop-blur-md shadow-2xl h-full">
                 <AuthCard 
                 key={mode ?? "register"} 

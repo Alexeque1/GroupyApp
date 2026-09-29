@@ -34,7 +34,7 @@ export default function ProfileModalChangeCoverPhoto({
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
     const [isSaving, setIsSaving] = useState(false);
 
-    // Reseteamos el estado interno cada vez que el modal pasa de cerrado a abierto
+    // We reset the internal state every time the modal goes from closed to open
     const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
     if (isOpen !== prevIsOpen) {
         setPrevIsOpen(isOpen);
@@ -92,7 +92,7 @@ export default function ProfileModalChangeCoverPhoto({
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         handleFile(e.target.files?.[0]);
-        // Reseteamos el input para permitir volver a subir el mismo archivo si se canceló
+        // We reset the input to allow re-uploading the same file if it was canceled
         if (inputRef.current) inputRef.current.value = "";
     };
 
@@ -138,7 +138,7 @@ export default function ProfileModalChangeCoverPhoto({
                         className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm"
                     />
 
-                    {/* CONTENEDOR DEL MODAL */}
+                    {/* MODAL CONTAINER */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -176,7 +176,7 @@ export default function ProfileModalChangeCoverPhoto({
                         <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-6">
                             {rawImage ? (
                                 <div className="flex flex-col gap-4">
-                                    {/* CROPPER: permite mover y hacer zoom sobre la portada */}
+                                    {/* CROPPER: lets you move and zoom around the cover photo */}
                                     <div className="relative h-56 w-full overflow-hidden rounded-2xl bg-black/90 sm:h-64">
                                         <Cropper
                                             image={rawImage}

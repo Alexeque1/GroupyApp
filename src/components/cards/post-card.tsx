@@ -47,7 +47,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                 categoryInfo.cardClasses 
             )}
         >
-            {/* --- ETIQUETA FLOTANTE (ESTILO PESTAÑA) --- */}
+            {/* --- FLOATING TAG (TAB STYLE) --- */}
             <div className="absolute -top-3.5 left-6 z-10 rounded-xl bg-white dark:bg-brand-dark">
                 <span
                     className={cn(
@@ -60,7 +60,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                 </span>
             </div>
 
-            {/* 1. HEADER DEL POST */}
+            {/* 1. POST HEADER */}
             <div className="flex items-start justify-between pt-1">
                 <div className="flex items-center gap-3">
                     {/* Avatar */}
@@ -72,7 +72,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                             className="object-cover"
                         />
                     </div>
-                    {/* Info Usuario */}
+                    {/* User Info */}
                     <div className="flex flex-col">
                         <span className="text-sm font-bold text-black dark:text-white">
                             {`${post.author.firstName} ${post.author.lastName}`}
@@ -83,18 +83,18 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                     </div>
                 </div>
 
-                {/* Botón Opciones */}
+                {/* Options Button */}
                 <button className="cursor-pointer rounded-full p-1.5 text-black/40 transition-colors hover:bg-black/5 hover:text-black dark:text-white/40 dark:hover:bg-white/10 dark:hover:text-white">
                     <MoreVertical size={20} />
                 </button>
             </div>
 
-            {/* 2. CONTENIDO (Texto + Hashtags) */}
+            {/* 2. CONTENT (Text + Hashtags) */}
             <div className="text-sm leading-relaxed text-black/80 dark:text-white/80">
                 {post.content}
             </div>
 
-            {/* 3. IMAGEN DEL POST (Renderizado condicional) */}
+            {/* 3. POST IMAGE (Conditional rendering) */}
             {post.category === "Media" && post.imageUrl && (
                 <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-black/5 shadow-sm dark:border-white/5 md:h-80 lg:h-[400px]">
                     <Image
@@ -106,7 +106,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                 </div>
             )}
 
-            {/* 4. BARRA DE ACCIONES */}
+            {/* 4. ACTION BAR */}
             <div className="flex items-center justify-between pt-2">
                 <div className="flex items-center gap-6">
                     {/* Like */}
@@ -128,15 +128,15 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                 </button>
             </div>
 
-            {/* 5. SECCIÓN DE COMENTARIOS */}
+            {/* 5. COMMENTS SECTION */}
             <div className="mt-2 flex flex-col gap-4 border-t border-black/10 pt-4 dark:border-white/10">
-                
-                {/* LISTA DE COMENTARIOS O ESTADO VACÍO */}
+
+                {/* COMMENTS LIST OR EMPTY STATE */}
                 {postComments && postComments.length > 0 ? (
                     <div className="flex flex-col gap-3">
                         {postComments.map((comment: CommentViewModel) => (
                             <div key={comment.id} className="flex items-start gap-2.5">
-                                {/* Avatar del comentario */}
+                                {/* Comment avatar */}
                                 <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full border border-black/10 dark:border-white/10">
                                     <Image
                                         src={comment.author.profileImage}
@@ -146,7 +146,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                                     />
                                 </div>
                                 
-                                {/* Contenido del comentario */}
+                                {/* Comment content */}
                                 <div className="flex flex-1 flex-col">
                                     <div className="w-fit rounded-2xl rounded-tl-none border border-black/5 bg-black/5 px-3.5 py-2.5 dark:border-white/5 dark:bg-white/5">
                                         <span className="mr-2 text-xs font-bold text-black dark:text-white">
@@ -164,7 +164,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                                     </div>
                                 </div>
 
-                                {/* Botón Like del comentario */}
+                                {/* Comment Like button */}
                                 <button className="group mt-2 cursor-pointer text-black/30 transition-colors hover:text-rose-500 dark:text-white/30">
                                     <Heart size={14} className="transition-transform group-hover:scale-110 group-hover:fill-rose-500" />
                                 </button>
@@ -172,7 +172,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                         ))}
                     </div>
                 ) : (
-                    // ESTADO VACÍO
+                    // EMPTY STATE
                     <div className="flex items-center justify-center rounded-2xl dark:border-white/10 dark:bg-white/[0.02]">
                         <p className="text-sm text-black/80 dark:text-white/50">
                             No comments yet. <span className="font-semibold text-brand-purple">Be the first to share your thoughts!</span>
@@ -180,7 +180,7 @@ export default function FeedPostCard({ post, user }: FeedPostCardProps) {
                     </div>
                 )}
 
-                {/* CAJA DE TEXTO PARA ESCRIBIR UN NUEVO COMENTARIO */}
+                {/* TEXT BOX TO WRITE A NEW COMMENT */}
                 <div className="mt-1 flex items-center gap-3">
                     <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full border border-black/10 dark:border-white/10">
                         <Image
