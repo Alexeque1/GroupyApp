@@ -9,16 +9,18 @@ import RegisterForm from "@/components/auth/register-form";
 
 interface AuthCardProps {
   initialMode: "login" | "register";
+  justRegistered?: boolean;
 }
 
 export default function AuthCard({
-    initialMode,
+  initialMode,
+  justRegistered
 }: AuthCardProps) {
   const [mode, setMode] = useState(initialMode);
 
   return (
     <div className="flex w-full max-w-md flex-col gap-2 h-full">
-      
+
       {/* BOTÓN PARA DEVOLVERSE A HOME */}
       <div className="absolute left-6 top-6">
         <Link href="/" className="group flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white">
@@ -40,23 +42,27 @@ export default function AuthCard({
       <div className="flex justify-center gap-4 border-b border-white/10 pb-6">
         <button
           onClick={() => setMode("login")}
-          className={`px-4 py-2 font-medium transition-colors ${
-            mode === "login" ? "text-brand-mint border-b-2 border-brand-mint" : "text-white/50 hover:text-white"
-          }`}
+          className={`px-4 py-2 font-medium transition-colors ${mode === "login" ? "text-brand-mint border-b-2 border-brand-mint" : "text-white/50 hover:text-white"
+            }`}
         >
           Log in
         </button>
         <button
           onClick={() => setMode("register")}
-          className={`px-4 py-2 font-medium transition-colors ${
-            mode === "register" ? "text-brand-mint border-b-2 border-brand-mint" : "text-white/50 hover:text-white"
-          }`}
+          className={`px-4 py-2 font-medium transition-colors ${mode === "register" ? "text-brand-mint border-b-2 border-brand-mint" : "text-white/50 hover:text-white"
+            }`}
         >
           Register
         </button>
       </div>
 
       {/* Animación de transición entre los formularios */}
+      {justRegistered && mode === "login" && (
+        <p role="status" className="rounded-xl border border-brand-mint/30 bg-brand-mint/10 px-4 py-3 text-center text-sm text-brand-mint">
+          ¡Cuenta creada! Ya podés iniciar sesión.
+        </p>
+      )}
+
       <motion.div layout className="relative overflow-hidden">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.div

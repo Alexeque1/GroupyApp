@@ -6,10 +6,6 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  // La máscara es un workaround para un bug de Safari/iOS: al combinar
-  // overflow-hidden + border-radius con hijos que tienen filter:blur(),
-  // Safari a veces no recorta el blur a la esquina redondeada y se ve
-  // un "cuadro" rectangular detrás del botón (no pasa en Chrome/Android).
   "group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-2xl font-medium transition-transform duration-300 hover:scale-105 [-webkit-mask-image:-webkit-radial-gradient(white,black)]",
   {
     variants: {
@@ -47,7 +43,6 @@ const buttonVariants = cva(
   }
 );
 
-// Mapeo exhaustivo de estilos por variante y tono
 const STYLE_CONFIG = {
   liquid: {
     light: {
@@ -110,6 +105,7 @@ interface ButtonProps extends VariantProps<typeof buttonVariants> {
   className?: string;
   textClassName?: string;
   type?: "button" | "submit";
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -118,17 +114,14 @@ export default function Button({
   className,
   textClassName,
   type,
+  disabled,
   variant = "liquid",
   tone = "light",
 }: ButtonProps) {
-  // Aseguramos que tenemos estilos válidos usando aserciones de no nulidad porque los defaults garantizan la existencia
   const styles = STYLE_CONFIG[variant!][tone!];
 
-  // Si el usuario pidió "reducir movimiento", no arrancamos ningún bucle infinito.
   const reduceMotion = useReducedMotion();
 
-  // Cada bola flota solo mientras el botón está en reposo; al hacer hover se
-  // detiene (y el contenedor se desvanece igualmente). Con reduceMotion queda quieta.
   const floatVariants = (x: number[], y: number[], duration: number) => ({
     rest: reduceMotion
       ? { x: 0, y: 0 }
@@ -140,10 +133,11 @@ export default function Button({
     <motion.button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       initial="rest"
       whileHover="hover"
       animate="rest"
-      className={cn(buttonVariants({ variant, tone }), className)}
+      className={cn(buttonVariants({ variant, tone }), "disabled:pointer-events-none disabled:opacity-50", className)}
     >
       {/* MESH ANIMADO (bolas flotantes) - Solo lo mostramos en variante liquid para mantener el outline limpio en reposo */}
       {variant === "liquid" && (
