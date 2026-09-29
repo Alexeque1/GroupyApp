@@ -107,7 +107,7 @@ export default function HomeNeedsAction() {
     return (
         <div className="relative z-10 flex h-full flex-col rounded-3xl border border-black/10 bg-white p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
 
-            {/* HEADER INTERACTIVO (el toggle solo aplica en mobile, en desktop siempre queda abierto) */}
+            {/* INTERACTIVE HEADER (the toggle only applies on mobile, on desktop it's always open) */}
             <div
                 className="flex cursor-pointer items-center justify-between px-1 md:cursor-default"
                 onClick={() => setIsOpen(!isOpen)}
@@ -130,7 +130,7 @@ export default function HomeNeedsAction() {
                 </div>
             </div>
 
-            {/* CONTENEDOR COLAPSABLE: forzado abierto desde md hacia arriba */}
+            {/* COLLAPSIBLE CONTAINER: forced open from md and up */}
             <div
                 className={`grid flex-1 min-h-0 transition-all duration-300 ease-in-out md:grid-rows-[1fr]! md:opacity-100! ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                     }`}
@@ -197,7 +197,7 @@ export default function HomeNeedsAction() {
                         ))}
                     </div>
 
-                    {/* BOTÓN */}
+                    {/* BUTTON */}
                     <div className="mt-4 flex shrink-0 justify-center">
                         <Button
                             tone="dark"

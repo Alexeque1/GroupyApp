@@ -10,7 +10,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         Credentials({
             credentials: { email: {}, password: {} },
 
-            // TU función: verifica la "entrada"
+            // YOUR function: verifies the "entry"
             authorize: async (credentials) => {
                 const parsed = loginSchema.safeParse(credentials);
                 if (!parsed.success) return null;
@@ -24,7 +24,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 const passwordOk = await bcrypt.compare(password, user.passwordHash);
                 if (!passwordOk) return null;
 
-                // Lo que devolvés acá es lo que Auth.js guarda en la sesión
+                // Whatever you return here is what Auth.js stores in the session
                 return {
                     id: user._id.toString(),
                     name: `${user.firstName} ${user.lastName}`,
@@ -38,7 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     session: { strategy: "jwt" },
     pages: { signIn: "/auth" },
     callbacks: {
-        // Paso 1: al hacer login, copiamos id y username al token (la "pulsera")
+        // Step 1: on login, we copy id and username onto the token (the "wristband")
         jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
@@ -46,7 +46,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }
             return token;
         },
-        // Paso 2: en cada pedido, los pasamos del token a la sesión que usa tu app
+        // Step 2: on every request, we pass them from the token to the session your app uses
         session({ session, token }) {
             session.user.id = token.id as string;
             session.user.username = token.username as string;

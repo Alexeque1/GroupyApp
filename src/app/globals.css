@@ -4,14 +4,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Contenedor de la landing.
-   - max-width: tope de caja para que las líneas de texto no se hagan eternas.
-   - padding-inline con clamp(): el "aire" lateral es fluido, nunca fijo.
-       ~1rem en móvil  ->  ~5vw mientras crece  ->  tope de 7rem.
-     Ej: a 1500px de viewport da ~75px por lado; a 2400px sigue creciendo
-     (tope 7rem) y además aparecen márgenes automáticos por el max-width.
-   - margin-inline: auto centra la caja cuando el viewport supera el max-width.
-   Las secciones ya NO necesitan `px-*`: el gutter vive aquí. */
+/* Landing page container.
+   - max-width: box cap so text lines don't run forever.
+   - padding-inline with clamp(): the side "air" is fluid, never fixed.
+       ~1rem on mobile  ->  ~5vw as it grows  ->  caps at 7rem.
+     E.g.: at a 1500px viewport it gives ~75px per side; at 2400px it keeps
+     growing (capped at 7rem) and automatic margins also kick in from the max-width.
+   - margin-inline: auto centers the box once the viewport exceeds the max-width.
+   Sections no longer need `px-*`: the gutter lives here. */
 @utility container {
   width: 100%;
   max-width: 90rem; /* 1440px */
@@ -73,8 +73,8 @@
 }
 
 :root {
-  /* Primitivos de marca. Mismo valor en light y dark: la identidad no cambia
-     con el tema. Cada "-deep"/tono oscuro es la version legible sobre fondo claro. */
+  /* Brand primitives. Same value in light and dark: the identity doesn't
+     change with the theme. Each "-deep"/dark shade is the legible version over a light background. */
   --brand-purple: #8c6cff;
   --brand-purple-deep: #6d28d9;
   --brand-mint: #a9ffd7;
@@ -165,9 +165,9 @@
     @apply font-sans;
   }
 
-  /* iOS Safari resalta botones/links tocados con un rectángulo gris que
-     ignora el border-radius (Android no lo hace), dando la sensación de
-     que hay "otra caja" debajo cortando la sombra. Lo desactivamos. */
+  /* iOS Safari highlights tapped buttons/links with a gray rectangle that
+     ignores border-radius (Android doesn't do this), giving the impression
+     that there's "another box" underneath clipping the shadow. We disable it. */
   button, a, [role="button"] {
     -webkit-tap-highlight-color: transparent;
   }
@@ -181,8 +181,8 @@
     transition: background-color 5000s ease-in-out 0s;
   }
 
-  /* iOS Safari hace zoom automatico al enfocar un campo con texto < 16px.
-     Forzamos 16px en pantallas pequenas para evitar ese salto molesto. */
+  /* iOS Safari auto-zooms when focusing a field with text < 16px.
+     We force 16px on small screens to avoid that annoying jump. */
   @media (max-width: 640px) {
     input:not([type="checkbox"]):not([type="radio"]),
     select,
@@ -193,10 +193,10 @@
 }
 
 /* ===========================
-   ACCESIBILIDAD / RENDIMIENTO
-   Respeta "Reducir movimiento" del sistema operativo. Mucha gente
-   (sobre todo en movil) lo tiene activado para ahorrar bateria y
-   evitar mareos. Con esto cortamos casi todas las animaciones.
+   ACCESSIBILITY / PERFORMANCE
+   Respects the OS's "Reduce motion" setting. A lot of people
+   (especially on mobile) have it on to save battery and
+   avoid motion sickness. This cuts almost all animations.
 =========================== */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -337,7 +337,7 @@
   }
 }
 
-/* PALABRA DEL H1 ENTRANDO CON REBOTE DESDE ARRIBA */
+/* H1 WORD ENTERING WITH A BOUNCE FROM ABOVE */
 @keyframes wordRise {
   0% {
     transform: translateY(-120%);
@@ -359,7 +359,7 @@
   }
 }
 
-/* PULSO DE INTERACCION EN LOS NODOS DE LA RED */
+/* INTERACTION PULSE ON THE NETWORK NODES */
 .node-pulse-ring {
   animation: nodePulse 2.4s ease-out infinite;
 }
@@ -375,7 +375,7 @@
   }
 }
 
-/* LA ILUSTRACION ESCALA SUS NODOS EN BASE A SU PROPIO ANCHO (no el viewport) */
+/* THE ILLUSTRATION SCALES ITS NODES BASED ON ITS OWN WIDTH (not the viewport) */
 .network-illustration {
   container-type: inline-size;
 }

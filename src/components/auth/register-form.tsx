@@ -34,11 +34,11 @@ export default function RegisterForm() {
 
   return (
     <form action={formAction} noValidate className="flex w-full flex-col gap-4">
-      {/* Fila 1: Nombre y Apellido */}
+      {/* Row 1: First name and Last name */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="firstName" className={labelClass}>
-            Nombre
+            First name
           </label>
           <input
             id="firstName"
@@ -53,7 +53,7 @@ export default function RegisterForm() {
         </div>
         <div className="flex flex-col gap-1.5">
           <label htmlFor="lastName" className={labelClass}>
-            Apellido
+            Last name
           </label>
           <input
             id="lastName"
@@ -68,7 +68,7 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      {/* Fila 2: Username y Email */}
+      {/* Row 2: Username and Email */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="username" className={labelClass}>
@@ -102,7 +102,7 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      {/* Fila 3: Password y Repetir Password */}
+      {/* Row 3: Password and Confirm Password */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="password" className={labelClass}>
@@ -122,7 +122,7 @@ export default function RegisterForm() {
               onClick={() => setShowPassword(!showPassword)}
               className={eyeButtonClass}
               aria-label={
-                showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+                showPassword ? "Hide password" : "Show password"
               }
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -133,7 +133,7 @@ export default function RegisterForm() {
 
         <div className="flex flex-col gap-1.5">
           <label htmlFor="confirmPassword" className={labelClass}>
-            Repetir Password
+            Confirm Password
           </label>
           <div className="relative">
             <input
@@ -150,8 +150,8 @@ export default function RegisterForm() {
               className={eyeButtonClass}
               aria-label={
                 showConfirmPassword
-                  ? "Ocultar contraseña"
-                  : "Mostrar contraseña"
+                  ? "Hide password"
+                  : "Show password"
               }
             >
               {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -161,7 +161,7 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      {/* Fila 4: Términos y Condiciones */}
+      {/* Row 4: Terms and Conditions */}
       <div className="mt-2 flex flex-col items-center gap-1">
         <div className="flex items-center gap-3">
           <input
@@ -174,23 +174,23 @@ export default function RegisterForm() {
             htmlFor="terms"
             className="cursor-pointer select-none text-sm text-white/70"
           >
-            Aceptar términos y condiciones
+            Accept terms and conditions
           </label>
         </div>
         <FieldError messages={state.errors?.terms} />
       </div>
 
-      {/* Error general (por ejemplo, si se cae la base de datos) */}
+      {/* General error (e.g., if the database goes down) */}
       {state.message && (
         <p role="alert" className="text-center text-sm text-red-400">
           {state.message}
         </p>
       )}
 
-      {/* Fila 5: Botón */}
+      {/* Row 5: Button */}
       <div className="mt-4 flex justify-center p-5">
         <Button type="submit" className="w-full" disabled={pending}>
-          {pending ? "Creando cuenta..." : "Sign up"}
+          {pending ? "Creating account..." : "Sign up"}
         </Button>
       </div>
     </form>

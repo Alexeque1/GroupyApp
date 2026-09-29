@@ -53,8 +53,8 @@ export default function HomeEventsSuggestions() {
         e.preventDefault();
     };
 
-    // TODO: esto solo trae candidatos (mismo criterio que Discover). Todavía
-    // falta la lógica real de "sugerido" (intereses, ubicación, edad, etc.).
+    // TODO: this only brings back candidates (same criteria as Discover). The
+    // real "suggested" logic (interests, location, age, etc.) is still missing.
     const filteredSuggestionEvents = getSuggestedEvents(EVENTS_DATA).slice(0, SUGGESTIONS_LIMIT);
 
     const { hasOverflow, thumbWidthPct, thumbLeftPct } = useHorizontalScrollbar(
@@ -116,7 +116,7 @@ export default function HomeEventsSuggestions() {
                         );
                     })}
 
-                    {/* BOTÓN AL FINAL DEL CARRUSEL */}
+                    {/* BUTTON AT THE END OF THE CAROUSEL */}
                     <div className="flex shrink-0 snap-center items-center justify-center pr-4">
                         <Link href="/discover">
                             <Button

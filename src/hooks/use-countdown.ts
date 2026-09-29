@@ -20,20 +20,20 @@ function getParts(targetIso: string): CountdownParts {
 }
 
 /**
- * Cuenta regresiva en vivo hasta una fecha ISO.
- * Devuelve `null` hasta que el componente se monta: calcular con `Date.now()`
- * durante el render (SSR incluido) haría que el marcado del servidor y el
- * primer render del cliente no coincidan (hydration mismatch). Al montar,
- * calcula el valor real y lo refresca cada `refreshMs`.
+ * Live countdown to an ISO date.
+ * Returns `null` until the component mounts: computing with `Date.now()`
+ * during render (including SSR) would make the server markup and the
+ * client's first render mismatch (hydration mismatch). Once mounted,
+ * it computes the real value and refreshes it every `refreshMs`.
  */
 export function useCountdown(targetIso: string, refreshMs = 60_000): CountdownParts | null {
     const [parts, setParts] = useState<CountdownParts | null>(null);
 
     useEffect(() => {
         const update = () => setParts(getParts(targetIso));
-        // setTimeout(0) en vez de llamar a update() directo: así el primer
-        // cálculo también se dispara desde un callback async, no de forma
-        // síncrona dentro del efecto (evita cascading renders).
+        // setTimeout(0) instead of calling update() directly: this way the
+        // first computation also fires from an async callback, not
+        // synchronously inside the effect (avoids cascading renders).
         const timeoutId = setTimeout(update, 0);
         const intervalId = setInterval(update, refreshMs);
         return () => {

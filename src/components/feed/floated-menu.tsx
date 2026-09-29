@@ -14,7 +14,7 @@ export default function FloatingLiquidMenu() {
 
     return (
         <>
-            {/* OVERLAY (Fondo oscuro) */}
+            {/* OVERLAY (Dark background) */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -30,10 +30,10 @@ export default function FloatingLiquidMenu() {
                 )}
             </AnimatePresence>
 
-            {/* CONTENEDOR FLOTANTE  */}
+            {/* FLOATING CONTAINER  */}
             <div className="lg:hidden fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
 
-                {/* MENÚ DESPLEGABLE */}
+                {/* DROPDOWN MENU */}
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
@@ -62,10 +62,10 @@ export default function FloatingLiquidMenu() {
                                     );
                                 })}
 
-                                {/* LÍNEA DIVISORIA */}
+                                {/* DIVIDER LINE */}
                                 <div className="my-2 h-px w-full bg-white/10" />
 
-                                {/* BOTÓN CERRAR SESIÓN (ROJO) */}
+                                {/* LOG OUT BUTTON (RED) */}
                                 <motion.button
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -77,14 +77,14 @@ export default function FloatingLiquidMenu() {
                                     className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-red-400 transition-colors hover:bg-white/10 hover:text-red-500"
                                 >
                                     <LogOut size={18} className="transition-transform group-hover:scale-110" />
-                                    Cerrar Sesión
+                                    Log Out
                                 </motion.button>
                             </nav>
                         </motion.div>
                     )}
                 </AnimatePresence>
 
-                {/* BOTÓN LÍQUIDO RECTANGULAR */}
+                {/* RECTANGULAR LIQUID BUTTON */}
                 <motion.button
                     onClick={() => setIsOpen(!isOpen)}
                     animate={{
@@ -97,21 +97,21 @@ export default function FloatingLiquidMenu() {
                     }}
                     className="group relative flex h-14 w-32 cursor-pointer items-center justify-center overflow-hidden bg-brand-dark shadow-[0_8px_30px_rgba(140,108,255,0.3)] transition-transform duration-300 hover:scale-105 active:scale-95"
                 >
-                    {/* FONDO LÍQUIDO (Plasma en movimiento) */}
+                    {/* LIQUID BACKGROUND (Moving plasma) */}
                     <div className="absolute inset-0 z-0 overflow-hidden opacity-80 blur-[12px]">
-                        {/* Bola Morada */}
+                        {/* Purple Ball */}
                         <motion.div
                             animate={{ x: [0, 40, -10, 0], y: [0, -20, 20, 0] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                             className="absolute -left-1/4 -top-1/4 h-[150%] w-[150%] rounded-full bg-brand-purple/60"
                         />
-                        {/* Bola Verde */}
+                        {/* Green Ball */}
                         <motion.div
                             animate={{ x: [0, -30, 20, 0], y: [0, 30, -10, 0] }}
                             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                             className="absolute -bottom-1/4 -right-1/4 h-[150%] w-[150%] rounded-full bg-brand-mint/60"
                         />
-                        {/* Bola Naranja */}
+                        {/* Orange Ball */}
                         <motion.div
                             animate={{ x: [0, 20, -30, 0], y: [0, -10, 30, 0] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -119,13 +119,13 @@ export default function FloatingLiquidMenu() {
                         />
                     </div>
 
-                    {/* Sombra interna para dar profundidad al "tanque de agua" */}
+                    {/* Inner shadow to give the "water tank" some depth */}
                     <div className="absolute inset-0 z-10 shadow-[inset_0_0_15px_rgba(0,0,0,0.6)]" />
 
-                    {/* Borde sutil cristalino */}
+                    {/* Subtle crystalline border */}
                     <div className="absolute inset-0 z-20 rounded-2xl border border-white/20 transition-colors duration-300 group-hover:border-white/40" />
 
-                    {/* CONTENIDO DEL BOTÓN (Icono + Texto) */}
+                    {/* BUTTON CONTENT (Icon + Text) */}
                     <div className="relative z-30 flex items-center gap-2 text-white drop-shadow-md">
                         <AnimatePresence mode="wait">
                             <motion.div
@@ -139,12 +139,12 @@ export default function FloatingLiquidMenu() {
                                 {isOpen ? (
                                     <>
                                         <X size={20} />
-                                        <span>Cerrar</span>
+                                        <span>Close</span>
                                     </>
                                 ) : (
                                     <>
                                         <Menu size={20} />
-                                        <span>Menú</span>
+                                        <span>Menu</span>
                                     </>
                                 )}
                             </motion.div>

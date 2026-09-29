@@ -10,8 +10,8 @@ interface CarouselScrollbarProps {
     className?: string;
 }
 
-// Barra tipo scrollbar para carruseles con drag-to-scroll: solo se muestra si
-// hay overflow real, y arrastrarla mueve el carrusel (no solo lo indica).
+// Scrollbar-like bar for drag-to-scroll carousels: only shows up when there's
+// real overflow, and dragging it moves the carousel (not just indicates it).
 export default function CarouselScrollbar({
     carouselRef,
     hasOverflow,

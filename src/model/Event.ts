@@ -17,7 +17,7 @@ const EventSchema = new Schema(
             max: 100,
             validate: {
                 validator: Number.isInteger,
-                message: "El cupo tiene que ser un número entero",
+                message: "Capacity must be a whole number",
             },
         },
     },

@@ -35,7 +35,7 @@ export default function Event({ params }: EventProps) {
 
     const [memberCount, memberLimit] = event.members.split("/").map(Number);
 
-    // Candidatos a nuevo dueño si el actual decide dejar el evento: admins + miembros, sin el dueño.
+    // Candidates for new owner if the current one decides to leave the event: admins + members, excluding the owner.
     const eventMembers = USERS_DATA.filter((u) =>
         u.id !== event.ownerId && (
             event.adminIds.includes(u.id) ||

@@ -16,8 +16,8 @@ export default function Feed() {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: -40 }} // Empieza transparente y 40px más arriba
-            animate={{ opacity: 1, y: 0 }}   // Termina 100% visible y en su posición original
+            initial={{ opacity: 0, y: -40 }} // Starts transparent and 40px higher up
+            animate={{ opacity: 1, y: 0 }}   // Ends 100% visible and in its original position
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="relative flex flex-col py-10 px-5 gap-8"
         >
@@ -25,7 +25,7 @@ export default function Feed() {
 
             <HomeGreetings name={PROFILE_INFO.name} events={PROFILE_INFO.events}/>
 
-            {/* GRID responsive: apilado en mobile, 2 columnas parejas en tablet, 6 columnas (4/2) en desktop grande */}
+            {/* Responsive grid: stacked on mobile, 2 even columns on tablet, 6 columns (4/2) on large desktop */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-5">
                 <div className="order-2 md:order-1 xl:col-span-4">
                     <HomeNextEventHero events={PROFILE_INFO.events} />

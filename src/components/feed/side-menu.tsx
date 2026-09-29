@@ -50,14 +50,14 @@ export default function SideMenu() {
                     <div className="absolute left-5 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brand-purple bg-brand-dark shadow-[0_0_15px_rgba(140,108,255,0.4)]">
                         <Image
                             src="/logo.png"
-                            alt="Logo de Groupy"
+                            alt="Groupy logo"
                             width={22}
                             height={22}
                             className="object-contain"
                         />
                     </div>
 
-                    {/* TEXTO GROUPY */}
+                    {/* GROUPY TEXT */}
                     <AnimatePresence>
                         {isHovered && (
                             <motion.span
@@ -73,7 +73,7 @@ export default function SideMenu() {
                     </AnimatePresence>
                 </div>
 
-                {/* NAVEGACIÓN */}
+                {/* NAVIGATION */}
                 <nav className="flex flex-1 flex-col gap-2 px-3 py-4">
                     {MENU_ITEMS.map((item, index) => {
                         const Icon = item.icon;
@@ -88,7 +88,7 @@ export default function SideMenu() {
                                     : "text-white/60 hover:bg-white/10 hover:text-white"
                                     }`}
                             >
-                                {/* ICONO */}
+                                {/* ICON */}
                                 <div className="flex w-8 shrink-0 items-center justify-center">
                                     <Icon
                                         size={22}
@@ -99,7 +99,7 @@ export default function SideMenu() {
                                     />
                                 </div>
 
-                                {/* TEXTO DEL MENÚ */}
+                                {/* MENU TEXT */}
                                 <AnimatePresence>
                                     {isHovered && (
                                         <motion.span
@@ -114,7 +114,7 @@ export default function SideMenu() {
                                     )}
                                 </AnimatePresence>
 
-                                {/* INDICADOR DE PÁGINA ACTIVA */}
+                                {/* ACTIVE PAGE INDICATOR */}
                                 {isActive && (
                                     <motion.div
                                         layoutId="active-menu-item"
@@ -131,13 +131,13 @@ export default function SideMenu() {
                     })}
                 </nav>
 
-                {/* BOTÓN DE CERRAR SESIÓN (Fijo abajo) */}
+                {/* LOG OUT BUTTON (Fixed at the bottom) */}
                 <div className="mt-auto px-3 pb-6 pt-2">
                     <button
                         onClick={handleFinishSession}
                         className="group relative flex w-full items-center rounded-2xl px-3 py-3 text-white/60 transition-colors hover:bg-white/10 hover:text-brand-peach cursor-pointer"
                     >
-                        {/* ICONO */}
+                        {/* ICON */}
                         <div className="flex w-8 shrink-0 items-center justify-center">
                             <LogOut
                                 size={22}
@@ -145,7 +145,7 @@ export default function SideMenu() {
                             />
                         </div>
 
-                        {/* TEXTO DEL MENÚ */}
+                        {/* MENU TEXT */}
                         <AnimatePresence>
                             {isHovered && (
                                 <motion.span

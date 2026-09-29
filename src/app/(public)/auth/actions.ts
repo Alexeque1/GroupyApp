@@ -25,7 +25,7 @@ export async function registerUser(_prevState: RegisterState, formData: FormData
         email: get("email").trim().toLowerCase(),
     };
 
-    // Zed Validation
+    // Zod Validation
     const parsed = registerSchema.safeParse({
         ...values,
         password: get("password"),
@@ -37,7 +37,7 @@ export async function registerUser(_prevState: RegisterState, formData: FormData
         const errors = z.flattenError(parsed.error).fieldErrors;
 
         if (get("password") !== get("confirmPassword") && !errors.confirmPassword) {
-            errors.confirmPassword = ["Las contraseñas no coinciden"];
+            errors.confirmPassword = ["Passwords don't match"];
         }
 
         return { errors, values };
@@ -52,8 +52,8 @@ export async function registerUser(_prevState: RegisterState, formData: FormData
 
         if (existing) {
             return existing.email === email
-                ? { errors: { email: ["Ese email ya está registrado"] }, values }
-                : { errors: { username: ["Ese username ya está en uso"] }, values };
+                ? { errors: { email: ["That email is already registered"] }, values }
+                : { errors: { username: ["That username is already taken"] }, values };
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
@@ -61,13 +61,13 @@ export async function registerUser(_prevState: RegisterState, formData: FormData
         await User.create({ firstName, lastName, username, email, passwordHash });
     } catch (error) {
         if (error instanceof Error && "code" in error && error.code === 11000) {
-            const campo = error.message.includes("username") ? "username" : "email";
+            const field = error.message.includes("username") ? "username" : "email";
             return {
-                errors: { [campo]: [campo === "username" ? "Ese username ya está en uso" : "Ese email ya está registrado"] },
+                errors: { [field]: [field === "username" ? "That username is already taken" : "That email is already registered"] },
                 values,
             };
         }
-        return { message: "No pudimos crear tu cuenta. Probá de nuevo en un rato.", values };
+        return { message: "We couldn't create your account. Please try again in a bit.", values };
     }
 
     redirect("/auth?mode=login&registered=1");
@@ -83,18 +83,18 @@ export async function loginUser(_prevState: LoginState, formData: FormData): Pro
     const password = String(formData.get("password") ?? "");
 
     try {
-        // Auth.js llama a TU authorize(). Si sale bien, crea la cookie y redirige a /home
+        // Auth.js calls YOUR authorize(). If it goes well, it creates the cookie and redirects to /home
         await signIn("credentials", { email, password, redirectTo: "/home" });
     } catch (error) {
         if (error instanceof AuthError) {
-            // authorize() devolvió null → credenciales incorrectas
+            // authorize() returned null → wrong credentials
             if (error.type === "CredentialsSignin") {
-                return { message: "Email o contraseña incorrectos", email };
+                return { message: "Incorrect email or password", email };
             }
-            // Otro problema (por ejemplo, se cayó la base de datos)
-            return { message: "No pudimos iniciar sesión. Probá de nuevo en un rato.", email };
+            // Some other problem (e.g., the database went down)
+            return { message: "We couldn't sign you in. Please try again in a bit.", email };
         }
-        // No es un error de Auth.js: es el redirect → lo dejamos pasar
+        // Not an Auth.js error: it's the redirect → let it pass through
         throw error;
     }
 
