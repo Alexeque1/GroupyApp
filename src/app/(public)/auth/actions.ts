@@ -1,6 +1,8 @@
 "use server";
 
 import bcrypt from "bcryptjs";
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { connectDB } from "@/lib/db/db";
@@ -69,4 +71,32 @@ export async function registerUser(_prevState: RegisterState, formData: FormData
     }
 
     redirect("/auth?mode=login&registered=1");
+}
+
+export type LoginState = {
+    message?: string;
+    email?: string;
+};
+
+export async function loginUser(_prevState: LoginState, formData: FormData): Promise<LoginState> {
+    const email = String(formData.get("email") ?? "").trim().toLowerCase();
+    const password = String(formData.get("password") ?? "");
+
+    try {
+        // Auth.js llama a TU authorize(). Si sale bien, crea la cookie y redirige a /home
+        await signIn("credentials", { email, password, redirectTo: "/home" });
+    } catch (error) {
+        if (error instanceof AuthError) {
+            // authorize() devolvió null → credenciales incorrectas
+            if (error.type === "CredentialsSignin") {
+                return { message: "Email o contraseña incorrectos", email };
+            }
+            // Otro problema (por ejemplo, se cayó la base de datos)
+            return { message: "No pudimos iniciar sesión. Probá de nuevo en un rato.", email };
+        }
+        // No es un error de Auth.js: es el redirect → lo dejamos pasar
+        throw error;
+    }
+
+    return {};
 }

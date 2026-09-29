@@ -1,0 +1,56 @@
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { connectDB } from "@/lib/db/db";
+import { User } from "@/model/User";
+import { loginSchema } from "@/lib/validation/auth";
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+    providers: [
+        Credentials({
+            credentials: { email: {}, password: {} },
+
+            // TU función: verifica la "entrada"
+            authorize: async (credentials) => {
+                const parsed = loginSchema.safeParse(credentials);
+                if (!parsed.success) return null;
+
+                const { email, password } = parsed.data;
+
+                await connectDB();
+                const user = await User.findOne({ email: email.toLowerCase() }).select("+passwordHash");
+                if (!user) return null;
+
+                const passwordOk = await bcrypt.compare(password, user.passwordHash);
+                if (!passwordOk) return null;
+
+                // Lo que devolvés acá es lo que Auth.js guarda en la sesión
+                return {
+                    id: user._id.toString(),
+                    name: `${user.firstName} ${user.lastName}`,
+                    email: user.email,
+                    image: user.profileImage || null,
+                    username: user.username,
+                };
+            },
+        }),
+    ],
+    session: { strategy: "jwt" },
+    pages: { signIn: "/auth" },
+    callbacks: {
+        // Paso 1: al hacer login, copiamos id y username al token (la "pulsera")
+        jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.username = user.username;
+            }
+            return token;
+        },
+        // Paso 2: en cada pedido, los pasamos del token a la sesión que usa tu app
+        session({ session, token }) {
+            session.user.id = token.id as string;
+            session.user.username = token.username as string;
+            return session;
+        },
+    },
+});
