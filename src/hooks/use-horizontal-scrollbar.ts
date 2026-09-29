@@ -8,8 +8,8 @@ interface ScrollbarState {
     thumbLeftPct: number;
 }
 
-// Deriva el estado de una "scrollbar" custom (si hace falta mostrarla, ancho
-// y posición del thumb) a partir del scroll real de un contenedor horizontal.
+// Derives the state of a custom "scrollbar" (whether to show it, thumb width
+// and position) from a horizontal container's real scroll.
 export function useHorizontalScrollbar(
     ref: RefObject<HTMLDivElement | null>,
     deps: DependencyList = []

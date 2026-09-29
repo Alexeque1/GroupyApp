@@ -14,7 +14,7 @@ export const POST_CATEGORY_DATA: Record<PostCategory, PostCategoryInfo> = {
         label: "Announcement", 
         icon: Megaphone, 
         badgeClasses: "bg-brand-purple/10 text-brand-purple-deep dark:bg-brand-purple/20 dark:text-brand-purple", 
-        // Aumentamos la opacidad del borde a /40 (light) y /50 (dark) para que delimite mejor la tarjeta
+        // We bump the border opacity to /40 (light) and /50 (dark) so it outlines the card better
         cardClasses: "bg-brand-purple/[0.03] border-brand-purple/40 dark:bg-brand-purple/[0.05] dark:border-brand-purple/50" 
     },
     Media: { 
@@ -30,7 +30,7 @@ const FALLBACK: PostCategoryInfo = {
     label: "Post", 
     icon: MessageCircle, 
     badgeClasses: "bg-black/5 text-black/60 dark:bg-white/10 dark:text-white/70", 
-    // Borde un poco más marcado (20%) para el fallback también
+    // Slightly more pronounced border (20%) for the fallback too
     cardClasses: "bg-white border-black/20 dark:bg-brand-dark dark:border-white/20" 
 };
 

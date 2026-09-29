@@ -34,7 +34,7 @@ export default function LoginForm() {
                     autoComplete="email"
                     defaultValue={state.email}
                     className={inputClass}
-                    placeholder="correo@ejemplo.com"
+                    placeholder="email@example.com"
                 />
             </div>
 
@@ -45,7 +45,7 @@ export default function LoginForm() {
                         Password
                     </label>
                     <a href="#" className="text-xs text-brand-purple transition-colors hover:text-white">
-                        ¿Olvidaste tu contraseña?
+                        Forgot your password?
                     </a>
                 </div>
 
@@ -62,7 +62,7 @@ export default function LoginForm() {
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
                         className={eyeButtonClass}
-                        aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                     >
                         {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -76,10 +76,10 @@ export default function LoginForm() {
                 </p>
             )}
 
-            {/* Botón */}
+            {/* Button */}
             <div className="mt-6 flex justify-center p-5">
                 <Button type="submit" className="w-full" disabled={pending}>
-                    {pending ? "Ingresando..." : "Ingresar"}
+                    {pending ? "Logging in..." : "Log in"}
                 </Button>
             </div>
         </form>

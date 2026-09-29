@@ -5,8 +5,8 @@ export interface CommunityStatusInfo {
     badgeClasses: string;
 }
 
-// Fuente única de verdad para las clases de cada status de comunidad —
-// antes "statusClasses" se repetía a mano en cada registro de COMMUNITIES_DATA.
+// Single source of truth for each community status's classes —
+// previously "statusClasses" was repeated by hand in every COMMUNITIES_DATA entry.
 export const COMMUNITY_STATUS_DATA: Record<CommunityStatus, CommunityStatusInfo> = {
     Public: {
         label: "Public",

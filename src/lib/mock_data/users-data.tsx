@@ -19,7 +19,7 @@ export interface UserType {
     profession: string;
     languages: string[];
     interests: string[];
-    joined: string; // Mes y año de registro, ej: "October 2023"
+    joined: string; // Month and year of registration, e.g.: "October 2023"
     verified: boolean;
     rating: number;
     reviewsCount: number;

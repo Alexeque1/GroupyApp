@@ -10,7 +10,7 @@ export interface CommentType {
 export const COMMENTS_DATA: CommentType[] = [
     {
         id: 1,
-        postId: 1,       // FK -> PostType.id (el post "Reminder: bring your laptop...")
+        postId: 1,       // FK -> PostType.id (the "Reminder: bring your laptop..." post)
         authorId: 2,     // FK -> UserType.id (Maria Garcia)
         content: "Awesome, see you there!",
         createdAt: "2026-08-05T15:00:00Z",

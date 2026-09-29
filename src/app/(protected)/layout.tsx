@@ -12,14 +12,14 @@ export default function ProtectedLayout({
             {/* SIDEBAR */}
             <SideMenu />
 
-            {/* CONTENIDO PRINCIPAL */}
+            {/* MAIN CONTENT */}
             <main className="min-h-dvh lg:pl-[80px]">
                 <div className="w-full max-w-[1280px] mx-auto py-0 md:px-6 lg:px-10 mb-[90px]">
                     {children}
                 </div>
             </main>
 
-            {/* MENÚ FLOTANTE */}
+            {/* FLOATING MENU */}
             <FloatingLiquidMenu />
         </div>
     );

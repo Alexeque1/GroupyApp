@@ -15,7 +15,7 @@ export default function Community() {
                 <Construction size={40} className="animate-pulse" />
             </div>
 
-            {/* Textos */}
+            {/* Text */}
             <h1 className="mb-3 text-3xl font-black tracking-tight text-brand-violet dark:text-white sm:text-4xl">
                 Under Construction
             </h1>
@@ -24,7 +24,7 @@ export default function Community() {
                 We are working hard behind the scenes to bring you a powerful and seamless settings experience. Check back soon!
             </p>
 
-            {/* Botón de regreso */}
+            {/* Back button */}
             <Button
                 onClick={() => router.back()}
                 className="flex items-center gap-2 px-8"

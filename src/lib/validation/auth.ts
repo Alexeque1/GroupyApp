@@ -2,21 +2,21 @@ import { z } from "zod";
 
 export const registerSchema = z
     .object({
-        firstName: z.string().trim().min(1, "Ingresá tu nombre").max(50, "Máximo 50 caracteres"),
-        lastName: z.string().trim().min(1, "Ingresá tu apellido").max(50, "Máximo 50 caracteres"),
+        firstName: z.string().trim().min(1, "Enter your first name").max(50, "Maximum 50 characters"),
+        lastName: z.string().trim().min(1, "Enter your last name").max(50, "Maximum 50 characters"),
         username: z
             .string()
             .trim()
-            .min(3, "Mínimo 3 caracteres")
-            .max(30, "Máximo 30 caracteres")
-            .regex(/^[a-zA-Z0-9_]+$/, "Solo letras, números y guion bajo"),
-        email: z.email("Email inválido"),
-        password: z.string().min(8, "Mínimo 8 caracteres").max(72, "Máximo 72 caracteres"),
+            .min(3, "Minimum 3 characters")
+            .max(30, "Maximum 30 characters")
+            .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers and underscores"),
+        email: z.email("Invalid email"),
+        password: z.string().min(8, "Minimum 8 characters").max(72, "Maximum 72 characters"),
         confirmPassword: z.string(),
-        terms: z.literal(true, { error: "Tenés que aceptar los términos" }),
+        terms: z.literal(true, { error: "You must accept the terms" }),
     })
     .refine((data) => data.password === data.confirmPassword, {
-        error: "Las contraseñas no coinciden",
+        error: "Passwords don't match",
         path: ["confirmPassword"],
     });
 

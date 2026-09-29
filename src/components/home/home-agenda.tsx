@@ -51,8 +51,8 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
     };
 
     const today = getToday();
-    // Arranca en el índice 1: el evento más próximo (índice 0) ya se muestra
-    // en el hero de arriba, así que este carrusel no lo repite.
+    // Starts at index 1: the nearest event (index 0) is already shown
+    // in the hero above, so this carousel doesn't repeat it.
     const filteredEvents = userEvents.filter((event) => {
         const eventDate = new Date(event.startDate);
         return eventDate >= today;

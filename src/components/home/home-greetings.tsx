@@ -18,8 +18,8 @@ export default function HomeGreetings({ name, events }: HomeGreetingsProps) {
     const eventsCount = events.length;
     const isTypingComplete = displayedText === fullText;
 
-    // Reinicia la animación durante el render cuando cambia el nombre,
-    // en vez de llamar a setState de forma síncrona dentro del efecto.
+    // Resets the animation during render when the name changes,
+    // instead of calling setState synchronously inside the effect.
     const [prevFullText, setPrevFullText] = useState(fullText);
     if (fullText !== prevFullText) {
         setPrevFullText(fullText);
@@ -51,10 +51,10 @@ export default function HomeGreetings({ name, events }: HomeGreetingsProps) {
     return (
         <section className="flex flex-col md:flex-row md:items-center justify-between gap-4 w-full z-10">
             <div className="flex justify-between gap-4 w-full z-10">
-                {/* IZQUIERDA: Saludo e información */}
+                {/* LEFT: Greeting and information */}
                 <div className="flex flex-col gap-2">
                     <h2 className="flex items-center text-3xl md:text-6xl font-bold">
-                        {/* TEXTO CON GRADIENTE */}
+                        {/* GRADIENT TEXT */}
                         <span className="dark-mesh-gradient">
                             {displayedText}
                         </span>
@@ -68,7 +68,7 @@ export default function HomeGreetings({ name, events }: HomeGreetingsProps) {
                             />
                         )}
 
-                        {/* EMOJI QUE APARECE AL FINAL */}
+                        {/* EMOJI THAT APPEARS AT THE END */}
                         <motion.span
                             initial={{ opacity: 0, scale: 0, rotate: -45 }}
                             animate={{
@@ -97,9 +97,9 @@ export default function HomeGreetings({ name, events }: HomeGreetingsProps) {
                     </motion.div>
                 </div>
 
-                {/* DERECHA: Búsqueda y Botón */}
+                {/* RIGHT: Search and Button */}
                 <div className="flex items-center gap-3">
-                    {/* MOBILE / TABLET: solo iconos */}
+                    {/* MOBILE / TABLET: icons only */}
                     <div className="flex items-center gap-2 lg:hidden">
                         <button
                             type="button"
@@ -127,7 +127,7 @@ export default function HomeGreetings({ name, events }: HomeGreetingsProps) {
                         </button>
                     </div>
 
-                    {/* DESKTOP: input de búsqueda completo + botón con texto */}
+                    {/* DESKTOP: full search input + button with text */}
                     <div className="hidden items-center gap-3 lg:flex">
                         <div className="relative flex items-center w-full sm:w-auto shadow-2xl rounded-full">
                             <Search className="absolute left-3.5 text-gray-400 h-4 w-4 pointer-events-none" />

@@ -66,8 +66,8 @@ function resolveFriends(user: UserType): FriendType[] {
         }));
 }
 
-// Punto único para armar la info "de perfil" de un usuario cualquiera.
-// Devuelve null si el id no existe (la page decide qué hacer con eso).
+// Single place to build the "profile" info for any given user.
+// Returns null if the id doesn't exist (the page decides what to do with that).
 export function getProfileViewModel(username: string): ProfileViewModel | null {
     const user = USERS_DATA.find((u) => u.username === username);
     if (!user) return null;

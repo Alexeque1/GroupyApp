@@ -21,7 +21,7 @@ export default function AuthCard({
   return (
     <div className="flex w-full max-w-md flex-col gap-2 h-full">
 
-      {/* BOTÓN PARA DEVOLVERSE A HOME */}
+      {/* BUTTON TO GO BACK TO HOME */}
       <div className="absolute left-6 top-6">
         <Link href="/" className="group flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white">
           <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
@@ -38,7 +38,7 @@ export default function AuthCard({
         </p>
       </div>
 
-      {/* Botones para cambiar entre login y registro */}
+      {/* Buttons to switch between login and register */}
       <div className="flex justify-center gap-4 border-b border-white/10 pb-6">
         <button
           onClick={() => setMode("login")}
@@ -56,10 +56,10 @@ export default function AuthCard({
         </button>
       </div>
 
-      {/* Animación de transición entre los formularios */}
+      {/* Transition animation between the forms */}
       {justRegistered && mode === "login" && (
         <p role="status" className="rounded-xl border border-brand-mint/30 bg-brand-mint/10 px-4 py-3 text-center text-sm text-brand-mint">
-          ¡Cuenta creada! Ya podés iniciar sesión.
+          Account created! You can now log in.
         </p>
       )}
 
