@@ -27,7 +27,7 @@ export default function EventAsideSection({ event }: EventAsideProps) {
     return (
         <aside className="flex h-fit flex-1 flex-col gap-6 rounded-3xl border border-black/30 bg-white/5 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-sm">
 
-            {/* SECCIÓN 1: INFO DEL EVENTO */}
+            {/* SECTION 1: EVENT INFO */}
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-black/80">
                     About Event
@@ -55,7 +55,7 @@ export default function EventAsideSection({ event }: EventAsideProps) {
 
             <hr className="border-black/10" />
 
-            {/* SECCIÓN 2: TEAM / ADMINISTRADORES */}
+            {/* SECTION 2: TEAM / ADMINS */}
             <div className="flex flex-col gap-4">
                 <h3 className="text-lg font-bold text-black/80">
                     Team

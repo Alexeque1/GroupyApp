@@ -6,7 +6,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import Portal from "@/components/ui/portal";
 
-// Mapeo de colores por variante: dónde aplica cada acción (logout, unfollow, delete...)
+// Color mapping per variant: where each action applies (logout, unfollow, delete...)
 const iconWrapperVariants = cva(
     "mb-4 flex h-14 w-14 items-center justify-center rounded-full",
     {
@@ -81,7 +81,7 @@ export default function ConfirmAlert({
                         className="absolute inset-0 bg-brand-dark/40 backdrop-blur-sm"
                     />
 
-                    {/* CONTENEDOR DEL MODAL */}
+                    {/* MODAL CONTAINER */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -90,12 +90,12 @@ export default function ConfirmAlert({
                         onClick={(e) => e.stopPropagation()}
                         className="relative flex w-full max-w-sm flex-col items-center overflow-hidden rounded-3xl bg-white p-6 text-center shadow-[0_20px_50px_rgba(0,0,0,0.2)]"
                     >
-                        {/* ÍCONO DE ALERTA */}
+                        {/* ALERT ICON */}
                         <div className={cn(iconWrapperVariants({ variant }))}>
                             <Icon size={28} className="translate-x-0.5" />
                         </div>
 
-                        {/* TEXTOS */}
+                        {/* TEXT */}
                         <h3 className="mb-2 text-xl font-bold text-black/90">
                             {title}
                         </h3>
@@ -103,7 +103,7 @@ export default function ConfirmAlert({
                             {description}
                         </p>
 
-                        {/* BOTONES */}
+                        {/* BUTTONS */}
                         <div className="flex w-full gap-3">
                             <button
                                 onClick={onClose}

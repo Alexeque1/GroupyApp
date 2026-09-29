@@ -73,7 +73,7 @@ export default function CreateModalAdminSelector({
                         className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm"
                     />
 
-                    {/* CONTENEDOR DEL MODAL */}
+                    {/* MODAL CONTAINER */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -107,7 +107,7 @@ export default function CreateModalAdminSelector({
 
                         {/* BODY */}
                         <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-6">
-                            {/* OWNER (fijo, no seleccionable) */}
+                            {/* OWNER (fixed, not selectable) */}
                             <div className="flex items-center justify-between rounded-xl border border-brand-purple/20 bg-brand-purple/5 px-4 py-3 dark:border-brand-purple/30 dark:bg-brand-purple/10">
                                 <div className="flex items-center gap-3">
                                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-purple/20 text-brand-purple">

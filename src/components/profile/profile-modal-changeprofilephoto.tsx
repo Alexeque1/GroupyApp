@@ -32,7 +32,7 @@ export default function ProfileModalChangeProfilePhoto({
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
     const [isSaving, setIsSaving] = useState(false);
 
-    // Reseteamos el estado interno cada vez que el modal pasa de cerrado a abierto
+    // We reset the internal state every time the modal goes from closed to open
     const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
     if (isOpen !== prevIsOpen) {
         setPrevIsOpen(isOpen);
@@ -115,7 +115,7 @@ export default function ProfileModalChangeProfilePhoto({
                         className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm"
                     />
 
-                    {/* CONTENEDOR DEL MODAL */}
+                    {/* MODAL CONTAINER */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -153,7 +153,7 @@ export default function ProfileModalChangeProfilePhoto({
                         <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-6">
                             {rawImage ? (
                                 <div className="flex flex-col gap-4">
-                                    {/* CROPPER: permite mover y hacer zoom sobre la foto */}
+                                    {/* CROPPER: lets you move and zoom around the photo */}
                                     <div className="relative h-72 w-full overflow-hidden rounded-2xl bg-black/90 sm:h-80">
                                         <Cropper
                                             image={rawImage}

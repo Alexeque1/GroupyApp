@@ -134,13 +134,13 @@ export default function StatusAlert({
     duration = 3000,
 }: StatusAlertProps) {
     
-    // Lógica para el cierre automático
+    // Logic for auto-closing
     useEffect(() => {
         if (isOpen && duration > 0) {
             const timer = setTimeout(() => {
                 onClose();
             }, duration);
-            return () => clearTimeout(timer); // Limpia el temporizador al desmontar
+            return () => clearTimeout(timer); // Clears the timer on unmount
         }
     }, [isOpen, onClose, duration]);
 
@@ -150,7 +150,7 @@ export default function StatusAlert({
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
 
-                    {/* FONDO OSCURO CON BLUR (Reutilizado) */}
+                    {/* DARK BLURRED BACKGROUND (Reused) */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -173,7 +173,7 @@ export default function StatusAlert({
                         className="relative flex w-full max-w-sm flex-col items-center overflow-hidden rounded-3xl bg-white p-6 pb-8 text-center shadow-[0_20px_50px_rgba(0,0,0,0.2)]"
                     >
                         
-                        {/* CONTENEDOR DEL ÍCONO (Adaptado) */}
+                        {/* ICON CONTAINER (Adapted) */}
                         <div className={cn(iconWrapperVariants({ type }))}>
                             {type === "success" && (
                                 <AnimatedCheck />
@@ -186,7 +186,7 @@ export default function StatusAlert({
                             )}
                         </div>
 
-                        {/* DESCRIPCIÓN (Reutilizado) */}
+                        {/* DESCRIPTION (Reused) */}
                         <p className="text-sm font-medium text-black/80">
                             {description}
                         </p>

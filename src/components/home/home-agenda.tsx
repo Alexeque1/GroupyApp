@@ -66,7 +66,7 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
     return (
         <div className="relative z-10 flex w-full flex-col overflow-hidden rounded-3xl border border-black/10 bg-white p-5 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
 
-            {/* TÍTULO DE LA SECCIÓN Y BOTÓN CREATE */}
+            {/* SECTION TITLE AND CREATE BUTTON */}
             <div className="mb-4 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                     <Sparkles size={20} className="text-brand-purple" />
@@ -87,10 +87,10 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
                 </div>
             </div>
 
-            {/* SEPARADOR */}
+            {/* SEPARATOR */}
             <div className="mb-4 h-px w-full bg-black/5" />
 
-            {/* RENDERIZADO CONDICIONAL */}
+            {/* CONDITIONAL RENDERING */}
             {filteredEvents.length > 0 ? (
 
                 <div
@@ -115,7 +115,7 @@ export default function HomeNextEvents({ userEvents }: { userEvents: EventType[]
                         </div>
                     ))}
 
-                    {/* BOTÓN AL FINAL DEL CARRUSEL */}
+                    {/* BUTTON AT THE END OF THE CAROUSEL */}
                     <div className="flex shrink-0 snap-center items-center justify-center pr-4">
                         <Link href="/profile#event_section">
                             <Button

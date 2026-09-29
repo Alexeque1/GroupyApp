@@ -97,7 +97,7 @@ export default function EventHeader({
             try {
                 await navigator.share({ title: eventData.title, url: shareUrl });
             } catch {
-                // El usuario canceló el share sheet — no es un error real, no mostramos alerta.
+                // The user canceled the share sheet — not a real error, no alert shown.
             }
             return;
         }
@@ -140,13 +140,13 @@ export default function EventHeader({
             {/* CARD */}
             <div className="relative z-10 w-[92%] overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.12)] md:w-[85%]">
 
-                {/* PORTADA (COVER) */}
+                {/* COVER */}
                 <div className="relative h-48 w-full md:h-72">
-                    {/* BOTÓN VOLVER */}
+                    {/* BACK BUTTON */}
                     <button
                         onClick={() => router.back()}
                         className="absolute left-4 top-20 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 text-black/70 backdrop-blur-md transition-colors hover:bg-white hover:text-black dark:border-white/20 dark:bg-black/50 dark:text-white/70 dark:hover:bg-black/70 dark:hover:text-white"
-                        aria-label="Volver atrás"
+                        aria-label="Go back"
                     >
                         <ArrowLeft size={18} />
                     </button>
@@ -196,10 +196,10 @@ export default function EventHeader({
                             </h1>
                         </div>
 
-                        {/* ESTADÍSTICAS Y BOTONES */}
+                        {/* STATS AND BUTTONS */}
                         <div className="relative z-10 mt-6 flex w-full flex-col items-start gap-6 border-t border-black/10 pt-5 md:flex-row md:items-center md:justify-between">
 
-                            {/* ESTADÍSTICAS */}
+                            {/* STATS */}
                             <div className="flex items-center gap-6 md:gap-10">
                                 <div className="flex flex-col">
                                     <div className="flex items-baseline gap-1">
@@ -217,7 +217,7 @@ export default function EventHeader({
                                 </div>
                             </div>
 
-                            {/* BOTONES */}
+                            {/* BUTTONS */}
                             <div className="flex w-full flex-row items-center gap-3 md:w-auto md:flex-nowrap">
                                 {isMember ? (
                                     <Button
@@ -252,7 +252,7 @@ export default function EventHeader({
                                     </Button>
                                 )}
 
-                                {/* BOTÓN SHARE - Usando tu componente Button */}
+                                {/* SHARE BUTTON - Using your Button component */}
                                 <Button
                                     tone="dark"
                                     onClick={handleShare}

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { USERS_DATA } from "@/lib/mock_data/users-data";
 import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
 
-// Paleta de respaldo para categorías que no están en DISCOVER_CATEGORIES (ej. comunidades)
+// Fallback palette for categories not in DISCOVER_CATEGORIES (e.g. communities)
 const FALLBACK_CATEGORY_COLORS = [
     "bg-indigo-500",
     "bg-teal-500",
@@ -78,7 +78,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
     const roleBadge = data.role && data.role !== "member" ? ROLE_BADGE[data.role] : null;
     const isDataUrl = data.image?.startsWith("blob:") || data.image?.startsWith("data:");
 
-    // --- LÓGICA DE MIEMBROS Y AVATARES ---
+    // --- MEMBERS AND AVATARS LOGIC ---
     let displayMembers: typeof USERS_DATA = [];
     if (!isPreview && data.id) {
         if (isEvent) {
@@ -153,7 +153,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                         </div>
                     )}
                     
-                    {/* Badge superior izquierdo */}
+                    {/* Top-left badge */}
                     <span
                         className={cn(
                             "absolute left-4 top-4 z-10 rounded-full border border-white/30 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm",
@@ -165,7 +165,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
 
                 </div>
 
-                {/* Franja de color por categoría: Línea de acento fina (2px) */}
+                {/* Color stripe by category: thin accent line (2px) */}
                 <div className={cn("h-[2px] w-full shrink-0 opacity-90", getCategoryBadgeColor(data.category))} />
 
                 {/* CONTENT */}
@@ -236,7 +236,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                         )}
                     </div>
 
-                    {/* FOOTER (Sin la franja superior) */}
+                    {/* FOOTER (Without the top stripe) */}
                     <div className="mt-auto flex items-center justify-between pt-4">
                         <div className="flex items-center gap-1.5 text-sm font-medium text-black/60 dark:text-white/60">
                             <Users size={16} />
@@ -352,7 +352,7 @@ function SuggestionCard({ data, className }: { data: EntityCardData; className?:
                         </span>
                     </div>
 
-                    {/* CHIP DE MATCH */}
+                    {/* MATCH CHIP */}
                     <div className="mt-2 flex items-center gap-1.5 self-start rounded-full bg-brand-purple/10 px-3 py-1.5 text-xs font-semibold text-brand-purple-deep">
                         <MapPin size={12} />
                         <span>

@@ -7,7 +7,7 @@ import Button from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Portal from "@/components/ui/portal";
 
-// Importamos tus tipos y datos de categorías
+// We import your category types and data
 import { POST_CATEGORY_DATA } from "@/lib/post-category"; 
 import type { PostCategory } from "@/lib/mock_data/post-data";
 
@@ -40,7 +40,7 @@ export default function EventFeedSelectCategoryModal({
         onClose();
     };
 
-    // Convertimos el objeto POST_CATEGORY_DATA en un array para poder iterarlo
+    // We turn the POST_CATEGORY_DATA object into an array so we can iterate over it
     const categories = Object.entries(POST_CATEGORY_DATA) as [PostCategory, typeof POST_CATEGORY_DATA[PostCategory]][];
 
     return (
@@ -58,7 +58,7 @@ export default function EventFeedSelectCategoryModal({
                             className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm"
                         />
 
-                        {/* CONTENEDOR DEL MODAL */}
+                        {/* MODAL CONTAINER */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -90,7 +90,7 @@ export default function EventFeedSelectCategoryModal({
                                 </button>
                             </div>
 
-                            {/* BODY (LISTA DE CATEGORÍAS) */}
+                            {/* BODY (CATEGORY LIST) */}
                             <div className="flex flex-1 flex-col gap-3 overflow-y-auto p-6">
                                 {categories.map(([key, info]) => {
                                     const isSelected = selectedCategory === key;
@@ -109,7 +109,7 @@ export default function EventFeedSelectCategoryModal({
                                             )}
                                         >
                                             <div className="flex items-center gap-4">
-                                                {/* Usamos tus badgeClasses para darle color al ícono */}
+                                                {/* We use your badgeClasses to color the icon */}
                                                 <div className={cn(
                                                     "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border",
                                                     info.badgeClasses

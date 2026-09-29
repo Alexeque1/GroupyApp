@@ -137,10 +137,10 @@ export default function HomeNeedsAction() {
             >
                 <div className="flex h-full min-h-0 flex-col overflow-hidden">
 
-                    {/* SEPARADOR */}
+                    {/* SEPARATOR */}
                     <div className="mb-4 mt-4 h-px w-full shrink-0 bg-black/5" />
 
-                    {/* LISTA DE NOTIFICACIONES */}
+                    {/* NOTIFICATIONS LIST */}
                     <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto pr-1">
                         {displayedNotifications.map((notif) => (
                             <div
@@ -176,7 +176,7 @@ export default function HomeNeedsAction() {
                                     </span>
                                 </div>
 
-                                {/* ACEPTAR / RECHAZAR */}
+                                {/* ACCEPT / REJECT */}
                                 <div className="mt-1 flex shrink-0 items-center gap-1.5 z-100">
                                     <button
                                         type="button"

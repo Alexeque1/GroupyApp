@@ -66,7 +66,7 @@ export default function EventModalTransferOwnership({
                         className="fixed inset-0 bg-brand-dark/40 backdrop-blur-sm"
                     />
 
-                    {/* CONTENEDOR DEL MODAL */}
+                    {/* MODAL CONTAINER */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -159,7 +159,7 @@ export default function EventModalTransferOwnership({
                                                     </div>
                                                 </div>
 
-                                                {/* Radio, no checkbox: solo puede haber un dueño nuevo */}
+                                                {/* Radio, not checkbox: there can only be one new owner */}
                                                 <div
                                                     className={cn(
                                                         "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors",

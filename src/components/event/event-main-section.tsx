@@ -47,7 +47,7 @@ export default function EventMainSection({user, eventId}:EventMainSectionProps) 
                 ))}
             </header>
 
-            {/* CONTENIDO DINÁMICO */}
+            {/* DYNAMIC CONTENT */}
             <div id="event_section" className="relative flex flex-1 flex-col p-4 md:p-6 bg-white rounded-b-3xl">
                 <AnimatePresence mode="wait">
                     <motion.div
