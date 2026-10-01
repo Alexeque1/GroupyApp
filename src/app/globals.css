@@ -429,3 +429,60 @@
 .mesh-parallax {
   animation: meshMove 10s ease-in-out infinite;
 }
+/* HERO AURORA
+   Soft radial gradients instead of blur() + mix-blend-mode: they're rasterized once
+   and only `transform` is animated, so the GPU composites them without repainting. */
+.hero-aurora {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+  animation: auroraDrift var(--aurora-duration, 22s) ease-in-out infinite alternate;
+  animation-delay: var(--aurora-delay, 0s);
+}
+
+.hero-aurora--fuchsia {
+  top: -25%;
+  left: -15%;
+  width: 70vmax;
+  height: 70vmax;
+  background: radial-gradient(closest-side, rgba(217, 70, 239, 0.45), rgba(217, 70, 239, 0.12) 55%, transparent);
+  --aurora-duration: 24s;
+}
+
+.hero-aurora--cyan {
+  bottom: -30%;
+  right: -20%;
+  width: 65vmax;
+  height: 65vmax;
+  background: radial-gradient(closest-side, rgba(34, 211, 238, 0.35), rgba(34, 211, 238, 0.1) 55%, transparent);
+  --aurora-duration: 28s;
+  --aurora-delay: -8s;
+}
+
+.hero-aurora--amber {
+  top: 30%;
+  left: 35%;
+  width: 45vmax;
+  height: 45vmax;
+  background: radial-gradient(closest-side, rgba(251, 146, 60, 0.22), transparent);
+  --aurora-duration: 32s;
+  --aurora-delay: -16s;
+}
+
+@keyframes auroraDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6%, 4%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-4%, 8%, 0) scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora {
+    animation: none;
+  }
+}
