@@ -24,7 +24,7 @@ export default function SendButton({
             )}
             {...props}
         >
-            <span>{isLoading ? "Posting..." : "Post"}</span>
+            <span className="hidden sm:block">{isLoading ? "Posting..." : "Post"}</span>
             {!isLoading && (
                 <Send 
                     size={16} 
