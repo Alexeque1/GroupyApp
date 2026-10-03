@@ -6,14 +6,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X, LogOut } from "lucide-react";
 import { MENU_ITEMS } from "@/lib/nav-items";
+import ConfirmAlert from "../ui/alerts/confirm-alert";
 
 const MotionLink = motion.create(Link);
 
 export default function FloatingLiquidMenu() {
     const [isOpen, setIsOpen] = useState(false);
+    const [finishSession, setfinishSession] = useState(false)
+
+    const handleFinishSession = () => {
+        setfinishSession((prev) => !prev)
+    }
 
     return (
         <>
+            <ConfirmAlert
+                isOpen={finishSession}
+                onClose={handleFinishSession}
+                onConfirm={() => logout()}
+                icon={LogOut}
+                title="Loggin Out"
+                description="You are about to log out of your account. You will need to log back in to access your events."
+                confirmLabel="Yes, log out"
+                variant="danger"
+            />
+
             {/* OVERLAY (Dark background) */}
             <AnimatePresence>
                 {isOpen && (
@@ -72,7 +89,7 @@ export default function FloatingLiquidMenu() {
                                     transition={{ delay: MENU_ITEMS.length * 0.03 + 0.1 }}
                                     onClick={() => {
                                         setIsOpen(false);
-                                        logout();
+                                        handleFinishSession();
                                     }}
                                     className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-medium text-red-400 transition-colors hover:bg-white/10 hover:text-red-500"
                                 >
@@ -119,10 +136,8 @@ export default function FloatingLiquidMenu() {
                         />
                     </div>
 
-                    {/* Inner shadow to give the "water tank" some depth */}
                     <div className="absolute inset-0 z-10 shadow-[inset_0_0_15px_rgba(0,0,0,0.6)]" />
 
-                    {/* Subtle crystalline border */}
                     <div className="absolute inset-0 z-20 rounded-2xl border border-white/20 transition-colors duration-300 group-hover:border-white/40" />
 
                     {/* BUTTON CONTENT (Icon + Text) */}
