@@ -4,7 +4,9 @@ import { useState } from "react";
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
 import Button from "../ui/button";
 import Image from "next/image";
-import { Users, Share2, ArrowLeft, Check, LogOut } from "lucide-react";
+import Link from "next/link";
+import { format } from "date-fns";
+import { Users, Share2, ArrowLeft, Check, LogOut, Calendar, MapPin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { getEventStatusInfo } from "@/lib/event-status";
@@ -21,6 +23,14 @@ type EventHeaderProps = {
         memberLimit: number;
         category: string;
         status: string;
+        startDate: string;
+        location: string;
+        host?: {
+            firstName: string;
+            lastName: string;
+            username: string;
+            profileImage?: string;
+        };
     };
     isUserMember?: boolean;
     isUserOwner?: boolean;
@@ -44,6 +54,10 @@ export default function EventHeader({
     const [statusAlert, setStatusAlert] = useState<{ description: string; type: "success" | "error" } | null>(null);
 
     const isFull = memberCount >= eventData.memberLimit;
+
+    const startDate = new Date(eventData.startDate);
+    const host = eventData.host;
+    const hostInitials = host ? `${host.firstName[0] ?? ""}${host.lastName[0] ?? ""}`.toUpperCase() : "";
 
     const handleJoinToggle = () => {
         if (isMember) {
@@ -194,6 +208,47 @@ export default function EventHeader({
                             <h1 className="dark-mesh-gradient text-3xl font-black tracking-tight md:text-4xl lg:text-5xl">
                                 {eventData.title}
                             </h1>
+
+                            {/* EVENT INFO */}
+                            <div className="mt-1 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-black/60">
+                                <span className="flex items-center gap-2">
+                                    <Calendar size={16} className="shrink-0 text-black/50" />
+                                    <span className="font-bold text-black/80">
+                                        {format(startDate, "EEE, MMM d")}
+                                    </span>
+                                    <span className="text-black/50">· {format(startDate, "HH:mm")}</span>
+                                </span>
+
+                                <span className="flex items-center gap-2">
+                                    <MapPin size={16} className="shrink-0 text-black/50" />
+                                    {eventData.location}
+                                </span>
+
+                                {host && (
+                                    <span className="flex items-center gap-2">
+                                        <span className="relative flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-plum text-[10px] font-bold text-white">
+                                            {host.profileImage ? (
+                                                <Image
+                                                    src={host.profileImage}
+                                                    alt={`${host.firstName} ${host.lastName}`}
+                                                    fill
+                                                    sizes="24px"
+                                                    className="object-cover"
+                                                />
+                                            ) : (
+                                                hostInitials
+                                            )}
+                                        </span>
+                                        Hosted by
+                                        <Link
+                                            href={`/profile/${host.username}`}
+                                            className="font-bold text-brand-purple-deep transition-colors hover:text-brand-purple"
+                                        >
+                                            {host.firstName} {host.lastName[0]}.
+                                        </Link>
+                                    </span>
+                                )}
+                            </div>
                         </div>
 
                         {/* STATS AND BUTTONS */}
@@ -237,7 +292,7 @@ export default function EventHeader({
                                         className="h-12 flex-1 px-4 md:flex-none md:px-8"
                                         textClassName="text-sm flex items-center gap-2 justify-center"
                                     >
-                                        {isFull ? "Event full" : "Join Event"}
+                                        {isFull ? "Event full" : "Request to join"}
                                     </Button>
                                 )}
 
@@ -252,7 +307,7 @@ export default function EventHeader({
                                     </Button>
                                 )}
 
-                                {/* SHARE BUTTON - Using your Button component */}
+                                {/* SHARE BUTTON */}
                                 <Button
                                     tone="dark"
                                     onClick={handleShare}
@@ -260,9 +315,6 @@ export default function EventHeader({
                                     textClassName="flex items-center justify-center text-sm"
                                 >
                                     <Share2 size={18} />
-                                    <span className="hidden md:ml-2 md:inline-block md:font-semibold">
-                                        Share
-                                    </span>
                                 </Button>
                             </div>
                         </div>

@@ -33,6 +33,7 @@ export default function Event({ params }: EventProps) {
         );
     }
 
+    const host = USERS_DATA.find((u) => u.id === event.ownerId);
     const [memberCount, memberLimit] = event.members.split("/").map(Number);
 
     // Candidates for new owner if the current one decides to leave the event: admins + members, excluding the owner.
@@ -58,6 +59,9 @@ export default function Event({ params }: EventProps) {
                         memberLimit,
                         category: event.category,
                         status: getEventStatus(event.startDate),
+                        startDate: event.startDate,
+                        location: event.location,
+                        host,
                     }}
                     isUserMember={isUserMember}
                     isUserOwner={userIsOwner}
