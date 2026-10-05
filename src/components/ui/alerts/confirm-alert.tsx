@@ -6,7 +6,6 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import Portal from "@/components/ui/portal";
 
-// Color mapping per variant: where each action applies (logout, unfollow, delete...)
 const iconWrapperVariants = cva(
     "mb-4 flex h-14 w-14 items-center justify-center rounded-full",
     {
