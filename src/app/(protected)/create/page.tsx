@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import CreateAsideSection from "@/components/create/create-aside-section";
 import CreateMainSection from "@/components/create/create-main-section";
 import { CreateProvider } from "@/components/create/create-context";
+import BackButton from "@/components/ui/back-button";
 
 export default function Create() {
     return (
@@ -13,6 +14,7 @@ export default function Create() {
                 <AnimatedBackgroundLight />
 
                 <CreateProvider>
+                    <BackButton className="lg:hidden absolute top-5 left-5 z-20" />
                     <motion.div
                         initial={{ opacity: 0, y: -40 }}
                         animate={{ opacity: 1, y: 0 }}

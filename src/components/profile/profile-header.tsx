@@ -4,15 +4,15 @@ import { useState } from "react";
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
 import Button from "../ui/button";
 import Image from "next/image";
-import { ArrowLeft, Pencil, UserMinus, BadgeCheck, Star } from "lucide-react";
+import { Pencil, UserMinus, BadgeCheck, Star } from "lucide-react";
 import ProfileCover from "./profile-cover";
 import type { EventType } from "./profile-events-cards";
 import ProfileModalChangeProfilePhoto from "./profile-modal-changeprofilephoto";
 import ProfileModalChangeCoverPhoto from "./profile-modal-changecoverphoto";
 import Link from "next/link";
+import BackButton from "../ui/back-button";
 import ConfirmAlert from "../ui/alerts/confirm-alert";
 import StatusAlert from "../ui/alerts/status-alert";
-import { useRouter } from "next/navigation";
 
 const isLocalPreviewUrl = (src: string) => src.startsWith("blob:") || src.startsWith("data:");
 
@@ -36,7 +36,6 @@ type ProfileHeaderProps = {
 };
 
 export default function ProfileHeader({ user, isOwnProfile = false, isUserFollowing = false, isSettings = false }: ProfileHeaderProps) {
-    const router = useRouter();
 
     const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
     const [profileImage, setProfileImage] = useState(user.profileImage);
@@ -101,13 +100,7 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                     />
 
                     {/* BOTÓN VOLVER */}
-                    <button
-                        onClick={() => router.back()}
-                        className="absolute left-4 top-20 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 text-black/70 backdrop-blur-md transition-colors hover:bg-white hover:text-black dark:border-white/20 dark:bg-black/50 dark:text-white/70 dark:hover:bg-black/70 dark:hover:text-white"
-                        aria-label="Volver atrás"
-                    >
-                        <ArrowLeft size={18} />
-                    </button>
+                    <BackButton />
 
                     {/* CONTENIDO */}
                     <div className="relative px-6 pb-6 pt-0 md:px-10 md:pb-8">

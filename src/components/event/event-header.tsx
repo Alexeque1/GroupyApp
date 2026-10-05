@@ -6,10 +6,10 @@ import Button from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
-import { Users, Share2, ArrowLeft, Check, LogOut, Calendar, MapPin } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Users, Share2, Check, LogOut, Calendar, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getEventStatusInfo } from "@/lib/event-status";
+import BackButton from "../ui/back-button";
 import ConfirmAlert from "../ui/alerts/confirm-alert";
 import StatusAlert from "../ui/alerts/status-alert";
 import EventModalTransferOwnership from "./event-modal-transferownership";
@@ -43,7 +43,6 @@ export default function EventHeader({
     isUserOwner = false,
     eventMembers = [],
 }: EventHeaderProps) {
-    const router = useRouter();
     const statusInfo = getEventStatusInfo(eventData.status);
     const StatusIcon = statusInfo.icon;
 
@@ -157,13 +156,7 @@ export default function EventHeader({
                 {/* COVER */}
                 <div className="relative h-48 w-full md:h-72">
                     {/* BACK BUTTON */}
-                    <button
-                        onClick={() => router.back()}
-                        className="absolute left-4 top-20 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white/70 text-black/70 backdrop-blur-md transition-colors hover:bg-white hover:text-black dark:border-white/20 dark:bg-black/50 dark:text-white/70 dark:hover:bg-black/70 dark:hover:text-white"
-                        aria-label="Go back"
-                    >
-                        <ArrowLeft size={18} />
-                    </button>
+                    <BackButton />
 
                     <Image
                         src={eventData.coverImage}

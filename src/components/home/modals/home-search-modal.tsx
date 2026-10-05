@@ -93,7 +93,6 @@ export default function HomeSearchModal({ isOpen, onClose }: HomeSearchModalProp
                                         value={query}
                                         onChange={(e) => setQuery(e.target.value)}
                                         placeholder={placeholder}
-                                        // text-base (16px) avoids the automatic zoom on iOS when focusing.
                                         className="w-full min-w-0 bg-transparent text-base text-black/80 outline-none placeholder:text-black/40 [&::-webkit-search-cancel-button]:hidden"
                                     />
                                     <AnimatePresence>
