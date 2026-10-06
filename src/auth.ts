@@ -38,7 +38,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     session: { strategy: "jwt" },
     pages: { signIn: "/auth" },
     callbacks: {
-        // Step 1: on login, we copy id and username onto the token (the "wristband")
         jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
@@ -46,7 +45,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }
             return token;
         },
-        // Step 2: on every request, we pass them from the token to the session your app uses
         session({ session, token }) {
             session.user.id = token.id as string;
             session.user.username = token.username as string;
