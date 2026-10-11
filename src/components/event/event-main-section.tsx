@@ -20,6 +20,11 @@ const TABS_CONFIG = [
         description:
             "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptate magnam accusamus ullam. Quos vero ducimus rerum incidunt, in quidem error! Placeat molestiae reprehenderit laborum? Veniam delectus atque amet eum.",
     },
+    {
+        key: "Requests",
+        description:
+            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptate magnam accusamus ullam. Quos vero ducimus rerum incidunt, in quidem error! Placeat molestiae reprehenderit laborum? Veniam delectus atque amet eum.",
+    },
 ] as const;
 
 type TabType = (typeof TABS_CONFIG)[number]["key"];

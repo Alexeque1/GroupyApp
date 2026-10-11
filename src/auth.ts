@@ -4,13 +4,13 @@ import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/db/db";
 import { User } from "@/model/User";
 import { loginSchema } from "@/lib/validation/auth";
+import { SESSION_IDLE_TIMEOUT_SECONDS } from "@/lib/session-config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     providers: [
         Credentials({
             credentials: { email: {}, password: {} },
 
-            // YOUR function: verifies the "entry"
             authorize: async (credentials) => {
                 const parsed = loginSchema.safeParse(credentials);
                 if (!parsed.success) return null;
@@ -24,7 +24,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 const passwordOk = await bcrypt.compare(password, user.passwordHash);
                 if (!passwordOk) return null;
 
-                // Whatever you return here is what Auth.js stores in the session
                 return {
                     id: user._id.toString(),
                     name: `${user.firstName} ${user.lastName}`,
@@ -35,7 +34,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             },
         }),
     ],
-    session: { strategy: "jwt" },
+
+    session: { strategy: "jwt", maxAge: SESSION_IDLE_TIMEOUT_SECONDS },
     pages: { signIn: "/auth" },
     callbacks: {
         jwt({ token, user }) {

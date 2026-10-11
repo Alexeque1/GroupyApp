@@ -10,11 +10,13 @@ import RegisterForm from "@/components/auth/register-form";
 interface AuthCardProps {
   initialMode: "login" | "register";
   justRegistered?: boolean;
+  sessionExpired?: boolean;
 }
 
 export default function AuthCard({
   initialMode,
-  justRegistered
+  justRegistered,
+  sessionExpired
 }: AuthCardProps) {
   const [mode, setMode] = useState(initialMode);
 
@@ -60,6 +62,12 @@ export default function AuthCard({
       {justRegistered && mode === "login" && (
         <p role="status" className="rounded-xl border border-brand-mint/30 bg-brand-mint/10 px-4 py-3 text-center text-sm text-brand-mint">
           Account created! You can now log in.
+        </p>
+      )}
+
+      {sessionExpired && mode === "login" && (
+        <p role="status" className="rounded-xl border border-brand-peach/30 bg-brand-peach/10 px-4 py-3 text-center text-sm text-brand-peach">
+          You were logged out after 10 minutes of inactivity.
         </p>
       )}
 

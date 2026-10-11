@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
 import Button from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
-import { Users, Share2, Check, LogOut, Calendar, MapPin } from "lucide-react";
+import { Users, Share2, Check, LogOut, Calendar, MapPin, Settings2, ChevronDown, Pencil, Lock, LockOpen, Ban } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getEventStatusInfo } from "@/lib/event-status";
 import BackButton from "../ui/back-button";
@@ -51,6 +52,24 @@ export default function EventHeader({
     const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
     const [showTransferModal, setShowTransferModal] = useState(false);
     const [statusAlert, setStatusAlert] = useState<{ description: string; type: "success" | "error" } | null>(null);
+    const [isManageMenuOpen, setIsManageMenuOpen] = useState(false);
+    const [areRequestsClosed, setAreRequestsClosed] = useState(false);
+    const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+    const manageMenuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (manageMenuRef.current && !manageMenuRef.current.contains(event.target as Node)) {
+                setIsManageMenuOpen(false);
+            }
+        };
+        if (isManageMenuOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isManageMenuOpen]);
 
     const isFull = memberCount >= eventData.memberLimit;
 
@@ -103,6 +122,20 @@ export default function EventHeader({
         });
     };
 
+    const handleToggleRequests = () => {
+        setIsManageMenuOpen(false);
+        setAreRequestsClosed((prev) => !prev);
+        setStatusAlert({
+            description: areRequestsClosed ? "Join requests are open again." : "Join requests are now closed.",
+            type: "success",
+        });
+    };
+
+    const handleCancelEvent = () => {
+        setShowCancelConfirm(false);
+        setStatusAlert({ description: `${eventData.title} has been canceled.`, type: "success" });
+    };
+
     const handleShare = async () => {
         const shareUrl = window.location.href;
 
@@ -134,6 +167,17 @@ export default function EventHeader({
                 description={`You'll stop having access to ${eventData.title} and its content.`}
                 confirmLabel="Yes, leave event"
                 variant="neutral"
+            />
+            <ConfirmAlert
+                isOpen={showCancelConfirm}
+                onClose={() => setShowCancelConfirm(false)}
+                onConfirm={handleCancelEvent}
+                icon={Ban}
+                title="Cancel event"
+                description={`${eventData.title} will be canceled for every member. This can't be undone.`}
+                confirmLabel="Yes, cancel event"
+                cancelLabel="Keep event"
+                variant="danger"
             />
             <EventModalTransferOwnership
                 isOpen={showTransferModal}
@@ -289,15 +333,73 @@ export default function EventHeader({
                                     </Button>
                                 )}
 
+                                {/* MANAGE DROPDOWN */}
                                 {isUserOwner && (
-                                    <Button
-                                        tone="dark"
-                                        onClick={() => { }}
-                                        className="h-12 flex-1 px-4 md:flex-none md:px-8"
-                                        textClassName="text-sm flex items-center gap-2 justify-center"
-                                    >
-                                        Edit profile
-                                    </Button>
+                                    <div className="relative flex-1 md:flex-none" ref={manageMenuRef}>
+                                        <Button
+                                            tone="dark"
+                                            onClick={() => setIsManageMenuOpen((prev) => !prev)}
+                                            className="h-12 w-full px-4 md:px-8"
+                                            textClassName="text-sm flex items-center gap-2 justify-center"
+                                        >
+                                            <Settings2 size={16} />
+                                            Manage
+                                            <ChevronDown
+                                                size={16}
+                                                className={cn("transition-transform duration-200", isManageMenuOpen && "rotate-180")}
+                                            />
+                                        </Button>
+
+                                        <AnimatePresence>
+                                            {isManageMenuOpen && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.9, y: 10, transformOrigin: "bottom right" }}
+                                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                                    exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                                                    transition={{ duration: 0.2 }}
+                                                    className="absolute bottom-14 right-0 z-50 flex w-52 flex-col overflow-hidden rounded-2xl border border-black/10 bg-white p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.12)]"
+                                                >
+                                                    <button
+                                                        onClick={() => setIsManageMenuOpen(false)}
+                                                        className="flex cursor-pointer items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
+                                                    >
+                                                        <Pencil size={16} className="text-brand-purple-deep" />
+                                                        Edit event
+                                                    </button>
+
+                                                    <button
+                                                        onClick={handleToggleRequests}
+                                                        className="flex cursor-pointer items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-black/70 transition-colors hover:bg-black/5 hover:text-black"
+                                                    >
+                                                        {areRequestsClosed ? (
+                                                            <>
+                                                                <LockOpen size={16} className="text-brand-green" />
+                                                                Open requests
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <Lock size={16} className="text-brand-orange" />
+                                                                Close requests
+                                                            </>
+                                                        )}
+                                                    </button>
+
+                                                    <div className="my-1 h-px w-full bg-black/5" />
+
+                                                    <button
+                                                        onClick={() => {
+                                                            setIsManageMenuOpen(false);
+                                                            setShowCancelConfirm(true);
+                                                        }}
+                                                        className="flex cursor-pointer items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-red-500 transition-colors hover:bg-red-50 hover:text-red-600"
+                                                    >
+                                                        <Ban size={16} />
+                                                        Cancel event
+                                                    </button>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
                                 )}
 
                                 {/* SHARE BUTTON */}

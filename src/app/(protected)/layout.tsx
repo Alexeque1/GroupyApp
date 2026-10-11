@@ -1,5 +1,6 @@
 import FloatingLiquidMenu from "@/components/feed/floated-menu";
 import SideMenu from "@/components/feed/side-menu";
+import IdleLogout from "@/components/auth/idle-logout";
 
 export default function ProtectedLayout({
     children,
@@ -8,6 +9,8 @@ export default function ProtectedLayout({
 }) {
     return (
         <div className="relative min-h-dvh w-full text-white">
+            {/* Signs the user out after 10 minutes of inactivity */}
+            <IdleLogout />
 
             {/* SIDEBAR */}
             <SideMenu />

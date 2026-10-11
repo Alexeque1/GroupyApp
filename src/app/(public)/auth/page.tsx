@@ -5,6 +5,7 @@ interface AuthPageProps {
   searchParams: Promise<{
     mode?: string;
     registered?: string;
+    expired?: string;
   }>;
 }
 
@@ -12,7 +13,7 @@ export default async function Auth({
     searchParams,
 }: AuthPageProps) {
 
-    const { mode, registered } = await searchParams;
+    const { mode, registered, expired } = await searchParams;
 
     return (
         <div className="relative min-h-dvh w-full flex flex-col items-center justify-center overflow-hidden bg-brand-violet text-white">
@@ -25,7 +26,8 @@ export default async function Auth({
                 <AuthCard 
                 key={mode ?? "register"} 
                 initialMode={mode === "login" ? "login" : "register"} 
-                justRegistered={registered === "1"}/>
+                justRegistered={registered === "1"}
+                sessionExpired={expired === "1"}/>
             </div>
 
         </div>
