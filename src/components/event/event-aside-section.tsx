@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, ChangeEvent } from "react";
-import { Calendar, MapPin, Tag } from "lucide-react";
+import { Calendar, Copy, MapPin, Lock } from "lucide-react";
 import Image from "next/image";
 import { USERS_DATA } from "@/lib/mock_data/users-data";
 import Link from "next/link";
@@ -60,8 +60,8 @@ export default function EventAsideSection({ event, isUserMember }: EventAsidePro
                         onChange={handleTextChange}
                         placeholder="Hi! I want to join with a friend..."
                         className={`w-full resize-none overflow-hidden text-sm leading-relaxed outline-none max-h-[250px] overflow-y-auto p-4 rounded-2xl transition-colors duration-200 ${text.length > 0
-                                ? "bg-white text-black border-transparent placeholder:text-black/40"
-                                : "bg-[#2C243B] text-white border border-white/10 placeholder:text-white/40"
+                            ? "bg-white text-black border-transparent placeholder:text-black/40"
+                            : "bg-[#2C243B] text-white border border-white/10 placeholder:text-white/40"
                             }`}
                     />
 
@@ -80,6 +80,13 @@ export default function EventAsideSection({ event, isUserMember }: EventAsidePro
                 <p className="text-sm leading-relaxed text-black/70">
                     {event.description}
                 </p>
+            </div>
+
+            {/* EVENT INFO */}
+            <div className="flex flex-col gap-4 rounded-3xl border border-black/10 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+                <h3 className="text-lg font-bold text-black/80">
+                    Details
+                </h3>
 
                 <div className="mt-1 flex flex-col gap-3">
                     <div className="flex items-center gap-3 text-sm text-black/70">
@@ -87,20 +94,59 @@ export default function EventAsideSection({ event, isUserMember }: EventAsidePro
                         <span>{event.location}</span>
                     </div>
                     <div className="flex items-center gap-3 text-sm text-black/70">
-                        <Tag size={16} className="text-brand-purple-deep" />
-                        <span>{event.category}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-black/70">
                         <Calendar size={16} className="text-brand-purple-deep" />
                         <span>Starts {formatEventDate(event.startDate)}</span>
                     </div>
                 </div>
+
+                {/* MEMBERS ONLY  */}
+                {isUserMember ? (
+                    <div className="mt-2 flex flex-col gap-4 rounded-2xl bg-brand-purple/10 p-5 text-sm text-black/80">
+                        {/* Header */}
+                        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-purple-deep">
+                            <Lock size={14} strokeWidth={2.5} />
+                            <span>Members Only</span>
+                        </div>
+
+                        {/* Address */}
+                        <div>
+                            <span className="font-bold text-black">Address:</span> [STREET AND NUMBER]
+                        </div>
+
+                        {/* Group Link */}
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="truncate">
+                                <span className="font-bold text-black">Group link:</span> [WHATSAPP GROUP LINK]
+                            </div>
+
+                            {/* Copy Button */}
+                            <button
+                                className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white text-brand-purple-deep shadow-sm transition-colors hover:bg-black/5"
+                                aria-label="Copy group link"
+                            >
+                                <Copy size={16} strokeWidth={2} />
+                            </button>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="mt-2 flex items-center gap-4 rounded-2xl bg-[#F8F7FA] p-5">
+                        <Lock size={24} className="text-slate-500 shrink-0" strokeWidth={1.5} />
+                        <div className="flex flex-col">
+                            <span className="text-base font-semibold text-slate-900">
+                                Exact address and group link
+                            </span>
+                            <span className="text-sm text-slate-500">
+                                Visible once the host accepts you
+                            </span>
+                        </div>
+                    </div>
+                )}
             </div>
 
-            {/* TEAM / ADMINS */}
+            {/* HOSTS */}
             <div className="flex flex-col gap-4 rounded-3xl border border-black/10 bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-sm">
                 <h3 className="text-lg font-bold text-black/80">
-                    Team
+                    Hosts
                 </h3>
 
                 <div className="flex flex-col gap-4">

@@ -16,7 +16,6 @@ type HomeViewProps = {
     firstName: string;
 };
 
-// The events/communities still come from mock data; only the name comes from the logged-in user.
 export default function HomeView({ firstName }: HomeViewProps) {
 
     return (
