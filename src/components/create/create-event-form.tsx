@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import Image from "next/image";
 import {
     ArrowLeft, ChevronDown, Users, Calendar as CalendarIcon,
@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
 import CreateModalAdminSelector from "./create-modal-admselector";
 import type { FriendType } from "@/components/profile/profile-friends-cards";
+import { createEvent } from "@/lib/actions/events";
 
 // Componentes de shadcn/ui
 import { Calendar } from "@/components/ui/calendar";
@@ -28,6 +29,11 @@ const inputClass =
 
 const textareaClass = cn(inputClass, "resize-none");
 const selectClass = cn(inputClass, "appearance-none pr-10");
+
+function FieldError({ errors }: { errors?: string[] }) {
+    if (!errors?.length) return null;
+    return <p className="ml-1 text-xs text-red-500">{errors[0]}</p>;
+}
 
 export default function CreateEventForm({ onBack }: CreateEventFormProps) {
     const { previewData, updatePreviewData } = useCreateContext();
@@ -47,6 +53,16 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
     const handleConfirmAdmins = (admins: FriendType[]) => {
         setSelectedAdmins(admins);
     };
+
+    const [state, formAction, isPending] = useActionState(createEvent, {});
+
+    let startDateISO = "";
+    if (previewData.startDate && previewData.startTime) {
+        const date = new Date(previewData.startDate);
+        const [hours, minutes] = previewData.startTime.split(":").map(Number);
+        date.setHours(hours, minutes, 0, 0);
+        startDateISO = date.toISOString();
+    }
 
     return (
         <>
@@ -73,7 +89,11 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
                     </button>
                 </div>
 
-                <form className="flex w-full flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
+                <form className="flex w-full flex-col gap-8" action={formAction}>
+                    {/* Campos que no son inputs normales: los mandamos ocultos */}
+                    <input type="hidden" name="category" value={previewData.category} />
+                    <input type="hidden" name="startDate" value={startDateISO} />
+
                     {/* COVER IMAGE */}
                     <ImageDropzone
                         label="Cover Image"
@@ -90,23 +110,27 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
                         <div className="flex flex-col gap-1.5">
                             <label className="ml-1 text-sm font-medium text-black/70 dark:text-white/80">Event Name</label>
                             <input
+                                name="title"
                                 type="text"
                                 className={inputClass}
                                 placeholder="e.g. Weekend Hikers BA"
                                 value={previewData.title || ""}
                                 onChange={(e) => updatePreviewData({ title: e.target.value })}
                             />
+                            <FieldError errors={state.errors?.title} />
                         </div>
 
                         <div className="flex flex-col gap-1.5">
                             <label className="ml-1 text-sm font-medium text-black/70 dark:text-white/80">Description</label>
                             <textarea
                                 rows={3}
+                                name="description"
                                 className={textareaClass}
                                 placeholder="Briefly describe what this event is about..."
                                 value={previewData.description || ""}
                                 onChange={(e) => updatePreviewData({ description: e.target.value })}
                             />
+                            <FieldError errors={state.errors?.description} />
                         </div>
 
                         {/* CATEGORY */}
@@ -151,6 +175,7 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
                                     );
                                 })}
                             </div>
+                            <FieldError errors={state.errors?.category} />
                         </div>
                     </div>
 
@@ -182,11 +207,13 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
                                 <label className="ml-1 text-sm font-medium text-black/70 dark:text-white/80">Specific Location</label>
                                 <input
                                     type="text"
+                                    name="location"
                                     className={inputClass}
                                     placeholder="Address or Google Maps link"
                                     value={previewData.location || ""}
                                     onChange={(e) => updatePreviewData({ location: e.target.value })}
                                 />
+                                <FieldError errors={state.errors?.location} />
                             </div>
                         </div>
 
@@ -243,17 +270,21 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
                                 </div>
                             </div>
                         </div>
+                        <FieldError errors={state.errors?.startDate} />
 
                         <div className="flex flex-col gap-1.5">
                             <label className="ml-1 text-sm font-medium text-black/70 dark:text-white/80">Participants Limit</label>
                             <input
                                 type="number"
+                                name="capacity"
                                 min="2"
+                                max="100"
                                 className={inputClass}
                                 placeholder="Max number of people"
                                 value={previewData.participantsLimit || ""}
                                 onChange={(e) => updatePreviewData({ participantsLimit: e.target.value })}
                             />
+                            <FieldError errors={state.errors?.capacity} />
                         </div>
                     </div>
 
@@ -338,9 +369,10 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
                         </div>
                     </div>
 
-                    <div className="mt-4 flex justify-end border-t border-black/10 pt-4 dark:border-white/10">
-                        <Button className="w-full md:w-auto md:px-12" tone="dark">
-                            Create Event
+                    <div className="mt-4 flex flex-col items-end gap-3 border-t border-black/10 pt-4 dark:border-white/10">
+                        {state.message && <p className="text-sm text-red-500">{state.message}</p>}
+                        <Button type="submit" disabled={isPending} className="w-full md:w-auto md:px-12" tone="dark">
+                            {isPending ? "Creating..." : "Create Event"}
                         </Button>
                     </div>
                 </form>
