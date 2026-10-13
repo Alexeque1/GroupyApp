@@ -58,18 +58,6 @@ function getNearestEvent(events: EventType[]): EventType | null {
     return upcoming[0]?.event ?? null;
 }
 
-function parseMemberCount(value: string): number {
-    const match = value.match(/^([\d.]+)\s*([kKmM]?)/);
-    if (!match) return 0;
-
-    const amount = parseFloat(match[1]);
-    const suffix = match[2].toLowerCase();
-
-    if (suffix === "k") return amount * 1_000;
-    if (suffix === "m") return amount * 1_000_000;
-    return amount;
-}
-
 export default function ProfileAside({ user }: ProfileAsideProps) {
     const nearestEvent = getNearestEvent(user.events);
 

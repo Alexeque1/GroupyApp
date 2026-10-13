@@ -2,12 +2,12 @@
 
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Crown, Users, ChevronDown, SearchX, Search, ArrowUpDown, X, User, Filter } from "lucide-react";
+import { Crown, Users, SearchX, ArrowUpDown, User } from "lucide-react";
 
 import ProfileEventCard, { EventType } from "./profile-events-cards";
 import ProfileSectionGrid from "./profile-section-grid";
 import PaginationControls from "../ui/pagination-controls";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { FilterEmptyState, FilterPopover, FilterSearch, FilterSelect } from "../ui/filter-popover";
 import { paginate } from "@/lib/pagination";
 import { getEventStatus } from "@/lib/event-status";
 
@@ -156,108 +156,43 @@ export default function ProfileSectionEvents({
                     </button>
                 </div>
 
-                <Popover>
-                    <PopoverTrigger className="relative flex cursor-pointer items-center gap-2 rounded-2xl border border-black/10 bg-white px-4 py-2.5 text-sm font-semibold text-black/70 shadow-sm transition-colors hover:bg-black/5">
-                        <Filter size={15} />
-                        Filter
-                        {hasActiveFilters && (
-                            <span className="h-1.5 w-1.5 rounded-full bg-brand-purple-deep" />
-                        )}
-                    </PopoverTrigger>
-
-                    <PopoverContent align="end" className="w-80 border border-black/10 bg-white p-4 shadow-xl">
-                        <div className="flex flex-col gap-3">
-                            {/* BÚSQUEDA */}
-                            <div className="relative w-full">
-                                <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-black/40" />
-                                <input
-                                    type="text"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    placeholder="Search events by title..."
-                                    className="w-full rounded-2xl border border-black/10 bg-black/[0.02] pl-10 pr-4 py-2.5 text-sm text-black outline-none transition-all placeholder:text-black/40 focus:border-brand-purple-deep/40 focus:bg-white focus:ring-2 focus:ring-brand-purple-deep/10"
-                                />
-                                {searchQuery && (
-                                    <button
-                                        type="button"
-                                        onClick={() => setSearchQuery("")}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-black/40 hover:text-black"
-                                    >
-                                        <X size={15} />
-                                    </button>
-                                )}
-                            </div>
-
-                            {/* Filtro por Creador */}
-                            <div className="relative w-full">
-                                <select
-                                    value={creatorFilter}
-                                    onChange={(e) => setCreatorFilter(e.target.value)}
-                                    className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
-                                >
-                                    <option value="all">Any creator</option>
-                                    <option value="owner">{creatorLabel}</option>
-                                    <option value="others">Created by others</option>
-                                </select>
-                                <User size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/40" />
-                            </div>
-
-                            {/* Filtro por Estado */}
-                            <div className="relative w-full">
-                                <select
-                                    value={statusFilter}
-                                    onChange={(e) => setStatusFilter(e.target.value)}
-                                    className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
-                                >
-                                    <option value="all">All statuses</option>
-                                    {statuses.map((status) => (
-                                        <option key={status} value={status}>{status}</option>
-                                    ))}
-                                </select>
-                                <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/40" />
-                            </div>
-
-                            {/* Filtro por Categoría */}
-                            <div className="relative w-full">
-                                <select
-                                    value={categoryFilter}
-                                    onChange={(e) => setCategoryFilter(e.target.value)}
-                                    className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
-                                >
-                                    <option value="all">All categories</option>
-                                    {categories.map((cat) => (
-                                        <option key={cat} value={cat}>{cat}</option>
-                                    ))}
-                                </select>
-                                <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/40" />
-                            </div>
-
-                            {/* Ordenamiento */}
-                            <div className="relative w-full">
-                                <select
-                                    value={sortBy}
-                                    onChange={(e) => setSortBy(e.target.value as SortBy)}
-                                    className="w-full cursor-pointer appearance-none rounded-2xl border border-black/10 bg-black/[0.02] px-4 py-2.5 pr-8 text-sm text-black outline-none transition-all focus:border-brand-purple-deep/40 focus:bg-white"
-                                >
-                                    <option value="newest">Newest date</option>
-                                    <option value="oldest">Oldest date</option>
-                                    <option value="title">Alphabetical</option>
-                                </select>
-                                <ArrowUpDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/40" />
-                            </div>
-
-                            {hasActiveFilters && (
-                                <button
-                                    type="button"
-                                    onClick={handleClearFilters}
-                                    className="cursor-pointer rounded-2xl border border-black/10 py-2 text-xs font-semibold text-brand-purple-deep hover:bg-black/5"
-                                >
-                                    Clear filters
-                                </button>
-                            )}
-                        </div>
-                    </PopoverContent>
-                </Popover>
+                <FilterPopover hasActiveFilters={hasActiveFilters} onClear={handleClearFilters}>
+                    <FilterSearch value={searchQuery} onChange={setSearchQuery} placeholder="Search events by title..." />
+                    <FilterSelect
+                        value={creatorFilter}
+                        onChange={setCreatorFilter}
+                        icon={User}
+                        ariaLabel="Filter by creator"
+                        options={[
+                            { value: "all", label: "Any creator" },
+                            { value: "owner", label: creatorLabel },
+                            { value: "others", label: "Created by others" },
+                        ]}
+                    />
+                    <FilterSelect
+                        value={statusFilter}
+                        onChange={setStatusFilter}
+                        ariaLabel="Filter by status"
+                        options={[{ value: "all", label: "All statuses" }, ...statuses.map((s) => ({ value: s, label: s }))]}
+                    />
+                    <FilterSelect
+                        value={categoryFilter}
+                        onChange={setCategoryFilter}
+                        ariaLabel="Filter by category"
+                        options={[{ value: "all", label: "All categories" }, ...categories.map((c) => ({ value: c, label: c }))]}
+                    />
+                    <FilterSelect
+                        value={sortBy}
+                        onChange={setSortBy}
+                        icon={ArrowUpDown}
+                        ariaLabel="Sort by"
+                        options={[
+                            { value: "newest", label: "Newest date" },
+                            { value: "oldest", label: "Oldest date" },
+                            { value: "title", label: "Alphabetical" },
+                        ]}
+                    />
+                </FilterPopover>
             </div>
 
             {/* GRID + PAGINACIÓN DE LA TAB ACTIVA */}
@@ -270,17 +205,11 @@ export default function ProfileSectionEvents({
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                 >
                     {activeItems.length === 0 ? (
-                        <div className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-black/10 bg-black/5 p-6 text-center">
-                            <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-full bg-black/5">
-                                <SearchX size={32} className="text-black/40" />
-                            </div>
-                            <h3 className="text-sm font-semibold text-black/60">
-                                No events found
-                            </h3>
-                            <p className="mt-1 text-xs text-black/50">
-                                Try adjusting your search query or filters.
-                            </p>
-                        </div>
+                        <FilterEmptyState
+                            icon={SearchX}
+                            title="No events found"
+                            description="Try adjusting your search query or filters."
+                        />
                     ) : (
                         <div className="flex flex-col gap-6">
                             <ProfileSectionGrid
