@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { FeedUser } from "@/lib/mock_data/users-data";
 import EventFeed from "./event-feed/event-feed-section";
 import RequestsSection from "./event-requests/event-requests-section";
+import { getRequestsForEvent, type JoinRequestViewModel } from "@/lib/requests-selector";
 
 const TABS_CONFIG = [
     {
@@ -11,12 +12,7 @@ const TABS_CONFIG = [
         description:
             "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat magnam saepe iste, minus ut quibusdam enim quis est necessitatibus eaque dicta, commodi amet debitis et soluta dolorum numquam a reiciendis.",
     },
-    {
-        key: "Agenda",
-        description:
-            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit eaque at commodi aperiam itaque expedita accusamus, doloremque numquam veniam ut praesentium eius, harum nostrum iure repudiandae sapiente non, ratione quod?",
-    },
-    {
+        {
         key: "Members",
         description:
             "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptate magnam accusamus ullam. Quos vero ducimus rerum incidunt, in quidem error! Placeat molestiae reprehenderit laborum? Veniam delectus atque amet eum.",
@@ -25,6 +21,11 @@ const TABS_CONFIG = [
         key: "Requests",
         description:
             "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis voluptate magnam accusamus ullam. Quos vero ducimus rerum incidunt, in quidem error! Placeat molestiae reprehenderit laborum? Veniam delectus atque amet eum.",
+    },
+    {
+        key: "Agenda",
+        description:
+            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit eaque at commodi aperiam itaque expedita accusamus, doloremque numquam veniam ut praesentium eius, harum nostrum iure repudiandae sapiente non, ratione quod?",
     },
 ] as const;
 
@@ -37,6 +38,14 @@ type EventMainSectionProps = {
 
 export default function EventMainSection({ user, eventId }: EventMainSectionProps) {
     const [activeTab, setActiveTab] = useState<TabType>(TABS_CONFIG[0].key);
+    // Lives here (not in RequestsSection) so the "Requests" tab badge can read the count,
+    // and so resolved requests stay resolved when the tab unmounts on switch.
+    const [requests, setRequests] = useState(() => getRequestsForEvent(eventId));
+
+    // TODO: persist on the backend (EventMember role "pending" → "member" / delete).
+    const handleResolveRequest = (request: JoinRequestViewModel) => {
+        setRequests((prev) => prev.filter((r) => r.id !== request.id));
+    };
 
     return (
         <section className="z-10 flex min-h-[500px] flex-[2] flex-col overflow-hidden rounded-3xl bg-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md pt-2 md:pt-4">
@@ -49,6 +58,7 @@ export default function EventMainSection({ user, eventId }: EventMainSectionProp
                         isActive={activeTab === key}
                         onClick={() => setActiveTab(key)}
                         layoutId="profile-tabs"
+                        badge={key === "Requests" ? requests.length : undefined}
                     />
                 ))}
             </header>
@@ -69,7 +79,7 @@ export default function EventMainSection({ user, eventId }: EventMainSectionProp
                         )}
                         
                         {activeTab === "Requests" && (
-                            <RequestsSection eventId={eventId} />
+                            <RequestsSection requests={requests} onResolve={handleResolveRequest} />
                         )}
                     </motion.div>
                 </AnimatePresence>

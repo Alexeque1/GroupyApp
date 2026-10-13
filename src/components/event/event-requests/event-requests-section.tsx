@@ -4,20 +4,20 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Inbox } from "lucide-react";
 import StatusAlert from "@/components/ui/alerts/status-alert";
-import { getRequestsForEvent, type JoinRequestViewModel } from "@/lib/requests-selector";
+import type { JoinRequestViewModel } from "@/lib/requests-selector";
 import EventRequestBox from "./event-request-box";
 
 type EventRequestsSectionProps = {
-    eventId: number;
+    // Owned by EventMainSection, which also shows the count on the "Requests" tab.
+    requests: JoinRequestViewModel[];
+    onResolve: (request: JoinRequestViewModel, accepted: boolean) => void;
 };
 
-export default function RequestsSection({ eventId }: EventRequestsSectionProps) {
-    const [requests, setRequests] = useState(() => getRequestsForEvent(eventId));
+export default function RequestsSection({ requests, onResolve }: EventRequestsSectionProps) {
     const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
-    // TODO: persist on the backend (EventMember role "pending" → "member" / delete).
     const resolveRequest = (request: JoinRequestViewModel, accepted: boolean) => {
-        setRequests((prev) => prev.filter((r) => r.id !== request.id));
+        onResolve(request, accepted);
         setStatusMessage(
             accepted
                 ? `${request.requester.firstName} joined the event.`

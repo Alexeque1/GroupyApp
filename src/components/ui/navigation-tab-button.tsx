@@ -9,6 +9,8 @@ interface NavigationTabButtonProps {
     onClick: () => void;
     layoutId?: string;
     className?: string;
+    // Count shown next to the label (e.g. pending requests). Hidden when 0 or undefined.
+    badge?: number;
 }
 
 export default function NavigationTabButton({
@@ -17,7 +19,10 @@ export default function NavigationTabButton({
     onClick,
     layoutId = "default-tab-indicator",
     className,
+    badge,
 }: NavigationTabButtonProps) {
+    const showBadge = badge !== undefined && badge > 0;
+
     return (
         <button
             onClick={onClick}
@@ -29,7 +34,17 @@ export default function NavigationTabButton({
                 className
             )}
         >
-            <span className="relative z-10 mb-1.5">{label}</span>
+            <span className="relative z-10 mb-1.5 flex items-center gap-2">
+                {label}
+                {showBadge && (
+                    <span
+                        aria-label={`${badge} pending`}
+                        className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#D45433] px-1.5 text-[11px] font-bold leading-none text-white"
+                    >
+                        {badge > 99 ? "99+" : badge}
+                    </span>
+                )}
+            </span>
 
             {isActive && (
                 <motion.div
