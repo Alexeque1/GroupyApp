@@ -8,7 +8,7 @@ import ProfileSectionCommunities from "./profile-main-section-communities";
 import ProfileSectionFriendsList from "./profile-main-section-friendslist";
 
 import NavigationTabButton from "../ui/navigation-tab-button";
-import { EventType } from "./profile-events-cards";
+import type { ProfileEvent } from "./profile-events-cards";
 import { CommunityType } from "./profile-communities-cards";
 import { FriendType } from "./profile-friends-cards";
 
@@ -42,7 +42,7 @@ type ProfileMainProps = {
     user: {
         name: string;
         username: string;
-        events: EventType[];
+        events: ProfileEvent[];
         communities: CommunityType[];
         friends: FriendType[];
     };

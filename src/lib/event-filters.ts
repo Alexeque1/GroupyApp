@@ -17,7 +17,7 @@ export function maxCapacity(members: string): number {
     return Number.isNaN(parsed) ? Infinity : parsed;
 }
 
-export function matchesTime(event: EventType, filter: string): boolean {
+export function matchesTime(event: Pick<EventType, "startDate">, filter: string): boolean {
     if (filter === "all") return true;
     const days = daysFromToday(event.startDate);
     if (days < 0) return false; 
@@ -26,9 +26,9 @@ export function matchesTime(event: EventType, filter: string): boolean {
     return true; //
 }
 
-export function matchesCapacity(event: EventType, filter: string): boolean {
+export function matchesCapacity(event: Pick<EventType, "members"> | { capacity: number }, filter: string): boolean {
     if (filter === "all") return true;
-    const cap = maxCapacity(event.members);
+    const cap = "capacity" in event ? event.capacity : maxCapacity(event.members);
     if (filter === "small") return cap <= 5;
     if (filter === "medium") return cap >= 6 && cap <= 15;
     if (filter === "large") return cap > 15;

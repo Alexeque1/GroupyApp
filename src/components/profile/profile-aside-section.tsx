@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Calendar, MapPin, Briefcase, Globe, CalendarX, Pencil, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { EventType } from "./profile-events-cards";
+import type { ProfileEvent } from "./profile-events-cards";
 import type { CommunityType } from "./profile-communities-cards";
 import { getToday } from "@/lib/event-filters";
 import { getInterest, type InterestCategory } from "@/lib/mock_data/interests-data";
@@ -42,13 +42,14 @@ type ProfileAsideProps = {
         profession: string;
         languages: string[];
         joined: string;
-        events: EventType[];
+        events: ProfileEvent[];
         communities: CommunityType[];
         interests: string[];
     };
+    isOwnProfile?: boolean;
 };
 
-function getNearestEvent(events: EventType[]): EventType | null {
+function getNearestEvent(events: ProfileEvent[]): ProfileEvent | null {
     const today = getToday();
     const upcoming = events
         .map((event) => ({ event, date: new Date(event.startDate) }))
@@ -58,8 +59,9 @@ function getNearestEvent(events: EventType[]): EventType | null {
     return upcoming[0]?.event ?? null;
 }
 
-export default function ProfileAside({ user }: ProfileAsideProps) {
+export default function ProfileAside({ user, isOwnProfile = false }: ProfileAsideProps) {
     const nearestEvent = getNearestEvent(user.events);
+    const place = [user.city, user.country].filter(Boolean).join(", ");
 
     return (
         <aside className="flex h-fit flex-1 flex-col gap-5">
@@ -71,25 +73,31 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
 
                 {/* Biografía corta */}
                 <p className="text-sm leading-relaxed text-black/70">
-                    {user.bio}
+                    {user.bio || "No bio yet."}
                 </p>
 
-                {/* Lista de detalles */}
+                {/* Lista de detalles (solo los campos que el usuario completó) */}
                 <div className="mt-1 flex flex-col gap-3">
-                    <div className="flex items-center gap-3 text-sm text-black/70">
-                        <MapPin size={16} className="text-brand-purple-deep" />
-                        <span>{user.city}, {user.country}</span>
-                    </div>
+                    {place && (
+                        <div className="flex items-center gap-3 text-sm text-black/70">
+                            <MapPin size={16} className="text-brand-purple-deep" />
+                            <span>{place}</span>
+                        </div>
+                    )}
 
-                    <div className="flex items-center gap-3 text-sm text-black/70">
-                        <Briefcase size={16} className="text-brand-purple-deep" />
-                        <span>{user.profession}</span>
-                    </div>
+                    {user.profession && (
+                        <div className="flex items-center gap-3 text-sm text-black/70">
+                            <Briefcase size={16} className="text-brand-purple-deep" />
+                            <span>{user.profession}</span>
+                        </div>
+                    )}
 
-                    <div className="flex items-center gap-3 text-sm text-black/70">
-                        <Globe size={16} className="text-brand-purple-deep" />
-                        <span>{user.languages.join(", ")}</span>
-                    </div>
+                    {user.languages.length > 0 && (
+                        <div className="flex items-center gap-3 text-sm text-black/70">
+                            <Globe size={16} className="text-brand-purple-deep" />
+                            <span>{user.languages.join(", ")}</span>
+                        </div>
+                    )}
 
                     <div className="flex items-center gap-3 text-sm text-black/70">
                         <Calendar size={16} className="text-brand-purple-deep" />
@@ -110,13 +118,15 @@ export default function ProfileAside({ user }: ProfileAsideProps) {
                         )}
                     </div>
 
-                    <Link
-                        href="/settings"
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white text-black/50 transition-all duration-200 hover:border-brand-purple/40 hover:bg-brand-purple-deep/5 hover:text-brand-purple-deep"
-                        aria-label="Edit interests"
-                    >
-                        <Pencil size={14} />
-                    </Link>
+                    {isOwnProfile && (
+                        <Link
+                            href="/settings"
+                            className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white text-black/50 transition-all duration-200 hover:border-brand-purple/40 hover:bg-brand-purple-deep/5 hover:text-brand-purple-deep"
+                            aria-label="Edit interests"
+                        >
+                            <Pencil size={14} />
+                        </Link>
+                    )}
                 </div>
 
                 {user.interests.length > 0 ? (

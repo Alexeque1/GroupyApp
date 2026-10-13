@@ -1,6 +1,6 @@
 import { Fragment, ReactNode } from "react";
 
-export default function ProfileSectionGrid<T extends { id: number }>({
+export default function ProfileSectionGrid<T extends { id: number | string }>({
     items,
     renderItem,
     columns = "grid-cols-[repeat(auto-fill,minmax(240px,1fr))]",

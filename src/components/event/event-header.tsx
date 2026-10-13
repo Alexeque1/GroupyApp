@@ -202,12 +202,17 @@ export default function EventHeader({
                     {/* BACK BUTTON */}
                     <BackButton />
 
-                    <Image
-                        src={eventData.coverImage}
-                        alt={`Portada de ${eventData.title}`}
-                        fill
-                        className="object-cover"
-                    />
+                    {eventData.coverImage ? (
+                        <Image
+                            src={eventData.coverImage}
+                            alt={`Portada de ${eventData.title}`}
+                            fill
+                            className="object-cover"
+                        />
+                    ) : (
+                        // No cover uploaded yet (image upload isn't built)
+                        <div className="h-full w-full bg-gradient-to-br from-brand-purple via-brand-purple-deep to-brand-plum" />
+                    )}
                 </div>
 
                 {/* CONTENIDO */}

@@ -32,7 +32,8 @@ export type EntityCardKind = "event" | "community";
 
 export interface EntityCardData {
     kind: EntityCardKind;
-    id?: number;
+    /** number = mock data, string = MongoDB id */
+    id?: number | string;
     title: string;
     image: string | null;
     category: string;
@@ -46,6 +47,8 @@ export interface EntityCardData {
     startDate?: string;
     role?: EventRole;
     activity?: string;
+    /** Extra badges next to the status, e.g. "Full" or "Request sent" */
+    tags?: { label: string; classes: string }[];
 }
 
 const ROLE_BADGE: Record<Exclude<EventRole, "member">, { label: string; Icon: typeof Crown; classes: string }> = {
@@ -79,17 +82,20 @@ export default function EntityCard({ data, variant = "full", className }: Entity
     const isDataUrl = data.image?.startsWith("blob:") || data.image?.startsWith("data:");
 
     // --- MEMBERS AND AVATARS LOGIC ---
+    // Avatars still come from mock data, so they only apply to mock (numeric) ids
+    const mockId = typeof data.id === "number" ? data.id : undefined;
+    const isRealEntity = typeof data.id === "string";
     let displayMembers: typeof USERS_DATA = [];
-    if (!isPreview && data.id) {
+    if (!isPreview && mockId) {
         if (isEvent) {
             displayMembers = USERS_DATA.filter((user) =>
-                user.events?.owner?.includes(data.id!) ||
-                user.events?.admin?.includes(data.id!) ||
-                user.events?.member?.includes(data.id!)
+                user.events?.owner?.includes(mockId) ||
+                user.events?.admin?.includes(mockId) ||
+                user.events?.member?.includes(mockId)
             );
         } else {
             displayMembers = USERS_DATA.filter((user) =>
-                user.communityIds?.includes(data.id!)
+                user.communityIds?.includes(mockId)
             );
         }
     }
@@ -209,7 +215,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                             </div>
                         )}
 
-                        {(data.status || roleBadge) && (
+                        {(data.status || roleBadge || data.tags?.length) && (
                             <div className="flex flex-wrap items-center gap-2">
                                 {data.status && (
                                     <span
@@ -232,6 +238,17 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                                         {roleBadge.label}
                                     </span>
                                 )}
+                                {data.tags?.map((tag) => (
+                                    <span
+                                        key={tag.label}
+                                        className={cn(
+                                            "inline-flex items-center rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+                                            tag.classes
+                                        )}
+                                    >
+                                        {tag.label}
+                                    </span>
+                                ))}
                             </div>
                         )}
                     </div>
@@ -243,7 +260,7 @@ export default function EntityCard({ data, variant = "full", className }: Entity
                             <span>{data.members}</span>
                         </div>
 
-                        {!isPreview && (
+                        {!isPreview && !isRealEntity && (
                             <div className="flex -space-x-2">
                                 {imagesToShow.length > 0 ? (
                                     <>

@@ -1,0 +1,78 @@
+"use client";
+
+import { motion } from "framer-motion";
+import EventAsideSection from "@/components/event/event-aside-section";
+import EventHeader from "@/components/event/event-header";
+import EventMainSection from "@/components/event/event-main-section";
+import { getEventStatus } from "@/lib/event-status";
+import type { EventPageData } from "@/lib/data/events";
+import type { FeedUser } from "@/lib/mock_data/users-data";
+
+type EventViewProps = {
+    event: EventPageData;
+    viewer: FeedUser;
+};
+
+// TODO: the tabs (feed, members, requests) still read mock data keyed by numeric ids.
+// Until each one moves to the DB, they get an id that matches no mock event, so they show empty.
+const MOCK_TABS_PLACEHOLDER_ID = 0;
+
+export default function EventView({ event, viewer }: EventViewProps) {
+    const isUserMember = event.viewerRole !== null && event.viewerRole !== "pending";
+    const isUserOwner = event.viewerRole === "owner";
+
+    return (
+        <div className="flex flex-col gap-8 -mt-10">
+            <motion.div
+                initial={{ opacity: 0, y: -40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+                <EventHeader
+                    eventData={{
+                        title: event.title,
+                        coverImage: event.image,
+                        memberCount: event.memberCount,
+                        memberLimit: event.capacity,
+                        category: event.category,
+                        status: getEventStatus(event.startDate),
+                        startDate: event.startDate,
+                        location: event.location,
+                        host: event.owner ?? undefined,
+                    }}
+                    isUserMember={isUserMember}
+                    isUserOwner={isUserOwner}
+                />
+            </motion.div>
+
+            <div className="flex flex-col gap-5 md:flex-row items-start p-5">
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+                    className="flex w-full min-w-0 flex-1 flex-col"
+                >
+                    <EventAsideSection
+                        event={event}
+                        owner={event.owner}
+                        admins={event.admins}
+                        isUserMember={isUserMember}
+                    />
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
+                    className="flex w-full min-w-0 flex-[2] flex-col"
+                >
+                    <EventMainSection
+                        user={viewer}
+                        currentUserId={MOCK_TABS_PLACEHOLDER_ID}
+                        eventId={MOCK_TABS_PLACEHOLDER_ID}
+                    />
+                </motion.div>
+            </div>
+        </div>
+    );
+}

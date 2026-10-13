@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Crown, Users, SearchX, ArrowUpDown, User } from "lucide-react";
 
-import ProfileEventCard, { EventType } from "./profile-events-cards";
+import ProfileEventCard, { type ProfileEvent } from "./profile-events-cards";
 import ProfileSectionGrid from "./profile-section-grid";
 import PaginationControls from "../ui/pagination-controls";
 import { FilterEmptyState, FilterPopover, FilterSearch, FilterSelect } from "../ui/filter-popover";
@@ -16,7 +16,7 @@ type EventsTab = "hosting" | "joined";
 
 const ITEMS_PER_PAGE = 6;
 
-const isManaged = (event: EventType) =>
+const isManaged = (event: ProfileEvent) =>
     event.role === "owner" || event.role === "admin";
 
 export default function ProfileSectionEvents({
@@ -25,7 +25,7 @@ export default function ProfileSectionEvents({
     profileName,
     profileUsername
 }: {
-    events: EventType[];
+    events: ProfileEvent[];
     isOwnProfile: boolean;
     profileName: string;
     profileUsername: string;

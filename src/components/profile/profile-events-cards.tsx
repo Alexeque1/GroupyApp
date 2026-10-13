@@ -24,19 +24,36 @@ export interface EventType {
     createdAt: string;
 }
 
-export default function ProfileEventCard({ event, className }: { event: EventType; className?: string }) {
+/** The fields a profile needs from an event. Mock `EventType` and real DB events both fit. */
+export interface ProfileEvent {
+    /** number = mock data, string = MongoDB id */
+    id: number | string;
+    title: string;
+    category: string;
+    image: string;
+    location: string;
+    startDate: string;
+    members: string;
+    owner: string;
+    ownerUsername: string;
+    role?: EventRole;
+    colorFrom?: string;
+    colorTo?: string;
+}
+
+export default function ProfileEventCard({ event, className }: { event: ProfileEvent; className?: string }) {
     const statusInfo = getEventStatusInfo(getEventStatus(event.startDate));
 
     const data: EntityCardData = {
         kind: "event",
         id: event.id,
         title: event.title,
-        image: event.image,
+        image: event.image || null,
         category: event.category,
         location: event.location,
         members: event.members,
-        colorFrom: event.colorFrom,
-        colorTo: event.colorTo,
+        colorFrom: event.colorFrom ?? "",
+        colorTo: event.colorTo ?? "",
         status: statusInfo.label,
         statusClasses: statusInfo.badgeClasses,
         owner: event.owner,

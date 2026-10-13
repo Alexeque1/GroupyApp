@@ -1,93 +1,34 @@
-"use client";
+import { notFound } from "next/navigation";
+import EventView from "@/components/event/event-view";
+import { requireUser } from "@/lib/auth/guards";
+import { getEventPageData } from "@/lib/data/events";
+import { User } from "@/model/User";
 
-import EventAsideSection from "@/components/event/event-aside-section";
-import EventHeader from "@/components/event/event-header";
-import EventMainSection from "@/components/event/event-main-section";
-import { EVENTS_DATA } from "@/lib/mock_data/event-data";
-import { USERS_DATA } from "@/lib/mock_data/users-data";
-import { CURRENT_USER_ID } from "@/lib/mock_data/profile-info";
-import { getEventStatus } from "@/lib/event-status";
-import { motion } from "framer-motion";
-import { use } from "react";
-
-interface EventProps {
+interface EventPageProps {
     params: Promise<{ id: string }>;
 }
 
-export default function Event({ params }: EventProps) {
-    const { id } = use(params);
-    const event = EVENTS_DATA.find((g) => g.id === Number(id));
-    const currentUser = USERS_DATA.find((u) => u.id === Number(CURRENT_USER_ID));
-    const isUserMember = !!currentUser && !!event && (
-        event.ownerId === currentUser.id ||
-        event.adminIds.includes(currentUser.id) ||
-        currentUser.events.member.includes(event.id)
-    );
-    const userIsOwner = event?.ownerId === currentUser?.id
+export default async function EventPage({ params }: EventPageProps) {
+    const { id } = await params;
+    const sessionUser = await requireUser();
 
-    if (!event || !currentUser) {
-        return (
-            <div className="flex items-center justify-center h-full p-5">
-                <p>Event not found.</p>
-            </div>
-        );
-    }
+    const event = await getEventPageData(id, sessionUser.id);
+    if (!event) notFound();
 
-    const host = USERS_DATA.find((u) => u.id === event.ownerId);
-    const [memberCount, memberLimit] = event.members.split("/").map(Number);
-
-    // Candidates for new owner if the current one decides to leave the event: admins + members, excluding the owner.
-    const eventMembers = USERS_DATA.filter((u) =>
-        u.id !== event.ownerId && (
-            event.adminIds.includes(u.id) ||
-            u.events.member.includes(event.id)
-        )
-    );
+    // getEventPageData already connected to the DB
+    const viewer = await User.findById(sessionUser.id)
+        .select("firstName lastName username profileImage")
+        .lean();
 
     return (
-        <div className="flex flex-col gap-8 -mt-10">
-            <motion.div
-                initial={{ opacity: 0, y: -40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-            >
-                <EventHeader
-                    eventData={{
-                        title: event.title,
-                        coverImage: event.image,
-                        memberCount,
-                        memberLimit,
-                        category: event.category,
-                        status: getEventStatus(event.startDate),
-                        startDate: event.startDate,
-                        location: event.location,
-                        host,
-                    }}
-                    isUserMember={isUserMember}
-                    isUserOwner={userIsOwner}
-                    eventMembers={eventMembers}
-                />
-            </motion.div>
-
-            <div className="flex flex-col gap-5 md:flex-row items-start p-5">
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-                    className="flex w-full min-w-0 flex-1 flex-col"
-                >
-                    <EventAsideSection event={event} isUserMember={isUserMember} />
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-                    className="flex w-full min-w-0 flex-[2] flex-col"
-                >
-                    <EventMainSection user={currentUser} currentUserId={currentUser.id} eventId={event.id}/>
-                </motion.div>
-            </div>
-        </div>
+        <EventView
+            event={event}
+            viewer={{
+                firstName: viewer?.firstName ?? "",
+                lastName: viewer?.lastName ?? "",
+                username: viewer?.username ?? sessionUser.username ?? "",
+                profileImage: viewer?.profileImage ?? "",
+            }}
+        />
     );
 }

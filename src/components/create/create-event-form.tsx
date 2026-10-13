@@ -4,7 +4,7 @@ import { useActionState, useState } from "react";
 import Image from "next/image";
 import {
     ArrowLeft, ChevronDown, Users, Calendar as CalendarIcon,
-    Clock, Crown, X, UserPlus
+    Crown, X, UserPlus
 } from "lucide-react";
 import { format } from "date-fns";
 import Button from "@/components/ui/button";
@@ -19,6 +19,7 @@ import { createEvent } from "@/lib/actions/events";
 // Componentes de shadcn/ui
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { TimePicker } from "@/components/ui/time-picker";
 
 interface CreateEventFormProps {
     onBack: () => void;
@@ -55,6 +56,10 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
     };
 
     const [state, formAction, isPending] = useActionState(createEvent, {});
+
+    const today = new Date();
+    // El selector de año solo llega hasta dentro de 2 años
+    const maxEventMonth = new Date(today.getFullYear() + 2, 11);
 
     let startDateISO = "";
     if (previewData.startDate && previewData.startTime) {
@@ -236,16 +241,19 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
                                         <CalendarIcon size={16} className="text-black/40 dark:text-white/40" />
                                     </PopoverTrigger>
                                     <PopoverContent
-                                        className="w-auto p-0 border-black/10 bg-white shadow-xl dark:border-white/10 dark:bg-brand-dark"
+                                        className="w-[300px] rounded-2xl bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.12)] ring-black/5 dark:bg-brand-dark dark:ring-white/10"
                                         align="start"
                                     >
                                         <Calendar
                                             mode="single"
+                                            startMonth={today}
+                                            endMonth={maxEventMonth}
+                                            disabled={{ before: today }}
+                                            defaultMonth={previewData.startDate ? new Date(previewData.startDate) : today}
                                             selected={previewData.startDate ? new Date(previewData.startDate) : undefined}
                                             onSelect={(date) => {
                                                 if (date) updatePreviewData({ startDate: date.toISOString() });
                                             }}
-                                            className="text-black dark:text-white"
                                         />
                                     </PopoverContent>
                                 </Popover>
@@ -253,21 +261,11 @@ export default function CreateEventForm({ onBack }: CreateEventFormProps) {
 
                             <div className="flex flex-col gap-1.5">
                                 <label className="ml-1 text-sm font-medium text-black/70 dark:text-white/80">Time</label>
-                                <div className="relative">
-                                    <input
-                                        type="time"
-                                        value={previewData.startTime || ""}
-                                        onChange={(e) => updatePreviewData({ startTime: e.target.value })}
-                                        className={cn(
-                                            inputClass,
-                                            "[&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-12 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
-                                        )}
-                                    />
-                                    <Clock
-                                        size={16}
-                                        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-black/40 transition-colors peer-focus:text-brand-purple dark:text-white/40"
-                                    />
-                                </div>
+                                <TimePicker
+                                    value={previewData.startTime || ""}
+                                    onChange={(time) => updatePreviewData({ startTime: time })}
+                                    className={inputClass}
+                                />
                             </div>
                         </div>
                         <FieldError errors={state.errors?.startDate} />

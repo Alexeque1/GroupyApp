@@ -6,7 +6,7 @@ import Button from "../ui/button";
 import Image from "next/image";
 import { Pencil, UserMinus, BadgeCheck, Star } from "lucide-react";
 import ProfileCover from "./profile-cover";
-import type { EventType } from "./profile-events-cards";
+import type { ProfileEvent } from "./profile-events-cards";
 import ProfileModalChangeProfilePhoto from "./profile-modal-changeprofilephoto";
 import ProfileModalChangeCoverPhoto from "./profile-modal-changecoverphoto";
 import Link from "next/link";
@@ -23,7 +23,7 @@ type ProfileHeaderProps = {
         bio: string;
         username: string;
         profileImage: string;
-        events: EventType[];
+        events: ProfileEvent[];
         communities: unknown[];
         friends: unknown[];
         verified?: boolean;
@@ -114,7 +114,12 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                             {/* PROFILE IMAGE  */}
                             <div className="relative -mt-14 h-28 w-28 shrink-0 md:-mt-16 md:h-36 md:w-36">
                                 <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-white bg-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.15)]">
-                                    {isLocalPreviewUrl(profileImage) ? (
+                                    {!profileImage ? (
+                                        // No photo uploaded yet: show initials
+                                        <div className="flex h-full w-full items-center justify-center bg-brand-plum text-3xl font-bold text-white md:text-4xl">
+                                            {`${user.name[0] ?? ""}${user.lastName[0] ?? ""}`.toUpperCase()}
+                                        </div>
+                                    ) : isLocalPreviewUrl(profileImage) ? (
                                         <img
                                             src={profileImage}
                                             alt="Foto de perfil"

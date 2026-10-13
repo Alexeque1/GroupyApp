@@ -6,8 +6,9 @@ import DiscoverCategoryCard from "./discover-categories-cards";
 import DiscoverFilters from "./discover-filters";
 import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
 import DiscoverEvents from "./discover-events";
+import type { DiscoverEvent } from "@/lib/data/events";
 
-export default function DiscoverCategoriesSection() {
+export default function DiscoverCategoriesSection({ events }: { events: DiscoverEvent[] }) {
     const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
     // DISCOVER FILTERS
@@ -111,6 +112,7 @@ export default function DiscoverCategoriesSection() {
             {/* RESULTADOS Y PAGINACIÓN */}
             <div className="mt-6 w-full">
                 <DiscoverEvents
+                    events={events}
                     categoryId={activeCategory}
                     searchQuery={searchQuery}
                     timeFilter={timeFilter}
