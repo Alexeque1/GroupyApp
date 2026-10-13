@@ -5,6 +5,8 @@ import type { FeedUser } from "@/lib/mock_data/users-data";
 import EventFeed from "./event-feed/event-feed-section";
 import RequestsSection from "./event-requests/event-requests-section";
 import { getRequestsForEvent, type JoinRequestViewModel } from "@/lib/requests-selector";
+import MembersSection from "./event-members/event-members-section";
+import { getMembersForEvent, toEventMember } from "@/lib/members-selector";
 
 const TABS_CONFIG = [
     {
@@ -33,18 +35,24 @@ type TabType = (typeof TABS_CONFIG)[number]["key"];
 
 type EventMainSectionProps = {
     user: FeedUser;
+    currentUserId: number;
     eventId: number;
 };
 
-export default function EventMainSection({ user, eventId }: EventMainSectionProps) {
+export default function EventMainSection({ user, currentUserId, eventId }: EventMainSectionProps) {
     const [activeTab, setActiveTab] = useState<TabType>(TABS_CONFIG[0].key);
-    // Lives here (not in RequestsSection) so the "Requests" tab badge can read the count,
-    // and so resolved requests stay resolved when the tab unmounts on switch.
+    // Requests and members live here (not in their sections) so the "Requests" tab badge can
+    // read the count, accepted requests show up in Members, and nothing resets when a tab
+    // unmounts on switch.
     const [requests, setRequests] = useState(() => getRequestsForEvent(eventId));
+    const [members, setMembers] = useState(() => getMembersForEvent(eventId));
 
     // TODO: persist on the backend (EventMember role "pending" → "member" / delete).
-    const handleResolveRequest = (request: JoinRequestViewModel) => {
+    const handleResolveRequest = (request: JoinRequestViewModel, accepted: boolean) => {
         setRequests((prev) => prev.filter((r) => r.id !== request.id));
+        if (accepted) {
+            setMembers((prev) => [...prev, toEventMember(request.requester, "member")]);
+        }
     };
 
     return (
@@ -77,7 +85,11 @@ export default function EventMainSection({ user, eventId }: EventMainSectionProp
                         {activeTab === "Feed" && (
                             <EventFeed user={user} eventId={eventId} />
                         )}
-                        
+
+                        {activeTab === "Members" && (
+                            <MembersSection members={members} currentUserId={currentUserId} />
+                        )}
+
                         {activeTab === "Requests" && (
                             <RequestsSection requests={requests} onResolve={handleResolveRequest} />
                         )}

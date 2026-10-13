@@ -85,7 +85,7 @@ export default function Event({ params }: EventProps) {
                     transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
                     className="flex w-full min-w-0 flex-[2] flex-col"
                 >
-                    <EventMainSection user={currentUser} eventId={event.id}/>
+                    <EventMainSection user={currentUser} currentUserId={currentUser.id} eventId={event.id}/>
                 </motion.div>
             </div>
         </div>

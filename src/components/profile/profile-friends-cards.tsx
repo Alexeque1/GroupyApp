@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { MoreHorizontal, UserPlus, UserMinus, Users, MessageCircle, Eye } from "lucide-react";
+import { MoreHorizontal, UserPlus, UserMinus, Users, MessageCircle, Eye, Crown, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { USERS_DATA } from "@/lib/mock_data/users-data";
 import { countMutualFriends } from "@/lib/mock_data/profile-selectors";
@@ -24,14 +24,22 @@ export interface FriendType {
 interface FriendCardProps {
     friend: FriendType;
     currentUserId: number;
+    // Optional role chip next to the name (used in an event's Members tab).
+    role?: "owner" | "admin";
 }
 
-export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
+const ROLE_CHIP = {
+    owner: { label: "Host", icon: Crown, classes: "bg-brand-purple-deep/10 text-brand-purple-deep" },
+    admin: { label: "Admin", icon: ShieldCheck, classes: "bg-brand-green/10 text-brand-green" },
+} as const;
+
+export default function FriendCard({ friend, currentUserId, role }: FriendCardProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [menuPosition, setMenuPosition] = useState<"top" | "bottom">("bottom");
     const menuRef = useRef<HTMLDivElement>(null);
 
     const isSelf = friend.id === currentUserId;
+    const roleChip = role ? ROLE_CHIP[role] : null;
     const currentUser = USERS_DATA.find((u) => u.id === currentUserId);
     const [isFriend, setIsFriend] = useState(currentUser?.friendIds.includes(friend.id) ?? false);
     // Siempre relativo a QUIEN mira (currentUserId), no al dueño del perfil que se está viendo.
@@ -133,9 +141,17 @@ export default function FriendCard({ friend, currentUserId }: FriendCardProps) {
                     </div>
 
                     <div className="flex flex-col">
-                        <h4 className="text-sm font-bold text-black/90 transition-colors group-hover:text-brand-purple-deep">
-                            {friend.name}
-                        </h4>
+                        <div className="flex flex-wrap items-center gap-1.5">
+                            <h4 className="text-sm font-bold text-black/90 transition-colors group-hover:text-brand-purple-deep">
+                                {friend.name}
+                            </h4>
+                            {roleChip && (
+                                <span className={cn("flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider", roleChip.classes)}>
+                                    <roleChip.icon size={10} strokeWidth={2.5} />
+                                    {roleChip.label}
+                                </span>
+                            )}
+                        </div>
                         <span className="text-xs font-medium text-black/50">
                             {friend.username}
                         </span>

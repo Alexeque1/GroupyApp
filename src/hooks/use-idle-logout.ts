@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { logoutForInactivity } from "@/lib/actions/auth";
+import { signOut } from "next-auth/react";
 import { SESSION_IDLE_TIMEOUT_SECONDS } from "@/lib/session-config";
 
 const ACTIVITY_EVENTS = ["mousemove", "mousedown", "keydown", "wheel", "scroll", "touchstart"] as const;
@@ -66,7 +66,10 @@ export function useIdleLogout(timeoutMs = SESSION_IDLE_TIMEOUT_SECONDS * 1000) {
             const lastActivity = Math.max(lastActivityRef.current, readStoredActivity());
             if (Date.now() - lastActivity >= timeoutMs) {
                 isLoggingOutRef.current = true;
-                logoutForInactivity();
+                // Not a Server Action: by now the session cookie has usually expired too, and the
+                // proxy would redirect the action's POST to /auth, which breaks fetchServerAction.
+                // /api/auth/* is excluded from the proxy, so this always reaches Auth.js.
+                signOut({ redirectTo: "/auth?mode=login&expired=1" });
             }
         };
 
