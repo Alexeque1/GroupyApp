@@ -74,7 +74,7 @@ export default function Event({ params }: EventProps) {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-                    className="flex flex-1 flex-col"
+                    className="flex w-full min-w-0 flex-1 flex-col"
                 >
                     <EventAsideSection event={event} isUserMember={isUserMember} />
                 </motion.div>
@@ -83,7 +83,7 @@ export default function Event({ params }: EventProps) {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-                    className="flex flex-[2] flex-col w-full"
+                    className="flex w-full min-w-0 flex-[2] flex-col"
                 >
                     <EventMainSection user={currentUser} eventId={event.id}/>
                 </motion.div>

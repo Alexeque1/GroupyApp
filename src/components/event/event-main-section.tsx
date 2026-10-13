@@ -3,6 +3,7 @@ import NavigationTabButton from "../ui/navigation-tab-button";
 import { AnimatePresence, motion } from "framer-motion";
 import type { FeedUser } from "@/lib/mock_data/users-data";
 import EventFeed from "./event-feed/event-feed-section";
+import RequestsSection from "./event-requests/event-requests-section";
 
 const TABS_CONFIG = [
     {
@@ -34,12 +35,12 @@ type EventMainSectionProps = {
     eventId: number;
 };
 
-export default function EventMainSection({user, eventId}:EventMainSectionProps) {
+export default function EventMainSection({ user, eventId }: EventMainSectionProps) {
     const [activeTab, setActiveTab] = useState<TabType>(TABS_CONFIG[0].key);
 
     return (
         <section className="z-10 flex min-h-[500px] flex-[2] flex-col overflow-hidden rounded-3xl bg-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md pt-2 md:pt-4">
-            {/* HEADER TIPO CARPETAS */}
+            {/* TABS */}
             <header className="flex w-full items-end gap-1 px-4 overflow-x-auto hide-scrollbar">
                 {TABS_CONFIG.map(({ key }) => (
                     <NavigationTabButton
@@ -64,7 +65,11 @@ export default function EventMainSection({user, eventId}:EventMainSectionProps) 
                         className="flex h-full flex-1 flex-col gap-2"
                     >
                         {activeTab === "Feed" && (
-                            <EventFeed user={user} eventId={eventId}/>
+                            <EventFeed user={user} eventId={eventId} />
+                        )}
+                        
+                        {activeTab === "Requests" && (
+                            <RequestsSection eventId={eventId} />
                         )}
                     </motion.div>
                 </AnimatePresence>
