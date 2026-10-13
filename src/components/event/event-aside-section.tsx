@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useRef, ChangeEvent } from "react";
 import { Calendar, Copy, MapPin, Lock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatEventDate } from "@/lib/date";
 import { cn } from "@/lib/utils";
-import Button from "../ui/button";
 import type { EventHost } from "@/lib/data/events";
+import EventJoinRequestBox from "./event-join-request-box";
+import type { ViewerStatus } from "./event-header";
 
 type EventAsideProps = {
     event: {
@@ -17,7 +17,11 @@ type EventAsideProps = {
     };
     owner: EventHost | null;
     admins: EventHost[];
-    isUserMember?: boolean;
+    eventId: string;
+    viewerStatus: ViewerStatus;
+    /** What the viewer wrote in their pending request */
+    viewerRequestMessage: string;
+    isFull: boolean;
 };
 
 /** Profile photo, or initials if the user hasn't uploaded one yet. */
@@ -33,49 +37,28 @@ function HostAvatar({ host, sizes, className }: { host: EventHost; sizes: string
     );
 }
 
-export default function EventAsideSection({ event, owner, admins, isUserMember }: EventAsideProps) {
-    const [text, setText] = useState("");
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-    const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.target.value);
-
-        if (textareaRef.current) {
-            textareaRef.current.style.height = "auto";
-            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-        }
-    };
+export default function EventAsideSection({
+    event,
+    owner,
+    admins,
+    eventId,
+    viewerStatus,
+    viewerRequestMessage,
+    isFull,
+}: EventAsideProps) {
+    const isUserMember = viewerStatus === "member";
 
     return (
         <aside className="flex h-fit flex-1 flex-col gap-5">
 
             {/* REQUEST TO JOIN */}
             {!isUserMember && (
-                <div className="flex flex-col gap-4 rounded-3xl border border-white/10 bg-brand-dark/95 p-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-sm">
-                    <h3 className="text-lg font-bold text-white/90">
-                        Want to come?
-                    </h3>
-                    <p className="text-sm text-white/90">
-                        Introduce yourself to the host (optional)
-                    </p>
-
-                    {/* TEXTAREA ACTUALIZADO */}
-                    <textarea
-                        ref={textareaRef}
-                        rows={3}
-                        value={text}
-                        onChange={handleTextChange}
-                        placeholder="Hi! I want to join with a friend..."
-                        className={`w-full resize-none overflow-hidden text-sm leading-relaxed outline-none max-h-[250px] overflow-y-auto p-4 rounded-2xl transition-colors duration-200 ${text.length > 0
-                            ? "bg-white text-black border-transparent placeholder:text-black/40"
-                            : "bg-[#2C243B] text-white border border-white/10 placeholder:text-white/40"
-                            }`}
-                    />
-
-                    <Button type="button" tone="light">
-                        Send Request
-                    </Button>
-                </div>
+                <EventJoinRequestBox
+                    eventId={eventId}
+                    status={viewerStatus}
+                    sentMessage={viewerRequestMessage}
+                    isFull={isFull}
+                />
             )}
 
             {/* EVENT INFO */}

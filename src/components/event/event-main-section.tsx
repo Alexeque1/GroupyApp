@@ -4,9 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { FeedUser } from "@/lib/mock_data/users-data";
 import EventFeed from "./event-feed/event-feed-section";
 import RequestsSection from "./event-requests/event-requests-section";
-import { getRequestsForEvent, type JoinRequestViewModel } from "@/lib/requests-selector";
 import MembersSection from "./event-members/event-members-section";
-import { getMembersForEvent, toEventMember } from "@/lib/members-selector";
+import { getMembersForEvent } from "@/lib/members-selector";
+import { resolveJoinRequest } from "@/lib/actions/event-members";
+import type { EventJoinRequest } from "@/lib/data/events";
 
 const TABS_CONFIG = [
     {
@@ -35,31 +36,39 @@ type TabType = (typeof TABS_CONFIG)[number]["key"];
 
 type EventMainSectionProps = {
     user: FeedUser;
-    currentUserId: number;
-    eventId: number;
+    eventId: string;
+    /** Pending requests from the DB (empty unless the viewer is owner/admin) */
+    requests: EventJoinRequest[];
+    /** Only the owner and admins see the Requests tab */
+    canManageRequests: boolean;
+    /** Feed and Members still read mock data keyed by numeric ids */
+    mockCurrentUserId: number;
+    mockEventId: number;
 };
 
-export default function EventMainSection({ user, currentUserId, eventId }: EventMainSectionProps) {
+export default function EventMainSection({
+    user,
+    eventId,
+    requests,
+    canManageRequests,
+    mockCurrentUserId,
+    mockEventId,
+}: EventMainSectionProps) {
     const [activeTab, setActiveTab] = useState<TabType>(TABS_CONFIG[0].key);
-    // Requests and members live here (not in their sections) so the "Requests" tab badge can
-    // read the count, accepted requests show up in Members, and nothing resets when a tab
-    // unmounts on switch.
-    const [requests, setRequests] = useState(() => getRequestsForEvent(eventId));
-    const [members, setMembers] = useState(() => getMembersForEvent(eventId));
+    // TODO: Members still comes from mock data; it moves to the DB in its own task.
+    const [members] = useState(() => getMembersForEvent(mockEventId));
 
-    // TODO: persist on the backend (EventMember role "pending" → "member" / delete).
-    const handleResolveRequest = (request: JoinRequestViewModel, accepted: boolean) => {
-        setRequests((prev) => prev.filter((r) => r.id !== request.id));
-        if (accepted) {
-            setMembers((prev) => [...prev, toEventMember(request.requester, "member")]);
-        }
-    };
+    const visibleTabs = TABS_CONFIG.filter(({ key }) => key !== "Requests" || canManageRequests);
+
+    // The server action revalidates the page, so `requests` arrives updated as a new prop
+    const handleResolveRequest = (request: EventJoinRequest, accepted: boolean) =>
+        resolveJoinRequest(eventId, request.id, accepted);
 
     return (
         <section className="z-10 flex min-h-[500px] flex-[2] flex-col overflow-hidden rounded-3xl bg-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-md pt-2 md:pt-4">
             {/* TABS */}
             <header className="flex w-full items-end gap-1 px-4 overflow-x-auto hide-scrollbar">
-                {TABS_CONFIG.map(({ key }) => (
+                {visibleTabs.map(({ key }) => (
                     <NavigationTabButton
                         key={key}
                         label={key}
@@ -83,14 +92,14 @@ export default function EventMainSection({ user, currentUserId, eventId }: Event
                         className="flex h-full flex-1 flex-col gap-2"
                     >
                         {activeTab === "Feed" && (
-                            <EventFeed user={user} eventId={eventId} />
+                            <EventFeed user={user} eventId={mockEventId} />
                         )}
 
                         {activeTab === "Members" && (
-                            <MembersSection members={members} currentUserId={currentUserId} />
+                            <MembersSection members={members} currentUserId={mockCurrentUserId} />
                         )}
 
-                        {activeTab === "Requests" && (
+                        {activeTab === "Requests" && canManageRequests && (
                             <RequestsSection requests={requests} onResolve={handleResolveRequest} />
                         )}
                     </motion.div>

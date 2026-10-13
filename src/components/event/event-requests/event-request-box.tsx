@@ -5,15 +5,17 @@ import Link from "next/link";
 import { Check, MapPin, UserRound, X } from "lucide-react";
 import Button from "@/components/ui/button";
 import { formatTimeAgo } from "@/lib/date";
-import type { JoinRequestViewModel } from "@/lib/requests-selector";
+import type { EventJoinRequest } from "@/lib/data/events";
 
 type EventRequestBoxProps = {
-    request: JoinRequestViewModel;
-    onAccept: (request: JoinRequestViewModel) => void;
-    onDecline: (request: JoinRequestViewModel) => void;
+    request: EventJoinRequest;
+    onAccept: (request: EventJoinRequest) => void;
+    onDecline: (request: EventJoinRequest) => void;
+    /** True while the server is accepting/declining this request */
+    isBusy?: boolean;
 };
 
-export default function EventRequestBox({ request, onAccept, onDecline }: EventRequestBoxProps) {
+export default function EventRequestBox({ request, onAccept, onDecline, isBusy = false }: EventRequestBoxProps) {
     const { requester } = request;
     const fullName = `${requester.firstName} ${requester.lastName}`;
     const initials = `${requester.firstName[0] ?? ""}${requester.lastName[0] ?? ""}`.toUpperCase();
@@ -76,6 +78,7 @@ export default function EventRequestBox({ request, onAccept, onDecline }: EventR
                     variant="outline"
                     tone="dark"
                     onClick={() => onDecline(request)}
+                    disabled={isBusy}
                     className="h-11 flex-1 px-5 py-0 sm:flex-none"
                     textClassName="text-sm"
                 >
@@ -87,6 +90,7 @@ export default function EventRequestBox({ request, onAccept, onDecline }: EventR
                     variant="liquid"
                     tone="dark"
                     onClick={() => onAccept(request)}
+                    disabled={isBusy}
                     className="h-11 flex-1 px-5 py-0 sm:flex-none"
                     textClassName="text-sm"
                 >

@@ -5,7 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpDown, CalendarDays, Inbox, SearchX } from "lucide-react";
 import StatusAlert from "@/components/ui/alerts/status-alert";
 import { FilterEmptyState, FilterPopover, FilterSearch, FilterSelect } from "@/components/ui/filter-popover";
-import type { JoinRequestViewModel } from "@/lib/requests-selector";
+import type { EventJoinRequest } from "@/lib/data/events";
+import type { MembershipActionResult } from "@/lib/actions/event-members";
 import EventRequestBox from "./event-request-box";
 
 type DateFilter = "all" | "24h" | "7d" | "30d";
@@ -19,12 +20,14 @@ const DATE_FILTER_MS: Record<Exclude<DateFilter, "all">, number> = {
 
 type EventRequestsSectionProps = {
     // Owned by EventMainSection, which also shows the count on the "Requests" tab.
-    requests: JoinRequestViewModel[];
-    onResolve: (request: JoinRequestViewModel, accepted: boolean) => void;
+    requests: EventJoinRequest[];
+    onResolve: (request: EventJoinRequest, accepted: boolean) => Promise<MembershipActionResult>;
 };
 
 export default function RequestsSection({ requests, onResolve }: EventRequestsSectionProps) {
-    const [statusMessage, setStatusMessage] = useState<string | null>(null);
+    const [statusAlert, setStatusAlert] = useState<{ description: string; type: "success" | "error" } | null>(null);
+    // Requests the server is still processing (their buttons stay disabled)
+    const [busyIds, setBusyIds] = useState<string[]>([]);
 
     const [searchQuery, setSearchQuery] = useState("");
     const [dateFilter, setDateFilter] = useState<DateFilter>("all");
@@ -60,22 +63,30 @@ export default function RequestsSection({ requests, onResolve }: EventRequestsSe
 
     const hasActiveFilters = searchQuery !== "" || dateFilter !== "all" || sortBy !== "newest";
 
-    const resolveRequest = (request: JoinRequestViewModel, accepted: boolean) => {
-        onResolve(request, accepted);
-        setStatusMessage(
-            accepted
-                ? `${request.requester.firstName} joined the event.`
-                : `You declined ${request.requester.firstName}'s request.`
+    const resolveRequest = async (request: EventJoinRequest, accepted: boolean) => {
+        setBusyIds((prev) => [...prev, request.id]);
+        const result = await onResolve(request, accepted);
+        setBusyIds((prev) => prev.filter((id) => id !== request.id));
+
+        setStatusAlert(
+            result.ok
+                ? {
+                    type: "success",
+                    description: accepted
+                        ? `${request.requester.firstName} joined the event.`
+                        : `You declined ${request.requester.firstName}'s request.`,
+                }
+                : { type: "error", description: result.error }
         );
     };
 
     return (
         <section className="flex flex-col gap-4 sm:gap-5">
             <StatusAlert
-                isOpen={statusMessage !== null}
-                onClose={() => setStatusMessage(null)}
-                description={statusMessage ?? ""}
-                type="success"
+                isOpen={statusAlert !== null}
+                onClose={() => setStatusAlert(null)}
+                description={statusAlert?.description ?? ""}
+                type={statusAlert?.type ?? "success"}
                 duration={3000}
             />
 
@@ -140,6 +151,7 @@ export default function RequestsSection({ requests, onResolve }: EventRequestsSe
                                         request={request}
                                         onAccept={(r) => resolveRequest(r, true)}
                                         onDecline={(r) => resolveRequest(r, false)}
+                                        isBusy={busyIds.includes(request.id)}
                                     />
                                 </motion.div>
                             ))}

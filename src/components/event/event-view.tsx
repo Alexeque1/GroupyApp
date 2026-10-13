@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import EventAsideSection from "@/components/event/event-aside-section";
-import EventHeader from "@/components/event/event-header";
+import EventHeader, { type ViewerStatus } from "@/components/event/event-header";
 import EventMainSection from "@/components/event/event-main-section";
 import { getEventStatus } from "@/lib/event-status";
 import type { EventPageData } from "@/lib/data/events";
@@ -13,13 +13,21 @@ type EventViewProps = {
     viewer: FeedUser;
 };
 
-// TODO: the tabs (feed, members, requests) still read mock data keyed by numeric ids.
+// TODO: the Feed and Members tabs still read mock data keyed by numeric ids.
 // Until each one moves to the DB, they get an id that matches no mock event, so they show empty.
 const MOCK_TABS_PLACEHOLDER_ID = 0;
 
+function toViewerStatus(role: EventPageData["viewerRole"]): ViewerStatus {
+    if (role === null) return "none";
+    if (role === "pending") return "pending";
+    return "member";
+}
+
 export default function EventView({ event, viewer }: EventViewProps) {
-    const isUserMember = event.viewerRole !== null && event.viewerRole !== "pending";
+    const viewerStatus = toViewerStatus(event.viewerRole);
     const isUserOwner = event.viewerRole === "owner";
+    const isHost = isUserOwner || event.viewerRole === "admin";
+    const isFull = event.memberCount >= event.capacity;
 
     return (
         <div className="flex flex-col gap-8 -mt-10">
@@ -40,7 +48,8 @@ export default function EventView({ event, viewer }: EventViewProps) {
                         location: event.location,
                         host: event.owner ?? undefined,
                     }}
-                    isUserMember={isUserMember}
+                    eventId={event.id}
+                    viewerStatus={viewerStatus}
                     isUserOwner={isUserOwner}
                 />
             </motion.div>
@@ -56,7 +65,10 @@ export default function EventView({ event, viewer }: EventViewProps) {
                         event={event}
                         owner={event.owner}
                         admins={event.admins}
-                        isUserMember={isUserMember}
+                        eventId={event.id}
+                        viewerStatus={viewerStatus}
+                        viewerRequestMessage={event.viewerRequestMessage}
+                        isFull={isFull}
                     />
                 </motion.div>
 
@@ -68,8 +80,11 @@ export default function EventView({ event, viewer }: EventViewProps) {
                 >
                     <EventMainSection
                         user={viewer}
-                        currentUserId={MOCK_TABS_PLACEHOLDER_ID}
-                        eventId={MOCK_TABS_PLACEHOLDER_ID}
+                        eventId={event.id}
+                        requests={event.requests}
+                        canManageRequests={isHost}
+                        mockCurrentUserId={MOCK_TABS_PLACEHOLDER_ID}
+                        mockEventId={MOCK_TABS_PLACEHOLDER_ID}
                     />
                 </motion.div>
             </div>

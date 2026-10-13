@@ -10,6 +10,8 @@ const EventMemberSchema = new Schema(
         eventId: { type: Schema.Types.ObjectId, ref: "Event", required: true },
         userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
         role: { type: String, enum: MEMBER_ROLES, required: true, default: "pending" },
+        // Optional intro the user writes when asking to join (only meaningful while "pending")
+        message: { type: String, default: "", trim: true, maxlength: 300 },
     },
     { timestamps: true }
 );

@@ -13,6 +13,22 @@ export type EventHost = {
     profileImage: string;
 };
 
+/** A pending request to join, as the owner/admins see it in the Requests tab. */
+export type EventJoinRequest = {
+    /** The EventMember id */
+    id: string;
+    message: string;
+    createdAt: string;
+    requester: {
+        id: string;
+        firstName: string;
+        lastName: string;
+        username: string;
+        profileImage: string;
+        city: string;
+    };
+};
+
 /** Everything the event page needs, already serialized (no ObjectIds or Dates). */
 export type EventPageData = {
     id: string;
@@ -29,7 +45,49 @@ export type EventPageData = {
     admins: EventHost[];
     /** Role of the user viewing the page, or null if they have no relation to the event */
     viewerRole: MemberRole | null;
+    /** What the viewer wrote in their own pending request ("" if none) */
+    viewerRequestMessage: string;
+    /** Pending requests. Only filled for the owner and admins; empty for everyone else. */
+    requests: EventJoinRequest[];
 };
+
+type PopulatedRequester = {
+    _id: Types.ObjectId;
+    message?: string;
+    createdAt: Date;
+    userId: {
+        _id: Types.ObjectId;
+        firstName: string;
+        lastName: string;
+        username: string;
+        profileImage?: string;
+        city?: string;
+    } | null;
+};
+
+async function getPendingRequests(eventId: string): Promise<EventJoinRequest[]> {
+    const pending = await EventMember.find({ eventId, role: "pending" })
+        .populate<Pick<PopulatedRequester, "userId">>("userId", "firstName lastName username profileImage city")
+        .select("message createdAt userId")
+        .sort({ createdAt: -1 })
+        .lean<PopulatedRequester[]>();
+
+    return pending
+        .filter((r) => r.userId)
+        .map((r) => ({
+            id: r._id.toString(),
+            message: r.message ?? "",
+            createdAt: r.createdAt.toISOString(),
+            requester: {
+                id: r.userId!._id.toString(),
+                firstName: r.userId!.firstName,
+                lastName: r.userId!.lastName,
+                username: r.userId!.username,
+                profileImage: r.userId!.profileImage ?? "",
+                city: r.userId!.city ?? "",
+            },
+        }));
+}
 
 type PopulatedHost = {
     role: MemberRole;
@@ -162,8 +220,11 @@ export async function getEventPageData(eventId: string, viewerId: string): Promi
             .sort({ createdAt: 1 })
             .lean(),
         EventMember.countDocuments({ eventId, role: { $in: ACTIVE_ROLES } }),
-        EventMember.findOne({ eventId, userId: viewerId }).select("role").lean(),
+        EventMember.findOne({ eventId, userId: viewerId }).select("role message").lean(),
     ]);
+
+    const viewerRole = (viewerMembership?.role as MemberRole | undefined) ?? null;
+    const isHost = viewerRole === "owner" || viewerRole === "admin";
 
     // A host whose account was deleted comes back with userId = null
     const ownerHost = hosts.find((h) => h.role === "owner" && h.userId);
@@ -182,6 +243,8 @@ export async function getEventPageData(eventId: string, viewerId: string): Promi
         memberCount,
         owner: ownerHost?.userId ? toHost(ownerHost.userId) : null,
         admins: adminHosts.map((h) => toHost(h.userId!)),
-        viewerRole: (viewerMembership?.role as MemberRole | undefined) ?? null,
+        viewerRole,
+        viewerRequestMessage: viewerRole === "pending" ? viewerMembership?.message ?? "" : "",
+        requests: isHost ? await getPendingRequests(eventId) : [],
     };
 }

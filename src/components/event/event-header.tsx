@@ -1,20 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
 import Button from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
-import { Users, Share2, Check, LogOut, Calendar, MapPin, Settings2, ChevronDown, Pencil, Lock, LockOpen, Ban } from "lucide-react";
+import { Users, Share2, Check, LogOut, Calendar, MapPin, Settings2, ChevronDown, Pencil, Lock, LockOpen, Ban, Clock, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getEventStatusInfo } from "@/lib/event-status";
 import BackButton from "../ui/back-button";
 import ConfirmAlert from "../ui/alerts/confirm-alert";
 import StatusAlert from "../ui/alerts/status-alert";
-import EventModalTransferOwnership from "./event-modal-transferownership";
-import type { UserType } from "@/lib/mock_data/users-data";
+import { cancelJoinRequest, leaveEvent } from "@/lib/actions/event-members";
+
+/** How the viewer relates to the event */
+export type ViewerStatus = "none" | "pending" | "member";
+
+/** Id of the "Want to come?" box in the aside, so the header button can scroll to it */
+export const JOIN_REQUEST_FORM_ID = "join-request";
 
 type EventHeaderProps = {
     eventData: {
@@ -33,24 +38,25 @@ type EventHeaderProps = {
             profileImage?: string;
         };
     };
-    isUserMember?: boolean;
+    eventId: string;
+    viewerStatus: ViewerStatus;
     isUserOwner?: boolean;
-    eventMembers?: UserType[];
 };
 
 export default function EventHeader({
     eventData,
-    isUserMember = false,
+    eventId,
+    viewerStatus,
     isUserOwner = false,
-    eventMembers = [],
 }: EventHeaderProps) {
     const statusInfo = getEventStatusInfo(eventData.status);
     const StatusIcon = statusInfo.icon;
 
-    const [isMember, setIsMember] = useState(isUserMember);
-    const [memberCount, setMemberCount] = useState(eventData.memberCount);
+    // Membership and member count come from the server; actions revalidate the page to update them
+    const memberCount = eventData.memberCount;
+    const [isPending, startTransition] = useTransition();
     const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
-    const [showTransferModal, setShowTransferModal] = useState(false);
+    const [showCancelRequestConfirm, setShowCancelRequestConfirm] = useState(false);
     const [statusAlert, setStatusAlert] = useState<{ description: string; type: "success" | "error" } | null>(null);
     const [isManageMenuOpen, setIsManageMenuOpen] = useState(false);
     const [areRequestsClosed, setAreRequestsClosed] = useState(false);
@@ -77,21 +83,22 @@ export default function EventHeader({
     const host = eventData.host;
     const hostInitials = host ? `${host.firstName[0] ?? ""}${host.lastName[0] ?? ""}`.toUpperCase() : "";
 
-    const handleJoinToggle = () => {
-        if (isMember) {
+    const handleMainButton = () => {
+        if (viewerStatus === "member") {
             if (isUserOwner) {
-                if (eventMembers.length === 0) {
-                    setStatusAlert({
-                        description: "You're the only member — invite someone before you can leave.",
-                        type: "error",
-                    });
-                    return;
-                }
-                setShowTransferModal(true);
+                // TODO: open the transfer-ownership modal once Members comes from the DB
+                setStatusAlert({
+                    description: "As the owner, you'll be able to leave once ownership transfer is available.",
+                    type: "error",
+                });
                 return;
             }
-
             setShowLeaveConfirm(true);
+            return;
+        }
+
+        if (viewerStatus === "pending") {
+            setShowCancelRequestConfirm(true);
             return;
         }
 
@@ -100,25 +107,33 @@ export default function EventHeader({
             return;
         }
 
-        setIsMember(true);
-        setMemberCount((prev) => prev + 1);
-        setStatusAlert({ description: `You joined ${eventData.title}.`, type: "success" });
+        // The request (with the optional message) is sent from the box in the aside
+        const form = document.getElementById(JOIN_REQUEST_FORM_ID);
+        form?.scrollIntoView({ behavior: "smooth", block: "center" });
+        form?.querySelector("textarea")?.focus({ preventScroll: true });
     };
 
     const handleLeaveEvent = () => {
         setShowLeaveConfirm(false);
-        setIsMember(false);
-        setMemberCount((prev) => Math.max(0, prev - 1));
-        setStatusAlert({ description: `You left ${eventData.title}.`, type: "success" });
+        startTransition(async () => {
+            const result = await leaveEvent(eventId);
+            setStatusAlert(
+                result.ok
+                    ? { description: `You left ${eventData.title}.`, type: "success" }
+                    : { description: result.error, type: "error" }
+            );
+        });
     };
 
-    const handleTransferOwnership = (newOwner: UserType) => {
-        setShowTransferModal(false);
-        setIsMember(false);
-        setMemberCount((prev) => Math.max(0, prev - 1));
-        setStatusAlert({
-            description: `Ownership transferred to ${newOwner.firstName} ${newOwner.lastName}. You've left ${eventData.title}.`,
-            type: "success",
+    const handleCancelRequest = () => {
+        setShowCancelRequestConfirm(false);
+        startTransition(async () => {
+            const result = await cancelJoinRequest(eventId);
+            setStatusAlert(
+                result.ok
+                    ? { description: "Your request was canceled.", type: "success" }
+                    : { description: result.error, type: "error" }
+            );
         });
     };
 
@@ -179,12 +194,16 @@ export default function EventHeader({
                 cancelLabel="Keep event"
                 variant="danger"
             />
-            <EventModalTransferOwnership
-                isOpen={showTransferModal}
-                onClose={() => setShowTransferModal(false)}
-                onConfirm={handleTransferOwnership}
-                members={eventMembers}
-                eventTitle={eventData.title}
+            <ConfirmAlert
+                isOpen={showCancelRequestConfirm}
+                onClose={() => setShowCancelRequestConfirm(false)}
+                onConfirm={handleCancelRequest}
+                icon={X}
+                title="Cancel request"
+                description={`The host won't see your request to join ${eventData.title} anymore.`}
+                confirmLabel="Yes, cancel request"
+                cancelLabel="Keep request"
+                variant="neutral"
             />
             <StatusAlert
                 isOpen={statusAlert !== null}
@@ -316,25 +335,26 @@ export default function EventHeader({
 
                             {/* BUTTONS */}
                             <div className="flex w-full flex-row items-center gap-3 md:w-auto md:flex-nowrap">
-                                {isMember ? (
-                                    <Button
-                                        tone="following"
-                                        variant="outline"
-                                        onClick={handleJoinToggle}
-                                        className="h-12 flex-1 px-4 md:flex-none md:px-8"
-                                        textClassName="text-sm flex items-center gap-2 justify-center"
-                                    >
-                                        <Check size={16} />
-                                        Joined
-                                    </Button>
-                                ) : (
+                                {viewerStatus === "none" ? (
                                     <Button
                                         tone="dark"
-                                        onClick={handleJoinToggle}
+                                        onClick={handleMainButton}
                                         className="h-12 flex-1 px-4 md:flex-none md:px-8"
                                         textClassName="text-sm flex items-center gap-2 justify-center"
                                     >
                                         {isFull ? "Event full" : "Request to join"}
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        tone="following"
+                                        variant="outline"
+                                        onClick={handleMainButton}
+                                        disabled={isPending}
+                                        className="h-12 flex-1 px-4 md:flex-none md:px-8"
+                                        textClassName="text-sm flex items-center gap-2 justify-center"
+                                    >
+                                        {viewerStatus === "pending" ? <Clock size={16} /> : <Check size={16} />}
+                                        {viewerStatus === "pending" ? "Request sent" : "Joined"}
                                     </Button>
                                 )}
 
