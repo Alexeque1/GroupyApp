@@ -1,4 +1,4 @@
-import { FeedUser } from "@/lib/mock_data/users-data";
+import { FeedUser } from "@/lib/mock-data/users-data";
 import EventFeedTextBox from "./event-feed-textbox";
 import EventFeedFeedBox from "./event-feed-feedbox";
 

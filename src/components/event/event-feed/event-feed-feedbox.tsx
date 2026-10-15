@@ -2,13 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { ArrowUpDown, SearchX, User } from "lucide-react";
-import { getPostsForEvent } from "@/lib/posts-selector";
-import { getPostCategoryInfo, POST_CATEGORY_DATA } from "@/lib/post-category";
-import type { PostCategory } from "@/lib/mock_data/post-data";
+import { getPostsForEvent } from "@/lib/selectors/posts";
+import { getPostCategoryInfo, POST_CATEGORY_DATA } from "@/lib/display/post-category";
+import type { PostCategory } from "@/lib/mock-data/post-data";
 
 const POST_CATEGORIES = Object.keys(POST_CATEGORY_DATA) as PostCategory[];
 import FeedPostCard from "@/components/cards/post-card";
-import { FeedUser } from "@/lib/mock_data/users-data";
+import { FeedUser } from "@/lib/mock-data/users-data";
 import { FilterEmptyState, FilterPopover, FilterSearch, FilterSelect } from "@/components/ui/filter-popover";
 
 type SortBy = "newest" | "oldest";

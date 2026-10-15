@@ -1,6 +1,6 @@
 import EntityCard, { type EntityCardData, type EventRole } from "@/components/cards/entity-card";
-import { getEventStatus, getEventStatusInfo } from "@/lib/event-status";
-import { formatEventDate } from "@/lib/date";
+import { getEventStatus, getEventStatusInfo } from "@/lib/display/event-status";
+import { formatEventDate } from "@/lib/helpers/date";
 
 export type { EventRole };
 

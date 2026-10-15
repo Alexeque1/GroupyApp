@@ -1,6 +1,6 @@
 import { Megaphone, MessageCircle, Image as ImageIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import type { PostCategory } from "@/lib/mock_data/post-data";
+import type { PostCategory } from "@/lib/mock-data/post-data";
 
 export interface PostCategoryInfo {
     label: string;

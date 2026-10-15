@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Check, MapPin, UserRound, X } from "lucide-react";
 import Button from "@/components/ui/button";
-import { formatTimeAgo } from "@/lib/date";
+import { formatTimeAgo } from "@/lib/helpers/date";
 import type { EventJoinRequest } from "@/lib/data/events";
 
 type EventRequestBoxProps = {

@@ -11,7 +11,7 @@ import Button from "@/components/ui/button";
 import ImageDropzone from "./image-dropzone";
 import { useCreateContext } from "./create-context";
 import { cn } from "@/lib/utils";
-import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
+import { DISCOVER_CATEGORIES } from "@/lib/constants/discover-categories";
 import CreateModalAdminSelector from "./create-modal-admselector";
 import type { FriendType } from "@/components/profile/profile-friends-cards";
 import { createEvent } from "@/lib/actions/events";

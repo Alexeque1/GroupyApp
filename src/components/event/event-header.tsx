@@ -9,7 +9,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Users, Share2, Check, LogOut, Calendar, MapPin, Settings2, ChevronDown, Pencil, Lock, LockOpen, Ban, Clock, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { getEventStatusInfo } from "@/lib/event-status";
+import { getEventStatusInfo } from "@/lib/display/event-status";
 import BackButton from "../ui/back-button";
 import ConfirmAlert from "../ui/alerts/confirm-alert";
 import StatusAlert from "../ui/alerts/status-alert";

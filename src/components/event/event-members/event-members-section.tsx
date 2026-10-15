@@ -5,7 +5,7 @@ import { ArrowUpDown, SearchX, Shield } from "lucide-react";
 import FriendCard from "@/components/profile/profile-friends-cards";
 import ProfileSectionGrid from "@/components/profile/profile-section-grid";
 import { FilterEmptyState, FilterPopover, FilterSearch, FilterSelect } from "@/components/ui/filter-popover";
-import { MEMBER_ROLE_ORDER, type EventMemberRole, type EventMemberViewModel } from "@/lib/members-selector";
+import { MEMBER_ROLE_ORDER, type EventMemberRole, type EventMemberViewModel } from "@/lib/selectors/members";
 
 type RoleFilter = "all" | EventMemberRole;
 type SortBy = "role" | "name-asc" | "name-desc";

@@ -3,9 +3,9 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { LayoutGrid, ChevronDown } from "lucide-react";
-import type { FeedUser } from "@/lib/mock_data/users-data";
-import type { PostCategory } from "@/lib/mock_data/post-data";
-import { getPostCategoryInfo } from "@/lib/post-category";
+import type { FeedUser } from "@/lib/mock-data/users-data";
+import type { PostCategory } from "@/lib/mock-data/post-data";
+import { getPostCategoryInfo } from "@/lib/display/post-category";
 import SendButton from "@/components/ui/send-button";
 import EventFeedSelectCategoryModal from "./event-feed-selectcategorymodal";
 

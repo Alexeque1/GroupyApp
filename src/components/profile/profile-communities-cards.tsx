@@ -1,5 +1,5 @@
 import EntityCard, { type EntityCardData } from "@/components/cards/entity-card";
-import { getCommunityStatusInfo } from "@/lib/community-status";
+import { getCommunityStatusInfo } from "@/lib/display/community-status";
 
 export interface CommunityType {
     id: number;

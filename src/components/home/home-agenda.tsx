@@ -6,7 +6,7 @@ import ProfileEventCard, { EventType } from "../profile/profile-events-cards";
 import Button from "../ui/button";
 import CarouselScrollbar from "../ui/carousel-scrollbar";
 import Link from "next/link";
-import { getToday } from "@/lib/event-filters";
+import { getToday } from "@/lib/filters/events";
 import { useHorizontalScrollbar } from "@/hooks/use-horizontal-scrollbar";
 
 export default function HomeNextEvents({ userEvents }: { userEvents: EventType[] }) {

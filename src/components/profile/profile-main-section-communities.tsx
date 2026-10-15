@@ -5,7 +5,7 @@ import { ArrowUpDown, SearchX } from "lucide-react";
 import ProfileCommunityCard, { CommunityType } from "./profile-communities-cards";
 import ProfileSectionGrid from "./profile-section-grid";
 import { FilterEmptyState, FilterPopover, FilterSearch, FilterSelect } from "../ui/filter-popover";
-import { parseMemberCount } from "@/lib/numbers";
+import { parseMemberCount } from "@/lib/helpers/numbers";
 
 type SortBy = "name-asc" | "name-desc" | "members";
 

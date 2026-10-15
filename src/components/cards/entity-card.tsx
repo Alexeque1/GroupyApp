@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Users, ArrowUpRight, Crown, Calendar, Shield, MapPin, Activity, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { USERS_DATA } from "@/lib/mock_data/users-data";
-import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
+import { USERS_DATA } from "@/lib/mock-data/users-data";
+import { DISCOVER_CATEGORIES } from "@/lib/constants/discover-categories";
 
 // Fallback palette for categories not in DISCOVER_CATEGORIES (e.g. communities)
 const FALLBACK_CATEGORY_COLORS = [

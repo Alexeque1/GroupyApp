@@ -3,7 +3,7 @@
 import { Calendar, Copy, MapPin, Lock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { formatEventDate } from "@/lib/date";
+import { formatEventDate } from "@/lib/helpers/date";
 import { cn } from "@/lib/utils";
 import type { EventHost } from "@/lib/data/events";
 import EventJoinRequestBox from "./event-join-request-box";

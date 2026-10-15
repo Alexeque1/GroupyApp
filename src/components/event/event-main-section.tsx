@@ -1,11 +1,11 @@
 import { useState } from "react";
 import NavigationTabButton from "../ui/navigation-tab-button";
 import { AnimatePresence, motion } from "framer-motion";
-import type { FeedUser } from "@/lib/mock_data/users-data";
+import type { FeedUser } from "@/lib/mock-data/users-data";
 import EventFeed from "./event-feed/event-feed-section";
 import RequestsSection from "./event-requests/event-requests-section";
 import MembersSection from "./event-members/event-members-section";
-import { getMembersForEvent } from "@/lib/members-selector";
+import { getMembersForEvent } from "@/lib/selectors/members";
 import { resolveJoinRequest } from "@/lib/actions/event-members";
 import type { EventJoinRequest } from "@/lib/data/events";
 

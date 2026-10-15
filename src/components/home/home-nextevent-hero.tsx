@@ -7,9 +7,9 @@ import { CalendarClock, MapPin, Users, Timer, ArrowUpRight, Sparkles } from "luc
 
 import { EventType } from "../profile/profile-events-cards";
 import Button from "../ui/button";
-import { formatEventDate } from "@/lib/date";
+import { formatEventDate } from "@/lib/helpers/date";
 import { useCountdown, type CountdownParts } from "@/hooks/use-countdown";
-import { pickNextEvent } from "@/lib/event-filters";
+import { pickNextEvent } from "@/lib/filters/events";
 
 function formatCountdownLabel(parts: CountdownParts): string {
     if (parts.hasStarted) return "Happening now";

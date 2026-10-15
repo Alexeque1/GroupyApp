@@ -3,8 +3,8 @@ import { Calendar, MapPin, Briefcase, Globe, CalendarX, Pencil, Sparkles } from 
 import { cn } from "@/lib/utils";
 import type { ProfileEvent } from "./profile-events-cards";
 import type { CommunityType } from "./profile-communities-cards";
-import { getToday } from "@/lib/event-filters";
-import { getInterest, type InterestCategory } from "@/lib/mock_data/interests-data";
+import { getToday } from "@/lib/filters/events";
+import { getInterest, type InterestCategory } from "@/lib/mock-data/interests-data";
 
 // Each category gets its own accent from the brand palette.
 const CATEGORY_STYLES: Record<InterestCategory | "Other", { icon: string; chip: string }> = {

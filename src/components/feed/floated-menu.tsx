@@ -5,7 +5,7 @@ import { logout } from "@/lib/actions/auth";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X, LogOut } from "lucide-react";
-import { MENU_ITEMS } from "@/lib/nav-items";
+import { MENU_ITEMS } from "@/lib/constants/nav-items";
 import ConfirmAlert from "../ui/alerts/confirm-alert";
 
 const MotionLink = motion.create(Link);

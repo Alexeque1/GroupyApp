@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import EventAsideSection from "@/components/event/event-aside-section";
 import EventHeader, { type ViewerStatus } from "@/components/event/event-header";
 import EventMainSection from "@/components/event/event-main-section";
-import { getEventStatus } from "@/lib/event-status";
+import { getEventStatus } from "@/lib/display/event-status";
 import type { EventPageData } from "@/lib/data/events";
-import type { FeedUser } from "@/lib/mock_data/users-data";
+import type { FeedUser } from "@/lib/mock-data/users-data";
 
 type EventViewProps = {
     event: EventPageData;

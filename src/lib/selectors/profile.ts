@@ -1,6 +1,6 @@
-import { EVENTS_DATA } from "./event-data";
-import { COMMUNITIES_DATA } from "./community-data";
-import { USERS_DATA, UserType } from "./users-data";
+import { EVENTS_DATA } from "@/lib/mock-data/event-data";
+import { COMMUNITIES_DATA } from "@/lib/mock-data/community-data";
+import { USERS_DATA, UserType } from "@/lib/mock-data/users-data";
 import type { EventType, EventRole } from "@/components/profile/profile-events-cards";
 import type { CommunityType } from "@/components/profile/profile-communities-cards";
 import type { FriendType } from "@/components/profile/profile-friends-cards";

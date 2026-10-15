@@ -22,19 +22,21 @@ export default function LoginForm() {
 
     return (
         <form action={formAction} noValidate className="mt-4 flex w-full flex-col gap-5">
-            {/* Email */}
+            {/* Email or username */}
             <div className="flex flex-col gap-1.5">
-                <label htmlFor="login-email" className="ml-1 text-sm font-medium text-white/80">
-                    Email
+                <label htmlFor="login-identifier" className="ml-1 text-sm font-medium text-white/80">
+                    Email or Username
                 </label>
                 <input
-                    id="login-email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    defaultValue={state.email}
+                    id="login-identifier"
+                    name="identifier"
+                    type="text"
+                    autoComplete="username"
+                    autoCapitalize="none"
+                    spellCheck={false}
+                    defaultValue={state.identifier}
                     className={inputClass}
-                    placeholder="email@example.com"
+                    placeholder="email@example.com or username"
                 />
             </div>
 

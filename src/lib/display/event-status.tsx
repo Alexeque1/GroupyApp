@@ -1,6 +1,6 @@
 import { Clock, Radio, CheckCircle2 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { daysFromToday } from "@/lib/event-filters";
+import { daysFromToday } from "@/lib/filters/events";
 
 export type EventStatus = "Upcoming" | "Active" | "Past";
 

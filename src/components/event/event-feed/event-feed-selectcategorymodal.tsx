@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 import Portal from "@/components/ui/portal";
 
 // We import your category types and data
-import { POST_CATEGORY_DATA } from "@/lib/post-category"; 
-import type { PostCategory } from "@/lib/mock_data/post-data";
+import { POST_CATEGORY_DATA } from "@/lib/display/post-category"; 
+import type { PostCategory } from "@/lib/mock-data/post-data";
 
 interface EventFeedSelectCategoryModalProps {
     isOpen: boolean;

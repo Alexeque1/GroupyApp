@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { signOut } from "next-auth/react";
-import { SESSION_IDLE_TIMEOUT_SECONDS } from "@/lib/session-config";
+import { SESSION_IDLE_TIMEOUT_SECONDS } from "@/lib/constants/session";
 
 const ACTIVITY_EVENTS = ["mousemove", "mousedown", "keydown", "wheel", "scroll", "touchstart"] as const;
 // Shared across tabs: activity in one tab keeps the others alive too.

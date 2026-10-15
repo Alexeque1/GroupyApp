@@ -8,8 +8,8 @@ import ProfileEventCard, { type ProfileEvent } from "./profile-events-cards";
 import ProfileSectionGrid from "./profile-section-grid";
 import PaginationControls from "../ui/pagination-controls";
 import { FilterEmptyState, FilterPopover, FilterSearch, FilterSelect } from "../ui/filter-popover";
-import { paginate } from "@/lib/pagination";
-import { getEventStatus } from "@/lib/event-status";
+import { paginate } from "@/lib/helpers/pagination";
+import { getEventStatus } from "@/lib/display/event-status";
 
 type SortBy = "newest" | "oldest" | "title";
 type EventsTab = "hosting" | "joined";

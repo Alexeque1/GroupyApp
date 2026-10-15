@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { EVENT_CATEGORIES } from "@/lib/categories";
+import { EVENT_CATEGORIES } from "@/lib/constants/categories";
 
 export const createEventSchema = z.object({
     title: z.string().trim().min(3, "Minimum 3 characters").max(80, "Maximum 80 characters"),

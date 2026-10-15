@@ -75,24 +75,26 @@ export async function registerUser(_prevState: RegisterState, formData: FormData
 
 export type LoginState = {
     message?: string;
-    email?: string;
+    /** What the user typed (email or username), to refill the field after an error */
+    identifier?: string;
 };
 
 export async function loginUser(_prevState: LoginState, formData: FormData): Promise<LoginState> {
-    const email = String(formData.get("email") ?? "").trim().toLowerCase();
+    // Email or username; authorize() in auth.ts figures out which one it is
+    const identifier = String(formData.get("identifier") ?? "").trim();
     const password = String(formData.get("password") ?? "");
 
     try {
         // Auth.js calls YOUR authorize(). If it goes well, it creates the cookie and redirects to /home
-        await signIn("credentials", { email, password, redirectTo: "/home" });
+        await signIn("credentials", { identifier, password, redirectTo: "/home" });
     } catch (error) {
         if (error instanceof AuthError) {
             // authorize() returned null → wrong credentials
             if (error.type === "CredentialsSignin") {
-                return { message: "Incorrect email or password", email };
+                return { message: "Incorrect email, username or password", identifier };
             }
             // Some other problem (e.g., the database went down)
-            return { message: "We couldn't sign you in. Please try again in a bit.", email };
+            return { message: "We couldn't sign you in. Please try again in a bit.", identifier };
         }
         // Not an Auth.js error: it's the redirect → let it pass through
         throw error;

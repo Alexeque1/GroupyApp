@@ -8,7 +8,7 @@ import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ConfirmAlert from "../ui/alerts/confirm-alert";
-import { MENU_ITEMS } from "@/lib/nav-items";
+import { MENU_ITEMS } from "@/lib/constants/nav-items";
 
 export default function SideMenu() {
     const [isHovered, setIsHovered] = useState(false);

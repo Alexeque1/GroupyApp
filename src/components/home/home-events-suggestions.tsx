@@ -6,9 +6,9 @@ import { Sparkles, SearchX } from "lucide-react";
 import EntityCard, { type EntityCardData } from "@/components/cards/entity-card";
 import Button from "../ui/button";
 import CarouselScrollbar from "../ui/carousel-scrollbar";
-import { EVENTS_DATA } from "@/lib/mock_data/event-data";
-import { getSuggestedEvents } from "@/lib/event-filters";
-import { formatEventDate } from "@/lib/date";
+import { EVENTS_DATA } from "@/lib/mock-data/event-data";
+import { getSuggestedEvents } from "@/lib/filters/events";
+import { formatEventDate } from "@/lib/helpers/date";
 import { useHorizontalScrollbar } from "@/hooks/use-horizontal-scrollbar";
 
 const SUGGESTIONS_LIMIT = 8;

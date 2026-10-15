@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, Crown, Search, Shield, UserX, X } from "lucide-react";
 import Button from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { PROFILE_INFO } from "@/lib/mock_data/profile-info";
+import { PROFILE_INFO } from "@/lib/mock-data/profile-info";
 import type { FriendType } from "@/components/profile/profile-friends-cards";
 import Portal from "@/components/ui/portal";
 

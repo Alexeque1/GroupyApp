@@ -8,7 +8,7 @@ import HomeCommunities from "@/components/home/home-communities";
 import AnimatedBackgroundLight from "@/components/ui/backgrounds/animated-background-light";
 import { motion } from "framer-motion";
 
-import { PROFILE_INFO } from "@/lib/mock_data/profile-info";
+import { PROFILE_INFO } from "@/lib/mock-data/profile-info";
 import HomeEventsSuggestions from "@/components/home/home-events-suggestions";
 import HomeFastEvent from "@/components/home/home-fast-event";
 

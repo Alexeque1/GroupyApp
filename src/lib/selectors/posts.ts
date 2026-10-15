@@ -1,6 +1,6 @@
-import { POSTS_DATA, type PostType } from "./mock_data/post-data";
-import { USERS_DATA, type FeedUser } from "./mock_data/users-data";
-import { COMMENTS_DATA, CommentType } from "./mock_data/comments-data";
+import { POSTS_DATA, type PostType } from "@/lib/mock-data/post-data";
+import { USERS_DATA, type FeedUser } from "@/lib/mock-data/users-data";
+import { COMMENTS_DATA, CommentType } from "@/lib/mock-data/comments-data";
 
 export interface PostViewModel extends Omit<PostType, "authorId"> {
     author: FeedUser;

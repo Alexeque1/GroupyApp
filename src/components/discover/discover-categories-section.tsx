@@ -4,7 +4,7 @@ import { useState } from "react";
 import { LayoutGrid, Sparkles } from "lucide-react";
 import DiscoverCategoryCard from "./discover-categories-cards";
 import DiscoverFilters from "./discover-filters";
-import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
+import { DISCOVER_CATEGORIES } from "@/lib/constants/discover-categories";
 import DiscoverEvents from "./discover-events";
 import type { DiscoverEvent } from "@/lib/data/events";
 

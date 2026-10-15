@@ -4,12 +4,12 @@ import { useState } from "react";
 import Image from "next/image";
 import { MoreVertical, Heart, MessageCircle, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { getPostCategoryInfo } from "@/lib/post-category";
-import { CommentViewModel, getCommentsForPost } from "@/lib/posts-selector";
-import { PostViewModel } from "@/lib/posts-selector";
-import { FeedUser } from "@/lib/mock_data/users-data";
+import { getPostCategoryInfo } from "@/lib/display/post-category";
+import { CommentViewModel, getCommentsForPost } from "@/lib/selectors/posts";
+import { PostViewModel } from "@/lib/selectors/posts";
+import { FeedUser } from "@/lib/mock-data/users-data";
 import SendButton from "../ui/send-button";
-import { formatTimeAgo } from "@/lib/date";
+import { formatTimeAgo } from "@/lib/helpers/date";
 
 interface FeedPostCardProps {
     post: PostViewModel;

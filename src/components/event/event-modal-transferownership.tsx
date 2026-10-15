@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Crown, Search, UserX, X } from "lucide-react";
 import Button from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { UserType } from "@/lib/mock_data/users-data";
+import type { UserType } from "@/lib/mock-data/users-data";
 import Portal from "@/components/ui/portal";
 
 interface EventModalTransferOwnershipProps {

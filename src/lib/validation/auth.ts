@@ -23,6 +23,7 @@ export const registerSchema = z
 export type RegisterField = keyof z.infer<typeof registerSchema>;
 
 export const loginSchema = z.object({
-    email: z.email(),
+    // Email or username: authorize() decides which one by looking for an "@"
+    identifier: z.string().trim().min(1),
     password: z.string().min(1),
 });

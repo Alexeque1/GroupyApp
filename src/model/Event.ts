@@ -1,5 +1,5 @@
 import { Schema, model, models, type Model, type InferSchemaType } from "mongoose";
-import { EVENT_CATEGORIES } from "@/lib/categories";
+import { EVENT_CATEGORIES } from "@/lib/constants/categories";
 
 const EventSchema = new Schema(
     {

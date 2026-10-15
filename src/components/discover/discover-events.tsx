@@ -4,11 +4,11 @@ import { useMemo } from "react";
 import { SearchX } from "lucide-react";
 import EntityCard, { type EntityCardData } from "../cards/entity-card";
 import PaginationControls from "../ui/pagination-controls";
-import { matchesTime, matchesCapacity } from "@/lib/event-filters";
-import { getEventStatus, getEventStatusInfo } from "@/lib/event-status";
-import { formatEventDate } from "@/lib/date";
-import { paginate } from "@/lib/pagination";
-import { DISCOVER_CATEGORIES } from "@/lib/discover-categories";
+import { matchesTime, matchesCapacity } from "@/lib/filters/events";
+import { getEventStatus, getEventStatusInfo } from "@/lib/display/event-status";
+import { formatEventDate } from "@/lib/helpers/date";
+import { paginate } from "@/lib/helpers/pagination";
+import { DISCOVER_CATEGORIES } from "@/lib/constants/discover-categories";
 import type { DiscoverEvent } from "@/lib/data/events";
 
 interface DiscoverEventsProps {

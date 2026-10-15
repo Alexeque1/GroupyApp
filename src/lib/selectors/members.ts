@@ -1,5 +1,5 @@
-import { EVENTS_DATA } from "./mock_data/event-data";
-import { USERS_DATA, type UserType } from "./mock_data/users-data";
+import { EVENTS_DATA } from "@/lib/mock-data/event-data";
+import { USERS_DATA, type UserType } from "@/lib/mock-data/users-data";
 import type { FriendType } from "@/components/profile/profile-friends-cards";
 
 // Same active roles as EventMember (minus "pending", which lives in the Requests tab).
