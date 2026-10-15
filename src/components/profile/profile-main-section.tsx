@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, use, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import ProfileSectionEvents from "./profile-main-section-events";
@@ -8,6 +8,7 @@ import ProfileSectionCommunities from "./profile-main-section-communities";
 import ProfileSectionFriendsList from "./profile-main-section-friendslist";
 
 import NavigationTabButton from "../ui/navigation-tab-button";
+import Skeleton from "../ui/skeleton";
 import type { ProfileEvent } from "./profile-events-cards";
 import { CommunityType } from "./profile-communities-cards";
 import { FriendType } from "./profile-friends-cards";
@@ -42,15 +43,15 @@ type ProfileMainProps = {
     user: {
         name: string;
         username: string;
-        events: ProfileEvent[];
         communities: CommunityType[];
         friends: FriendType[];
     };
+    eventsPromise: Promise<ProfileEvent[]>;
     isOwnProfile: boolean;
     currentUserId: number;
 };
 
-export default function ProfileMain({ user, isOwnProfile, currentUserId }: ProfileMainProps) {
+export default function ProfileMain({ user, eventsPromise, isOwnProfile, currentUserId }: ProfileMainProps) {
     const [activeTab, setActiveTab] = useState<TabType>(TABS_CONFIG[0].key);
     const activeConfig = TABS_CONFIG.find((tab) => tab.key === activeTab)!;
 
@@ -87,12 +88,14 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
                         <p className="text-black/60">{activeConfig.description}</p>
 
                         {activeTab === "Events" && (
-                            <ProfileSectionEvents
-                                events={user.events}
-                                isOwnProfile={isOwnProfile}
-                                profileName={user.name}
-                                profileUsername={user.username}
-                            />
+                            <Suspense fallback={<EventsTabSkeleton />}>
+                                <EventsTab
+                                    eventsPromise={eventsPromise}
+                                    isOwnProfile={isOwnProfile}
+                                    profileName={user.name}
+                                    profileUsername={user.username}
+                                />
+                            </Suspense>
                         )}
 
                         {activeTab === "Communities" && (
@@ -106,5 +109,40 @@ export default function ProfileMain({ user, isOwnProfile, currentUserId }: Profi
                 </AnimatePresence>
             </div>
         </section>
+    );
+}
+type EventsTabProps = Omit<React.ComponentProps<typeof ProfileSectionEvents>, "events"> & {
+    eventsPromise: Promise<ProfileEvent[]>;
+};
+
+function EventsTab({ eventsPromise, ...props }: EventsTabProps) {
+    // Suspends here (showing EventsTabSkeleton) until the events arrive
+    const events = use(eventsPromise);
+    return <ProfileSectionEvents events={events} {...props} />;
+}
+
+function EventsTabSkeleton() {
+    return (
+        <div className="flex flex-col gap-6" role="status" aria-label="Loading events">
+            {/* Hosting / Joined toggle + filters */}
+            <div className="flex items-center justify-between gap-3">
+                <Skeleton className="h-10 w-56 rounded-full" />
+                <Skeleton className="h-10 w-24 rounded-full" />
+            </div>
+
+            {/* Same grid as ProfileSectionGrid */}
+            <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-6">
+                {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="overflow-hidden rounded-2xl border border-black/5">
+                        <Skeleton className="h-32 w-full rounded-none" />
+                        <div className="flex flex-col gap-2 p-4">
+                            <Skeleton className="h-4 w-3/4 rounded-md" />
+                            <Skeleton className="h-3 w-1/2 rounded-md" />
+                            <Skeleton className="h-3 w-2/3 rounded-md" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 }

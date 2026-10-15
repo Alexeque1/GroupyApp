@@ -5,11 +5,13 @@ import EventAsideSection from "@/components/event/event-aside-section";
 import EventHeader, { type ViewerStatus } from "@/components/event/event-header";
 import EventMainSection from "@/components/event/event-main-section";
 import { getEventStatus } from "@/lib/display/event-status";
-import type { EventPageData } from "@/lib/data/events";
+import type { EventJoinRequest, EventPageData } from "@/lib/data/events";
 import type { FeedUser } from "@/lib/mock-data/users-data";
 
 type EventViewProps = {
     event: EventPageData;
+    /** Still loading when the page shows; the Requests tab waits behind its own skeleton */
+    requestsPromise: Promise<EventJoinRequest[]>;
     viewer: FeedUser;
 };
 
@@ -23,7 +25,7 @@ function toViewerStatus(role: EventPageData["viewerRole"]): ViewerStatus {
     return "member";
 }
 
-export default function EventView({ event, viewer }: EventViewProps) {
+export default function EventView({ event, requestsPromise, viewer }: EventViewProps) {
     const viewerStatus = toViewerStatus(event.viewerRole);
     const isUserOwner = event.viewerRole === "owner";
     const isHost = isUserOwner || event.viewerRole === "admin";
@@ -81,7 +83,7 @@ export default function EventView({ event, viewer }: EventViewProps) {
                     <EventMainSection
                         user={viewer}
                         eventId={event.id}
-                        requests={event.requests}
+                        requestsPromise={requestsPromise}
                         canManageRequests={isHost}
                         mockCurrentUserId={MOCK_TABS_PLACEHOLDER_ID}
                         mockEventId={MOCK_TABS_PLACEHOLDER_ID}

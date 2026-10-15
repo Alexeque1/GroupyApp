@@ -47,8 +47,6 @@ export type EventPageData = {
     viewerRole: MemberRole | null;
     /** What the viewer wrote in their own pending request ("" if none) */
     viewerRequestMessage: string;
-    /** Pending requests. Only filled for the owner and admins; empty for everyone else. */
-    requests: EventJoinRequest[];
 };
 
 type PopulatedRequester = {
@@ -65,7 +63,13 @@ type PopulatedRequester = {
     } | null;
 };
 
-async function getPendingRequests(eventId: string): Promise<EventJoinRequest[]> {
+/**
+ * Pending requests to join, newest first. Loaded apart from getEventPageData so the page can show
+ * before them. Only call it for the owner and admins: requests are private.
+ */
+export async function getPendingRequests(eventId: string): Promise<EventJoinRequest[]> {
+    await connectDB();
+
     const pending = await EventMember.find({ eventId, role: "pending" })
         .populate<Pick<PopulatedRequester, "userId">>("userId", "firstName lastName username profileImage city")
         .select("message createdAt userId")
@@ -224,7 +228,6 @@ export async function getEventPageData(eventId: string, viewerId: string): Promi
     ]);
 
     const viewerRole = (viewerMembership?.role as MemberRole | undefined) ?? null;
-    const isHost = viewerRole === "owner" || viewerRole === "admin";
 
     // A host whose account was deleted comes back with userId = null
     const ownerHost = hosts.find((h) => h.role === "owner" && h.userId);
@@ -245,6 +248,5 @@ export async function getEventPageData(eventId: string, viewerId: string): Promi
         admins: adminHosts.map((h) => toHost(h.userId!)),
         viewerRole,
         viewerRequestMessage: viewerRole === "pending" ? viewerMembership?.message ?? "" : "",
-        requests: isHost ? await getPendingRequests(eventId) : [],
     };
 }

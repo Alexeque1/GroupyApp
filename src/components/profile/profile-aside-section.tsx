@@ -1,3 +1,4 @@
+import { Suspense, use } from "react";
 import Link from "next/link";
 import { Calendar, MapPin, Briefcase, Globe, CalendarX, Pencil, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -5,6 +6,7 @@ import type { ProfileEvent } from "./profile-events-cards";
 import type { CommunityType } from "./profile-communities-cards";
 import { getToday } from "@/lib/filters/events";
 import { getInterest, type InterestCategory } from "@/lib/mock-data/interests-data";
+import Skeleton from "../ui/skeleton";
 
 // Each category gets its own accent from the brand palette.
 const CATEGORY_STYLES: Record<InterestCategory | "Other", { icon: string; chip: string }> = {
@@ -42,10 +44,10 @@ type ProfileAsideProps = {
         profession: string;
         languages: string[];
         joined: string;
-        events: ProfileEvent[];
         communities: CommunityType[];
         interests: string[];
     };
+    eventsPromise: Promise<ProfileEvent[]>;
     isOwnProfile?: boolean;
 };
 
@@ -59,8 +61,7 @@ function getNearestEvent(events: ProfileEvent[]): ProfileEvent | null {
     return upcoming[0]?.event ?? null;
 }
 
-export default function ProfileAside({ user, isOwnProfile = false }: ProfileAsideProps) {
-    const nearestEvent = getNearestEvent(user.events);
+export default function ProfileAside({ user, eventsPromise, isOwnProfile = false }: ProfileAsideProps) {
     const place = [user.city, user.country].filter(Boolean).join(", ");
 
     return (
@@ -169,46 +170,9 @@ export default function ProfileAside({ user, isOwnProfile = false }: ProfileAsid
                     Coming soon
                 </h3>
 
-                {nearestEvent ? (
-                    <ul className="flex flex-col gap-3">
-                        <li>
-                            <Link
-                                href={`/event/${nearestEvent.id}`}
-                                className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/5 bg-black/5 p-3 transition-colors hover:bg-black/10"
-                            >
-                                {/* Fecha */}
-                                <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-brand-purple-deep/10 text-brand-purple-deep">
-                                    <span className="text-[10px] font-bold uppercase tracking-wider">
-                                        {new Date(nearestEvent.startDate).toLocaleDateString("en-US", { month: "short" })}
-                                    </span>
-
-                                    <span className="text-sm font-black">
-                                        {new Date(nearestEvent.startDate).getDate()}
-                                    </span>
-                                </div>
-
-                                {/* Info del evento */}
-                                <div className="flex flex-1 flex-col overflow-hidden">
-                                    <h4 className="truncate text-sm font-semibold text-black/80">
-                                        {nearestEvent.title}
-                                    </h4>
-
-                                    <p className="mt-0.5 flex items-center gap-1 text-xs text-black/50">
-                                        <MapPin size={12} />
-                                        {nearestEvent.location}
-                                    </p>
-                                </div>
-                            </Link>
-                        </li>
-                    </ul>
-                ) : (
-                    <div className="flex flex-col items-center gap-2 rounded-2xl border border-black/5 bg-black/5 p-4 text-center">
-                        <CalendarX size={20} className="text-black/40" />
-                        <p className="text-xs text-black/50">
-                            No upcoming events yet.
-                        </p>
-                    </div>
-                )}
+                <Suspense fallback={<NearestEventSkeleton />}>
+                    <NearestEvent eventsPromise={eventsPromise} />
+                </Suspense>
             </div>
 
             {/* BADGES */}
@@ -221,5 +185,63 @@ export default function ProfileAside({ user, isOwnProfile = false }: ProfileAsid
                 </div>
             </div>
         </aside>
+    );
+}
+
+function NearestEvent({ eventsPromise }: { eventsPromise: Promise<ProfileEvent[]> }) {
+    // Suspends here (showing NearestEventSkeleton) until the events arrive
+    const nearestEvent = getNearestEvent(use(eventsPromise));
+
+    return nearestEvent ? (
+        <ul className="flex flex-col gap-3">
+            <li>
+                <Link
+                    href={`/event/${nearestEvent.id}`}
+                    className="flex cursor-pointer items-center gap-3 rounded-2xl border border-black/5 bg-black/5 p-3 transition-colors hover:bg-black/10"
+                >
+                    {/* Fecha */}
+                    <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-brand-purple-deep/10 text-brand-purple-deep">
+                        <span className="text-[10px] font-bold uppercase tracking-wider">
+                            {new Date(nearestEvent.startDate).toLocaleDateString("en-US", { month: "short" })}
+                        </span>
+
+                        <span className="text-sm font-black">
+                            {new Date(nearestEvent.startDate).getDate()}
+                        </span>
+                    </div>
+
+                    {/* Info del evento */}
+                    <div className="flex flex-1 flex-col overflow-hidden">
+                        <h4 className="truncate text-sm font-semibold text-black/80">
+                            {nearestEvent.title}
+                        </h4>
+
+                        <p className="mt-0.5 flex items-center gap-1 text-xs text-black/50">
+                            <MapPin size={12} />
+                            {nearestEvent.location}
+                        </p>
+                    </div>
+                </Link>
+            </li>
+        </ul>
+    ) : (
+        <div className="flex flex-col items-center gap-2 rounded-2xl border border-black/5 bg-black/5 p-4 text-center">
+            <CalendarX size={20} className="text-black/40" />
+            <p className="text-xs text-black/50">
+                No upcoming events yet.
+            </p>
+        </div>
+    );
+}
+
+function NearestEventSkeleton() {
+    return (
+        <div className="flex items-center gap-3 rounded-2xl border border-black/5 bg-black/5 p-3">
+            <Skeleton className="h-12 w-12 shrink-0" />
+            <div className="flex flex-1 flex-col gap-2">
+                <Skeleton className="h-4 w-3/4 rounded-md" />
+                <Skeleton className="h-3 w-1/2 rounded-md" />
+            </div>
+        </div>
     );
 }

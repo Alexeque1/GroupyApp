@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, use, useState } from "react";
 import AnimatedBackgroundLight from "../ui/backgrounds/animated-background-light";
 import Button from "../ui/button";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import Link from "next/link";
 import BackButton from "../ui/back-button";
 import ConfirmAlert from "../ui/alerts/confirm-alert";
 import StatusAlert from "../ui/alerts/status-alert";
+import Skeleton from "../ui/skeleton";
 
 const isLocalPreviewUrl = (src: string) => src.startsWith("blob:") || src.startsWith("data:");
 
@@ -23,19 +24,20 @@ type ProfileHeaderProps = {
         bio: string;
         username: string;
         profileImage: string;
-        events: ProfileEvent[];
         communities: unknown[];
         friends: unknown[];
         verified?: boolean;
         rating: number;
         reviewsCount: number;
     };
+    /** Only the stats row needs it, and that row is hidden in settings */
+    eventsPromise?: Promise<ProfileEvent[]>;
     isOwnProfile?: boolean;
     isUserFollowing?: boolean;
     isSettings?: boolean;
 };
 
-export default function ProfileHeader({ user, isOwnProfile = false, isUserFollowing = false, isSettings = false }: ProfileHeaderProps) {
+export default function ProfileHeader({ user, eventsPromise, isOwnProfile = false, isUserFollowing = false, isSettings = false }: ProfileHeaderProps) {
 
     const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
     const [profileImage, setProfileImage] = useState(user.profileImage);
@@ -44,9 +46,6 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
     const [isFollowing, setIsFollowing] = useState(isUserFollowing);
     const [showUnfollow, setShowUnfollow] = useState(false);
     const [statusAlert, setStatusAlert] = useState<{ description: string; type: "success" | "error" } | null>(null);
-
-    const eventsAttended = user.events.filter((event) => event.role === "member").length;
-    const eventsHosted = user.events.filter((event) => event.role === "owner" || event.role === "admin").length;
 
     const handleFollowToggle = () => {
         if (isFollowing) {
@@ -176,29 +175,12 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
 
                                     {/* STATS */}
                                     <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 md:justify-start md:gap-x-7">
-                                        {/* Eventos a los que asistió */}
-                                        <div className="flex flex-col items-center">
-                                            <span className="text-lg font-bold text-black/90 md:text-xl">
-                                                {eventsAttended}
-                                            </span>
-                                            <span className="mt-0.5 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.15em] text-black/70 md:text-[10px]">
-                                                Events attended
-                                            </span>
-                                        </div>
-
-                                        <div className="h-7 w-px bg-black/10" />
-
-                                        {/* Eventos que organizó */}
-                                        <div className="flex flex-col items-center">
-                                            <span className="text-lg font-bold text-black/90 md:text-xl">
-                                                {eventsHosted}
-                                            </span>
-                                            <span className="mt-0.5 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.15em] text-black/70 md:text-[10px]">
-                                                Hosted events
-                                            </span>
-                                        </div>
-
-                                        <div className="h-7 w-px bg-black/10" />
+                                        {/* Eventos a los que asistió / que organizó: aparecen cuando llegan los eventos */}
+                                        {eventsPromise && (
+                                            <Suspense fallback={<EventStatsSkeleton />}>
+                                                <EventStats eventsPromise={eventsPromise} />
+                                            </Suspense>
+                                        )}
 
                                         {/* Comunidades */}
                                         <div className="flex flex-col items-center">
@@ -304,6 +286,51 @@ export default function ProfileHeader({ user, isOwnProfile = false, isUserFollow
                     </>
                 )}
             </section>
+        </>
+    );
+}
+function EventStat({ label, children }: { label: string; children: React.ReactNode }) {
+    return (
+        <div className="flex flex-col items-center">
+            {children}
+            <span className="mt-0.5 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.15em] text-black/70 md:text-[10px]">
+                {label}
+            </span>
+        </div>
+    );
+}
+
+function EventStats({ eventsPromise }: { eventsPromise: Promise<ProfileEvent[]> }) {
+    // Suspends here (showing EventStatsSkeleton) until the events arrive
+    const events = use(eventsPromise);
+    const eventsAttended = events.filter((event) => event.role === "member").length;
+    const eventsHosted = events.filter((event) => event.role === "owner" || event.role === "admin").length;
+
+    return (
+        <>
+            <EventStat label="Events attended">
+                <span className="text-lg font-bold text-black/90 md:text-xl">{eventsAttended}</span>
+            </EventStat>
+            <div className="h-7 w-px bg-black/10" />
+            <EventStat label="Hosted events">
+                <span className="text-lg font-bold text-black/90 md:text-xl">{eventsHosted}</span>
+            </EventStat>
+            <div className="h-7 w-px bg-black/10" />
+        </>
+    );
+}
+
+function EventStatsSkeleton() {
+    return (
+        <>
+            <EventStat label="Events attended">
+                <Skeleton className="h-7 w-6 rounded-md" />
+            </EventStat>
+            <div className="h-7 w-px bg-black/10" />
+            <EventStat label="Hosted events">
+                <Skeleton className="h-7 w-6 rounded-md" />
+            </EventStat>
+            <div className="h-7 w-px bg-black/10" />
         </>
     );
 }

@@ -4,10 +4,13 @@ import { motion } from "framer-motion";
 import ProfileAside from "@/components/profile/profile-aside-section";
 import ProfileHeader from "@/components/profile/profile-header";
 import ProfileMain from "@/components/profile/profile-main-section";
-import type { ProfileData } from "@/lib/data/profile";
+import type { ProfileEvent } from "@/components/profile/profile-events-cards";
+import type { ProfileUser } from "@/lib/data/profile";
 
 type ProfileViewProps = {
-    profile: ProfileData;
+    user: ProfileUser;
+    /** Still loading when the page shows; each section that needs it waits behind its own skeleton */
+    eventsPromise: Promise<ProfileEvent[]>;
     isOwnProfile: boolean;
 };
 
@@ -15,7 +18,7 @@ type ProfileViewProps = {
 // yet, so the list is always empty and this id is never compared against anything real.
 const MOCK_FRIENDS_PLACEHOLDER_ID = 0;
 
-export default function ProfileView({ profile, isOwnProfile }: ProfileViewProps) {
+export default function ProfileView({ user, eventsPromise, isOwnProfile }: ProfileViewProps) {
     return (
         <div className="flex flex-col gap-8 -mt-10">
             <motion.div
@@ -24,7 +27,12 @@ export default function ProfileView({ profile, isOwnProfile }: ProfileViewProps)
                 transition={{ duration: 0.5, ease: "easeOut" }}
             >
                 {/* Following isn't built yet, so nobody follows anybody */}
-                <ProfileHeader user={profile} isOwnProfile={isOwnProfile} isUserFollowing={false} />
+                <ProfileHeader
+                    user={user}
+                    eventsPromise={eventsPromise}
+                    isOwnProfile={isOwnProfile}
+                    isUserFollowing={false}
+                />
             </motion.div>
 
             <div className="flex flex-col gap-5 md:flex-row items-start p-5">
@@ -34,7 +42,7 @@ export default function ProfileView({ profile, isOwnProfile }: ProfileViewProps)
                     transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
                     className="flex w-full min-w-0 flex-1 flex-col"
                 >
-                    <ProfileAside user={profile} isOwnProfile={isOwnProfile} />
+                    <ProfileAside user={user} eventsPromise={eventsPromise} isOwnProfile={isOwnProfile} />
                 </motion.div>
 
                 <motion.div
@@ -44,7 +52,8 @@ export default function ProfileView({ profile, isOwnProfile }: ProfileViewProps)
                     className="flex w-full min-w-0 flex-[2] flex-col"
                 >
                     <ProfileMain
-                        user={profile}
+                        user={user}
+                        eventsPromise={eventsPromise}
                         isOwnProfile={isOwnProfile}
                         currentUserId={MOCK_FRIENDS_PLACEHOLDER_ID}
                     />
